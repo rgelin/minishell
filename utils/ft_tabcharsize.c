@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_tabcharsize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 08:40:08 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 10:28:21 by jvander-         ###   ########.fr       */
+/*   Created: 2021/11/02 10:14:06 by jvander-          #+#    #+#             */
+/*   Updated: 2021/11/02 10:18:22 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../srcs/minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <unistd.h>
-# include "../libft/libft.h"
+int	ft_tabsize(char **tab)
+{
+	int	i;
 
-int		ft_tabsize(char **tab);
-int		check_builtin(char *cmd);
-
-#endif
+	i = 0;
+	if (!tab)
+		return (0);
+	while (tab[i])
+		i++;
+	return (i);
+}

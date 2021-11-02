@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 11:03:22 by jvander-         ###   ########.fr       */
+/*   Created: 2021/11/02 10:22:57 by jvander-          #+#    #+#             */
+/*   Updated: 2021/11/02 11:04:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
-int	main(int argc, char **argv)
+int	check_builtin(char *cmd)
 {
-	char	*line;
-	char	**command;
-
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		line = readline(">");
-		command = ft_split(line, ' ');
-		if (!command)
-		{
-			free(line);
-			exit(1);
-		}
-		printf("check = %d\n",check_builtin(command[0]));
-		if (check_builtin(command[0]) == 0)
-		{
-			free(line);
-			ft_free(command, ft_tabsize(command));
-			exit(2);
-		}
-		wait(0);
-	}
+	if (!ft_strncmp(cmd, "echo", 4))
+		return (1);
+	if (!ft_strncmp(cmd, "cd", 2))
+		return (2);
+	if (!ft_strncmp(cmd, "pwd", 3))
+		return (3);
+	if (!ft_strncmp(cmd, "export", 6))
+		return (4);
+	if (!ft_strncmp(cmd, "unset", 5))
+		return (5);
+	if (!ft_strncmp(cmd, "env", 3))
+		return (6);
+	if (!ft_strncmp(cmd, "exit", 4))
+		return (7);
 	return (0);
 }
