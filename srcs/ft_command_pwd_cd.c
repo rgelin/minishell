@@ -6,24 +6,11 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:17:33 by rgelin            #+#    #+#             */
-/*   Updated: 2021/11/02 22:52:57 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/03 00:06:17 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	ft_pwd(char **cmd)
-// {
-// 	char	*pwd;
-
-// 	if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
-// 	{
-// 		write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
-// 		return ;
-// 	}
-// 	pwd = getenv("PWD"); //attention a ne pas modifier la valeur de pwd --> si on veut chipoter avec il faut faire une copie
-// 	printf("%s\n", pwd);
-// }
 
 void	ft_pwd(char **cmd)
 {
@@ -35,6 +22,8 @@ void	ft_pwd(char **cmd)
 		return ;
 	}
 	printf("%s\n", getcwd(pwd, 200));
+	ft_free(cmd, ft_tabsize(cmd));
+	// system("leaks minishell");
 	
 }
 
@@ -62,6 +51,7 @@ static void	go_to_final_path(char **cmd)
 void	ft_cd(char **cmd) // il y a un leak de plus a chaque commande
 {
 	char	*home;
+	char	*path_from_home;
 	
 	home = getenv("HOME");
 	if (cmd[1])
@@ -70,6 +60,16 @@ void	ft_cd(char **cmd) // il y a un leak de plus a chaque commande
 			chdir("..");
 		else if (cmd[1][0] == '~' && !cmd[1][1])
 			chdir(home);
+		else if (cmd[1][0] == '~' && cmd[1][1] == '/')
+		{
+			path_from_home = ft_strtrim(cmd[1], "~");
+			path_from_home = ft_strjoin(home, path_from_home); //modifier strjoin pcq on free s1 et ca casse un peu les couilles
+			printf("%s\n", path_from_home);
+			if (chdir(path_from_home) == -1)
+				printf("cd: no such file or directory: %s\n", path_from_home);
+			free(path_from_home);
+			path_from_home = NULL;
+		}
 		else
 			go_to_final_path(cmd);
 		ft_free(cmd, ft_tabsize(cmd));
