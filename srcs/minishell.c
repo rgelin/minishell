@@ -6,9 +6,11 @@
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 08:44:01 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/02 08:47:43 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 int main(int argc, char **argv)
 {
