@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jvander- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 08:46:36 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 08:47:55 by jvander-         ###   ########.fr       */
+/*   Created: 2021/07/01 12:11:41 by jvander-          #+#    #+#             */
+/*   Updated: 2021/07/01 12:22:10 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/minishell.h"
-
-int	error_handling(int argc, char **argv)
+int	ft_toupper(int c)
 {
-	(void)argc;
-	(void)argv;
-	return (0);
+	if (c >= 97 && c <= 122)
+		return (c - 32);
+	return (c);
 }
