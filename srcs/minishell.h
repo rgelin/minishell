@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:40:08 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 14:13:33 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:45:25 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
 int		ft_execute_command(char **cmd);
 void	ft_echo(char **cmd);
+
+void	ft_pwd(char **cmd);
+void	ft_cd(char **cmd);
 
 #endif

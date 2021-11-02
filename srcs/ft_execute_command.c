@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:15:06 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 11:29:32 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:58:15 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ int	ft_execute_command(char **cmd)
 		return (ECHO);
 	}
 	if (check_builtin(cmd[0]) == CD)
+	{
+		ft_cd(cmd);
 		return (CD);
+	}
 	if (check_builtin(cmd[0]) == PWD)
+	{
+		ft_pwd(cmd);
 		return (PWD);
+	}
 	if (check_builtin(cmd[0]) == EXPORT)
 		return (EXPORT);
 	if (check_builtin(cmd[0]) == UNSET)
