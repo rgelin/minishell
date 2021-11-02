@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_builtin.c                                    :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 10:22:57 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 14:15:00 by jvander-         ###   ########.fr       */
+/*   Created: 2021/11/02 08:46:36 by jvander-          #+#    #+#             */
+/*   Updated: 2021/11/02 14:13:24 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
 
-int	check_builtin(char *cmd)
+int	error_handling(int argc, char **argv)
 {
-	if (!ft_strncmp(cmd, "echo", 4))
-		return (ECHO);
-	if (!ft_strncmp(cmd, "cd", 2))
-		return (CD);
-	if (!ft_strncmp(cmd, "pwd", 3))
-		return (PWD);
-	if (!ft_strncmp(cmd, "export", 6))
-		return (EXPORT);
-	if (!ft_strncmp(cmd, "unset", 5))
-		return (UNSET);
-	if (!ft_strncmp(cmd, "env", 3))
-		return (ENV);
-	if (!ft_strncmp(cmd, "exit", 4))
-		return (EXIT);
+	(void)argc;
+	(void)argv;
 	return (0);
 }

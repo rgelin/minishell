@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_builtin.c                                    :+:      :+:    :+:   */
+/*   ft_execute_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 10:22:57 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 14:15:00 by jvander-         ###   ########.fr       */
+/*   Created: 2021/11/02 11:15:06 by jvander-          #+#    #+#             */
+/*   Updated: 2021/11/02 11:29:32 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/minishell.h"
+#include "minishell.h"
 
-int	check_builtin(char *cmd)
+int	ft_execute_command(char **cmd)
 {
-	if (!ft_strncmp(cmd, "echo", 4))
+	if (check_builtin(cmd[0]) == ECHO)
+	{
+		ft_echo(cmd);
 		return (ECHO);
-	if (!ft_strncmp(cmd, "cd", 2))
+	}
+	if (check_builtin(cmd[0]) == CD)
 		return (CD);
-	if (!ft_strncmp(cmd, "pwd", 3))
+	if (check_builtin(cmd[0]) == PWD)
 		return (PWD);
-	if (!ft_strncmp(cmd, "export", 6))
+	if (check_builtin(cmd[0]) == EXPORT)
 		return (EXPORT);
-	if (!ft_strncmp(cmd, "unset", 5))
+	if (check_builtin(cmd[0]) == UNSET)
 		return (UNSET);
-	if (!ft_strncmp(cmd, "env", 3))
+	if (check_builtin(cmd[0]) == ENV)
 		return (ENV);
-	if (!ft_strncmp(cmd, "exit", 4))
-		return (EXIT);
-	return (0);
+	return (EXIT);
 }

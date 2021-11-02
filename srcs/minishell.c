@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 11:03:22 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/02 14:16:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@ int	main(int argc, char **argv)
 			free(line);
 			exit(1);
 		}
-		printf("check = %d\n",check_builtin(command[0]));
 		if (check_builtin(command[0]) == 0)
 		{
+			printf("minishell : %s command not found\n", command[0]);
 			free(line);
 			ft_free(command, ft_tabsize(command));
-			exit(2);
+		}
+		else
+		{
+			if (ft_execute_command(command) == EXIT)
+			{
+				free(line);
+				ft_free(command, ft_tabsize(command));
+				exit(EXIT);
+			}
 		}
 		wait(0);
 	}
