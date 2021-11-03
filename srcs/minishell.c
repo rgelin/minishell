@@ -6,13 +6,17 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/03 13:54:49 by rgelin           ###   ########.fr       */
+=======
+/*   Updated: 2021/11/03 09:41:55 by jvander-         ###   ########.fr       */
+>>>>>>> 38d9213437f46299650c86e9ae8bb2a66962612e
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	**command;
@@ -36,7 +40,7 @@ int	main(int argc, char **argv)
 		}
 		else
 		{
-			if (ft_execute_command(command) == EXIT)
+			if (ft_execute_command(command, env) == EXIT)
 			{
 				free(line);
 				ft_free(command, ft_tabsize(command));
