@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:20:28 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 14:14:38 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/03 09:47:09 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,25 @@ void	ft_echo(char **cmd)
 	{
 		ft_print_line(cmd, 1);
 		printf("\n");
+	}
+}
+
+/*
+*	print all the environment variables.
+*	
+*	@params : the environment tab to print
+*	
+*
+*	printf("number of variables = %i\n", i); to use for debug
+*/
+void	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (i < ft_tabsize(env))
+	{
+		printf("%s\n", env[i]);
+		i++;
 	}
 }
