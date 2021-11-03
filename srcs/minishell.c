@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/03 13:59:10 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:54:49 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main(int argc, char **argv, char **env)
 				ft_free(command, ft_tabsize(command));
 				exit(EXIT);
 			}
+			ft_free(command, ft_tabsize(command));
+			free(line);
 		}
 		wait(0);
 	}

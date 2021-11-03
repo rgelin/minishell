@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+         #
+#    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/02 11:33:27 by jvander-         ###   ########.fr        #
+#    Updated: 2021/11/02 16:33:31 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 LIBFT	=	./libft/
 UTILS	=	./utils/
-SOURCES =	srcs/
+SOURCES =	./srcs/
 ERRORS	=	./errors/
 CC		=	gcc
 FLAGS	=	-Wall -Werror -Wextra
@@ -21,6 +21,7 @@ FLAGS	=	-Wall -Werror -Wextra
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_command.c \
+				$(SOURCES)ft_command_pwd_cd.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 

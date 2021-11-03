@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:30:08 by jvander-          #+#    #+#             */
-/*   Updated: 2021/10/18 12:24:36 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/03 14:03:40 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		count++;
 	}
 	new_str[count + ft_strlen(s1)] = '\0';
-	free((char *) s1);
 	return (new_str);
 }
