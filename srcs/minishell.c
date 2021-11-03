@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (check_builtin(state->command[0]) == 0)
 		{
-			printf("minishell : %s command not found\n", command[0]);
+			printf("minishell : %s command not found\n", state->command[0]);
 			free(state->line);
 			ft_free(state->command, ft_tabsize(state->command));
 		}
