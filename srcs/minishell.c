@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-=======
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/03 13:59:10 by jvander-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
->>>>>>> add history
 
 #include "minishell.h"
 
@@ -32,17 +18,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	while (1)
 	{
-<<<<<<< HEAD
 		state->line = readline(">");
 		add_history(state->line);
 		state->command = ft_split(state->line, ' ');
 		if (!state->command)
-=======
-		line = readline(">");
-		add_history(line);
-		command = ft_split(line, ' ');
-		if (!command)
->>>>>>> add history
 		{
 			free(state->line);
 			exit(1);
