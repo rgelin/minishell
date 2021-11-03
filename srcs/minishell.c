@@ -1,39 +1,47 @@
 
 #include "minishell.h"
 
+void	init_struct(t_state *state)
+{
+	state->line = NULL;
+	state->command = NULL;
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	char	*line;
-	char	**command;
+	t_state *state;
 
+	state = malloc(sizeof(t_state));
+	if (!state)
+		exit(EXIT_FAILURE);
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
-		line = readline(">");
-		add_history(line);
-		command = ft_split(line, ' ');
-		if (!command)
+		state->line = readline(">");
+		add_history(state->line);
+		state->command = ft_split(state->line, ' ');
+		if (!state->command)
 		{
-			free(line);
+			free(state->line);
 			exit(1);
 		}
-		if (check_builtin(command[0]) == 0)
+		if (check_builtin(state->command[0]) == 0)
 		{
 			printf("minishell : %s command not found\n", command[0]);
-			free(line);
-			ft_free(command, ft_tabsize(command));
+			free(state->line);
+			ft_free(state->command, ft_tabsize(state->command));
 		}
 		else
 		{
-			if (ft_execute_command(command, env) == EXIT)
+			if (ft_execute_command(state->command, env) == EXIT)
 			{
-				free(line);
-				ft_free(command, ft_tabsize(command));
+				free(state->line);
+				ft_free(state->command, ft_tabsize(state->command));
 				exit(EXIT);
 			}
-			ft_free(command, ft_tabsize(command));
-			free(line);
+			ft_free(state->command, ft_tabsize(state->command));
+			free(state->line);
 		}
 		wait(0);
 	}

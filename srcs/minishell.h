@@ -17,6 +17,12 @@
 # define ENV 6
 # define EXIT 7
 
+typedef struct s_state
+{
+	char *line;
+	char **command;
+}				t_state;
+
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
 int		ft_execute_command(char **cmd, char **env);
