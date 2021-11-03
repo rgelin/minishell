@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/02 22:16:23 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/03 13:54:49 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 				ft_free(command, ft_tabsize(command));
 				exit(EXIT);
 			}
+			ft_free(command, ft_tabsize(command));
 			free(line);
 		}
 		wait(0);

@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:17:33 by rgelin            #+#    #+#             */
-/*   Updated: 2021/11/03 00:06:17 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:03:17 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,19 @@ void	ft_pwd(char **cmd)
 		return ;
 	}
 	printf("%s\n", getcwd(pwd, 200));
-	ft_free(cmd, ft_tabsize(cmd));
-	// system("leaks minishell");
-	
 }
 
 static void	go_to_final_path(char **cmd)
 {
 	char	*final_path;
-	char	*path;
+	char	path[200];
+	char	*temp;
 	
-	path = malloc(sizeof(char) * 200); //voir pour la taille du buffer --> le chemin peut faire 6 octets max sinon getcwd renvoie null
-	if (!path)
-	{
-		ft_free(cmd, ft_tabsize(cmd));
-		exit(EXIT_FAILURE);
-	}
-	getcwd(path, 200);
-	final_path = ft_strjoin(path, "/"); //path est free dans le strjoin
-	final_path = ft_strjoin(final_path, cmd[1]);
+	getcwd(path, 200); //voir pour la taille du buffer --> le chemin peut faire 6 octets max sinon getcwd renvoie null
+	temp = ft_strjoin(path, "/"); //path est free dans le strjoin
+	final_path = ft_strjoin(temp, cmd[1]);
+	free(temp);
+	temp = NULL;
 	if (chdir(final_path) == -1)
 		printf("cd: no such file or directory: %s\n", cmd[1]);
 	free(final_path);
@@ -72,16 +66,9 @@ void	ft_cd(char **cmd) // il y a un leak de plus a chaque commande
 		}
 		else
 			go_to_final_path(cmd);
-		ft_free(cmd, ft_tabsize(cmd));
-		// system("leaks minishell");
 	}
 	else if (!ft_strncmp(cmd[0], "cd", 3))
-	{
-		
 		chdir(home);
-		ft_free(cmd, ft_tabsize(cmd));
-		// system("leaks minishell");
-	}
 	else
 		return ;
 }
