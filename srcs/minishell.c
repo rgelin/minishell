@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:39:43 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/03 09:41:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:59:10 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline(">");
+		add_history(line);
 		command = ft_split(line, ' ');
 		if (!command)
 		{
