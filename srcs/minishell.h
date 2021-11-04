@@ -31,5 +31,6 @@ void	ft_env(char **env);
 
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
+void	ft_export(char **cmd, char **env);
 
 #endif

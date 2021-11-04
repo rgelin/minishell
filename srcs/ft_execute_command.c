@@ -19,7 +19,10 @@ int	ft_execute_command(char **cmd, char **env)
 		return (PWD);
 	}
 	if (check_builtin(cmd[0]) == EXPORT)
+	{
+		ft_export(cmd, env);
 		return (EXPORT);
+	}
 	if (check_builtin(cmd[0]) == UNSET)
 		return (UNSET);
 	if (check_builtin(cmd[0]) == ENV)

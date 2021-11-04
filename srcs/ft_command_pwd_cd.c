@@ -31,6 +31,7 @@ static void	go_to_final_path(char **cmd)
 }
 
 //a voir si on recoit d'office cd ou il peut y avoir cd..
+//checker les access
 void	ft_cd(char **cmd) // il y a un leak de plus a chaque commande
 {
 	char	*home;
@@ -60,4 +61,14 @@ void	ft_cd(char **cmd) // il y a un leak de plus a chaque commande
 		chdir(home);
 	else
 		return ;
+}
+
+void	ft_export(char **cmd, char **env)
+{
+	int i;
+
+	i = 0;
+	while (i < ft_tabsize(env))
+		i++;
+	env[i] = cmd[1];
 }
