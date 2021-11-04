@@ -6,7 +6,7 @@
 #    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/04 16:38:46 by rgelin           ###   ########.fr        #
+#    Updated: 2021/11/04 16:52:32 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-	@printf "$(YELLOW)Compiling libft object... %-33.33s\r$(NO_COLOR)" $@
+	@printf "$(YELLOW)Compiling libft object... %-30s\r$(NO_COLOR)" $@
 	@$(CC) $(FLAGS) -o $@ -c $?
 
 OBJ		=	$(SRC:%.c=%.o)
