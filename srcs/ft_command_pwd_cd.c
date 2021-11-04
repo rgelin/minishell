@@ -3,23 +3,23 @@
 
 void	ft_pwd(char **cmd)
 {
-	char	pwd[200]; //redefinir la taille en mode bien
+	char	pwd[1024]; //redefinir la taille en mode bien
 
 	if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
 	{
 		write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
 		return ;
 	}
-	printf("%s\n", getcwd(pwd, 200));
+	printf("%s\n", getcwd(pwd, 1024));
 }
 
 static void	go_to_final_path(char **cmd)
 {
 	char	*final_path;
-	char	path[200];
+	char	path[1024];
 	char	*temp;
 	
-	getcwd(path, 200); //voir pour la taille du buffer --> le chemin peut faire 6 octets max sinon getcwd renvoie null
+	getcwd(path, 1024); //voir pour la taille du buffer --> le chemin peut faire 6 octets max sinon getcwd renvoie null
 	temp = ft_strjoin(path, "/"); //path est free dans le strjoin
 	final_path = ft_strjoin(temp, cmd[1]);
 	free(temp);

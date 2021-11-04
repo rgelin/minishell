@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvander- <jvander-@student.s19.be>         +#+  +:+       +#+         #
+#    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/10/18 12:32:50 by jvander-         ###   ########.fr        #
+#    Updated: 2021/11/04 16:38:46 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,22 +67,35 @@ SRC		=	ft_isdigit.c \
 			ft_atol.c \
 			$(GNL)get_next_line_utils.c \
 			$(GNL)get_next_line.c \
-			
+
+#-------------------COLORS----------------------
+
+RED			=	\x1b[31m
+
+YELLOW		=	\x1b[33m
+
+GREEN		=	\x1b[32m
+
+NO_COLOR	=	\x1b[0m
+
+#-------------------RULES-----------------------
 %.o: %.c
-	$(CC) $(FLAGS) -o $@ -c $?
+	@printf "$(YELLOW)Compiling libft object... %-33.33s\r$(NO_COLOR)" $@
+	@$(CC) $(FLAGS) -o $@ -c $?
 
 OBJ		=	$(SRC:%.c=%.o)
 
 all:	$(NAME)
+		@echo "\n\n$(GREEN)Compiling libft...$(NO_COLOR)"
 
 $(NAME): $(OBJ)
-		ar -rcs $(NAME) $(OBJ)
+		@ar -rcs $(NAME) $(OBJ)
 
 clean:
-		rm -f $(OBJ)
+		@rm -f $(OBJ)
 
 fclean:	clean
-		rm -f $(NAME)
+		@rm -f $(NAME)
 
 re: fclean all
 
