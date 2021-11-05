@@ -71,7 +71,7 @@ void	ft_cd(char **cmd)
 		chdir(home);
 }
 
-void	ft_export(char **cmd, t_exc *exc)
+t_exc	*ft_export(char **cmd, t_exc *exc)
 {
 	int	i;
 	char	**new_env;
@@ -104,4 +104,5 @@ void	ft_export(char **cmd, t_exc *exc)
 	i = -1;
 	while (++i < ft_tabsize(exc->env_cpy))
 		printf("%s\n", exc->env_cpy[i]);
+	return (exc);
 }
