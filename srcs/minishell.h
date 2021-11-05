@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # define ECHO 1
 # define CD 2
@@ -28,6 +29,7 @@ typedef struct s_exc
 	char	*input;
 	char	*output;
 	char	*rdirect;
+	char	**env_cpy;
 }				t_exc;
 
 //structure pour le parsin qui sera free
@@ -54,13 +56,13 @@ typedef struct s_state
 
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
-int		ft_execute_command(char **cmd, char **env);
+int		ft_execute_command(char **cmd, t_exc *exc);
 void	ft_echo(char **cmd);
-void	ft_env(char **env);
+void	ft_env(t_exc *exc);
 
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
-void	ft_export(char **cmd, char **env);
+t_exc	*ft_export(char **cmd, t_exc *exc);
 
 //parsing
 void	check_quote(t_state *state);

@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-int	ft_execute_command(char **cmd, char **env)
+int	ft_execute_command(char **cmd, t_exc *exc)
 {
 	if (check_builtin(cmd[0]) == ECHO)
 	{
@@ -20,14 +20,14 @@ int	ft_execute_command(char **cmd, char **env)
 	}
 	if (check_builtin(cmd[0]) == EXPORT)
 	{
-		ft_export(cmd, env);
+		exc = ft_export(cmd, exc);
 		return (EXPORT);
 	}
 	if (check_builtin(cmd[0]) == UNSET)
 		return (UNSET);
 	if (check_builtin(cmd[0]) == ENV)
 	{
-		ft_env(env);
+		ft_env(exc);
 		return (ENV);
 	}
 	return (EXIT);

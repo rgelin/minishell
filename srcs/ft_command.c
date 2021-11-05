@@ -37,14 +37,14 @@ void	ft_echo(char **cmd)
 *
 *	printf("number of variables = %i\n", i); to use for debug
 */
-void	ft_env(char **env)
+void	ft_env(t_exc *exc)
 {
 	int	i;
 
 	i = 0;
-	while (i < ft_tabsize(env))
+	while (i < ft_tabsize(exc->env_cpy))
 	{
-		printf("%s\n", env[i]);
+		printf("%s\n", exc->env_cpy[i]);
 		i++;
 	}
 }

@@ -9,14 +9,41 @@ void	init_struct(t_state *state)
 	state->sq = NULL;
 }
 
+char	**cpy_env(char **env)
+{
+	int i;
+	char **env_cpy;
+
+	env_cpy = (char **)malloc(sizeof(char *) * ft_tabsize(env) + 1);
+	if (!env_cpy)
+		exit(EXIT_FAILURE);
+	i = -1;
+	while (++i < ft_tabsize(env))
+		env_cpy[i] = env[i];
+	return (env_cpy);
+}
+
+void	init_exc_struct(t_exc *exc, char **env)
+{
+	exc->env_cpy = cpy_env(env);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
+	t_exc	*exc;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
+		//
+
+	exc = malloc(sizeof(t_exc));		//je mets ici pour l'instant pcq j'en ai besoin
+	if (!exc)
+		exit(EXIT_FAILURE);
+	init_exc_struct(exc, env);
+	//
 	while (1)
 	{
 		state->line = readline(">");
@@ -35,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			if (ft_execute_command(state->command, env) == EXIT)
+			if (ft_execute_command(state->command, exc) == EXIT)
 			{
 				free(state->line);
 				ft_free(state->command, ft_tabsize(state->command));
