@@ -50,6 +50,8 @@ typedef struct s_state
 	char *line;
 	char **command;
 	char *username;
+	int	n_of_sq;
+	int	n_of_dq;
 	int	*sq;
 	int *dq;
 }				t_state;
@@ -69,4 +71,5 @@ t_exc	*ft_export(char **cmd, t_exc *exc);
 
 //parsing
 void	check_quote(t_state *state);
+void	parsing(t_state *line);
 #endif

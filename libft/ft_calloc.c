@@ -16,8 +16,6 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*to_ret;
 
-	if (count < 0 || size < 0)
-		return (NULL);
 	if (count == 0 || size == 0)
 	{
 		count = 1;
