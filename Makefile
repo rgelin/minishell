@@ -10,6 +10,7 @@ FLAGS	=	-Wall -Werror -Wextra
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_command.c \
+				$(SOURCES)parsing.c \
 				$(SOURCES)ft_command_pwd_cd.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \

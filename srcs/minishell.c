@@ -5,17 +5,18 @@ void	init_struct(t_state *state)
 {
 	state->line = NULL;
 	state->command = NULL;
+	state->dq = NULL;
+	state->sq = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
-
+	(void)argc;
+	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
-	(void)argc;
-	(void)argv;
 	while (1)
 	{
 		state->line = readline(">");

@@ -17,10 +17,39 @@
 # define ENV 6
 # define EXIT 7
 
+// a rendre pour un tableau avec cette structure
+// pour les exc
+typedef struct s_exc
+{
+	char	*cmd;
+	char	*opt;
+	char	*arg;
+	int		pipe;
+	char	*input;
+	char	*output;
+	char	*rdirect;
+}				t_exc;
+
+//structure pour le parsin qui sera free
+//quand le tableau de t_exc sera parfait
+/*
+typedef struct s_pars
+{
+	char *command;
+	char *option;
+	char **arg;
+	char *input;
+	char *output;
+	char *next_char;
+}				t_pars;
+*/
 typedef struct s_state
 {
 	char *line;
 	char **command;
+	char *username;
+	int	*sq;
+	int *dq;
 }				t_state;
 
 int		ft_tabsize(char **tab);
@@ -33,4 +62,6 @@ void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
 void	ft_export(char **cmd, char **env);
 
+//parsing
+void	check_quote(t_state *state);
 #endif
