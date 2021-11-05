@@ -37,7 +37,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-		@printf "$(YELLOW)Generating minishell object... %-30s\r$(NO_COLOR)" $@
+		@printf "$(YELLOW)Generating minishell objects... %-30s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
