@@ -37,7 +37,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-		@printf "$(YELLOW)Compiling minishell object... %-30s\r$(NO_COLOR)" $@
+		@printf "$(YELLOW)Generating minishell object... %-30s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
@@ -52,15 +52,13 @@ all:	$(NAME)
 bonus:	$(NAME)
 
 clean:
-		@echo "$(RED)Deleting libft objects\n$(NO_COLOR)"
+		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-		@echo "$(RED)Deleting minishell objects\n$(NO_COLOR)"
 		@rm -f $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
-		@echo "$(RED)Deleting libft executable\n$(NO_COLOR)"
+		@echo "$(RED)Deleting executables...\n$(NO_COLOR)"
 		@$(MAKE) fclean -C $(LIBFT)
-		@echo "$(RED)Deleting minishell executable\n$(NO_COLOR)"
 		@rm -f $(NAME)
 
 re: fclean all
