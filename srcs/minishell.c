@@ -7,6 +7,12 @@ void	init_struct(t_state *state)
 	state->command = NULL;
 	state->dq = NULL;
 	state->sq = NULL;
+	state->pipe = NULL;
+	state->n_of_sq = 0;
+	state->n_of_dq = 0;
+	state->n_of_pipe = 0;
+	state->eof = 0;
+	state->n_of_dol = 0;
 }
 
 char	**cpy_env(char **env)

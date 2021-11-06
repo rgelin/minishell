@@ -52,8 +52,12 @@ typedef struct s_state
 	char *username;
 	int	n_of_sq;
 	int	n_of_dq;
+	int	n_of_pipe;
+	int	n_of_dol;
+	int	eof;
 	int	*sq;
 	int *dq;
+	int *pipe;
 }				t_state;
 
 int		ft_tabsize(char **tab);
@@ -70,6 +74,6 @@ void	ft_cd(char **cmd);
 t_exc	*ft_export(char **cmd, t_exc *exc);
 
 //parsing
-void	check_quote(t_state *state);
-void	parsing(t_state *line);
+//void	check_quote(t_state *state);
+void	parsing(t_state *s);
 #endif
