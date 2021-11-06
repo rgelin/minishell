@@ -58,11 +58,11 @@ int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
 int		ft_execute_command(char **cmd, t_exc *exc);
 void	ft_echo(char **cmd);
-void	ft_env(t_exc *exc);
+void	ft_env(char **env);
 
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
-t_exc	*ft_export(char **cmd, t_exc *exc);
+void	ft_export(char **cmd, t_exc *exc);
 
 //parsing
 void	check_quote(t_state *state);
