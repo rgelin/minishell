@@ -1,62 +1,89 @@
 
 #include "minishell.h"
 
-void	get_index_quote(t_state *state)
+void	get_index(t_state *s)
 {
-	int i;
-	int j;
-	int k;
+	int	i;
+	int	j;
+	int	k;
+	int	l;
 
-	j = 0;
-	k = 0;
-	i = 0;
-	while (state->line[i] != '\0')
+	j = -1;
+	k = -1;
+	l = -1;
+	i = -1;
+	while (s->line[++i] != '\0')
 	{
-		if (state->line[i] == 34)
-		{
-			state->dq[j] = i;
-			j++;
-		}
-		if (state->line[i] == 39)
-		{
-			state->sq[k] = i;
-			k++;
-		}
-		i++;
+		if (s->line[i] == 34)
+			s->dq[++j] = i;
+		if (s->line[i] == 39)
+			s->sq[++k] = i; 
+		if (s->line[i] == 124)
+			s->pipe[++l] = i;
+		//if (s->line[i] == 36)
+		//	s->n_of_dol++;
 	}
 }
-//surement la mettre en int et verifie le nombre de 
-//simple quote. n_of_sq % 2 != 0 du coup cest une error.
-// et quitter la fonction sans malloc
-//puis si il y a pas de double ou simple quote je peux direct verif et pipe
-//return direct la fonction pipe si il y a pas de quote ?
 
-//Dans un deuxieme temps verifier si le cas ou il y a des quote.
-void	check_quote(t_state *state)
+void	check_parsing(t_state *s)
+{
+	if (s->n_of_dq != 0)
+		s->dq = malloc(sizeof(int) * s->n_of_dq);
+	if (s->n_of_sq != 0)
+		s->sq = malloc(sizeof(int) * s->n_of_sq);
+	//if (s->n_of_pipe != 0)
+	//	s->pipe = malloc(sizeof(int) * s->n_of_pipe);
+	//s->command = malloc(sizeof(char ) * (s->n_of_pipe + 1));
+	get_index(s);
+}
+
+void	parsing(t_state *s)
 {
 	int	i;
 
-	i = 0;
-	state->n_of_sq = 0;
-	state->n_of_dq = 0;
-	while (state->line[i] != '\0')
+	i = -1;
+	while (s->line[++i] != '\0')
 	{
-		if (state->line[i] == 34)
-			state->n_of_dq++;
-		if (state->line[i] == 39)
-			state->n_of_sq++;
-		i++;
+		if (s->line[i] == 34)
+			s->n_of_dq++;
+		if (s->line[i] == 39)
+			s->n_of_sq++;
+		if (s->line[i] == 124)
+			s->n_of_pipe++;
+		if (s->line[i] == 36)
+			s->n_of_dol++;
 	}
-	if (state->n_of_sq != 0)
-		state->sq = malloc(sizeof(int) * state->n_of_sq);
-	if (state->n_of_dq != 0)
-		state->dq = malloc(sizeof(int) * state->n_of_dq);
-	//if (!state->dq || !state->sq)
-		//fonction free
-	get_index_quote(state); 
+	s->eof = i;
+	check_parsing(s);
 }
 
-void	parsing(t_state *line)
+/*
+//si il y a deux | d affile cest une erreur;
+void	check_pipe(t_state *s)
 {
-	check_quote(line);
+	int i;
+
+	i = 0;
+	s->n_of_pipe = 0;
+	s->eof = 0;
+	while (s->line[i])
+	{
+		if (s->line[i] == 124)
+		{
+			s->n_of_pipe = s->n_of_pipe + 1;
+		}
+		i++;
+	}
+	get_index_pipe(t_state *s);
+	s->eof = i;
 }
+*/
+/*void	parsing(t_state *s)
+{
+	check_quote(s);
+	if (s->n_of_sq == 0 && s->n_of_dq == 0)
+	{
+		check_pipe(s);
+	}
+}
+*/
