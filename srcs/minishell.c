@@ -8,6 +8,7 @@ void	init_struct(t_state *state)
 	state->dq = NULL;
 	state->sq = NULL;
 	state->pipe = NULL;
+	state->cmd = NULL;
 	state->n_of_sq = 0;
 	state->n_of_dq = 0;
 	state->n_of_pipe = 0;
@@ -43,19 +44,19 @@ int	main(int argc, char **argv, char **env)
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
-		//
-
+	/*
 	exc = malloc(sizeof(t_exc));		//je mets ici pour l'instant pcq j'en ai besoin
 	if (!exc)
 		exit(EXIT_FAILURE);
 	init_exc_struct(exc, env);
-	//
+	*/
+	init_struct(state);
 	while (1)
 	{
 		state->line = readline(">");
 		add_history(state->line);
 		parsing(state);
-		state->command = ft_split(state->line, ' ');
+		/*state->command = ft_split(state->line, ' ');
 		if (!state->command)
 		{
 			free(state->line);
@@ -78,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 			ft_free(state->command, ft_tabsize(state->command));
 			free(state->line);
 		}
-		wait(0);
+		//wait(0);*/
 	}
 	return (0);
 }
