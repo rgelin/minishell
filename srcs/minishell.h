@@ -54,10 +54,10 @@ typedef struct s_state
 	int	n_of_pipe;
 	int	n_of_dol;
 	int	eof;
-	int	*sq;
+	int *sq;
 	int *dq;
 	int *pipe;
-	int	*dol;
+	int *dol;
 }				t_state;
 
 int		ft_tabsize(char **tab);

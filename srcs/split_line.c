@@ -1,6 +1,6 @@
 
 #include "minishell.h"
-
+/*
 void split_pipe(t_state *s)
 {
 	int	i;
@@ -23,7 +23,7 @@ void split_pipe(t_state *s)
 		i++;
 	}	
 }
-
+*/
 void split_line(t_state *s)
 {
 	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));
