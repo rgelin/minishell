@@ -17,25 +17,23 @@ int	*get_index(t_state *s, size_t size, char c)
 
 	j = 0;
 	i = 0;
-	p_tab = ft_calloc((size + 1), sizeof(int*));
+	//p_tab = ft_calloc((size + 1), sizeof(s->pipe));
+	p_tab = malloc(sizeof(int*) * (size + 1));
 	if (!p_tab)
 	{
 		free(p_tab);
 		return (0);
 	}
-	printf("char = %c\n", c);
 	while (s->line[i] != '\0')
 	{
 		if (s->line[i] == c)
 		{
 			p_tab[j] = i;
-			printf("->%d\n", p_tab[j]);
+			j++;
 		}
-		j++;
 		i++;
 	}
-	p_tab[j] = 0;
-	printf(">-%d\n", p_tab[j]);
+	p_tab[j] = -1;
 	return (p_tab);
 }
 
@@ -46,7 +44,7 @@ int	check_parsing(t_state *s)
 	if (s->n_of_dq > 0)
 		s->dq = get_index(s, s->n_of_dq, (char)34);
 	if (s->n_of_pipe >= 0)
-		s->pipe = get_index(s, s->n_of_pipe, (char)124);
+		s->pipe = get_index(s, (s->n_of_pipe + 1), (char)124);
 	if (s->n_of_dol > 0)
 		s->dol = get_index(s, s->n_of_dol, (char)36);
 	return (1);
