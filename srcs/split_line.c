@@ -1,6 +1,6 @@
 
 #include "minishell.h"
-/*
+
 void split_pipe(t_state *s)
 {
 	int	i;
@@ -10,20 +10,27 @@ void split_pipe(t_state *s)
 	i = 0;
 	start = 0;
 	next = s->pipe[i];
-	printf("ici\n");
-	while (s->pipe[i])
+	while (i < (s->n_of_pipe + 1))
 	{
 		next = next - start;
 		s->cm[i] = ft_substr(s->line, start, next);
+		printf("%s\n", s->cm[i]);
 		start = next;
-		if (s->pipe[i] == 0)
+		if (s->pipe[i] == -1)
+		{
 			next = s->eof;
+			printf("++%d\n", next);
+		}
 		else
+		{
 			next = s->pipe[i];
+			printf("%d\n", next);
+		}
 		i++;
-	}	
+	}
+	//un free s->line ?
 }
-*/
+
 void split_line(t_state *s)
 {
 	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));
@@ -36,9 +43,8 @@ void split_line(t_state *s)
 		s->cm[0] = ft_substr(s->line, 0, s->eof);
 		//fonction qui free la line
 	}
-	/*else
+	else
 	{
 		split_pipe(s);
 	}
-	*/
 }

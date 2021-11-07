@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		state->line = readline(">");
 		add_history(state->line);
+		//init_struct(state);
 		parsing(state);
 		state->command = ft_split(state->line, ' ');
 		if (!state->command)
