@@ -32,7 +32,7 @@ typedef struct s_exc
 
 //structure pour le parsin qui sera free
 //quand le tableau de t_exc sera parfait
-/*
+
 typedef struct s_pars
 {
 	char *command;
@@ -42,12 +42,13 @@ typedef struct s_pars
 	char *output;
 	char *next_char;
 }				t_pars;
-*/
+
 typedef struct s_state
 {
 	char *line;
 	char **command;
-	char *username;
+	char **cm;
+	t_pars *cmd;
 	int	n_of_sq;
 	int	n_of_dq;
 	int	n_of_pipe;
@@ -56,6 +57,7 @@ typedef struct s_state
 	int	*sq;
 	int *dq;
 	int *pipe;
+	int	*dol;
 }				t_state;
 
 int		ft_tabsize(char **tab);
@@ -69,6 +71,6 @@ void	ft_cd(char **cmd);
 void	ft_export(char **cmd, char **env);
 
 //parsing
-//void	check_quote(t_state *state);
-void	parsing(t_state *s);
+int		parsing(t_state *s);
+void	split_line(t_state *line);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:25:36 by jvander-          #+#    #+#             */
-/*   Updated: 2021/07/05 09:09:09 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/06 14:30:17 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	char		*char_dst;
-	const char	*char_src;
-	size_t		i;
+	unsigned int	i;
+	unsigned char	*zsrc;
+	unsigned char	*zdst;
 
-	if (dst == NULL || src == NULL)
-		return (NULL);
 	i = 0;
-	char_dst = (char *)dst;
-	char_src = (char *) src;
+	zsrc = (unsigned char *)src;
+	zdst = (unsigned char *)dst;
 	while (i < n)
 	{
-		char_dst[i] = char_src[i];
-		if ((unsigned char) c == (unsigned char) char_src[i])
-			return (&dst[++i]);
+		zdst[i] = zsrc[i];
+		if (zsrc[i] == (unsigned char)c)
+			return ((void *)&zdst[i + 1]);
 		i++;
 	}
 	return (NULL);
