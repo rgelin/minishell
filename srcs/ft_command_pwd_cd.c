@@ -93,22 +93,32 @@ void	ft_export(char **cmd, t_exc *exc)
 
 	(void)cmd;
 	// new_env = realloc(exc->env_cpy, 1);
+	printf("env_cpy: %d\n", ft_tabsize(exc->env_cpy));
 	i = -1;
 	while (++i < ft_tabsize(exc->env_cpy))
 		printf("\x1b[31m%s\x1b[0m\n", exc->env_cpy[i]); //rouge
+	printf("\n\nsegfault ici: 2\n\n");
 	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(exc->env_cpy) + 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
+	printf("new_env: %d\n", ft_tabsize(new_env));
+	printf("\n\nsegfault ici: 3\n\n");
 	// i = -1;
 	// while (++i < ft_tabsize(exc->env_cpy))
 	// 	printf("\x1b[31m%s\x1b[0m\n", exc->env_cpy[i]);
 	i = -1;
 	while (++i < ft_tabsize(exc->env_cpy))
 		new_env[i] = exc->env_cpy[i];
-	new_env[i] = (char *)malloc(sizeof(char) * ft_strlen(cmd[1]));
+	printf("\n\nsegfault ici: 4\n\n");
+	printf("new_env: %d\n", ft_tabsize(new_env));
+	new_env[i] = (char *)malloc(sizeof(char) * (ft_strlen(cmd[1])));
 	if (!new_env[i])
 		exit(EXIT_FAILURE);
 	new_env[i] = cmd[1];
+	printf("\n\nsegfault ici: 5\n\n");
+	printf("new_env: %d\n", ft_tabsize(new_env));
+	// new_env[i + 1] = cmd[1];
+	// printf("new_env: %d\n", ft_tabsize(new_env));
 	i = -1;
 	// while (++i < ft_tabsize(new_env))
 	// 	printf("\x1b[32m%s\x1b[0m\n", new_env[i]); //vert
@@ -118,7 +128,7 @@ void	ft_export(char **cmd, t_exc *exc)
 	temp = new_env[ft_tabsize(new_env) - 2];
 	new_env[ft_tabsize(new_env) - 2] = new_env[ft_tabsize(new_env) - 1];
 	new_env[ft_tabsize(new_env) - 1] = temp;
-
+	printf("\n\nsegfault ici: 6\n\n");
 	i = -1;
 	// while (++i < ft_tabsize(new_env))
 	// 	printf("\x1b[34m%s\x1b[0m\n", new_env[i]); //bleu
@@ -135,12 +145,13 @@ void	ft_export(char **cmd, t_exc *exc)
 	// 	printf("%s\n", new_env[i]);
 	free(exc->env_cpy);
 	exc->env_cpy = NULL;
-	printf("%d\n", ft_tabsize(new_env));
+	// printf("%d\n", ft_tabsize(new_env));
 	exc->env_cpy = new_env;
+	printf("\n\nsegfault ici: 7\n\n");
 	i = -1;
 	// while (++i < ft_tabsize(exc->env_cpy))
 	// 	printf("\x1b[36m%s\x1b[0m\n", exc->env_cpy[i]); //bleu clair
-	printf("%d\n", ft_tabsize(exc->env_cpy));
+	// printf("%d\n", ft_tabsize(exc->env_cpy));
 	// while (++i < ft_tabsize(exc->env_cpy))
 	// 	printf("%s\n", exc->env_cpy[i]);
 }
