@@ -9,14 +9,15 @@
 
 //Dans un deuxieme temps verifier si le cas ou il y a des quote.
 
-int	get_index(t_state *s, int *p_tab, size_t size, char c)
+int	*get_index(t_state *s, size_t size, char c)
 {
 	int	i;
 	int	j;
+	int *p_tab;
 
 	j = 0;
 	i = 0;
-	p_tab = ft_calloc((size + 1), sizeof(int));
+	p_tab = ft_calloc((size + 1), sizeof(int*));
 	if (!p_tab)
 	{
 		free(p_tab);
@@ -28,58 +29,13 @@ int	get_index(t_state *s, int *p_tab, size_t size, char c)
 		if (s->line[i] == c)
 		{
 			p_tab[j] = i;
-			printf("index = %d\n", p_tab[j]);
+			printf("->%d\n", p_tab[j]);
 		}
 		j++;
 		i++;
 	}
-	p_tab[j] = -1;
-	printf("-index = %d\n", p_tab[j]);
-	return (1);
-}
-
-int	check_parsing(t_state *s)
-{
-	if (s->n_of_sq > 0)
-		if (!get_index(s, s->sq, s->n_of_sq, (char)39))
-			return (0);
-	if (s->n_of_dq > 0)
-		if (!get_index(s, s->dq, s->n_of_dq, (char)34))
-			return (0);
-	if (s->n_of_pipe >= 0)
-	{
-		if (!get_index(s, s->pipe, s->n_of_pipe, (char)124))
-			return (0);
-	}
-	if (s->n_of_dol > 0)
-		if (!get_index(s, s->dol, s->n_of_dol, (char)36))
-			return (0);
-	return (1);
-}
-/*
-int	*get_index(t_state *s, size_t size, char c)
-{
-	int	i;
-	int	j;
-	int *p_tab;
-
-	j = 0;
-	i = 0;
-	p_tab = ft_calloc((size + 1), sizeof(int));
-	if (!p_tab)
-	{
-		free(p_tab);
-		return (0);
-	}
-	while (s->line[i] != '\0')
-	{
-		if (s->line[i] == c)
-		{
-			p_tab[j] = i;
-		}
-		j++;
-		i++;
-	}
+	p_tab[j] = 0;
+	printf(">-%d\n", p_tab[j]);
 	return (p_tab);
 }
 
@@ -95,7 +51,7 @@ int	check_parsing(t_state *s)
 		s->dol = get_index(s, s->n_of_dol, (char)36);
 	return (1);
 }
-*/
+
 void check_char(t_state *s)
 {
 	int	i;

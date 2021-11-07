@@ -5,10 +5,11 @@ void	init_struct(t_state *state)
 {
 	state->line = NULL;
 	state->command = NULL;
-	state->dq = NULL;
-	state->sq = NULL;
-	state->pipe = NULL;
-	state->cmd = NULL;
+	state->dq = 0;
+	state->sq = 0;
+	state->pipe = 0;
+	state->cmd = 0;
+	state->dol = 0;
 	state->n_of_sq = 0;
 	state->n_of_dq = 0;
 	state->n_of_pipe = 0;
