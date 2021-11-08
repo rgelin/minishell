@@ -25,7 +25,7 @@ typedef struct s_exc
 	char	*cmd;
 	char	*opt;
 	char	*arg;
-	int		pipe;
+	//int		pipe;
 	char	*input;
 	char	*output;
 	char	*rdirect;
@@ -55,11 +55,17 @@ typedef struct s_state
 	int	n_of_dq;
 	int	n_of_pipe;
 	int	n_of_dol;
+	int	n_of_opt;
+	int	n_of_lchv;
+	int	n_of_rchv;
 	int	eof;
+	int	*lchv;
+	int	*rchv;
 	int *sq;
 	int *dq;
 	int *pipe;
 	int *dol;
+	int	*opt;
 }				t_state;
 
 int		ft_tabsize(char **tab);
@@ -78,4 +84,6 @@ t_exc	*ft_export(char **cmd, t_exc *exc);
 //parsing
 int		parsing(t_state *s);
 void	split_line(t_state *line);
+void	find_command(t_state *s);
+
 #endif

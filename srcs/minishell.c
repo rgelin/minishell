@@ -5,16 +5,22 @@ void	init_struct(t_state *state)
 {
 	state->line = NULL;
 	state->command = NULL;
-	state->dq = 0;
-	state->sq = 0;
-	state->pipe = 0;
-	state->cmd = 0;
-	state->dol = 0;
+	state->dq = NULL;
+	state->sq = NULL;
+	state->pipe = NULL;
+	state->cmd = NULL;
+	state->dol = NULL;
+	state->opt = NULL;
+	state->lchv = NULL;
+	state->rchv = NULL;
 	state->n_of_sq = 0;
 	state->n_of_dq = 0;
 	state->n_of_pipe = 0;
 	state->eof = 0;
 	state->n_of_dol = 0;
+	state->n_of_opt = 0;
+	state->n_of_lchv = 0;
+	state->n_of_rchv = 0;
 }
 
 char	**cpy_env(char **env)
@@ -42,6 +48,7 @@ int	main(int argc, char **argv, char **env)
 	t_exc	*exc;
 	(void)argc;
 	(void)argv;
+	(void)env;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
