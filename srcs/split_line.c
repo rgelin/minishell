@@ -64,4 +64,7 @@ void split_line(t_state *s)
 		split_pipe(s);
 	}
 }
+<<<<<<< HEAD
 */
+=======
+>>>>>>> 218a358c16f3bebb09a37ec5b3e5015d5314415f

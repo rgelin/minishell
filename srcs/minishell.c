@@ -8,6 +8,7 @@ void	init_struct(t_state *state)
 	state->dq = NULL;
 	state->sq = NULL;
 	state->pipe = NULL;
+	//state->cmd = NULL;
 	state->dol = NULL;
 	state->opt = NULL;
 	state->lchv = NULL;
