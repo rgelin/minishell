@@ -33,6 +33,18 @@ char	*ft_cpy_str(char **cmd, char ***new_env)
 	return (cmd_cpy);
 }
 
+int		check_if_in_env(char **cmd, char ***env)
+{
+	int i;
+
+	i = -1;
+	while ((*env)[++i])
+	{
+		if (!ft_strncmp(cmd[1], (*env)[i], (int)ft_strlen(cmd[1])))
+			return (1);
+	}
+	return (0);
+}
 void	ft_export(char **cmd, char ***env)
 {
 	char	**new_env;
@@ -41,6 +53,8 @@ void	ft_export(char **cmd, char ***env)
 
 	(void)cmd;
 	if (!ft_strchr(cmd[1], '='))
+		return ;
+	else if (check_if_in_env(cmd, env))
 		return ;
 	else
 	{

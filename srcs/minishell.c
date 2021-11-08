@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 	new_env = cpy_env(env);
 	while (1)
 	{
-		state->line = readline("minishell > ");
+		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (state->line == NULL)
 		{
 			rl_replace_line("exit", 0);
