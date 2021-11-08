@@ -37,12 +37,13 @@ typedef struct s_exc
 
 typedef struct s_pars
 {
-	char *command;
-	char *option;
-	char **arg;
-	char *input;
-	char *output;
-	char *next_char;
+	char 	*command;
+	char	*option;
+	char	*arg;
+	char	*input;
+	char	*output;
+	char	*rdirect;
+	char	*next_char;
 }				t_pars;
 
 typedef struct s_state
@@ -50,22 +51,21 @@ typedef struct s_state
 	char *line;
 	char **command;
 	char **cm;
-	t_pars *cmd;
 	int	n_of_sq;
-	int	n_of_dq;
-	int	n_of_pipe;
-	int	n_of_dol;
-	int	n_of_opt;
-	int	n_of_lchv;
-	int	n_of_rchv;
-	int	eof;
-	int	*lchv;
-	int	*rchv;
 	int *sq;
+	int	n_of_dq;
 	int *dq;
+	int	n_of_pipe;
 	int *pipe;
+	int	n_of_dol;
 	int *dol;
+	int	n_of_opt;
 	int	*opt;
+	int	n_of_lchv;
+	int	*lchv;
+	int	n_of_rchv;
+	int	*rchv;
+	int	eof;
 }				t_state;
 
 int		ft_tabsize(char **tab);

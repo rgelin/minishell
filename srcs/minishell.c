@@ -8,7 +8,6 @@ void	init_struct(t_state *state)
 	state->dq = NULL;
 	state->sq = NULL;
 	state->pipe = NULL;
-	state->cmd = NULL;
 	state->dol = NULL;
 	state->opt = NULL;
 	state->lchv = NULL;
@@ -45,7 +44,7 @@ void	init_exc_struct(t_exc *exc, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
-	t_exc	*exc;
+	//t_exc	*exc;
 	(void)argc;
 	(void)argv;
 	(void)env;

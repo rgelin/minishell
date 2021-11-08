@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:03:27 by jvander-          #+#    #+#             */
-/*   Updated: 2021/07/20 15:16:42 by jvander-         ###   ########.fr       */
+/*   Updated: 2021/11/08 14:18:20 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	size;
 
 	i = 0;
+	//sub_str = NULL;
 	if (s == NULL)
 		return (NULL);
 	if (ft_strlen(s) < start)

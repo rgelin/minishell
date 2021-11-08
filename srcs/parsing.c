@@ -86,11 +86,20 @@ int	parsing(t_state *s)
 	check_char(s);
 	if (check_parsing(s))
 	{
-		//si le nombre de quote est de 0
-		if (s->n_of_dq == 0 && s->n_of_sq == 0)
+		//si le nombre de quote est de 0 et sans redicrection.
+		if (s->n_of_dq == 0 && s->n_of_sq == 0 && s->n_of_lchv == 0
+				&& s->n_of_rchv == 0)
 		{
 			split_line(s);
 		}
+	/*	else if (s->n_of_dq == 0 && s->n_of_sq == 0)
+		{
+
+		}
+		else
+		{
+		}
+		*/
 	}
 	return (1);
 }
