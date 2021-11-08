@@ -17,7 +17,6 @@ int	*get_index(t_state *s, size_t size, char c)
 
 	j = 0;
 	i = 0;
-	//p_tab = ft_calloc((size + 1), sizeof(s->pipe));
 	p_tab = malloc(sizeof(int*) * (size + 1));
 	if (!p_tab)
 	{

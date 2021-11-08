@@ -25,12 +25,7 @@ int	ft_get_index(char *s, char c)
 	}
 	return (0);
 }
-/*
-char	get_option(char *s)
-{
 
-}
-*/
 //recup seulement l argument si il y a pas option
 int		ft_test(char *line)
 {
@@ -59,9 +54,14 @@ int		ft_check_space(char *line)
 }
 
 /*
-char 	get_arg(char *s)
+char	*get_opt(char *s)
 {
+	char	*opt;
 
+	opt = ft_strtrim(s, "-");
+	opt = NULL;
+
+	return (opt);
 }
 */
 t_pars	get_command(char *line, t_state *s)
@@ -76,7 +76,7 @@ t_pars	get_command(char *line, t_state *s)
 	{
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		printf("ma str avec opt=%s\n", tab.command);
+		//tab.opt = get_opt(line);
 	}
 	else
 	{
@@ -85,13 +85,13 @@ t_pars	get_command(char *line, t_state *s)
 			next = ft_test(line);
 			tab.command = ft_substr(line, 0, next);
 			tab.command = ft_strtrim(tab.command, " ");
-			printf("ma str sans opt =%s\n", tab.command);
+			tab.arg = ft_substr(line, next, ft_strlen(line));
+			tab.arg = ft_strtrim(tab.arg, " ");
 		}
 		else
 		{
 			tab.command = ft_substr(line, 0, ft_strlen(line));
 			tab.command = ft_strtrim(tab.command, " ");
-			printf("q une commande =%s\n", tab.command);
 		}
 	}
 	return (tab);
@@ -113,7 +113,9 @@ void	find_command(t_state *s)
 	while (i <= s->n_of_pipe)
 	{
 		comd[i] = get_command(s->cm[i], s);
-		//printf("%s\n", comd[i].command);
+		printf("%s\n", comd[i].command);
+		if (comd[i].arg != NULL)
+			printf("%s\n", comd[i].arg);
 		i++;
 	}
 	//return (1);

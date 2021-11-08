@@ -39,27 +39,3 @@ void split_line(t_state *s)
 	split_pipe(s);
 	find_command(s);
 }
-
-/*
-void split_line(t_state *s)
-{
-	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));
-	if (!s->cm)
-	{
-		free(s->cm);
-		//return (0);
-	}
-	//si le nombre de pipe est de 0
-	if (s->n_of_pipe == 0)
-	{
-		s->cm[0] = ft_substr(s->line, 0, s->eof);
-		//regarder par rapport au redirection
-		//fonction qui free la line
-	}
-	//si il y a plusieurs pipe
-	else
-	{
-		split_pipe(s);
-	}
-}
-*/
