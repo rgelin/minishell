@@ -14,12 +14,16 @@ char	**cpy_env(char **env)
 	int i;
 	char **env_cpy;
 
-	env_cpy = (char **)malloc(sizeof(char *) * ft_tabsize(env) + 1);
+	printf("%d\n", ft_tabsize(env));
+	env_cpy = (char **)malloc(sizeof(char *) * ft_tabsize(env));
 	if (!env_cpy)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (++i < ft_tabsize(env))
 		env_cpy[i] = env[i];
+	i = -1;
+	// while (++i < ft_tabsize(env_cpy))
+	// 	printf("\x1b[32m%s\x1b[0m\n", env_cpy[i]);
 	return (env_cpy);
 }
 
