@@ -6,6 +6,8 @@ SOURCES =	./srcs/
 ERRORS	=	./errors/
 CC		=	gcc
 FLAGS	=	-Wall -Werror -Wextra
+READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
@@ -44,7 +46,7 @@ $(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
-			@$(CC) $(FLAGS) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
+			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)

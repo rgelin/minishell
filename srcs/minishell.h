@@ -59,7 +59,10 @@ int		check_builtin(char *cmd);
 int		ft_execute_command(char **cmd, t_exc *exc);
 void	ft_echo(char **cmd);
 void	ft_env(t_exc *exc);
-
+void	rl_replace_line (const char *text, int clear_undo);
+int		rl_on_new_line (void);
+void	rl_redisplay (void);
+int		rl_on_new_line (void);
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
 t_exc	*ft_export(char **cmd, t_exc *exc);
