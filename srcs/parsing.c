@@ -40,13 +40,19 @@ int	*get_index(t_state *s, size_t size, char c)
 int	check_parsing(t_state *s)
 {
 	if (s->n_of_sq > 0)
-		s->sq = get_index(s, s->n_of_sq, (char)39);
+		s->sq = get_index(s, s->n_of_sq, '\'');
 	if (s->n_of_dq > 0)
-		s->dq = get_index(s, s->n_of_dq, (char)34);
+		s->dq = get_index(s, s->n_of_dq, '"');
 	if (s->n_of_pipe >= 0)
-		s->pipe = get_index(s, (s->n_of_pipe + 1), (char)124);
+		s->pipe = get_index(s, (s->n_of_pipe + 1), '|');
 	if (s->n_of_dol > 0)
-		s->dol = get_index(s, s->n_of_dol, (char)36);
+		s->dol = get_index(s, s->n_of_dol, '$');
+	if (s->n_of_opt > 0)
+		s->opt = get_index(s, s->n_of_opt, '-');
+	if (s->n_of_lchv > 0)
+		s->lchv = get_index(s, s->n_of_lchv, '<');
+	if (s->n_of_rchv > 0)
+		s->rchv = get_index(s, s->n_of_rchv, '>');
 	return (1);
 }
 
@@ -65,6 +71,12 @@ void check_char(t_state *s)
 			s->n_of_pipe++;
 		if (s->line[i] == 36)
 			s->n_of_dol++;
+		if (s->line[i] == 45)
+			s->n_of_opt++;
+		if (s->line[i] == 60)
+			s->n_of_lchv++;
+		if (s->line[i] == 62)
+			s->n_of_rchv++;
 	}
 	s->eof = i;
 }
@@ -74,6 +86,7 @@ int	parsing(t_state *s)
 	check_char(s);
 	if (check_parsing(s))
 	{
+		//si le nombre de quote est de 0
 		if (s->n_of_dq == 0 && s->n_of_sq == 0)
 		{
 			split_line(s);
