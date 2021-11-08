@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-int	ft_execute_command(char **cmd, t_exc *exc)
+int	ft_execute_command(char **cmd, char ***env)
 {
 	if (check_builtin(cmd[0]) == ECHO)
 	{
@@ -20,24 +20,14 @@ int	ft_execute_command(char **cmd, t_exc *exc)
 	}
 	if (check_builtin(cmd[0]) == EXPORT)
 	{
-		int	i = -1;
-		while (++i < ft_tabsize(exc->env_cpy))
-			printf("\x1b[33m%s\x1b[0m\n", exc->env_cpy[i]);
-		printf("\n\nsegfault ici: 1\n\n");
-		ft_export(cmd, exc);
-		i = -1;
-		while (++i < ft_tabsize(exc->env_cpy))
-			printf("%s\n", exc->env_cpy[i]);
+		ft_export(cmd, env);
 		return (EXPORT);
 	}
 	if (check_builtin(cmd[0]) == UNSET)
 		return (UNSET);
 	if (check_builtin(cmd[0]) == ENV)
 	{
-		int	i = -1;
-		while (++i < ft_tabsize(exc->env_cpy))
-			printf("\x1b[33m%s\x1b[0m\n", exc->env_cpy[i]);
-		ft_env(exc->env_cpy);
+		ft_env((*env));
 		return (ENV);
 	}
 	return (EXIT);

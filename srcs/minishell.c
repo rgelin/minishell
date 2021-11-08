@@ -14,43 +14,37 @@ char	**cpy_env(char **env)
 	int i;
 	char **env_cpy;
 
-	printf("%d\n", ft_tabsize(env));
-	env_cpy = (char **)malloc(sizeof(char *) * ft_tabsize(env));
+	env_cpy = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
 	if (!env_cpy)
 		exit(EXIT_FAILURE);
 	i = -1;
-	while (++i < ft_tabsize(env))
+	while (env[++i])
 		env_cpy[i] = env[i];
-	i = -1;
-	// while (++i < ft_tabsize(env_cpy))
-	// 	printf("\x1b[32m%s\x1b[0m\n", env_cpy[i]);
+	env_cpy[i] = NULL;
 	return (env_cpy);
-}
-
-void	init_exc_struct(t_exc *exc, char **env)
-{
-	exc->env_cpy = cpy_env(env);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
-	t_exc	*exc;
+	char	**new_env;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
-		//
-
-	exc = malloc(sizeof(t_exc));		//je mets ici pour l'instant pcq j'en ai besoin
-	if (!exc)
-		exit(EXIT_FAILURE);
-	init_exc_struct(exc, env);
-	//
+	new_env = cpy_env(env);
 	while (1)
 	{
-		state->line = readline(">");
+		state->line = readline("minishell > ");
+		if (state->line == NULL)
+		{
+			rl_replace_line("exit", 0);
+			rl_redisplay();
+			rl_clear_history();
+			free(state->line);
+			free(new_env);
+		}
 		add_history(state->line);
 		state->command = ft_split(state->line, ' ');
 		if (!state->command)
@@ -66,7 +60,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			if (ft_execute_command(state->command, exc) == EXIT)
+			if (ft_execute_command(state->command, &new_env) == EXIT)
 			{
 				free(state->line);
 				ft_free(state->command, ft_tabsize(state->command));
@@ -75,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 			ft_free(state->command, ft_tabsize(state->command));
 			free(state->line);
 		}
-		wait(0);
+		rl_on_new_line();
 	}
 	return (0);
 }
