@@ -76,7 +76,7 @@ t_pars	get_command(char *line, t_state *s)
 	{
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		//printf("ma str avec opt= %s\n", tab.command);
+		printf("ma str avec opt=%s\n", tab.command);
 	}
 	else
 	{
@@ -85,13 +85,13 @@ t_pars	get_command(char *line, t_state *s)
 			next = ft_test(line);
 			tab.command = ft_substr(line, 0, next);
 			tab.command = ft_strtrim(tab.command, " ");
-			//printf("ma str sans opt = %s\n", tab.command);
+			printf("ma str sans opt =%s\n", tab.command);
 		}
 		else
 		{
 			tab.command = ft_substr(line, 0, ft_strlen(line));
 			tab.command = ft_strtrim(tab.command, " ");
-			//printf("q une commande = %s\n", tab.command);
+			printf("q une commande =%s\n", tab.command);
 		}
 	}
 	return (tab);

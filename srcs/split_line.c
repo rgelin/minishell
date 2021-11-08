@@ -12,11 +12,9 @@ void split_pipe(t_state *s)
 	next = s->pipe[i];
 	while (i <=s->n_of_pipe)
 	{
-		printf("next %d\n", next);
-		printf("start %d\n", start);
+		next = next - start;
 		s->cm[i] = ft_substr(s->line, start, next);
 		s->cm[i] = ft_strtrim(s->cm[i], " ");
-		printf("%s\n", s->cm[i]);
 		i++;
 		if (s->pipe[i] == -1)
 		{
@@ -64,7 +62,4 @@ void split_line(t_state *s)
 		split_pipe(s);
 	}
 }
-<<<<<<< HEAD
 */
-=======
->>>>>>> 218a358c16f3bebb09a37ec5b3e5015d5314415f
