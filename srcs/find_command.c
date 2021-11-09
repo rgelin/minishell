@@ -12,11 +12,8 @@ void	init_tab(t_pars *tab)
 	tab->next_char = NULL;
 }
 
-int	ft_get_index(char *s, char c)
+int	ft_get_index_opt(char *s, char c, int i)
 {
-	int i;
-
-	i = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == c)
@@ -26,44 +23,62 @@ int	ft_get_index(char *s, char c)
 	return (0);
 }
 
-//recup seulement l argument si il y a pas option
-int		ft_test(char *line)
+char **get_opt(char *line)
 {
-	int	x;
+	int	i;
+	int	opt;
+	int *popt;
+	int index;
+	char **options;
 
-	x = ft_strlen(line);
-	while (line[x] != ' ' && x != 0)
-		x--;
-	if (x != 0)
-		return (x);
-	x--;
-	return (0);
-}
-int		ft_check_space(char *line)
-{
-	int i;
-
-	i = ft_strlen(line);
-	while (i > 0)
+	opt = 0;
+	i = -1;
+	while (line[++i] != '\0')
 	{
-		if (line[i] == ' ')
-			return (1);
+		if (line[i] == '-')
+			opt++;
+	}
+	popt = get_index(line, opt, '-');
+	options = malloc(sizeof(char *) * opt);
+	i = 0;
+	opt = 0;
+	while (popt[i] != -1)
+	{
+		index = popt[i];
+		opt = index;
+		while (line[opt] !='\0')
+		{
+			if (line[opt] == ' ' || line[opt + 1] == '\0')
+			{
+				options[i] = ft_substr(line, index, opt - (index - 1));
+				options[i] = ft_strtrim(options[i], "-");
+				break ;
+			}
+			opt++;
+		}
+		i++;
+	}
+	return (options);
+}
+
+char *get_arg(char *line)
+{
+	int		i;
+	char	*s;
+
+	s = NULL;
+	i = ft_strlen(line);
+	while (line[i] != ' ' && i != 0)
+	{
+		if (line[i] == '-')
+			return (s);
 		i--;
 	}
-	return (0);
+	s = ft_substr(line, i, ft_strlen(line));
+	s = ft_strtrim(s, " ");
+	return (s);
 }
 
-/*
-char	*get_opt(char *s)
-{
-	char	*opt;
-
-	opt = ft_strtrim(s, "-");
-	opt = NULL;
-
-	return (opt);
-}
-*/
 t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
@@ -76,7 +91,9 @@ t_pars	get_command(char *line, t_state *s)
 	{
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		//tab.opt = get_opt(line);
+		tab.option = get_opt(line);
+		tab.arg = get_arg(line);
+		next = ft_test(line);
 	}
 	else
 	{
@@ -97,7 +114,7 @@ t_pars	get_command(char *line, t_state *s)
 	return (tab);
 }
 
-void	find_command(t_state *s)
+t_pars *find_command(t_state *s)
 {
 	int		i;
 	t_pars	*comd;
@@ -108,15 +125,12 @@ void	find_command(t_state *s)
 	{
 		free(comd);
 		//fonction free
-		//return (0);
+		exit(EXIT_FAILURE);
 	}
 	while (i <= s->n_of_pipe)
 	{
 		comd[i] = get_command(s->cm[i], s);
-		printf("%s\n", comd[i].command);
-		if (comd[i].arg != NULL)
-			printf("%s\n", comd[i].arg);
 		i++;
 	}
-	//return (1);
+	return (comd);
 }

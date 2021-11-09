@@ -9,7 +9,7 @@
 
 //Dans un deuxieme temps verifier si le cas ou il y a des quote.
 
-int	*get_index(t_state *s, size_t size, char c)
+int	*get_index(char *line, size_t size, char c)
 {
 	int	i;
 	int	j;
@@ -23,9 +23,9 @@ int	*get_index(t_state *s, size_t size, char c)
 		free(p_tab);
 		return (0);
 	}
-	while (s->line[i] != '\0')
+	while (line[i] != '\0')
 	{
-		if (s->line[i] == c)
+		if (line[i] == c)
 		{
 			p_tab[j] = i;
 			j++;
@@ -39,19 +39,19 @@ int	*get_index(t_state *s, size_t size, char c)
 int	check_parsing(t_state *s)
 {
 	if (s->n_of_sq > 0)
-		s->sq = get_index(s, s->n_of_sq, '\'');
+		s->sq = get_index(s->line, s->n_of_sq, '\'');
 	if (s->n_of_dq > 0)
-		s->dq = get_index(s, s->n_of_dq, '"');
+		s->dq = get_index(s->line, s->n_of_dq, '"');
 	if (s->n_of_pipe >= 0)
-		s->pipe = get_index(s, (s->n_of_pipe + 1), '|');
+		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
 	if (s->n_of_dol > 0)
-		s->dol = get_index(s, s->n_of_dol, '$');
+		s->dol = get_index(s->line, s->n_of_dol, '$');
 	if (s->n_of_opt > 0)
-		s->opt = get_index(s, s->n_of_opt, '-');
+		s->opt = get_index(s->line, s->n_of_opt, '-');
 	if (s->n_of_lchv > 0)
-		s->lchv = get_index(s, s->n_of_lchv, '<');
+		s->lchv = get_index(s->line, s->n_of_lchv, '<');
 	if (s->n_of_rchv > 0)
-		s->rchv = get_index(s, s->n_of_rchv, '>');
+		s->rchv = get_index(s->line, s->n_of_rchv, '>');
 	return (1);
 }
 
@@ -80,8 +80,11 @@ void check_char(t_state *s)
 	s->eof = i;
 }
 
-int	parsing(t_state *s)
+t_pars	*parsing(t_state *s)
 {
+	t_pars *tab;
+
+	tab = NULL;
 	check_char(s);
 	if (check_parsing(s))
 	{
@@ -89,7 +92,7 @@ int	parsing(t_state *s)
 		if (s->n_of_dq == 0 && s->n_of_sq == 0 && s->n_of_lchv == 0
 				&& s->n_of_rchv == 0)
 		{
-			split_line(s);
+			tab = split_line(s);
 		}
 	/*	else if (s->n_of_dq == 0 && s->n_of_sq == 0)
 		{
@@ -100,5 +103,5 @@ int	parsing(t_state *s)
 		}
 		*/
 	}
-	return (1);
+	return (tab);
 }

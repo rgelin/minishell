@@ -45,6 +45,7 @@ void	init_exc_struct(t_exc *exc, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
+	t_pars *tab;
 	//t_exc	*exc;
 	(void)argc;
 	(void)argv;
@@ -58,13 +59,14 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	init_exc_struct(exc, env);
 	*/
+	tab = NULL;
 	init_struct(state);
 	while (1)
 	{
 		state->line = readline(">");
 		add_history(state->line);
 		//init_struct(state);
-		parsing(state);
+		tab = parsing(state);
 		/*state->command = ft_split(state->line, ' ');
 		if (!state->command)
 		{
