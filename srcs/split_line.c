@@ -28,7 +28,6 @@ void split_pipe(t_state *s)
 	next = s->pipe[i];
 	while (i <=s->n_of_pipe)
 	{
-		s->cm[i] = NULL;
 		next = next - start;
 		s->cm[i] = ft_substr(s->line, start, next);
 		s->cm[i] = ft_strtrim(s->cm[i], " ");

@@ -9,6 +9,24 @@
 
 //Dans un deuxieme temps verifier si le cas ou il y a des quote.
 
+void	ft_free_pars_tab(t_state *s)
+{
+	if (s->sq)
+		free(s->sq);
+	if (s->dq)
+		free(s->dq);
+	if (s->pipe)
+		free(s->pipe);
+	if (s->dol)
+		free(s->dol);
+	if (s->opt)
+		free(s->opt);
+	if (s->n_of_lchv)
+		free(s->lchv);
+	if (s->rchv)
+		free(s->rchv);
+}
+
 int	*get_index(char *line, size_t size, char c)
 {
 	int	i;
@@ -18,6 +36,7 @@ int	*get_index(char *line, size_t size, char c)
 	j = 0;
 	i = 0;
 	p_tab = malloc(sizeof(int*) * (size + 1));
+	//p_tab = malloc(sizeof(int) * (size + 1));
 	if (!p_tab)
 	{
 		free(p_tab);
@@ -103,5 +122,6 @@ t_pars	*parsing(t_state *s)
 		}
 		*/
 	}
+	ft_free_pars_tab(s);
 	return (tab);
 }
