@@ -16,8 +16,10 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_command_pwd_cd.c \
 				$(SOURCES)ft_command_export.c \
 				$(SOURCES)ft_exec.c
+				$(SOURCES)ft_command_unset.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
+				$(UTILS)ft_sort_string_tab.c
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 

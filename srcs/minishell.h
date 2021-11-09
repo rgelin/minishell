@@ -69,7 +69,10 @@ void	ft_env(char **env);
 
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
+
 void	ft_export(char **cmd, char ***env);
+char	**cpy_env(char **env);
+void	ft_sort_string_tab(char **tab);
 
 //parsing
 void	check_quote(t_state *state);
