@@ -9,7 +9,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <errno.h>
-# include "../libft/libft.h"
+# include "../libft/libft.h" 
 # define ECHO 1
 # define CD 2
 # define PWD 3
@@ -60,9 +60,9 @@ int		ft_execute_command(char **cmd, char ***env);
 void	ft_echo(char **cmd);
 // void	ft_env(t_exc *exc);
 void	rl_replace_line (const char *text, int clear_undo);
-int		rl_on_new_line (void);
-void	rl_redisplay (void);
-int		rl_on_new_line (void);
+// int		rl_on_new_line (void);
+// void	rl_redisplay (void);
+// int		rl_on_new_line (void);
 void	rl_clear_history (void);
 void	ft_env(char **env);
 

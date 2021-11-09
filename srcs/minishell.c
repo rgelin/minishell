@@ -24,6 +24,17 @@ char	**cpy_env(char **env)
 	return (env_cpy);
 }
 
+void	ft_sigint(int sig)
+{
+	(void)sig;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	// printf("\x1b[34mminishell > \x1b[0m\n");
+	// rl_redisplay();
+	// rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
@@ -33,17 +44,21 @@ int	main(int argc, char **argv, char **env)
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ft_sigint);
 	new_env = cpy_env(env);
 	while (1)
 	{
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (state->line == NULL)
 		{
-			rl_replace_line("exit", 0);
+			rl_replace_line("", 0);
 			rl_redisplay();
+			// printf("\x1b[34mminishell > \x1b[0mexit\n");
 			rl_clear_history();
 			free(state->line);
 			free(new_env);
+			exit(EXIT_SUCCESS);
 		}
 		add_history(state->line);
 		state->command = ft_split(state->line, ' ');
