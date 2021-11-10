@@ -1,14 +1,14 @@
 
 #include "minishell.h"
 
-int	ft_get_index(char *s, char c)
+int	ft_get_index(char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
+		if (s[i] == '-' || s[i] == ' ' || s[i] == '<' || s[i] == '>')
 			return (i);
 		i++;
 	}
@@ -39,6 +39,47 @@ int		ft_check_space(char *line)
 		if (line[i] == ' ')
 			return (1);
 		i--;
+	}
+	return (0);
+}
+
+int	*get_index(char *line, size_t size, char c)
+{
+	int	i;
+	int	j;
+	int *p_tab;
+
+	j = 0;
+	i = 0;
+	p_tab = malloc(sizeof(int*) * (size + 1));
+	//p_tab = malloc(sizeof(int) * (size + 1));
+	if (!p_tab)
+	{
+		free(p_tab);
+		return (0);
+	}
+	while (line[i] != '\0')
+	{
+		if (line[i] == c)
+		{
+			p_tab[j] = i;
+			j++;
+		}
+		i++;
+	}
+	p_tab[j] = -1;
+	return (p_tab);
+}
+
+int	check_redirection(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i] != '\0')
+	{
+		if (line[i] == '>' || line[i] == '<')
+			return (1);
 	}
 	return (0);
 }

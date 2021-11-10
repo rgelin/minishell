@@ -40,9 +40,8 @@ typedef struct s_pars
 	char 	*command;
 	char	**option;
 	char	*arg;
-	char	*input;
-	char	*output;
-	char	*rdirect;
+	char	**input;
+	char	**output;
 	char	*next_char;
 }				t_pars;
 
@@ -86,8 +85,13 @@ t_pars	*parsing(t_state *s);
 t_pars	*split_line(t_state *line);
 int		*get_index(char *line, size_t size, char c);
 t_pars	*find_command(t_state *s);
-int		ft_get_index(char *s, char c);
+int		ft_get_index(char *s);
 int		ft_get_index_opt(char *s, char c, int i);
 int		ft_test(char *line);
 int		ft_check_space(char *line);
+int		*get_index(char *line, size_t size, char c);
+int		check_redirection(char *line);
+void	init_tab(t_pars *tab);
+char	**get_everything(char *line, char c);
+
 #endif

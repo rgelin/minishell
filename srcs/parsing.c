@@ -27,34 +27,6 @@ void	ft_free_pars_tab(t_state *s)
 		free(s->rchv);
 }
 
-int	*get_index(char *line, size_t size, char c)
-{
-	int	i;
-	int	j;
-	int *p_tab;
-
-	j = 0;
-	i = 0;
-	p_tab = malloc(sizeof(int*) * (size + 1));
-	//p_tab = malloc(sizeof(int) * (size + 1));
-	if (!p_tab)
-	{
-		free(p_tab);
-		return (0);
-	}
-	while (line[i] != '\0')
-	{
-		if (line[i] == c)
-		{
-			p_tab[j] = i;
-			j++;
-		}
-		i++;
-	}
-	p_tab[j] = -1;
-	return (p_tab);
-}
-
 int	check_parsing(t_state *s)
 {
 	if (s->n_of_sq > 0)
@@ -113,11 +85,12 @@ t_pars	*parsing(t_state *s)
 		{
 			tab = split_line(s);
 		}
-	/*	else if (s->n_of_dq == 0 && s->n_of_sq == 0)
+		//si le nombre de quote est de 0 mais qu il y a des redirection
+		else if (s->n_of_dq == 0 && s->n_of_sq == 0)
 		{
-
+			tab = split_line(s);
 		}
-		else
+		/*else
 		{
 		}
 		*/
