@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**ft_realloc_env(char ***env, int size)
 {
@@ -40,7 +40,7 @@ int		check_if_already_in_env(char **cmd, char ***env)
 	int i;
 
 	i = -1;
-	while ((*env)[++i])
+	while (cmd[1] && (*env)[++i])
 	{
 		if (!ft_strncmp(cmd[1], (*env)[i], (ft_strlen(cmd[1]) + 1)))
 			return (1);
@@ -55,14 +55,14 @@ int		check_if_in_env(char **cmd, char ***env)
 	int		i;
 
 	i = -1;
-	temp = malloc(sizeof(char) * ft_strlen(cmd[1]) + 1);
+	temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
 	if (!temp)
 	{
 		free(*env);
 		*env = NULL;
 		exit(EXIT_FAILURE);
 	}
-	while (cmd[1][++i] != '=')
+	while (cmd[1][++i] && cmd[1][i] != '=')
 		temp[i] = cmd[1][i];
 	temp[i] = '\0';
 	i = -1;
@@ -84,15 +84,15 @@ void	modify_var_in_env(char **cmd, char ***env)
 	int		j;
 
 	j = -1;
-	while (cmd[1][j] != '=')
+	while (cmd[1][j] && cmd[1][j] != '=')
 		j++;
 	i = -1;
-	while ((*env)[++i])
+	while (cmd[1][j] && (*env)[++i])
 	{
 		if (!ft_strncmp(cmd[1], (*env)[i], j))
 			break ;
 	}
-	temp = malloc(sizeof(char) * ft_strlen(cmd[1]) + 1);
+	temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
 	if (!temp)
 	{
 		ft_free(*env, ft_tabsize(*env));
@@ -130,7 +130,7 @@ void	no_arg(char **env)
 	int		k;
 
 	i = -1;
-	new_env = (char **)malloc(sizeof(char *) * ft_tabsize(env) + 1);
+	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
 	if (!new_env)
 	{
 		ft_free(env, ft_tabsize(env));
@@ -140,49 +140,47 @@ void	no_arg(char **env)
 	{
 		j = -1;
 		k = -1;
-		new_env[i] = (char *)malloc(sizeof(char) * (ft_strlen((env)[i]) + 2));
-		if (!new_env[i])
+		if (!ft_strchr_modified(env[i], '='))
+			i++;
+		else
 		{
-			ft_free(env, ft_tabsize(env));
-			exit(EXIT_FAILURE);
+			new_env[i] = (char *)malloc(sizeof(char) * (ft_strlen((env)[i]) + 3));
+			if (!new_env[i])
+			{
+				ft_free(env, ft_tabsize(env));
+				exit(EXIT_FAILURE);
+			}
+			while ((env)[i][++j] != '=')
+				new_env[i][++k] = (env)[i][j];
+			new_env[i][++k] = (env)[i][j];
+			new_env[i][++k] = '"';
+			while (j++ < (int)ft_strlen((env)[i]))
+				new_env[i][++k] = (env)[i][j];
+			new_env[i][k] = '"';
+			new_env[i][k + 1] = '\0';
 		}
-		while ((env)[i][++j] != '=')
-			new_env[i][++k] = (env)[i][j];
-		new_env[i][++k] = (env)[i][j];
-		new_env[i][++k] = '"';
-		while (j++ < (int)ft_strlen((env)[i]))
-			new_env[i][++k] = (env)[i][j];
-		// printf("\n\nsegfault\n\n");
-		// printf("1:   %c   ", new_env[i][j]);
-		// printf("   %c   ", new_env[i][j + 1]);
-		new_env[i][k] = '"';
-		new_env[i][k + 1] = '\0';
-		// new_env[i][k + 2] = '\0';
-		// new_env[i][k + 1] = '\0';
-		// printf("\x1b[33m\n%s\n\x1b[0m", (env)[i]);
-		// printf("\x1b[32m\n%s\n\x1b[0m", new_env[i]);
 	}
 	new_env[i] = NULL;
-	// ft_sort_string_tab(new_env);
-
+	ft_sort_string_tab(new_env);
 	i = -1;
 	while (++i < ft_tabsize(env))
-			printf("%s\n", new_env[i]);
+			printf("declare -x %s\n", new_env[i]);
+	ft_free(new_env, ft_tabsize(new_env));
 }
 
 void	ft_export(char **cmd, char ***env)
 {
-	static char	**temp = NULL;
-	// int		i;
+	// static char	**temp = NULL;
+	// // int		i;
 
-	if (!temp)
-		temp = cpy_env(*env);
+	// if (!temp)
+	// 	temp = cpy_env(*env);
 	if (cmd[1] == NULL)
 	{
 		// int	i = -1;
 		// while (++i < ft_tabsize(temp))
 		// 	printf("%s\n", temp[i]);
-		no_arg(temp);
+		no_arg(*env);
 		// i = -1;
 		// while ((*env)[++i])
 		// {
@@ -192,12 +190,12 @@ void	ft_export(char **cmd, char ***env)
 		// 	temp = NULL;
 		// }
 	}
-	else if (!ft_strchr(cmd[1], '='))
-	{
-		// if (!check_if_already_in_env(cmd, &temp))
-			create_new_var_env(cmd, &temp);
-		return ;
-	}
+	// else if (!ft_strchr(cmd[1], '='))
+	// {
+	// 	if (!check_if_already_in_env(cmd, &temp))
+	// 		create_new_var_env(cmd, &temp);
+	// 	return ;
+	// }
 	else if (check_if_already_in_env(cmd, env))
 		return ;
 	else if (check_if_in_env(cmd, env))
