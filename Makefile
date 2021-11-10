@@ -1,25 +1,28 @@
 
-NAME	=	minishell
-LIBFT	=	./libft/
-UTILS	=	./utils/
-SOURCES =	./srcs/
-ERRORS	=	./errors/
-CC		=	gcc
-FLAGS	=	-Wall -Werror -Wextra
+NAME		=	minishell
+LIBFT		=	./libft/
+UTILS		=	./utils/
+SOURCES		=	./srcs/
+BUILTINS	= ./srcs/builtins/
+ERRORS		=	./errors/
+CC			=	gcc
+FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
-				$(SOURCES)ft_command.c \
 				$(SOURCES)parsing.c \
-				$(SOURCES)ft_command_pwd_cd.c \
-				$(SOURCES)ft_command_export.c \
-				$(SOURCES)ft_exec.c
-				$(SOURCES)ft_command_unset.c
+				$(SOURCES)ft_exec.c \
+				$(BUILTINS)ft_command.c \
+				$(BUILTINS)ft_command_pwd_cd.c \
+				$(BUILTINS)ft_command_export.c \
+				$(BUILTINS)ft_command_unset.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
-				$(UTILS)ft_sort_string_tab.c
+				$(UTILS)ft_sort_string_tab.c \
+				$(UTILS)ft_strchr_modified.c \
+				$(UTILS)list.c
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 
@@ -43,7 +46,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-		@printf "$(YELLOW)Generating minishell objects... %-30s\r$(NO_COLOR)" $@
+		@printf "$(YELLOW)Generating minishell objects... %-33.33s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
