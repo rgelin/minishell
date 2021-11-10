@@ -130,6 +130,7 @@ void	no_arg(char **env)
 	int		k;
 
 	i = -1;
+	// printf("\n\n%d\n\n", ft_tabsize(env));
 	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
 	if (!new_env)
 	{
@@ -138,7 +139,7 @@ void	no_arg(char **env)
 	}
 	while (++i < ft_tabsize(env))
 	{
-		j = -1;
+		j = 0;
 		k = -1;
 		if (!ft_strchr_modified(env[i], '='))
 			i++;
@@ -150,21 +151,36 @@ void	no_arg(char **env)
 				ft_free(env, ft_tabsize(env));
 				exit(EXIT_FAILURE);
 			}
-			while ((env)[i][++j] != '=')
-				new_env[i][++k] = (env)[i][j];
+			// printf("i: %d segfault 1\n", i);
+			while (env[i][j] && (env)[i][j] != '=')
+				new_env[i][++k] = (env)[i][j++];
+			// printf("i: %d segfault 2\n", i);
 			new_env[i][++k] = (env)[i][j];
 			new_env[i][++k] = '"';
-			while (j++ < (int)ft_strlen((env)[i]))
+			while (env[i][j] && j++ < (int)ft_strlen((env)[i]))
 				new_env[i][++k] = (env)[i][j];
+			// printf("i: %d segfault 3\n", i);
 			new_env[i][k] = '"';
 			new_env[i][k + 1] = '\0';
 		}
 	}
 	new_env[i] = NULL;
+	// printf("coucou lol\n");
+	// printf("\n\n%d\n\n", ft_tabsize(new_env));
 	ft_sort_string_tab(new_env);
 	i = -1;
 	while (++i < ft_tabsize(env))
 			printf("declare -x %s\n", new_env[i]);
+	// printf("free 1\n");
+	// i = -1;
+	// while (new_env[++i])
+	// {
+	// 	free(new_env[i]);
+	// 	// new_env[i] = NULL;
+	// }
+	// free(new_env);
+	// new_env = NULL;
+	// printf("free 2\n");
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
