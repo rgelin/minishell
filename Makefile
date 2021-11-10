@@ -47,7 +47,7 @@ $(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
-			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
+			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) $(LIBFT)libft.a -o $(NAME)
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
