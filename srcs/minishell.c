@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(state->line);
 		//init_struct(state);
 		tab = parsing(state);
+		free(tab);
 		/*state->command = ft_split(state->line, ' ');
 		if (!state->command)
 		{

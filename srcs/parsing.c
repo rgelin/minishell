@@ -11,39 +11,57 @@
 
 void	ft_free_pars_tab(t_state *s)
 {
-	if (s->sq)
-		free(s->sq);
-	if (s->dq)
-		free(s->dq);
 	if (s->pipe)
 		free(s->pipe);
-	if (s->dol)
-		free(s->dol);
-	if (s->opt)
-		free(s->opt);
-	if (s->n_of_lchv)
-		free(s->lchv);
-	if (s->rchv)
-		free(s->rchv);
+	if (s->line)
+		free(s->line);
+	if (s)
+		free(s);
 }
 
+// check le nbr de pipe et donner ces indices + verifie les sq
 int	check_parsing(t_state *s)
 {
-	if (s->n_of_sq > 0)
-		s->sq = get_index(s->line, s->n_of_sq, '\'');
-	if (s->n_of_dq > 0)
-		s->dq = get_index(s->line, s->n_of_dq, '"');
+	if (!check_quote(s->line, s->eof))
+	{
+		//PROBLEME DE FREE
+		//ft_free_pars_tab(s);
+		exit(EXIT_FAILURE);
+	}
 	if (s->n_of_pipe >= 0)
 		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
-	if (s->n_of_dol > 0)
-		s->dol = get_index(s->line, s->n_of_dol, '$');
-	if (s->n_of_opt > 0)
-		s->opt = get_index(s->line, s->n_of_opt, '-');
-	if (s->n_of_lchv > 0)
-		s->lchv = get_index(s->line, s->n_of_lchv, '<');
-	if (s->n_of_rchv > 0)
-		s->rchv = get_index(s->line, s->n_of_rchv, '>');
 	return (1);
+}
+
+int	check_quote(char *line, int	index)
+{
+	int	i;
+	int	simple_quote;
+	int	double_quote;
+
+	simple_quote = 0;
+	double_quote = 0;
+	i = -1;
+	while (++i < index)
+	{
+		if (line[i] == '\'')
+		{
+			if (simple_quote == 0 && double_quote == 0)
+				simple_quote = 1;
+			else
+				simple_quote = 0;
+		}
+		if (line[i] == '"')
+		{
+			if (double_quote == 0 && simple_quote == 0)
+				double_quote = 1;
+			else
+				double_quote = 0;
+		}		
+	}
+	if (simple_quote == 0 && double_quote == 0)
+		return (1);
+	return (0);
 }
 
 void check_char(t_state *s)
@@ -52,21 +70,9 @@ void check_char(t_state *s)
 
 	i = -1;
 	while (s->line[++i] != '\0')
-	{
-		if (s->line[i] == 34)
-			s->n_of_dq++;
-		if (s->line[i] == 39)
-			s->n_of_sq++;
-		if (s->line[i] == 124)
+	{	
+		if (s->line[i] == 124 && check_quote(s->line, i))
 			s->n_of_pipe++;
-		if (s->line[i] == 36)
-			s->n_of_dol++;
-		if (s->line[i] == 45)
-			s->n_of_opt++;
-		if (s->line[i] == 60)
-			s->n_of_lchv++;
-		if (s->line[i] == 62)
-			s->n_of_rchv++;
 	}
 	s->eof = i;
 }
@@ -79,21 +85,7 @@ t_pars	*parsing(t_state *s)
 	check_char(s);
 	if (check_parsing(s))
 	{
-		//si le nombre de quote est de 0 et sans redicrection.
-		if (s->n_of_dq == 0 && s->n_of_sq == 0 && s->n_of_lchv == 0
-				&& s->n_of_rchv == 0)
-		{
-			tab = split_line(s);
-		}
-		//si le nombre de quote est de 0 mais qu il y a des redirection
-		else if (s->n_of_dq == 0 && s->n_of_sq == 0)
-		{
-			tab = split_line(s);
-		}
-		/*else
-		{
-		}
-		*/
+		tab = split_line(s);
 	}
 	ft_free_pars_tab(s);
 	return (tab);

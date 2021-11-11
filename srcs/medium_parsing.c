@@ -34,8 +34,8 @@ char **get_everything(char *line, char c)
 		opt++;
 		while (line[opt] !='\0')
 		{
-			if (line[opt] == '>' || line[opt] == '<' || line[opt] == '-' ||
-				line[opt + 1] == '\0')
+			if (check_quote(line, opt) && (line[opt] == '>' || line[opt] == '<' || line[opt] == '-' ||
+				line[opt + 1] == '\0'))
 			{
 				options[i] = ft_substr(line, index, opt - (index - 1));
 				options[i] = ft_strtrim(options[i], "<>-");

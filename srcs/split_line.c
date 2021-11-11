@@ -41,7 +41,6 @@ void split_pipe(t_state *s)
 			next = s->pipe[i];
 		start = s->pipe[i - 1] + 1;
 	}
-	free(s->line);
 }
 
 t_pars *split_line(t_state *s)
@@ -53,6 +52,7 @@ t_pars *split_line(t_state *s)
 	if (!s->cm)
 	{
 		free(s->cm);
+		ft_free_pars_tab(s);
 		exit(EXIT_FAILURE);
 	}
 	split_pipe(s);

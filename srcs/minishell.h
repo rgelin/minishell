@@ -93,5 +93,7 @@ int		*get_index(char *line, size_t size, char c);
 int		check_redirection(char *line);
 void	init_tab(t_pars *tab);
 char	**get_everything(char *line, char c);
+int		check_quote(char *line, int	index);
+void	ft_free_pars_tab(t_state *s);
 
 #endif

@@ -47,7 +47,7 @@ char **get_opt(char *line)
 		opt = index;
 		while (line[opt] !='\0')
 		{
-			if (line[opt] == ' ' || line[opt + 1] == '\0')
+			if (check_quote(line, opt) && (line[opt] == ' ' || line[opt + 1] == '\0'))
 			{
 				options[i] = ft_substr(line, index, opt - (index - 1));
 				options[i] = ft_strtrim(options[i], "-");
@@ -66,9 +66,7 @@ char *get_arg(char *line)
 {
 	int		i;
 	char	*s;
-	int		j;
 
-	j = 0;
 	s = NULL;
 	i = ft_strlen(line);
 	while (line[i] != ' ' && i != 0)
@@ -79,7 +77,7 @@ char *get_arg(char *line)
 	}
 	s = ft_substr(line, i, ft_strlen(line));
 	s = ft_strtrim(s, " ");
-	printf("arg = %s\n", s);
+	//printf("arg = %s\n", s);
 	return (s);
 }
 
@@ -105,7 +103,7 @@ t_pars	get_command(char *line, t_state *s)
 	{
 		tab.command = ft_substr(line, 0, ft_strlen(line));
 		tab.command = ft_strtrim(tab.command, " ");
-		printf("*command = %s\n", tab.command);
+		//printf("*command = %s\n", tab.command);
 	}
 	return (tab);
 }
@@ -120,7 +118,7 @@ t_pars *find_command(t_state *s)
 	if (!comd)
 	{
 		free(comd);
-		//fonction free
+		ft_free_pars_tab(s);
 		exit(EXIT_FAILURE);
 	}
 	while (i <= s->n_of_pipe)

@@ -42,7 +42,7 @@ int		ft_check_space(char *line)
 	}
 	return (0);
 }
-
+//renvoie un tableau avec les index du char
 int	*get_index(char *line, size_t size, char c)
 {
 	int	i;
@@ -52,7 +52,6 @@ int	*get_index(char *line, size_t size, char c)
 	j = 0;
 	i = 0;
 	p_tab = malloc(sizeof(int*) * (size + 1));
-	//p_tab = malloc(sizeof(int) * (size + 1));
 	if (!p_tab)
 	{
 		free(p_tab);
@@ -60,7 +59,7 @@ int	*get_index(char *line, size_t size, char c)
 	}
 	while (line[i] != '\0')
 	{
-		if (line[i] == c)
+		if (line[i] == c && check_quote(line, i))
 		{
 			p_tab[j] = i;
 			j++;
