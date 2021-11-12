@@ -24,37 +24,31 @@ char	**cpy_env(char **env)
 	return (env_cpy);
 }
 
-void	ft_sigint(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	// printf("\x1b[34mminishell > \x1b[0m\n");
-	// rl_redisplay();
-	// rl_redisplay();
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
+	t_exc	exc;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_sigint);
 	new_env = cpy_env(env);
 	while (1)
 	{
+		exc.cmd = "mkdir";
+		exc.arg = "plop";
+		ft_exec(exc);
+		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (state->line == NULL)
 		{
 			rl_replace_line("", 0);
 			rl_redisplay();
-			// printf("\x1b[34mminishell > \x1b[0mexit\n");
+			rl_on_new_line();
+			printf("\r\x1b[34mminishell > \x1b[0mexit\n");
 			rl_clear_history();
 			free(state->line);
 			free(new_env);
@@ -84,7 +78,6 @@ int	main(int argc, char **argv, char **env)
 			ft_free(state->command, ft_tabsize(state->command));
 			free(state->line);
 		}
-		rl_on_new_line();
 	}
 	return (0);
 }

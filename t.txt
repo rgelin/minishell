@@ -1,0 +1,13 @@
+total 2560
+   0 drwxr-xr-x   7 jvander-  2021_brussels      238 Nov 10 10:16 GNL
+   8 -rw-r--r--   1 jvander-  2021_brussels     1508 Nov 10 10:14 Makefile
+   8 -rw-r--r--   1 jvander-  2021_brussels       12 Nov  5 10:05 README.md
+   0 drwxr-xr-x   4 jvander-  2021_brussels      136 Nov 10 10:16 errors
+   8 -rw-r--r--   1 jvander-  2021_brussels        9 Nov 10 12:07 fichier.txt
+   0 drwxr-xr-x  99 jvander-  2021_brussels     3366 Nov 10 10:16 libft
+  40 -rwxr-xr-x   1 jvander-  2021_brussels    18996 Nov 10 11:28 minishell
+   0 drwxr-xr-x  15 jvander-  2021_brussels      510 Nov 10 11:28 srcs
+2496 -rw-r--r--   1 jvander-  2021_brussels  1273901 Nov  5 10:05 subject.pdf
+   0 -rw-r--r--   1 jvander-  2021_brussels        0 Nov 10 12:07 t.txt
+   0 -rw-r--r--   1 jvander-  2021_brussels        0 Nov 10 12:07 ta.txt
+   0 drwxr-xr-x   6 jvander-  2021_brussels      204 Nov 10 10:16 utils

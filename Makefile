@@ -14,7 +14,8 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_command.c \
 				$(SOURCES)parsing.c \
 				$(SOURCES)ft_command_pwd_cd.c \
-				$(SOURCES)ft_command_export.c
+				$(SOURCES)ft_command_export.c \
+				$(SOURCES)ft_exec.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 
