@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		exc.cmd = "mkdir";
+		exc.opt = NULL;
 		exc.arg = "plop";
 		ft_exec(exc);
 		rl_on_new_line();
