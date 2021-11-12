@@ -38,10 +38,6 @@ int	main(int argc, char **argv, char **env)
 	new_env = cpy_env(env);
 	while (1)
 	{
-		exc.cmd = "mkdir";
-		exc.opt = NULL;
-		exc.arg = "plop";
-		ft_exec(exc);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (state->line == NULL)
