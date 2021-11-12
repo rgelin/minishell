@@ -32,7 +32,7 @@ int	check_parsing(t_state *s)
 		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
 	return (1);
 }
-
+//verifie si on est dans un simple ou double quote
 int	check_quote(char *line, int	index)
 {
 	int	i;
@@ -63,7 +63,7 @@ int	check_quote(char *line, int	index)
 		return (1);
 	return (0);
 }
-
+//trouver le bon nombre de pipe
 void check_char(t_state *s)
 {
 	int	i;

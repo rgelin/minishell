@@ -21,7 +21,7 @@ int	ft_get_index_opt(char *s, char c, int i)
 	}
 	return (0);
 }
-
+//pour avoir les options. regarder pour enlever et mettre get_everything
 char **get_opt(char *line)
 {
 	int	i;
@@ -82,7 +82,7 @@ char *get_arg(char *line)
 }
 */
 
-int	check_number_quote(char *line, char c)
+int	check_number_char(char *line, char c)
 {
 	int	i;
 	int	n;
@@ -102,22 +102,28 @@ int	check_number_quote(char *line, char c)
 	return (0);
 }
 
-char	**get_arg(char *line)
+char	**get_arg(char *line, t_state *s)
 {
-	int	*index_sq;
-	int	*index_dq;
-	int	sq;
-	int	dq;
+	int	i;
+	int	j;
+	int	k;
 
-	sq = check_number_quote(line, '\'');
-	dq = check_number_quote(line, '"');
-	if (sq != 0)
-		index_sq = get_index(line, sq, '\'');
-	if (dq != 0)
-		index_dq = get_index(line, dq, '"');
-	
+	i = 0;
+	j = 0;
+	k = 0;
+	s->n_of_sq = check_number_char(line, '\'');
+	s->n_of_dq = check_number_char(line, '"');
+	if (s->n_of_sq != 0)
+		s->sq = get_index(line, s->n_of_sq, '\'');
+	if (s->n_of_dq != 0)
+		s->dq = get_index(line, s->n_of_dq, '"');
+	while (s->sq[i] > -1 || s->dq[j] > -1)
+	{
+		if (s->sq[i] > s)
+	}
 }
 
+//je reprendre tout mais pas vraiment clean
 t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
@@ -132,7 +138,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_strtrim(tab.command, " ");
 		printf("-command = %s\n", tab.command);
 		tab.option = get_opt(line);
-		tab.arg = get_arg(line);
+		//tab.arg = get_arg(line);
 		tab.input = get_everything(line, '>');
 		tab.output = get_everything(line, '<');
 	}
