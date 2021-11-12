@@ -61,7 +61,7 @@ char **get_opt(char *line)
 	free(popt);
 	return (options);
 }
-
+/*
 char *get_arg(char *line)
 {
 	int		i;
@@ -79,6 +79,43 @@ char *get_arg(char *line)
 	s = ft_strtrim(s, " ");
 	//printf("arg = %s\n", s);
 	return (s);
+}
+*/
+
+int	check_number_quote(char *line, char c)
+{
+	int	i;
+	int	n;
+	int	total;
+
+	total = 0;
+	i = -1;
+	n = 0;
+	while (line[++i] != '\0')
+	{
+		if (line[i] == c && check_quote(line, i))
+			n++;
+	}
+	total = n % 2;
+	if (total == 0)
+		return n;
+	return (0);
+}
+
+char	**get_arg(char *line)
+{
+	int	*index_sq;
+	int	*index_dq;
+	int	sq;
+	int	dq;
+
+	sq = check_number_quote(line, '\'');
+	dq = check_number_quote(line, '"');
+	if (sq != 0)
+		index_sq = get_index(line, sq, '\'');
+	if (dq != 0)
+		index_dq = get_index(line, dq, '"');
+	
 }
 
 t_pars	get_command(char *line, t_state *s)
@@ -113,7 +150,7 @@ t_pars *find_command(t_state *s)
 	int		i;
 	t_pars	*comd;
 
-	i = 0;
+	i = -1;
 	comd = malloc(sizeof(t_pars) * (s->n_of_pipe + 1));
 	if (!comd)
 	{
@@ -121,10 +158,7 @@ t_pars *find_command(t_state *s)
 		ft_free_pars_tab(s);
 		exit(EXIT_FAILURE);
 	}
-	while (i <= s->n_of_pipe)
-	{
+	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s);
-		i++;
-	}
 	return (comd);
 }
