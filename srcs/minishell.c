@@ -28,7 +28,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
-	t_exc	exc;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));

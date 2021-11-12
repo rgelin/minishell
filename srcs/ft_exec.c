@@ -16,9 +16,9 @@ static char	**create_cmd(t_exc command)
 	if (command.arg)
 		to_ret[i++] = command.arg;
 	to_ret[i] = NULL;
-	while (i >= 0)
+	while (--i >= 0)
 	{
-		if (!to_ret[--i])
+		if (!to_ret[i])
 			return (NULL);
 	}
 	return (to_ret);
