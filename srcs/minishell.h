@@ -39,7 +39,7 @@ typedef struct s_pars
 {
 	char 	*command;
 	char	**option;
-	char	*arg;
+	char	**arg;
 	char	**input;
 	char	**output;
 	char	*next_char;
@@ -95,5 +95,6 @@ void	init_tab(t_pars *tab);
 char	**get_everything(char *line, char c);
 int		check_quote(char *line, int	index);
 void	ft_free_pars_tab(t_state *s);
+char	**ft_split_parsing(char *s, char c);
 
 #endif

@@ -61,26 +61,6 @@ char **get_opt(char *line)
 	free(popt);
 	return (options);
 }
-/*
-char *get_arg(char *line)
-{
-	int		i;
-	char	*s;
-
-	s = NULL;
-	i = ft_strlen(line);
-	while (line[i] != ' ' && i != 0)
-	{
-		if (line[i] == '-')
-			return (s);
-		i--;
-	}
-	s = ft_substr(line, i, ft_strlen(line));
-	s = ft_strtrim(s, " ");
-	//printf("arg = %s\n", s);
-	return (s);
-}
-*/
 
 int	check_number_char(char *line, char c)
 {
@@ -102,25 +82,45 @@ int	check_number_char(char *line, char c)
 	return (0);
 }
 
-char	**get_arg(char *line, t_state *s)
+char **get_arg(char *line)
 {
-	int	i;
-	int	j;
-	int	k;
+	char	**arg;
+	char	**tmp;
+	int		i;
+	int		j;
+	int		n;
 
-	i = 0;
+	n = 0;
+	i = 1;
 	j = 0;
-	k = 0;
-	s->n_of_sq = check_number_char(line, '\'');
-	s->n_of_dq = check_number_char(line, '"');
-	if (s->n_of_sq != 0)
-		s->sq = get_index(line, s->n_of_sq, '\'');
-	if (s->n_of_dq != 0)
-		s->dq = get_index(line, s->n_of_dq, '"');
-	while (s->sq[i] > -1 || s->dq[j] > -1)
+	tmp = ft_split_parsing(line, ' ');
+	while (tmp[i] != NULL)
 	{
-		if (s->sq[i] > s)
+		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
+			n++;
+		i++;
 	}
+	arg = NULL;
+	arg = malloc(sizeof(char *) * (n + 1));
+	//fionction en cas de probleme
+	i = 1;
+	while (tmp[i] != NULL)
+	{
+		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
+		{
+			arg[j] = ft_strdup(tmp[i]);
+			printf("arg = %s\n", arg[j]);
+			j++;
+		}
+		i++;
+	}
+	while (*tmp != NULL)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	arg[i] = NULL;
+	return (arg);
 }
 
 //je reprendre tout mais pas vraiment clean
@@ -138,7 +138,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_strtrim(tab.command, " ");
 		printf("-command = %s\n", tab.command);
 		tab.option = get_opt(line);
-		//tab.arg = get_arg(line);
+		tab.arg = get_arg(line);
 		tab.input = get_everything(line, '>');
 		tab.output = get_everything(line, '<');
 	}
@@ -146,7 +146,7 @@ t_pars	get_command(char *line, t_state *s)
 	{
 		tab.command = ft_substr(line, 0, ft_strlen(line));
 		tab.command = ft_strtrim(tab.command, " ");
-		//printf("*command = %s\n", tab.command);
+		printf("*command = %s\n", tab.command);
 	}
 	return (tab);
 }
