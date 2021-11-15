@@ -44,7 +44,7 @@ void	ft_env(char **env)
 	i = 0;
 	while (i < ft_tabsize(env))
 	{
-		if (ft_strchr(env[i], '='))
+		if (ft_strchr_modified(env[i], '='))
 			printf("%s\n", env[i]);
 		i++;
 	}

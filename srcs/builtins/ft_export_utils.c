@@ -50,11 +50,9 @@ int	find_var_in_env(char **cmd, char **env)
 	while (env[++i])
 	{
 		if (!ft_strncmp(cmd[1], env[i], j - 1))
-			break ;
-		index++;
+			return (i);
 	}
-	printf("i: %d\n", i);
-	return (i);
+	return (0);
 }
 
 //we check if the exact same argument already exist in env (add +1 strncmp in of just "ARG=")
@@ -63,9 +61,10 @@ int		check_if_already_in_env(char **cmd, char ***env)
 	int i;
 
 	i = -1;
+	// printf("strlen: %d\n", (int)ft_strlen(cmd[1]));
 	while (cmd[1] && (*env)[++i])
 	{
-		if (!ft_strncmp(cmd[1], (*env)[i], (ft_strlen(cmd[1]) + 1)))
+		if (!ft_strncmp(cmd[1], (*env)[i], ft_strlen(cmd[1]) + 1))
 			return (1);
 	}
 	return (0);

@@ -18,6 +18,13 @@
 # define ENV 6
 # define EXIT 7
 
+# define YELLOW	\x1b[33m
+
+# define GREEN	\x1b[32m
+
+# define NO_COLOR	\x1b[0m
+
+
 // a rendre pour un tableau avec cette structure
 // pour les exc
 typedef struct s_exc

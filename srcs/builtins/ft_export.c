@@ -1,33 +1,14 @@
 
 #include "../minishell.h"
 
-//we check if we already have the argument as enviroment variable
-int		check_if_in_env(char **cmd, char ***env)
-{
-	char	*temp;
-	int		i;
-
-	i = -1;
-	temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
-	if (!temp)
-	{
-		ft_free(*env, ft_tabsize(*env));
-		exit(EXIT_FAILURE);
-	}
-	while (cmd[1][++i] && (cmd[1][i] != '=' && cmd[1][i] != '+'))
-		temp[i] = cmd[1][i];
-	temp[i] = '\0';
-	i = -1;
-	while ((*env)[++i])
-	{
-		if (!ft_strncmp(temp, (*env)[i], ft_strlen(temp)))
-			return (1);
-	}
-	free(temp);
-	temp = NULL;
-	return (0);
-}
 //need to add case (export ARG+=10)
+// char	*to_add(char **cmd)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while ()
+// }
 void	add_to_var(char **cmd, char ***env)
 {
 	char	*temp;
@@ -49,6 +30,7 @@ void	add_to_var(char **cmd, char ***env)
 
 	//on check l'indice de la variable a modifier
 	i = find_var_in_env(cmd, (*env));
+	temp = ft_memcpy(temp, (*env)[i], ft_strlen((*env)[i]));
 	printf("env: %s\n", (*env)[i]);
 	temp = (*env)[i];
 	j = 0;
@@ -67,30 +49,21 @@ void	modify_var_in_env(char **cmd, char ***env)
 {
 	char	*temp;
 	int		i;
-	int		j;
+	// int		j;
 
-	j = 0;
-	while (cmd[1][j] && cmd[1][j] != '=')
-		j++;
-	i = -1;
-	while ((*env)[++i])
-	{
-		if (!ft_strncmp(cmd[1], (*env)[i], j))
-			break ;
-	}
-	j = find_var_in_env(cmd, *env);
-	printf("j: %d\n", j);
-	temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
-	if (!temp)
-	{
-		ft_free(*env, ft_tabsize(*env));
-		exit(EXIT_FAILURE);
-	}
-	j = -1;
-	while (cmd[1][++j])
-		temp[j] = cmd[1][j];
-	temp[j] = '\0';
-	add_to_var(cmd, env);
+	i = find_var_in_env(cmd, *env);
+	temp = ft_strdup(cmd[1]);
+	// temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
+	// if (!temp)
+	// {
+	// 	ft_free(*env, ft_tabsize(*env));
+	// 	exit(EXIT_FAILURE);
+	// }
+	// j = -1;
+	// while (cmd[1][++j])
+	// 	temp[j] = cmd[1][j];
+	// temp[j] = '\0';
+	// add_to_var(cmd, env);
 	free((*env)[i]);
 	(*env)[i] = NULL;
 	(*env)[i] = temp;
@@ -114,89 +87,95 @@ void	create_new_var_env(char **cmd, char ***env)
 	(*env) = new_env;
 }
 
-void	add_quotes(char **new_line, char *env_line)
+char	*add_quotes(char *env_line)
 {	
-	int i;
+	int		i;
+	int		j;
+	char	*new_line;
 
 	i = -1;
-	printf("i: %d segfault 1\n", i);
+	j = 0;
+	new_line = (char *)malloc(sizeof(char) * (ft_strlen(env_line) + 3));
+	if (!new_line)
+		exit(EXIT_FAILURE);
 	while (env_line[++i] && env_line[i] != '=')
-		(*new_line)[i] = env_line[i];
-	printf("c: %c\n", env_line[i]);
-	printf("i: %d segfault 2\n", i);
-	(*new_line)[i] = env_line[i];
-	i++;
-	(*new_line)[i++] = '"';
-	while (env_line[++i])
-		(*new_line)[i] = env_line[i];
-	printf("i: %d segfault 3\n", i);
-	(*new_line)[i] = '"';
-	(*new_line)[i + 1] = '\0';
+		new_line[i] = env_line[j++];
+	new_line[i++] = env_line[j++];
+	new_line[i++] = '"';
+	while (env_line[j])
+		new_line[i++] = env_line[j++];
+	new_line[i] = '"';
+	new_line[i + 1] = '\0';
+	return (new_line);
 }
 
-void	no_arg(char **env)
+void	no_arg(char ***env)
 {
 	char	**new_env;
 	int		i;
-	int		j;
-	int		k;
 
 	i = -1;
-	// printf("\n\n%d\n\n", ft_tabsize(env));
-	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
+	// printf("tabsize: %d\n", ft_tabsize(*env));
+	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
 	if (!new_env)
 	{
-		ft_free(env, ft_tabsize(env));
+		ft_free(*env, ft_tabsize(*env));
 		exit(EXIT_FAILURE);
 	}
-	while (env[++i])
+	while (++i < ft_tabsize(*env))
 	{
-		j = 0;
-		k = -1;
-		new_env[i] = (char *)malloc(sizeof(char) * (ft_strlen((env)[i]) + 3));
-		if (!new_env[i])
+		if (ft_strchr_modified((*env)[i], '=') == 0)
 		{
-			ft_free(env, ft_tabsize(env));
-			exit(EXIT_FAILURE);
-		}
-		if (!ft_strchr_modified(env[i], '='))
-		{
-			while (env[i][++k])
-				new_env[i][k] = env[i][k];
-			new_env[i][k] = '\0';
-			i++;
+			new_env[i] = ft_strdup((*env)[i]);
+			if (!new_env[i])
+				exit(EXIT_FAILURE);
+			// printf("i: %d \x1b[32m%s\n\x1b[0m", i, new_env[i]);
 		}
 		else
-		{
-			add_quotes((&new_env)[i], env[i]);
-		// 	// printf("i: %d segfault 1\n", i);
-		// 	while (env[i][j] && (env)[i][j] != '=')
-		// 		new_env[i][++k] = (env)[i][j++];
-		// 	// printf("i: %d segfault 2\n", i);
-		// 	new_env[i][++k] = (env)[i][j];
-		// 	new_env[i][++k] = '"';
-		// 	while (env[i][j] && j++ < (int)ft_strlen((env)[i]))
-		// 		new_env[i][++k] = (env)[i][j];
-		// 	// printf("i: %d segfault 3\n", i);
-		// 	new_env[i][k] = '"';
-		// 	new_env[i][k + 1] = '\0';
-		}
+			new_env[i] = add_quotes((*env)[i]);
+		// printf("i: %d \x1b[32m%s\n\x1b[0m", i, (*env)[i]);
+		// printf("i: %d \x1b[33m%s\n\x1b[0m", i, new_env[i]);
 	}
 	new_env[i] = NULL;
 	ft_sort_string_tab(new_env);
 	i = -1;
-	while (++i < ft_tabsize(env))
+	while (new_env[++i])
 			printf("declare -x %s\n", new_env[i]);
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
+char	*ft_trim_quotes(char *str, char c)
+{
+	char	*new_str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!str)
+		return (NULL);
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str)));
+	if (!new_str)
+		exit(EXIT_FAILURE);
+	while (str[i])
+	{
+		if (str[i] == c)
+			i++;
+		else
+			new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
+	return (new_str);
+}
+
 void	ft_export(char **cmd, char ***env)
 {
+
 	if (cmd[1] == NULL)
-		no_arg(*env);
+		no_arg(env);
 	else if (check_if_already_in_env(cmd, env))
 		return ;
-	else if (check_if_in_env(cmd, env))
+	else if (find_var_in_env(cmd, *env))
 	{
 		if (ft_strchr_modified(cmd[1], '='))
 			modify_var_in_env(cmd, env);
