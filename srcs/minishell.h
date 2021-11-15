@@ -72,6 +72,7 @@ void	rl_replace_line (const char *text, int clear_undo);
 // int		rl_on_new_line (void);
 void	rl_clear_history (void);
 int		ft_exec(t_exc command);
+
 void	ft_env(char **env);
 int		ft_strchr_modified(const char *s, int c);
 
