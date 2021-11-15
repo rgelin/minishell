@@ -6,7 +6,7 @@
 #    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/10 14:57:36 by rgelin           ###   ########.fr        #
+#    Updated: 2021/11/15 18:31:16 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC		=	ft_isdigit.c \
 			ft_memchr.c \
 			ft_memcmp.c \
 			ft_strchr.c \
+			ft_strcat.c \
 			ft_strrchr.c \
 			ft_strncmp.c \
 			ft_strlcpy.c \

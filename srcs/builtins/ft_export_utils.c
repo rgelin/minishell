@@ -43,8 +43,7 @@ int	find_var_in_env(char **cmd, char **env)
 	index = 0;
 	i = -1;
 	j = 0;
-	// while (cmd[1][j] && (cmd[1][j] != '+' || cmd[1][j] != '='))
-	while (cmd[1][j] && cmd[1][j] != '=')
+	while (cmd[1][j] && cmd[1][j] != '+' && cmd[1][j] != '=')
 		j++;
 	i = -1;
 	while (env[++i])

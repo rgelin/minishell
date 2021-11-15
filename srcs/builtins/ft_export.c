@@ -1,69 +1,42 @@
 
 #include "../minishell.h"
 
-//need to add case (export ARG+=10)
-// char	*to_add(char **cmd)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while ()
-// }
-void	add_to_var(char **cmd, char ***env)
+// need to add case (export ARG+=10)
+char	*to_add(char *str)
 {
-	char	*temp;
-	int		count;
 	int		i;
 	int		j;
+	int		count;
+	char	*res;
 
-	//on check la taille du nombre a ajouter
-	i = ft_strlen(cmd[1]);
+	i = ft_strlen(str);
 	count = 0;
-	while (cmd[1][--i] != '=')
+	while (str[--i] != '=')
 		count++;
-	temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + count));
-	if (!temp)
-	{
-		ft_free(*env, ft_tabsize(*env));
+	res = ft_calloc(sizeof(char), (size_t)(count + 1));
+	if (!res)
 		exit(EXIT_FAILURE);
-	}
-
-	//on check l'indice de la variable a modifier
-	i = find_var_in_env(cmd, (*env));
-	temp = ft_memcpy(temp, (*env)[i], ft_strlen((*env)[i]));
-	printf("env: %s\n", (*env)[i]);
-	temp = (*env)[i];
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	i++;
 	j = 0;
-	while (cmd[1][j] != '=')
-		j++;
-	// while (cmd[1][j])
-	// 	temp[ft_strlen((*env)[i] - 1 )];
-
-
-
-
+	while (str[i])
+		res[j++] = str[i++];
+	res[j] = '\0';
+	return (res);
 }
 
-//une erreur ici!!!
 void	modify_var_in_env(char **cmd, char ***env)
 {
 	char	*temp;
 	int		i;
-	// int		j;
 
 	i = find_var_in_env(cmd, *env);
-	temp = ft_strdup(cmd[1]);
-	// temp = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
-	// if (!temp)
-	// {
-	// 	ft_free(*env, ft_tabsize(*env));
-	// 	exit(EXIT_FAILURE);
-	// }
-	// j = -1;
-	// while (cmd[1][++j])
-	// 	temp[j] = cmd[1][j];
-	// temp[j] = '\0';
-	// add_to_var(cmd, env);
+	if (ft_strchr_modified(cmd[1], '+'))
+		temp = ft_strdup(ft_strcat((*env)[i], to_add(cmd[1])));
+	else
+		temp = ft_strdup(cmd[1]);
 	free((*env)[i]);
 	(*env)[i] = NULL;
 	(*env)[i] = temp;
@@ -115,7 +88,6 @@ void	no_arg(char ***env)
 	int		i;
 
 	i = -1;
-	// printf("tabsize: %d\n", ft_tabsize(*env));
 	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
 	if (!new_env)
 	{
@@ -129,12 +101,9 @@ void	no_arg(char ***env)
 			new_env[i] = ft_strdup((*env)[i]);
 			if (!new_env[i])
 				exit(EXIT_FAILURE);
-			// printf("i: %d \x1b[32m%s\n\x1b[0m", i, new_env[i]);
 		}
 		else
 			new_env[i] = add_quotes((*env)[i]);
-		// printf("i: %d \x1b[32m%s\n\x1b[0m", i, (*env)[i]);
-		// printf("i: %d \x1b[33m%s\n\x1b[0m", i, new_env[i]);
 	}
 	new_env[i] = NULL;
 	ft_sort_string_tab(new_env);
