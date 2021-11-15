@@ -79,6 +79,11 @@ void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
 
 void	ft_export(char **cmd, char ***env);
+char	**ft_realloc_env(char ***env, int size);
+char	*ft_cpy_str(char **cmd, char ***new_env);
+int		find_var_in_env(char **cmd, char **env);
+int		check_if_already_in_env(char **cmd, char ***env);
+
 char	**cpy_env(char **env);
 void	ft_sort_string_tab(char **tab);
 

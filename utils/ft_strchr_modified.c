@@ -14,10 +14,10 @@ int	ft_strchr_modified(const char *s, int c)
 	while (char_s[i])
 	{
 		if (char_s[i] == char_c)
-			return (i);
+			return (1);
 		i++;
 	}
 	if (c == '\0' && char_s[i] == '\0')
 		return (i);
-	return (-1);
+	return (0);
 }
