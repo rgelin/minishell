@@ -90,10 +90,7 @@ void	no_arg(char ***env)
 	i = -1;
 	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
 	if (!new_env)
-	{
-		ft_free(*env, ft_tabsize(*env));
 		exit(EXIT_FAILURE);
-	}
 	while (++i < ft_tabsize(*env))
 	{
 		if (ft_strchr_modified((*env)[i], '=') == 0)

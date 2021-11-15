@@ -22,11 +22,7 @@ char	*ft_cpy_str(char **cmd, char ***new_env)
 
 	cmd_cpy = (char *)malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
 	if (!cmd_cpy)
-	{
-		free(*new_env);
-		*new_env = NULL;
 		exit(EXIT_FAILURE);
-	}
 	j = -1;
 	while (cmd[1][++j])
 		cmd_cpy[j] = cmd[1][j];
