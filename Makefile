@@ -34,6 +34,8 @@ PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)split_line.c \
 				$(PARSING)split_parsing.c \
 				$(PARSING)last_parsing.c \
+				$(UTILS)create_cmd.c \
+				
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 

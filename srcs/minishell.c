@@ -3,6 +3,7 @@
 
 int	g_exit_code = 0;
 
+#include <fcntl.h>
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
@@ -70,6 +71,25 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
+void	ft_execute(int nbr_cmd)
+{
+	int	pid;
+	int	p1[2];
+	int	p2[2];
+
+	if (pipe(p1))
+	while (nbr_cmd)
+	{
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
+		{
+			// recupere ce qu'il faut dans le pipe
+		}
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
@@ -135,6 +155,5 @@ int	main(int argc, char **argv, char **env)
 				free(state->line);
 			}
 		}
-	}
-	return (0);
+		return (0);
 }
