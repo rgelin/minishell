@@ -108,6 +108,10 @@ t_exp_list	*remove_front(t_exp_list *stack);
 t_exp_list	*freelist(t_exp_list *stack);
 int			size_list(t_exp_list *stack);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+char	**create_cmd(t_exc command);
+>>>>>>> tmp fork
 =======
 char	**create_cmd(t_exc command);
 >>>>>>> tmp fork

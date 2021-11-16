@@ -74,9 +74,23 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-void	ft_execute(t_exc *tab, int nbr_cmd)
+void	ft_execute(int nbr_cmd)
 {
-	
+	int	pid;
+	int	p1[2];
+	int	p2[2];
+
+	if (pipe(p1))
+	while (nbr_cmd)
+	{
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
+		{
+			// recupere ce qu'il faut dans le pipe
+		}
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -163,7 +177,7 @@ int	main(int argc, char **argv, char **env)
 			}
 			else
 			{
-				if (ft_execute_command(state->command, &new_env) == EXIT)
+				if (ft_execute_command(exc, &new_env) == EXIT)
 				{
 					ft_free(new_env, ft_tabsize(new_env));
 					ft_exit(state->command);
@@ -173,32 +187,5 @@ int	main(int argc, char **argv, char **env)
 				free(state->line);
 			}
 		}
-		add_history(state->line);
-		state->command = ft_split(state->line, ' ');
-		if (!state->command)
-		{
-			free(state->line);
-			exit(1);
-		}
-		ft_exec(exc[1]);
-		// ft_execute(exc);
-	// 	if (check_builtin(state->command[0]) == 0)
-	// 	{
-	// 		printf("minishell : %s command not found\n", state->command[0]);
-	// 		free(state->line);
-	// 		ft_free(state->command, ft_tabsize(state->command));
-	// 	}
-	// 	else
-	// 	{
-	// 		if (ft_execute_command(state->command, &new_env) == EXIT)
-	// 		{
-	// 			free(state->line);
-	// 			ft_free(state->command, ft_tabsize(state->command));
-	// 			exit(EXIT);
-	// 		}
-	// 		ft_free(state->command, ft_tabsize(state->command));
-	// 		free(state->line);
-	// 	}
-	}
-	return (0);
+		return (0);
 }
