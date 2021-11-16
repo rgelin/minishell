@@ -18,6 +18,8 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_exec.c
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
+				$(UTILS)create_cmd.c \
+				
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 

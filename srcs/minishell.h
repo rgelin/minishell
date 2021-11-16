@@ -56,7 +56,7 @@ typedef struct s_state
 
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
-int		ft_execute_command(char **cmd, char ***env);
+int		ft_execute_command(t_exc cmd, char ***env);
 void	ft_echo(char **cmd);
 // void	ft_env(t_exc *exc);
 void	rl_replace_line (const char *text, int clear_undo);
@@ -70,6 +70,7 @@ void	ft_env(char **env);
 void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd);
 void	ft_export(char **cmd, char ***env);
+char	**create_cmd(t_exc command);
 
 //parsing
 void	check_quote(t_state *state);
