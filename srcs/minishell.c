@@ -24,22 +24,49 @@ char	**cpy_env(char **env)
 	return (env_cpy);
 }
 
-void	ft_execute(int nbr_cmd)
+void	ft_execute(t_exc *tab, int nbr_cmd)
 {
 	int	pid;
+	int	i;
 	int	p1[2];
-	int	p2[2];
-
-	if (pipe(p1))
-	while (nbr_cmd)
+	int pid2;
+	i = 0;
+	if (pipe(p1) == -1)
+		return ;
+	while (i < nbr_cmd)
 	{
 		pid = fork();
 		if (pid == -1)
 			return ;
 		if (pid == 0)
-		{
-			// recupere ce qu'il faut dans le pipe
+		{//child exec tab[i]
+			if (i < nbr_cmd - 1)
+			{
+				dup2(p1[1], STDOUT_FILENO);
+				close(p1[1]);
+			}
+			close(p1[0]);
+			ft_exec(tab[i]);
 		}
+		// if (i == nbr_cmd)
+		// 	return ;
+		pid2 = fork();
+		if (pid2 == -1)
+			return ;
+		if (pid2 == 0)
+		{
+			dup2(p1[0], STDIN_FILENO);
+			close(p1[0]);
+			close(p1[1]);
+			i++;
+			ft_exec(tab[i + 1]);
+		}
+		close(p1[0]);
+		close(p1[1]);
+		waitpid(pid, NULL, 0);
+		waitpid(pid2, NULL, 0);
+		// printf("%d\n", nbr_cmd);
+		i+=2;
 	}
 }
 
@@ -47,88 +74,76 @@ int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
-	// int		p1[2];
-	// int		p2[2];
-	int		pid;
-	t_exc	exc;
-	// int		out;
+	t_exc	*exc;
 
+	exc = malloc(sizeof(t_exc) * 4);
 	(void)argc;
 	(void)argv;
-	// if (pipe(p1) == 1)
-		//exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-	{
-		exc.cmd = "ls";
-		exc.arg = NULL;
-		exc.opt = NULL;
-		// int file = open("plop", O_WRONLY | O_CREAT, 0777);
-		// if (file == -1)
-		// 	return (3);
-		// //child
-		// dup2(file, STDOUT_FILENO);
-		// close(file);
-		// if (read(p1[0], &exc, sizeof(exc)) == -1)
-			// return (EXIT_FAILURE);
-		if (check_builtin(exc.cmd) == 0)
-			exit(ft_exec(exc));
-		else
-		{
-			if (ft_execute_command(exc, &new_env) == EXIT)
-				exit(EXIT);
-		}
-	}
-	else
-	{
+	exc[0].cmd = "ls";
+	exc[0].arg = NULL;
+	exc[0].opt = NULL;
+	exc[1].cmd = "wc";
+	exc[1].arg = "-l";
+	exc[1].opt = NULL;
+	exc[2].cmd = "ls";
+	exc[2].arg = NULL;
+	exc[2].opt = NULL;
+	exc[3].cmd = NULL;
+	exc[3].opt = NULL;
+	exc[3].arg = NULL;
+		
+		// if (check_builtin(exc.cmd) == 0)
+			// exit(ft_exec(exc));
+		// else
+		// {
+			// if (ft_execute_command(exc, &new_env) == EXIT)
+				// exit(EXIT);
+		// }
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
 	signal(SIGQUIT, SIG_IGN);
-		new_env = cpy_env(env); 
-		while (1)
+	new_env = cpy_env(env); 
+	while (1)
+	{
+		rl_on_new_line();
+		state->line = readline("\x1b[34mminishell > \x1b[0m");
+		if (state->line == NULL)
 		{
+			rl_replace_line("", 0);
+			rl_redisplay();
 			rl_on_new_line();
-			state->line = readline("\x1b[34mminishell > \x1b[0m");
-			if (state->line == NULL)
-			{
-				rl_replace_line("", 0);
-				rl_redisplay();
-				rl_on_new_line();
-				printf("\r\x1b[34mminishell > \x1b[0mexit\n");
-				rl_clear_history();
-				free(state->line);
-				free(new_env);
-				exit(EXIT_SUCCESS);
-			}
-			add_history(state->line);
-			state->command = ft_split(state->line, ' ');
-			if (!state->command)
-			{
-				free(state->line);
-				exit(1);
-			}
-			wait(NULL);
-		// 	if (check_builtin(state->command[0]) == 0)
-		// 	{
-		// 		printf("minishell : %s command not found\n", state->command[0]);
-		// 		free(state->line);
-		// 		ft_free(state->command, ft_tabsize(state->command));
-		// 	}
-		// 	else
-		// 	{
-		// 		if (ft_execute_command(state->command, &new_env) == EXIT)
-		// 		{
-		// 			free(state->line);
-		// 			ft_free(state->command, ft_tabsize(state->command));
-		// 			exit(EXIT);
-		// 		}
-		// 		ft_free(state->command, ft_tabsize(state->command));
-		// 		free(state->line);
-		// 	}
-			}
+			printf("\r\x1b[34mminishell > \x1b[0mexit\n");
+			rl_clear_history();
+			free(state->line);
+			free(new_env);
+			exit(EXIT_SUCCESS);
 		}
-		return (0);
+		add_history(state->line);
+		state->command = ft_split(state->line, ' ');
+		if (!state->command)
+		{
+			free(state->line);
+			exit(1);
+		}
+		ft_execute(exc, 3);
+	// 	if (check_builtin(state->command[0]) == 0)
+	// 	{
+	// 		printf("minishell : %s command not found\n", state->command[0]);
+	// 		free(state->line);
+	// 		ft_free(state->command, ft_tabsize(state->command));
+	// 	}
+	// 	else
+	// 	{
+	// 		if (ft_execute_command(state->command, &new_env) == EXIT)
+	// 		{
+	// 			free(state->line);
+	// 			ft_free(state->command, ft_tabsize(state->command));
+	// 			exit(EXIT);
+	// 		}
+	// 		ft_free(state->command, ft_tabsize(state->command));
+	// 		free(state->line);
+	// 	}
+	}
+	return (0);
 }
