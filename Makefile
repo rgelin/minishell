@@ -25,6 +25,8 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strtrim_modified.c \
 				$(UTILS)ft_atoi_modified.c \
 				$(UTILS)list.c
+				$(UTILS)create_cmd.c \
+				
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \

@@ -1,5 +1,6 @@
 #include "../srcs/minishell.h"
 
+<<<<<<< HEAD
 static char	*ft_join_arg(char **args)
 {
 	char	*to_ret;
@@ -24,6 +25,8 @@ static char	*ft_join_arg(char **args)
 	return (to_ret);
 }
 
+=======
+>>>>>>> tmp fork
 char	**create_cmd(t_exc command)
 {
 	char	**to_ret;
@@ -38,7 +41,11 @@ char	**create_cmd(t_exc command)
 	if (command.opt)
 		to_ret[i++] = command.opt;
 	if (command.arg)
+<<<<<<< HEAD
 		to_ret[i++] = ft_join_arg(command.arg);
+=======
+		to_ret[i++] = command.arg;
+>>>>>>> tmp fork
 	to_ret[i] = NULL;
 	while (--i >= 0)
 	{

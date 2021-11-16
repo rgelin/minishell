@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+<<<<<<< HEAD
 static char	**create_cmd(t_exc command)
 {
 	char	**to_ret;
@@ -24,6 +25,8 @@ static char	**create_cmd(t_exc command)
 	return (to_ret);
 }
 
+=======
+>>>>>>> tmp fork
 int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;

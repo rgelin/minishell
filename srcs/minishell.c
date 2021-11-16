@@ -1,12 +1,9 @@
 
 #include "minishell.h"
 
-<<<<<<< HEAD
 int	g_exit_code = 0;
 
 #include <fcntl.h>
-=======
->>>>>>> test
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
