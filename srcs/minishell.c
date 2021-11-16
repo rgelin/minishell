@@ -22,7 +22,7 @@ char	**cpy_env(char **env)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (env[++i])
-		env_cpy[i] = ft_strdup(env[i]);
+		env_cpy[i] = env[i];
 	env_cpy[i] = NULL;
 	return (env_cpy);
 }
