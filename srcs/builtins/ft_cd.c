@@ -1,19 +1,33 @@
 
 #include "../minishell.h"
 
-void	ft_pwd(char **cmd)
+static void	set_PWD_and_OLDPWD(char	*path, char ***env)
 {
-	char	pwd[1024]; //redefinir la taille en mode bien
+	char	*old_pwd;
+	char	*pwd;
+	int		index_old;
+	int		index_pwd;
 
-	if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
-	{
-		write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
-		return ;
-	}
-	printf("%s\n", getcwd(pwd, 1024));
+	index_old = find_var_in_env("OLDPWD", *env);
+	index_pwd = find_var_in_env("PWD", *env);
+	old_pwd = ft_strtrim((*env)[index_pwd], "PWD=");
+	old_pwd = ft_strjoin("OLDPWD=", old_pwd); //leak
+	pwd = ft_strjoin("PWD=", path);
+
+
+	free((*env)[index_pwd]);
+	(*env)[index_pwd] = NULL;
+	free((*env)[index_old]);
+	(*env)[index_old] = NULL;
+
+
+	// printf("\n\npwd: %s\n\n", pwd);
+	// printf("\n\nold: %s\n\n", old_pwd);
+	(*env)[index_pwd] = pwd;
+	(*env)[index_old] = old_pwd;
 }
 
-static void	go_to_final_path(char **cmd)
+static void	go_to_final_path(char **cmd, char ***env)
 {
 	char	*final_path;
 	char	path[1024];
@@ -29,12 +43,15 @@ static void	go_to_final_path(char **cmd)
 	else if (access(final_path, F_OK) == -1)
 		printf("cd: no such file or directory: %s\n", cmd[1]);
 	else
+	{
 		chdir(final_path);
+		set_PWD_and_OLDPWD(final_path, env);
+	}
 	free(final_path);
 	final_path = NULL;
 }
 
-static void	go_path_from_home(char **cmd, char *home)
+static void	go_path_from_home(char **cmd, char *home, char ***env)
 {
 	char	*path_from_home;
 
@@ -45,28 +62,42 @@ static void	go_path_from_home(char **cmd, char *home)
 	else if (access(path_from_home, F_OK) == -1)
 		printf("cd: no such file or directory: %s\n", path_from_home);
 	else
+	{
 		chdir(path_from_home);
+		set_PWD_and_OLDPWD(path_from_home, env);
+	}
 	free(path_from_home);
 	path_from_home = NULL;
 }
 
 //je prend comme hypothese que je recois "cd" dans le bon format(aucune erreur)
-void	ft_cd(char **cmd)
+void	ft_cd(char **cmd, char ***env)
 {
 	char	*home;
+	char	path[1024];
 	
 	home = getenv("HOME");
 	if (cmd[1])
 	{
 		if (!ft_strncmp(cmd[1], "..", 3))
+		{
 			chdir("..");
+			getcwd(path, 1024);
+			set_PWD_and_OLDPWD(path, env);
+		}
 		else if (cmd[1][0] == '~' && !cmd[1][1])
+		{
 			chdir(home);
+			set_PWD_and_OLDPWD(home, env);
+		}
 		else if (cmd[1][0] == '~' && cmd[1][1] == '/')
-			go_path_from_home(cmd, home);
+			go_path_from_home(cmd, home, env);
 		else
-			go_to_final_path(cmd);
+			go_to_final_path(cmd, env);
 	}
 	else if (!ft_strncmp(cmd[0], "cd", 3))
+	{
 		chdir(home);
+		set_PWD_and_OLDPWD(home, env);
+	}
 }

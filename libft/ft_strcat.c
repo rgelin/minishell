@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 18:29:20 by rgelin            #+#    #+#             */
-/*   Updated: 2021/11/15 18:30:46 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/16 14:06:15 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ char	*ft_strcat(char *dest, char *src)
 		return (NULL);
 	if (!src)
 		return (dest);
-	while (dest[j] != '\0')
-	{
+	while (dest[j])
 		j++;
-	}
-	while (src[i] != '\0')
+	while (src[i])
 	{
 		dest[j + i] = src[i];
 		i++;

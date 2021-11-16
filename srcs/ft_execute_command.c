@@ -10,7 +10,7 @@ int	ft_execute_command(char **cmd, char ***env)
 	}
 	if (check_builtin(cmd[0]) == CD)
 	{
-		ft_cd(cmd);
+		ft_cd(cmd, env);
 		return (CD);
 	}
 	if (check_builtin(cmd[0]) == PWD)
@@ -24,7 +24,10 @@ int	ft_execute_command(char **cmd, char ***env)
 		return (EXPORT);
 	}
 	if (check_builtin(cmd[0]) == UNSET)
+	{
+		ft_unset(cmd, env);
 		return (UNSET);
+	}
 	if (check_builtin(cmd[0]) == ENV)
 	{
 		ft_env((*env));

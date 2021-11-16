@@ -2,54 +2,17 @@
 #include "../minishell.h"
 
 // need to add case (export ARG+=10)
-char	*to_add(char *str)
-{
-	int		i;
-	int		j;
-	int		count;
-	char	*res;
 
-	i = ft_strlen(str);
-	count = 0;
-	while (str[--i] != '=')
-		count++;
-	res = ft_calloc(sizeof(char), (size_t)(count + 1));
-	if (!res)
-		exit(EXIT_FAILURE);
-	i = 0;
-	while (str[i] != '=')
-		i++;
-	i++;
-	j = 0;
-	while (str[i])
-		res[j++] = str[i++];
-	res[j] = '\0';
-	return (res);
-}
-
-void	modify_var_in_env(char **cmd, char ***env)
-{
-	char	*temp;
-	int		i;
-
-	i = find_var_in_env(cmd, *env);
-	if (ft_strchr_modified(cmd[1], '+'))
-		temp = ft_strdup(ft_strcat((*env)[i], to_add(cmd[1])));
-	else
-		temp = ft_strdup(cmd[1]);
-	free((*env)[i]);
-	(*env)[i] = NULL;
-	(*env)[i] = temp;
-}
-
-void	create_new_var_env(char **cmd, char ***env)
+void	create_new_var_env(char *arg, char ***env)
 {
 	char	**new_env;
 	char	*temp;
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_cpy_str(cmd, &new_env);
+	cmd_cpy = ft_strdup(arg);
+	cmd_cpy = ft_strtrim_modified(cmd_cpy, "+");
+	printf("trim: %s\n", cmd_cpy);
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];
@@ -91,7 +54,7 @@ void	no_arg(char ***env)
 	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
-	while (++i < ft_tabsize(*env))
+	while ((*env)[++i])
 	{
 		if (ft_strchr_modified((*env)[i], '=') == 0)
 		{
@@ -110,42 +73,44 @@ void	no_arg(char ***env)
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
-char	*ft_trim_quotes(char *str, char c)
-{
-	char	*new_str;
-	int		i;
-	int		j;
+// char	*ft_trim_quotes(char *str, char c)
+// {
+// 	char	*new_str;
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	j = 0;
-	if (!str)
-		return (NULL);
-	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str)));
-	if (!new_str)
-		exit(EXIT_FAILURE);
-	while (str[i])
-	{
-		if (str[i] == c)
-			i++;
-		else
-			new_str[j++] = str[i++];
-	}
-	new_str[j] = '\0';
-	return (new_str);
-}
+// 	i = 0;
+// 	j = 0;
+// 	if (!str)
+// 		return (NULL);
+// 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str)));
+// 	if (!new_str)
+// 		exit(EXIT_FAILURE);
+// 	while (str[i])
+// 	{
+// 		if (str[i] == c)
+// 			i++;
+// 		else
+// 			new_str[j++] = str[i++];
+// 	}
+// 	new_str[j] = '\0';
+// 	return (new_str);
+// }
 
 void	ft_export(char **cmd, char ***env)
 {
+	char	*arg;
 
-	if (cmd[1] == NULL)
+	arg = cmd[1];
+	if (arg == NULL)
 		no_arg(env);
-	else if (check_if_already_in_env(cmd, env))
+	else if (check_if_already_in_env(arg, env))
 		return ;
-	else if (find_var_in_env(cmd, *env))
+	else if (find_var_in_env(arg, *env))
 	{
-		if (ft_strchr_modified(cmd[1], '='))
-			modify_var_in_env(cmd, env);
+		if (ft_strchr_modified(arg, '='))
+			modify_var_in_env(arg, env);
 	}
 	else
-		create_new_var_env(cmd, env);
+		create_new_var_env(arg, env);
 }

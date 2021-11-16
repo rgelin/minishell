@@ -18,12 +18,6 @@
 # define ENV 6
 # define EXIT 7
 
-# define YELLOW	\x1b[33m
-
-# define GREEN	\x1b[32m
-
-# define NO_COLOR	\x1b[0m
-
 
 // a rendre pour un tableau avec cette structure
 // pour les exc
@@ -84,13 +78,16 @@ void	ft_env(char **env);
 int		ft_strchr_modified(const char *s, int c);
 
 void	ft_pwd(char **cmd);
-void	ft_cd(char **cmd);
+void	ft_cd(char **cmd, char ***env);
 
 void	ft_export(char **cmd, char ***env);
 char	**ft_realloc_env(char ***env, int size);
-char	*ft_cpy_str(char **cmd, char ***new_env);
-int		find_var_in_env(char **cmd, char **env);
-int		check_if_already_in_env(char **cmd, char ***env);
+char	*ft_strtrim_modified(char const *s1, char const *set);
+int		find_var_in_env(char *arg, char **env);
+int		check_if_already_in_env(char *arg, char ***env);
+void	modify_var_in_env(char *arg, char ***env);
+
+void	ft_unset(char **cmd, char ***env);
 
 char	**cpy_env(char **env);
 void	ft_sort_string_tab(char **tab);

@@ -29,14 +29,18 @@ void	ft_echo(char **cmd)
 	}
 }
 
-/*
-*	print all the environment variables.
-*	
-*	@params : the environment tab to print
-*	
-*
-*	printf("number of variables = %i\n", i); to use for debug
-*/
+void	ft_pwd(char **cmd)
+{
+	char	pwd[1024]; //redefinir la taille en mode bien
+
+	if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
+	{
+		write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
+		return ;
+	}
+	printf("%s\n", getcwd(pwd, 1024));
+}
+
 void	ft_env(char **env)
 {
 	int	i;
