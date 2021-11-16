@@ -1,6 +1,8 @@
 
 #include "minishell.h"
 
+int	g_exit_code = 0;
+
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
@@ -35,6 +37,7 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	signal(SIGQUIT, SIG_IGN);
 	new_env = cpy_env(env);
+	printf("%s\n", strerror(2));
 	while (1)
 	{
 		rl_on_new_line();

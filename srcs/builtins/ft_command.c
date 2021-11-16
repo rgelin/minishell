@@ -1,6 +1,8 @@
 
 #include "../minishell.h"
 
+extern int	g_exit_code;
+
 static void	ft_print_line(char **cmd, int i)
 {
 	char	*str_trim;
@@ -20,6 +22,11 @@ void	ft_echo(char **cmd)
 {
 	if (ft_tabsize(cmd) < 2)
 		return ;
+	if (!ft_strncmp(cmd[1], "$?", 2))
+	{
+		printf("%d\n", g_exit_code);
+		return ;
+	}
 	if (!ft_strncmp(cmd[1], "-n", 2))
 		ft_print_line(cmd, 2);
 	else

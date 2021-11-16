@@ -1,6 +1,8 @@
 
 #include "../minishell.h"
 
+extern int	g_exit_code;
+
 static void	set_PWD_and_OLDPWD(char	*path, char ***env)
 {
 	char	*old_pwd;
@@ -38,14 +40,20 @@ static void	go_to_final_path(char **cmd, char ***env)
 	final_path = ft_strjoin(temp, cmd[1]);
 	free(temp);
 	temp = NULL;
-	if (access(final_path, X_OK) == -1 && errno == EACCES)
-		printf("cd: permission denied: %s\n", cmd[1]);
-	else if (access(final_path, F_OK) == -1)
-		printf("cd: no such file or directory: %s\n", cmd[1]);
-	else
+	// if (access(final_path, X_OK) == -1 && errno == EACCES)
+	// 	printf("cd: permission denied: %s\n", cmd[1]);
+	// else if (access(final_path, F_OK) == -1)
+	// 	printf("cd: no such file or directory: %s\n", cmd[1]);
+	// else
 	{
-		chdir(final_path);
-		set_PWD_and_OLDPWD(final_path, env);
+		if (chdir(final_path))
+		{
+			printf("cd: %s: %s\n", strerror(errno), cmd[1]);
+			g_exit_code = 1;
+		}
+		else
+			set_PWD_and_OLDPWD(final_path, env);
+		printf("%d\n", g_exit_code);
 	}
 	free(final_path);
 	final_path = NULL;

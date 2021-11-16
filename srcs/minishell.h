@@ -8,7 +8,10 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+
 # include <errno.h>
+# include <string.h>
+
 # include "../libft/libft.h" 
 # define ECHO 1
 # define CD 2
