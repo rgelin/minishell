@@ -23,6 +23,7 @@ char **get_everything(char *line, char c)
 	if (!options)
 	{
 		free(options);
+		//plutot mettre en void pour pouvoir free et exit
 		exit(EXIT_FAILURE);
 	}
 	i = 0;

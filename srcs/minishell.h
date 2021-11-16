@@ -96,5 +96,7 @@ char	**get_everything(char *line, char c);
 int		check_quote(char *line, int	index);
 void	ft_free_pars_tab(t_state *s);
 char	**ft_split_parsing(char *s, char c);
+void	ft_free_pars_tab(t_state *s);
+void	ft_free_pars_error(t_state *s);
 
 #endif

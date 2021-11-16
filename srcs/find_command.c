@@ -39,6 +39,12 @@ char **get_opt(char *line)
 	}
 	popt = get_index(line, opt, '-');
 	options = malloc(sizeof(char *) * opt);
+	if (!options)
+	{
+		free(options);
+		//plutot mettre en void pour pouvoir free et exit
+		return (NULL);
+	}
 	i = 0;
 	opt = 0;
 	while (popt[i] != -1)
@@ -96,16 +102,25 @@ char **get_arg(char *line)
 	tmp = ft_split_parsing(line, ' ');
 	while (tmp[i] != NULL)
 	{
+		if (*tmp[i] == '<' || *tmp[i] == '>')
+			break ;
 		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
 			n++;
 		i++;
 	}
 	arg = NULL;
-	arg = malloc(sizeof(char *) * (n + 1));
-	//fionction en cas de probleme
+	arg = malloc(sizeof(char *) * (n));
+	if (!arg)
+	{
+		free(arg);
+		//plutot mettre en void pour pouvoir free et exit
+		return (NULL);
+	}
 	i = 1;
 	while (tmp[i] != NULL)
 	{
+		if (*tmp[i] == '<' || *tmp[i] == '>')
+			break ;
 		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
 		{
 			arg[j] = ft_strdup(tmp[i]);
@@ -114,12 +129,14 @@ char **get_arg(char *line)
 		}
 		i++;
 	}
-	while (*tmp != NULL)
+	i = 0;
+	while (tmp[i])
 	{
-		free(*tmp);
-		tmp++;
+		free(tmp[i]);
+		i++;
 	}
-	arg[i] = NULL;
+	free(tmp);
+	//arg[i] = NULL;*/
 	return (arg);
 }
 
@@ -138,9 +155,9 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_strtrim(tab.command, " ");
 		printf("-command = %s\n", tab.command);
 		tab.option = get_opt(line);
-		tab.arg = get_arg(line);
 		tab.input = get_everything(line, '>');
 		tab.output = get_everything(line, '<');
+		tab.arg = get_arg(line);
 	}
 	else
 	{
@@ -161,10 +178,12 @@ t_pars *find_command(t_state *s)
 	if (!comd)
 	{
 		free(comd);
-		ft_free_pars_tab(s);
+		ft_free_pars_error(s);
+		write(1, "Error malloc\n", 13);
 		exit(EXIT_FAILURE);
 	}
 	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s);
+	free(s->line);
 	return (comd);
 }

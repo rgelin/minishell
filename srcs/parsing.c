@@ -9,23 +9,13 @@
 
 //Dans un deuxieme temps verifier si le cas ou il y a des quote.
 
-void	ft_free_pars_tab(t_state *s)
-{
-	if (s->pipe)
-		free(s->pipe);
-	if (s->line)
-		free(s->line);
-	if (s)
-		free(s);
-}
-
 // check le nbr de pipe et donner ces indices + verifie les sq
 int	check_parsing(t_state *s)
 {
 	if (!check_quote(s->line, s->eof))
 	{
-		//PROBLEME DE FREE
-		//ft_free_pars_tab(s);
+		write(1, "Error quote\n", 12);
+		ft_free_pars_error(s);
 		exit(EXIT_FAILURE);
 	}
 	if (s->n_of_pipe >= 0)
