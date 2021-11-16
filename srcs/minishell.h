@@ -67,7 +67,7 @@ typedef	struct	s_exp_list
 
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
-int		ft_execute_command(char **cmd, char ***env);
+int		ft_execute_command(t_exc cmd, char ***env);
 void	ft_echo(char **cmd);
 // void	ft_env(t_exc *exc);
 void	rl_replace_line (const char *text, int clear_undo);
@@ -103,6 +103,7 @@ t_exp_list	*remove_back(t_exp_list *stack);
 t_exp_list	*remove_front(t_exp_list *stack);
 t_exp_list	*freelist(t_exp_list *stack);
 int			size_list(t_exp_list *stack);
+char	**create_cmd(t_exc command);
 
 //parsing
 void	check_quote(t_state *state);

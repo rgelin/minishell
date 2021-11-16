@@ -3,6 +3,7 @@
 
 int	g_exit_code = 0;
 
+#include <fcntl.h>
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
@@ -69,16 +70,70 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
+void	ft_execute(int nbr_cmd)
+{
+	int	pid;
+	int	p1[2];
+	int	p2[2];
+
+	if (pipe(p1))
+	while (nbr_cmd)
+	{
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
+		{
+			// recupere ce qu'il faut dans le pipe
+		}
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
 	int		d;
+	// int		p1[2];
+	// int		p2[2];
+	int		pid;
+	t_exc	exc;
+	// int		out;
+
 	(void)argc;
 	(void)argv;
-	state = malloc(sizeof(t_state));
-	if (!state)
+	// if (pipe(p1) == 1)
+		//exit(EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
 		exit(EXIT_FAILURE);
+	if (pid == 0)
+	{
+		exc.cmd = "ls";
+		exc.arg = NULL;
+		exc.opt = NULL;
+		// int file = open("plop", O_WRONLY | O_CREAT, 0777);
+		// if (file == -1)
+		// 	return (3);
+		// //child
+		// dup2(file, STDOUT_FILENO);
+		// close(file);
+		// if (read(p1[0], &exc, sizeof(exc)) == -1)
+			// return (EXIT_FAILURE);
+		if (check_builtin(exc.cmd) == 0)
+			exit(ft_exec(exc));
+		else
+		{
+			if (ft_execute_command(exc, &new_env) == EXIT)
+				exit(EXIT);
+		}
+	}
+	else
+	{
+		state = malloc(sizeof(t_state));
+		if (!state)
+			exit(EXIT_FAILURE);
+	}
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	d = 0;
@@ -120,7 +175,7 @@ int	main(int argc, char **argv, char **env)
 			}
 			else
 			{
-				if (ft_execute_command(state->command, &new_env) == EXIT)
+				if (ft_execute_command(exc, &new_env) == EXIT)
 				{
 					ft_free(new_env, ft_tabsize(new_env));
 					ft_exit(state->command);
@@ -130,6 +185,5 @@ int	main(int argc, char **argv, char **env)
 				free(state->line);
 			}
 		}
-	}
-	return (0);
+		return (0);
 }
