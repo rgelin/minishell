@@ -50,6 +50,7 @@ int	ft_exec(t_exc command)
 	int		i;
 	char	**cmd;
 
+	printf("command = %s %s", command.cmd, command.opt);
 	cmd = create_cmd(command);
 	if (!cmd)
 		return (EXIT_FAILURE);
@@ -62,7 +63,7 @@ int	ft_exec(t_exc command)
 		ft_free(folder, ft_tabsize(folder));
 		ft_free(cmd, ft_tabsize(cmd));
 		return (EXIT_FAILURE);
-	}	
+	}
 	while (folder[++i])
 		execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));
