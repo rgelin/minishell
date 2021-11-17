@@ -10,9 +10,7 @@ void	create_new_var_env(char *arg, char ***env)
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_strdup(arg);
-	cmd_cpy = ft_strtrim_modified(cmd_cpy, "+");
-	printf("trim: %s\n", cmd_cpy);
+	cmd_cpy = ft_strtrim_modified(arg, "+");
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];

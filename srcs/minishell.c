@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **env)
 	printf("%s\n", strerror(2));
 	while (1)
 	{
+		g_exit_code = 0;
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (state->line == NULL)
@@ -63,6 +64,7 @@ int	main(int argc, char **argv, char **env)
 		if (check_builtin(state->command[0]) == 0)
 		{
 			printf("minishell : %s command not found\n", state->command[0]);
+			g_exit_code = 127;
 			free(state->line);
 			ft_free(state->command, ft_tabsize(state->command));
 		}
