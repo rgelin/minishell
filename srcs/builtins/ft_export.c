@@ -95,6 +95,13 @@ void	no_arg(char ***env)
 // 	return (new_str);
 // }
 
+/*-------exit code---------
+	* ARG must begin by a letter
+	* ARG name can't contain only letters and numbers
+		(!! ARG+=8 is ok but AR+G+=8 not ok --> + and = must follow each other)
+	* exit message: "export: `A.8': not a valid identifier"
+	* exit code = 1 
+*/
 void	ft_export(char **cmd, char ***env)
 {
 	char	*arg;
