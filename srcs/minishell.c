@@ -1,9 +1,12 @@
 
 #include "minishell.h"
 
+<<<<<<< HEAD
 int	g_exit_code = 0;
 
 #include <fcntl.h>
+=======
+>>>>>>> test
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
@@ -73,46 +76,7 @@ void	update_shlvl(char ***env)
 
 void	ft_execute(t_exc *tab, int nbr_cmd)
 {
-	int	pid;
-	int	i;
-	int	p1[2];
-	int pid2;
-	i = 0;
-	if (pipe(p1) == -1)
-		return ;
-	while (i < nbr_cmd)
-	{
-		pid = fork();
-		if (pid == -1)
-			return ;
-		if (pid == 0)
-		{//child exec tab[i]
-			if (i < nbr_cmd - 1)
-			{
-				dup2(p1[1], STDOUT_FILENO);
-				close(p1[1]);
-			}
-			close(p1[0]);
-			ft_exec(tab[i]);
-		}
-		pid2 = fork();
-		if (pid2 == -1)
-			return ;
-		if (pid2 == 0)
-		{
-			dup2(p1[0], STDIN_FILENO);
-			close(p1[0]);
-			close(p1[1]);
-			i++;
-			ft_exec(tab[i + 1]);
-		}
-		close(p1[0]);
-		close(p1[1]);
-		waitpid(pid, NULL, 0);
-		waitpid(pid2, NULL, 0);
-		// printf("%d\n", nbr_cmd);
-		i+=2;
-	}
+	
 }
 
 int	main(int argc, char **argv, char **env)
@@ -125,15 +89,19 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	t_exc	*exc;
 
+	// char **arg = (char**)malloc(sizeof(char *) * 3);
+	// arg[0] = ft_strdup("plop");
+	// arg[1] = ft_strdup("lol");
+	// arg[2] = NULL;
 	exc = malloc(sizeof(t_exc) * 4);
 	(void)argc;
 	(void)argv;
 	exc[0].cmd = "ls";
 	exc[0].arg = NULL;
 	exc[0].opt = NULL;
-	exc[1].cmd = "wc";
-	exc[1].arg = "-l";
-	exc[1].opt = NULL;
+	exc[1].cmd = "ls";
+	exc[1].arg = NULL;
+	exc[1].opt = "-l";
 	exc[2].cmd = "ls";
 	exc[2].arg = NULL;
 	exc[2].opt = NULL;
@@ -212,7 +180,8 @@ int	main(int argc, char **argv, char **env)
 			free(state->line);
 			exit(1);
 		}
-		ft_execute(exc, 3);
+		ft_exec(exc[1]);
+		// ft_execute(exc);
 	// 	if (check_builtin(state->command[0]) == 0)
 	// 	{
 	// 		printf("minishell : %s command not found\n", state->command[0]);
