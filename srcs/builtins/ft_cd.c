@@ -118,8 +118,9 @@ void	ft_cd(char **cmd, char ***env)
 	{
 		if (!ft_strncmp(cmd[1], "..", 3))
 		{
-			chdir("..");
-			getcwd(path, 1024);
+			// chdir("..");
+			if (chdir("..") || !getcwd(path, 1024))
+				printf("cd: %s: %s\n", strerror(errno), cmd[1]);
 			set_PWD_and_OLDPWD(path, env);
 		}
 		else if (cmd[1][0] == '~' && !cmd[1][1])
