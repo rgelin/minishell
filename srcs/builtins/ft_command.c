@@ -21,10 +21,14 @@ static void	ft_print_line(char **cmd, int i)
 void	ft_echo(char **cmd)
 {
 	if (ft_tabsize(cmd) < 2)
+	{
+		printf("\n");
 		return ;
+	}
 	if (!ft_strncmp(cmd[1], "$?", 2))
 	{
 		printf("%d\n", g_exit_code);
+		g_exit_code = 0;
 		return ;
 	}
 	if (!ft_strncmp(cmd[1], "-n", 2))
@@ -39,14 +43,28 @@ void	ft_echo(char **cmd)
 void	ft_pwd(char **cmd)
 {
 	char	pwd[1024]; //redefinir la taille en mode bien
-
-	if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
+	(void)cmd;
+	// if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
+	// {
+	// 	write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
+	// 	return ;
+	// }
+	if (!getcwd(pwd, 1024))
 	{
-		write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)
-		return ;
+		printf("minishell: pwd: %s\n", strerror(errno));
+		g_exit_code = 1;
 	}
-	printf("%s\n", getcwd(pwd, 1024));
+	else
+		printf("%s\n", pwd);
 }
+
+/*-------- exit code env ----------
+	* env --> 0
+	* env "existing file" -> 1
+	* env "non existing file" --> 127 (no file or directory)
+	* env "non existing file" "existing file" --> 127 (no file or directory)
+	* env "existing file" "non existing file" --> 0
+*/
 
 void	ft_env(char **env)
 {
