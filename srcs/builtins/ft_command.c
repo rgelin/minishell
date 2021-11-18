@@ -25,6 +25,7 @@ void	ft_echo(char **cmd)
 	if (!ft_strncmp(cmd[1], "$?", 2))
 	{
 		printf("%d\n", g_exit_code);
+		g_exit_code = 0;
 		return ;
 	}
 	if (!ft_strncmp(cmd[1], "-n", 2))

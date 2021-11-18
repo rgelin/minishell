@@ -114,13 +114,20 @@ void	ft_cd(char **cmd, char ***env)
 	char	path[1024];
 	
 	home = getenv("HOME");
+	g_exit_code = 0;
 	if (cmd[1])
 	{
 		if (!ft_strncmp(cmd[1], "..", 3))
 		{
-			chdir("..");
-			getcwd(path, 1024);
-			set_PWD_and_OLDPWD(path, env);
+			// chdir("..");
+			// getcwd(path, 1024);
+			if (chdir("..") || !getcwd(path, 1024))
+			{
+				printf("cd: %s: %s\n", strerror(errno), cmd[1]);
+				g_exit_code = 1;
+			}
+			else
+				set_PWD_and_OLDPWD(path, env);
 		}
 		else if (cmd[1][0] == '~' && !cmd[1][1])
 		{
