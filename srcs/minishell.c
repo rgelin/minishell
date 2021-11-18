@@ -39,21 +39,10 @@ int	main(int argc, char **argv, char **env)
 	new_env = cpy_env(env);
 	while (1)
 	{
-		printf("seg 1\n");
 		rl_on_new_line();
-		printf("seg 2 \n");
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
-		printf("seg 3\n");
-		if (state->line != NULL)
+		if (state->line[0] != '\0')
 		{
-			// rl_replace_line("", 0);
-			// rl_redisplay();
-			// rl_on_new_line();
-			// printf("\r\x1b[34mminishell > \x1b[0mexit\n");
-			// rl_clear_history();
-			// free(state->line);
-			// free(new_env);
-			// exit(EXIT_SUCCESS);
 			add_history(state->line);
 			state->command = ft_split(state->line, ' ');
 			if (!state->command)
@@ -79,13 +68,6 @@ int	main(int argc, char **argv, char **env)
 				ft_free(state->command, ft_tabsize(state->command));
 				free(state->line);
 			}
-		}
-		else
-		{
-			prinf("4\n");
-			rl_redisplay();
-			rl_on_new_line();
-			state->line = readline("\x1b[34mminishell > \x1b[0m");
 		}
 	}
 	return (0);
