@@ -60,9 +60,10 @@ int	main(int argc, char **argv, char **env)
 	init_exc_struct(exc, env);
 	*/
 	tab = NULL;
-	init_struct(state);
+	//init_struct(state);
 	while (1)
 	{
+		init_struct(state);
 		state->line = readline(">");
 		add_history(state->line);
 		//init_struct(state);

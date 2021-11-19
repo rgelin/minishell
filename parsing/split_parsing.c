@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 static int	ft_count_words(char *s, char c)
 {

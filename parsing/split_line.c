@@ -1,5 +1,6 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
+
 
 //Pour split la line en diffente string entre les pipes
 void split_pipe(t_state *s)

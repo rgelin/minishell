@@ -4,6 +4,7 @@ LIBFT	=	./libft/
 UTILS	=	./utils/
 SOURCES =	./srcs/
 ERRORS	=	./errors/
+PARSING =	./parsing/
 CC		=	gcc
 FLAGS	=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
@@ -12,20 +13,23 @@ READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_command.c \
-				$(SOURCES)parsing.c \
-				$(SOURCES)split_line.c \
-				$(SOURCES)find_command.c \
-				$(SOURCES)parsing_untils.c \
-				$(SOURCES)medium_parsing.c \
-				$(SOURCES)split_parsing.c \
-				$(SOURCES)error_parsing.c \
-				$(SOURCES)ft_command_pwd_cd.c
+				$(SOURCES)ft_command_pwd_cd.c \
+
+PARSG		=	$(PARSING)error_parsing.c \
+				$(PARSING)find_command.c \
+				$(PARSING)medium_parsing.c \
+				$(PARSING)parsing_untils.c \
+				$(PARSING)parsing.c \
+				$(PARSING)split_line.c \
+				$(PARSING)split_parsing.c \
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 
 OBJS		=	$(SRCS:.c=.o)
+
+OBJS_PARS	= $(PARSG:.c=.o)
 
 OBJS_UTILS	=	$(SRCS_UTILS:.c=.o)
 
@@ -48,11 +52,11 @@ NO_COLOR	=	\x1b[0m
 		@printf "$(YELLOW)Generating minishell objects... %-30s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
-$(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
+$(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
-			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
+			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
@@ -62,7 +66,7 @@ bonus:	$(NAME)
 clean:
 		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-		@rm -f $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
+		@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
 		@echo "$(RED)Deleting executables...\n$(NO_COLOR)"

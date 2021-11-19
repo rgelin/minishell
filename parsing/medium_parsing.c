@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 char **get_everything(char *line, char c)
 {

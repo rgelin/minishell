@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 int	ft_get_index(char *s)
 {

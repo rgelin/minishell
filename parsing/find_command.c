@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 void	init_tab(t_pars *tab)
 {

@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../srcs/minishell.h"
 
 //surement la mettre en int et verifie le nombre de 
 //simple quote. n_of_sq % 2 != 0 du coup cest une error.
