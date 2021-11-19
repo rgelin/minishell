@@ -101,6 +101,7 @@ void	no_arg(char ***env)
 		(!! ARG+=8 is ok but AR+G+=8 not ok --> + and = must follow each other)
 	* exit message: "export: `A.8': not a valid identifier"
 	* exit code = 1 
+	* Make a check error of ARG (ex: export +=9)
 */
 void	ft_export(char **cmd, char ***env)
 {

@@ -26,22 +26,42 @@ char	**cpy_env(char **env)
 	return (env_cpy);
 }
 
+void	ft_sigint()
+{
+	g_exit_code = -1;
+	printf("\n");
+	// rl_replace_line("\x1b[34mminishell > \x1b[0m", 0);
+	// rl_redisplay();
+	// printf("%d\n", g_exit_code);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
+	int		go;
+	// char	buf[256];
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
-	signal(SIGQUIT, SIG_IGN);
 	new_env = cpy_env(env);
-	while (1)
+	signal(SIGQUIT, SIG_IGN);
+	go = 1;
+	signal(SIGINT, ft_sigint);
+	while (go)
 	{
+		// go = ft_ctrl_d();
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
-		if (state->line[0] != '\0')
+		if (!state->line)
+		{
+			go = 0;
+			printf("\x1b[34mminishell > \x1b[0mexit\n");
+			exit(EXIT_SUCCESS);
+		}
+		else if (state->line[0] != '\0')
 		{
 			add_history(state->line);
 			state->command = ft_split(state->line, ' ');
@@ -65,10 +85,15 @@ int	main(int argc, char **argv, char **env)
 					ft_free(state->command, ft_tabsize(state->command));
 					exit(EXIT);
 				}
+
 				ft_free(state->command, ft_tabsize(state->command));
 				free(state->line);
 			}
 		}
+		printf("%d\n", g_exit_code);
+		if (g_exit_code == -1)
+			g_exit_code = 0;
+		// go = ft_ctrl_d();
 	}
 	return (0);
 }
