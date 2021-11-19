@@ -43,7 +43,13 @@ int	main(int argc, char **argv, char **env)
 		rl_on_new_line();
 		printf("seg 2 \n");
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
+		printf("line: %s\n", state->line);
 		printf("seg 3\n");
+		// if (state->line)
+		// {
+		// 	rl_on_new_line();
+		// 	state->line = readline("\x1b[34mminishell > \x1b[0m");
+		// }
 		if (state->line != NULL)
 		{
 			// rl_replace_line("", 0);
@@ -54,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 			// free(state->line);
 			// free(new_env);
 			// exit(EXIT_SUCCESS);
+			printf("5\n");
 			add_history(state->line);
 			state->command = ft_split(state->line, ' ');
 			if (!state->command)
@@ -80,13 +87,13 @@ int	main(int argc, char **argv, char **env)
 				free(state->line);
 			}
 		}
-		else
-		{
-			prinf("4\n");
-			rl_redisplay();
-			rl_on_new_line();
-			state->line = readline("\x1b[34mminishell > \x1b[0m");
-		}
+		// else
+		// {
+		// 	printf("4\n");
+		// 	rl_redisplay();
+		// 	rl_on_new_line();
+		// 	state->line = readline("\x1b[34mminishell > \x1b[0m");
+		// }
 	}
 	return (0);
 }
