@@ -6,8 +6,8 @@ void	init_tab(t_pars *tab)
 	tab->command = NULL;
 	tab->option = NULL;
 	tab->arg = NULL;
-	tab->input = NULL;
-	tab->output = NULL;
+	//tab->input = NULL;
+	//tab->output = NULL;
 	tab->next_char = NULL;
 }
 
@@ -38,7 +38,7 @@ char **get_opt(char *line)
 			opt++;
 	}
 	popt = get_index(line, opt, '-');
-	options = malloc(sizeof(char *) * opt);
+	options = malloc(sizeof(char *) * (opt + 1));
 	if (!options)
 	{
 		free(options);
@@ -56,7 +56,7 @@ char **get_opt(char *line)
 			if (check_quote(line, opt) && (line[opt] == ' ' || line[opt + 1] == '\0'))
 			{
 				options[i] = ft_substr(line, index, opt - (index - 1));
-				options[i] = ft_strtrim(options[i], "-");
+				options[i] = ft_strtrim(options[i], "- ");
 				printf("opt = %s\n", options[i]);
 				break ;
 			}
@@ -64,6 +64,7 @@ char **get_opt(char *line)
 		}
 		i++;
 	}
+	options[i] = NULL;
 	free(popt);
 	return (options);
 }
@@ -109,7 +110,7 @@ char **get_arg(char *line)
 		i++;
 	}
 	arg = NULL;
-	arg = malloc(sizeof(char *) * (n));
+	arg = malloc(sizeof(char *) * (n + 1));
 	if (!arg)
 	{
 		free(arg);
@@ -136,7 +137,7 @@ char **get_arg(char *line)
 		i++;
 	}
 	free(tmp);
-	//arg[i] = NULL;*/
+	arg[j] = NULL;
 	return (arg);
 }
 
@@ -153,17 +154,14 @@ t_pars	get_command(char *line, t_state *s)
 		next = ft_get_index(line);
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		printf("-command = %s\n", tab.command);
 		tab.option = get_opt(line);
-		tab.input = get_everything(line, '>');
-		tab.output = get_everything(line, '<');
+		tab.redirect = get_redirect(line, '>');
 		tab.arg = get_arg(line);
 	}
 	else
 	{
 		tab.command = ft_substr(line, 0, ft_strlen(line));
 		tab.command = ft_strtrim(tab.command, " ");
-		printf("*command = %s\n", tab.command);
 	}
 	return (tab);
 }

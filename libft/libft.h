@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:47:41 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/15 09:59:59 by jlong            ###   ########.fr       */
+/*   Updated: 2021/11/19 09:51:35 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_putnbr_fd(int n, int fd);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char*src, size_t dstsize);
+char	*ft_strcat(char *dest, char *src);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);

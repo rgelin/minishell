@@ -6,7 +6,7 @@
 #    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/05 19:02:40 by rgelin           ###   ########.fr        #
+#    Updated: 2021/11/15 18:31:16 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC		=	ft_isdigit.c \
 			ft_memchr.c \
 			ft_memcmp.c \
 			ft_strchr.c \
+			ft_strcat.c \
 			ft_strrchr.c \
 			ft_strncmp.c \
 			ft_strlcpy.c \
@@ -80,7 +81,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-	@printf "$(YELLOW)Generating libft objects... %-30s\r$(NO_COLOR)" $@
+	@printf "$(YELLOW)Generating libft objects... %-33.33s\r$(NO_COLOR)" $@
 	@$(CC) $(FLAGS) -o $@ -c $?
 
 OBJ		=	$(SRC:%.c=%.o)

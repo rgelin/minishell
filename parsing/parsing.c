@@ -77,6 +77,7 @@ t_pars	*parsing(t_state *s)
 	{
 		tab = split_line(s);
 	}
+	tab->pipe = s->n_of_pipe;
 	ft_free_pars_tab(s);
 	return (tab);
 }

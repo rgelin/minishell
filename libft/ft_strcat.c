@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/02 10:28:38 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/19 15:52:10 by jlong            ###   ########.fr       */
+/*   Created: 2021/11/15 18:29:20 by rgelin            #+#    #+#             */
+/*   Updated: 2021/11/19 11:49:33 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strcat(char *dest, char *src)
 {
-	char	*char_s;
-	char	char_c;
-	size_t	i;
+	int i;
+	int j;
 
 	i = 0;
-	if (s == NULL)
+	j = 0;
+	if (!dest)
 		return (NULL);
-	char_c = (char) c;
-	char_s = (char *) s;
-	while (char_s[i])
+	if (!src)
+		return (dest);
+	while (dest[j])
+		j++;
+	while (src[i])
 	{
-		if (char_s[i] == char_c)
-			return (&char_s[i]);
+		dest[j + i] = src[i];
 		i++;
 	}
-	if (c == '\0')
-		return (&char_s[i]);
-	return (NULL);
+	dest[j + i] = '\0';
+	return (dest);
 }

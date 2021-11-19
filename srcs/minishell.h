@@ -8,8 +8,11 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+
 # include <errno.h>
-# include "../libft/libft.h"
+# include <string.h>
+
+# include "../libft/libft.h" 
 # define ECHO 1
 # define CD 2
 # define PWD 3
@@ -18,17 +21,18 @@
 # define ENV 6
 # define EXIT 7
 
+
 // a rendre pour un tableau avec cette structure
 // pour les exc
 typedef struct s_exc
 {
 	char	*cmd;
 	char	*opt;
-	char	*arg;
+	char	**arg;
 	//int		pipe;
-	char	*input;
-	char	*output;
-	char	*rdirect;
+	char	**input;
+	char	**output;
+	char	**redirect;
 	char	**env_cpy;
 }				t_exc;
 
@@ -37,48 +41,69 @@ typedef struct s_exc
 
 typedef struct s_pars
 {
+	int		pipe;
 	char 	*command;
 	char	**option;
 	char	**arg;
-	char	**input;
-	char	**output;
+	char	**redirect;
+	//char	**input;
+	//char	**output;
 	char	*next_char;
 }				t_pars;
 
 typedef struct s_state
 {
 	char *line;
-	char **command;
-	char **cm;
-	int	n_of_sq;
-	int *sq;
-	int	n_of_dq;
-	int *dq;
-	int	n_of_pipe;
-	int *pipe;
-	int	n_of_dol;
-	int *dol;
-	int	n_of_opt;
-	int	*opt;
-	int	n_of_lchv;
-	int	*lchv;
-	int	n_of_rchv;
-	int	*rchv;
 	int	eof;
+	int	n_of_pipe;
+	int	*pipe;
+	char **cm;
+
 }				t_state;
+
+typedef	struct	s_exp_list
+{
+	char				*line;
+	struct	s_exp_list	*next;
+}				t_exp_list;
+
 
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
-int		ft_execute_command(char **cmd, t_exc *exc);
+int		ft_execute_command(char **cmd, char ***env);
 void	ft_echo(char **cmd);
-void	ft_env(t_exc *exc);
+// void	ft_env(t_exc *exc);
 void	rl_replace_line (const char *text, int clear_undo);
-int		rl_on_new_line (void);
-void	rl_redisplay (void);
-int		rl_on_new_line (void);
+// int		rl_on_new_line (void);
+// void	rl_redisplay (void);
+// int		rl_on_new_line (void);
+void	rl_clear_history (void);
+int		ft_exec(t_exc command);
+
+void	ft_env(char **env);
+int		ft_strchr_modified(const char *s, int c);
+
 void	ft_pwd(char **cmd);
-void	ft_cd(char **cmd);
-t_exc	*ft_export(char **cmd, t_exc *exc);
+void	ft_cd(char **cmd, char ***env);
+
+void	ft_export(char **cmd, char ***env);
+char	**ft_realloc_env(char ***env, int size);
+char	*ft_strtrim_modified(char const *s1, char const *set);
+int		find_var_in_env(char *arg, char **env);
+int		check_if_already_in_env(char *arg, char ***env);
+void	modify_var_in_env(char *arg, char ***env);
+
+void	ft_unset(char **cmd, char ***env);
+
+char	**cpy_env(char **env);
+void	ft_sort_string_tab(char **tab);
+
+t_exp_list	*add_front(t_exp_list *stack, char *str);
+t_exp_list	*add_back(t_exp_list *stack, char *str);
+t_exp_list	*remove_back(t_exp_list *stack);
+t_exp_list	*remove_front(t_exp_list *stack);
+t_exp_list	*freelist(t_exp_list *stack);
+int			size_list(t_exp_list *stack);
 
 //parsing
 t_pars	*parsing(t_state *s);
@@ -92,11 +117,13 @@ int		ft_check_space(char *line);
 int		*get_index(char *line, size_t size, char c);
 int		check_redirection(char *line);
 void	init_tab(t_pars *tab);
-char	**get_everything(char *line, char c);
+//char	**get_everything(char *line, char c);
 int		check_quote(char *line, int	index);
-void	ft_free_pars_tab(t_state *s);
+//void	ft_free_pars_tab(t_state *s);
 char	**ft_split_parsing(char *s, char c);
 void	ft_free_pars_tab(t_state *s);
 void	ft_free_pars_error(t_state *s);
+t_exc 	*last_parsing(t_pars *tab);
+char 	**get_redirect(char *line, char c);
 
 #endif

@@ -1,29 +1,38 @@
-
-NAME	=	minishell
-LIBFT	=	./libft/
-UTILS	=	./utils/
-SOURCES =	./srcs/
-ERRORS	=	./errors/
-PARSING =	./parsing/
-CC		=	gcc
-FLAGS	=	-Wall -Werror -Wextra
+NAME		=	minishell
+LIBFT		=	./libft/
+UTILS		=	./utils/
+SOURCES		=	./srcs/
+PARSING 	=	./parsing/
+BUILTINS	=	./srcs/builtins/
+ERRORS		=	./errors/
+CC			=	gcc
+FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
-				$(SOURCES)ft_command.c \
-				$(SOURCES)ft_command_pwd_cd.c \
+				$(SOURCES)ft_exec.c \
+				$(BUILTINS)ft_command.c \
+				$(BUILTINS)ft_cd.c \
+				$(BUILTINS)ft_export.c \
+				$(BUILTINS)ft_export_utils.c \
+				$(BUILTINS)ft_unset.c
+
+SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
+				$(UTILS)ft_sort_string_tab.c \
+				$(UTILS)ft_strchr_modified.c \
+				$(UTILS)ft_strtrim_modified.c \
+				$(UTILS)list.c
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \
-				$(PARSING)medium_parsing.c \
+				$(PARSING)get_redirect.c \
 				$(PARSING)parsing_untils.c \
 				$(PARSING)parsing.c \
 				$(PARSING)split_line.c \
 				$(PARSING)split_parsing.c \
-
-SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
+				$(PARSING)last_parsing.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 
@@ -49,7 +58,7 @@ NO_COLOR	=	\x1b[0m
 
 #-------------------RULES-----------------------
 %.o: %.c
-		@printf "$(YELLOW)Generating minishell objects... %-30s\r$(NO_COLOR)" $@
+		@printf "$(YELLOW)Generating minishell objects... %-33.33s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)

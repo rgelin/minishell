@@ -12,3 +12,18 @@ int	ft_tabsize(char **tab)
 		i++;
 	return (i);
 }
+
+int	size_list(t_exp_list *stack)
+{
+	int	i;
+
+	i = 0;
+	if (!stack)
+		return (0);
+	while (stack)
+	{
+		i++;
+		stack = stack->next;
+	}
+	return (i);
+}
