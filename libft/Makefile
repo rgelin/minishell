@@ -6,7 +6,7 @@
 #    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/15 18:31:16 by rgelin           ###   ########.fr        #
+#    Updated: 2021/11/20 18:03:49 by rgelin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,9 +87,9 @@ NO_COLOR	=	\x1b[0m
 OBJ		=	$(SRC:%.c=%.o)
 
 all:	$(NAME)
-		@echo "\n\n$(GREEN)Compiling libft...$(NO_COLOR)"
 
 $(NAME): $(OBJ)
+		@echo "\n\n$(GREEN)Compiling libft...$(NO_COLOR)"
 		@ar -rcs $(NAME) $(OBJ)
 
 clean:

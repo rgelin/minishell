@@ -35,11 +35,28 @@ void	ft_sig_int()
 	rl_redisplay();
 }
 
+
+void	ft_exit(char **cmd)
+{
+	char *arg;
+
+	arg = cmd[1];
+	if (arg)
+	{
+		if (arg[0] == '-')
+			g_exit_code = ft_atoi(arg) + (256 * (g_exit_code / 256));
+		else
+			g_exit_code = ft_atoi(arg) - (256 * (g_exit_code / 256));
+	}
+	printf("exit\n");
+	exit (g_exit_code);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
-	// char	buf[256];
+	int		d;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
@@ -47,17 +64,26 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
+	d = 0;
 	signal(SIGINT, ft_sig_int);
 	while (1)
 	{
-		// go = ft_ctrl_d();
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (!state->line)
 		{
+			// rl_replace_line("", 0);
+			d = 1;
+			free(state->line);
+			state->line = NULL;
+			rl_clear_history();
 			rl_replace_line("", 0);
-			rl_replace_line("minishell > exit\n", 1);
+			rl_on_new_line();
 			rl_redisplay();
+			rl_replace_line("minishell > exit\n", 0);
+			rl_on_new_line();
+			rl_redisplay();
+
 			// printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}
@@ -77,33 +103,12 @@ int	main(int argc, char **argv, char **env)
 			else
 			{
 				if (ft_execute_command(state->command, &new_env) == EXIT)
-				{
-					printf("%s\n", (unsigned char *)state->command[1]);
-					printf("%d\n", (unsigned int)ft_atoi(state->command[1]));
-					printf("%d\n", (unsigned int)((unsigned int)256-(unsigned int)258));
-		
-					// if (state->command[1])
-					// 	g_exit_code = (unsigned int)ft_atoi(state->command[1]);
-					// free(state->line);
-					// ft_free(state->command, ft_tabsize(state->command));
-					// printf("%d\n", g_exit_code);
-					printf("exit\n");
-					exit(g_exit_code);
-				}
-
+					ft_exit(state->command);
+				rl_clear_history();
 				ft_free(state->command, ft_tabsize(state->command));
 				free(state->line);
 			}
 		}
-		// printf("%d\n", g_exit_code);
-		// if (g_exit_code == -1)
-		// {
-		// 	printf("\n");
-		// 	rl_on_new_line();
-		// 	state->line = readline("\x1b[34mminishell > \x1b[0m");
-		// 	g_exit_code = 0;
-		// }
-		// go = ft_ctrl_d();
 	}
 	return (0);
 }
