@@ -2,6 +2,7 @@
 #include "../minishell.h"
 
 // need to add case (export ARG+=10)
+extern int	g_exit_code;
 
 void	create_new_var_env(char *arg, char ***env)
 {
@@ -108,6 +109,7 @@ void	ft_export(char **cmd, char ***env)
 	char	*arg;
 
 	arg = cmd[1];
+	g_exit_code = 0;
 	if (arg == NULL)
 		no_arg(env);
 	else if (check_if_already_in_env(arg, env))
