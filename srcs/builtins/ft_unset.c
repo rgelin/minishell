@@ -18,6 +18,7 @@ void	ft_unset(char **cmd, char ***env)
 		if (i != find_var_in_env(arg, *env))
 			new_env[i] = ft_strdup((*env)[i]);
 	}
+	new_env[i] = NULL;
 	ft_free(*env, ft_tabsize(*env));
 	*env = new_env;
 }

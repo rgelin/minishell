@@ -50,14 +50,13 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	go = 1;
 	signal(SIGINT, ft_sigint);
-	while (go)
+	while (1)
 	{
 		// go = ft_ctrl_d();
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (!state->line)
 		{
-			go = 0;
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}
