@@ -40,15 +40,40 @@ void	ft_sig_int()
 	int	pid2;
 	int	p1[2];
 
+int		check_str_digit(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (1);
+	}
+	return (0);
+}
 
 void	ft_exit(char **cmd)
 {
 	char *arg;
 
 	arg = cmd[1];
-	if (arg)
+	if (cmd[2])
 	{
-		if (arg[0] == '-')
+		printf("exit\n");
+		printf("minishell: exit: too many arguments\n");
+		g_exit_code = 1;
+		return ;
+	}
+	else if (arg)
+	{
+		if (check_str_digit(arg))
+		{
+			printf("exit\n");
+			printf("minishell: exit: %s: numeric argument required\n", arg);
+			exit(255);
+		}
+		else if (arg[0] == '-')
 			g_exit_code = ft_atoi(arg) + (256 * (g_exit_code / 256));
 		else
 			g_exit_code = ft_atoi(arg) - (256 * (g_exit_code / 256));
