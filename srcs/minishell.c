@@ -53,7 +53,7 @@ int		check_str_digit(char *str)
 	return (0);
 }
 
-void	ft_exit(char **cmd)
+void	ft_exit(char **cmd) //invalid read size of 8 ??
 {
 	char *arg;
 
