@@ -52,6 +52,23 @@ void	ft_exit(char **cmd)
 	exit (g_exit_code);
 }
 
+void	update_shlvl(char ***env)
+{
+	int		i;
+	int		lvl;
+	char	*new_lvl;
+
+	i = find_var_in_env("SHLVL", *env);
+	lvl = ft_atoi_modified((*env)[i]);
+	lvl++;
+	new_lvl = ft_itoa(lvl);
+	free((*env)[i]);
+	(*env)[i] = NULL;
+	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
+	free(new_lvl);
+	new_lvl = NULL;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
@@ -66,6 +83,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	d = 0;
 	signal(SIGINT, ft_sig_int);
+	update_shlvl(&new_env);
 	while (1)
 	{
 		rl_on_new_line();
@@ -73,18 +91,18 @@ int	main(int argc, char **argv, char **env)
 		if (!state->line)
 		{
 			// rl_replace_line("", 0);
-			d = 1;
-			free(state->line);
-			state->line = NULL;
-			rl_clear_history();
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-			rl_replace_line("minishell > exit\n", 0);
-			rl_on_new_line();
-			rl_redisplay();
+			// d = 1;
+			// free(state->line);
+			// state->line = NULL;
+			// rl_clear_history();
+			// rl_replace_line("", 0);
+			// rl_on_new_line();
+			// rl_redisplay();
+			// rl_replace_line("minishell > exit\n", 0);
+			// rl_on_new_line();
+			// rl_redisplay();
 
-			// printf("\x1b[34mminishell > \x1b[0mexit\n");
+			printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}
 		else if (state->line[0] != '\0')
@@ -103,8 +121,11 @@ int	main(int argc, char **argv, char **env)
 			else
 			{
 				if (ft_execute_command(state->command, &new_env) == EXIT)
+				{
+					ft_free(new_env, ft_tabsize(new_env));
 					ft_exit(state->command);
-				rl_clear_history();
+				}
+				// rl_clear_history();
 				ft_free(state->command, ft_tabsize(state->command));
 				free(state->line);
 			}

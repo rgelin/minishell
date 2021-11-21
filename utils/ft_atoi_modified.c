@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_modified.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:33:48 by jvander-          #+#    #+#             */
-/*   Updated: 2021/11/21 16:56:30 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/21 16:57:38 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../srcs/minishell.h"
 
 static int	ft_check_longmax(int negative)
 {
@@ -22,12 +22,12 @@ static int	ft_check_longmax(int negative)
 static int	ft_isspace(char c)
 {
 	if (c == '\t' || c == '\v' || c == '\r' || c == '\f'
-		|| c == '\n' || c == ' ')
+		|| c == '\n' || c == ' ' || !ft_isdigit(c))
 		return (1);
 	return (0);
 }
 
-int	ft_atoi(const char *s)
+int	ft_atoi_modified(const char *s)
 {
 	unsigned long long	res;
 	int					i;

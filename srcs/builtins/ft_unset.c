@@ -16,8 +16,11 @@ void	ft_unset(char **cmd, char ***env)
 	i = -1;
 	while ((*env)[++i])
 	{
-		if (i != find_var_in_env(arg, *env))
-			new_env[i] = ft_strdup((*env)[i]);
+		if (i == find_var_in_env(arg, *env))
+			i++;
+		new_env[i] = ft_strdup((*env)[i]); //reste un leak ici
+		if (!new_env[i])
+			exit(EXIT_FAILURE);
 	}
 	new_env[i] = NULL;
 	ft_free(*env, ft_tabsize(*env));
