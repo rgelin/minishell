@@ -55,12 +55,14 @@ t_exc *last_parsing(t_pars *tab)
 	while (i < tab->pipe + 1)
 	{
 		init_ptn(last_tab);
-		last_tab[i].cmd = tab[i].command;
+		if (tab[i].command)
+			last_tab[i].cmd = tab[i].command;
 		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
-		last_tab[i].opt = option(tab[i].option);
+		if (tab[i].option)
+			last_tab[i].opt = option(tab[i].option);
 		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
-
-		last_tab[i].redirect = tab[i].redirect;
+		if (tab[i].redirect)
+			last_tab[i].redirect = tab[i].redirect;
 		j = 0;
 		// if (last_tab[i].redirect[j] != NULL)
 		// {
@@ -70,7 +72,8 @@ t_exc *last_parsing(t_pars *tab)
 		// 		j++;
 		// 	}
 		// }
-		last_tab[i].arg = tab[i].arg;
+		if (tab[i].arg)
+			last_tab[i].arg = tab[i].arg;
 		j = 0;
 		// if (last_tab[i].arg[j] != NULL)
 		// {

@@ -104,11 +104,11 @@ void	no_arg(char ***env)
 	* exit code = 1 
 	* Make a check error of ARG (ex: export +=9)
 */
-void	ft_export(char **cmd, char ***env)
+void	ft_export(t_exc exc, char ***env)
 {
 	char	*arg;
 
-	arg = cmd[1];
+	arg = exc.arg[0];
 	g_exit_code = 0;
 	if (arg == NULL)
 		no_arg(env);

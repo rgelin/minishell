@@ -57,28 +57,35 @@ int		check_str_digit(char *str)
 
 void	ft_exit(char **cmd) //invalid read size of 8 ??
 {
-	char *arg;
-
-	arg = cmd[1];
-	if (cmd[2])
+	// if (!cmd)
+	// {
+	// 	printf("exit\n");
+	// 	exit (g_exit_code);
+	// }
+		printf("cmd[0]: %s\n", cmd[0]);
+	if (cmd && cmd[1])
 	{
 		printf("exit\n");
 		printf("minishell: exit: too many arguments\n");
 		g_exit_code = 1;
 		return ;
 	}
-	else if (arg)
+	else if (cmd && cmd[0])
 	{
-		if (check_str_digit(arg))
+		if (check_str_digit(cmd[0]))
 		{
 			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n", arg);
+			printf("minishell: exit: %s: numeric argument required\n", cmd[0]);
 			exit(255);
 		}
-		else if (arg[0] == '-')
-			g_exit_code = ft_atoi(arg) + (256 * (ft_atoi(arg) / 256));
+		else if (cmd[0][0] == '-')
+		{
+			printf("test\n");
+			g_exit_code = ft_atoi(cmd[0]) + (256 * (-ft_atoi(cmd[0]) / 256));
+		}
 		else
-			g_exit_code = ft_atoi(arg) - (256 * (ft_atoi(arg) / 256));
+			g_exit_code = ft_atoi(cmd[0]) - (256 * (ft_atoi(cmd[0]) / 256));
+		printf("exit: %d\n", g_exit_code);
 	}
 	printf("exit\n");
 	exit (g_exit_code);
@@ -95,7 +102,7 @@ void	update_shlvl(char ***env)
 	lvl++;
 	new_lvl = ft_itoa(lvl);
 	// free((*env)[i]);
-	(*env)[i] = NULL;
+	// (*env)[i] = NULL;
 	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
 	free(new_lvl);
 	new_lvl = NULL;
@@ -143,7 +150,6 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
-	int		i;
 	(void)argc;
 	(void)argv;
 
@@ -173,7 +179,7 @@ int	main(int argc, char **argv, char **env)
 			exc = last_parsing(tab);
 			if (check_builtin(exc[0].cmd) == 0)
 			{
-				ft_exec(exc[0]);
+				// ft_exec(exc[0]);
 				printf("minishell: %s: command not found\n", exc[0].cmd);
 				g_exit_code = 127;
 			}
@@ -181,7 +187,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
-					ft_free(new_env, ft_tabsize(new_env));
+					// ft_free(new_env, ft_tabsize(new_env));
 					ft_exit(exc[0].arg);
 				}
 			}

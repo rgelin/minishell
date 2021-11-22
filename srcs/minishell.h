@@ -71,7 +71,7 @@ typedef	struct	s_exp_list
 int		ft_tabsize(char **tab);
 int		check_builtin(char *cmd);
 int		ft_execute_command(t_exc cmd, char ***env);
-void	ft_echo(char **cmd);
+void	ft_echo(t_exc exc);
 // void	ft_env(t_exc *exc);
 void	rl_replace_line (const char *text, int clear_undo);
 
@@ -85,17 +85,17 @@ int		ft_exec(t_exc command);
 void	ft_env(char **env);
 int		ft_strchr_modified(const char *s, int c);
 
-void	ft_pwd(char **cmd);
-void	ft_cd(char **cmd, char ***env);
+void	ft_pwd();
+void	ft_cd(t_exc exc, char ***env);
 
-void	ft_export(char **cmd, char ***env);
+void	ft_export(t_exc exc, char ***env);
 char	**ft_realloc_env(char ***env, int size);
 char	*ft_strtrim_modified(char const *s1, char const *set);
 int		find_var_in_env(char *arg, char **env);
 int		check_if_already_in_env(char *arg, char ***env);
 void	modify_var_in_env(char *arg, char ***env);
 
-void	ft_unset(char **cmd, char ***env);
+void	ft_unset(t_exc exc, char ***env);
 
 char	**cpy_env(char **env);
 void	ft_sort_string_tab(char **tab);
