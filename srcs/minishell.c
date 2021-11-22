@@ -26,7 +26,7 @@ char	**cpy_env(char **env)
 
 void	ft_execute(t_exc *tab)
 {
-	int	*pid;
+	int	pid;
 	int	pid2;
 	int	p1[2];
 
