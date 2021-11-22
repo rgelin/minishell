@@ -28,6 +28,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)create_cmd.c \
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \
@@ -41,6 +42,8 @@ PARSG		=	$(PARSING)error_parsing.c \
 				
 =======
 >>>>>>> tmp fork
+=======
+>>>>>>> 8573834df61254eac18f1fac97e55e32a2388cab
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 
