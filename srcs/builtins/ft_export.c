@@ -114,7 +114,7 @@ void	ft_export(char **cmd, char ***env)
 		no_arg(env);
 	else if (check_if_already_in_env(arg, env))
 		return ;
-	else if (find_var_in_env(arg, *env))
+	else if (find_var_in_env(arg, *env) != -1)
 	{
 		if (ft_strchr_modified(arg, '='))
 			modify_var_in_env(arg, env);

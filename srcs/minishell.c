@@ -45,6 +45,8 @@ int		check_str_digit(char *str)
 	int	i;
 
 	i = -1;
+	if (str[0] == '-')
+		i++;
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -141,6 +143,7 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
+	int		i;
 	(void)argc;
 	(void)argv;
 
