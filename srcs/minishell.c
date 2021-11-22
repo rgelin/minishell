@@ -23,7 +23,7 @@ char	**cpy_env(char **env)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (env[++i])
-		env_cpy[i] = env[i];
+		env_cpy[i] = strdup(env[i]);
 	env_cpy[i] = NULL;
 	return (env_cpy);
 }
@@ -55,37 +55,27 @@ int		check_str_digit(char *str)
 	return (0);
 }
 
-void	ft_exit(char **cmd) //invalid read size of 8 ??
+void	ft_exit(t_exc exc) //invalid read size of 8 ??
 {
-	// if (!cmd)
-	// {
-	// 	printf("exit\n");
-	// 	exit (g_exit_code);
-	// }
-		printf("cmd[0]: %s\n", cmd[0]);
-	if (cmd && cmd[1])
+	if (exc.arg && exc.arg[1])
 	{
 		printf("exit\n");
 		printf("minishell: exit: too many arguments\n");
 		g_exit_code = 1;
 		return ;
 	}
-	else if (cmd && cmd[0])
+	else if (exc.arg || exc.opt)
 	{
-		if (check_str_digit(cmd[0]))
+		if (exc.opt != NULL)
+			g_exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
+		else if (exc.arg && check_str_digit(exc.arg[0]))
 		{
 			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n", cmd[0]);
+			printf("minishell: exit: %s: numeric argument required\n", exc.arg[0]);
 			exit(255);
 		}
-		else if (cmd[0][0] == '-')
-		{
-			printf("test\n");
-			g_exit_code = ft_atoi(cmd[0]) + (256 * (-ft_atoi(cmd[0]) / 256));
-		}
 		else
-			g_exit_code = ft_atoi(cmd[0]) - (256 * (ft_atoi(cmd[0]) / 256));
-		printf("exit: %d\n", g_exit_code);
+			g_exit_code = ft_atoi(exc.arg[0]) - (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
 	printf("exit\n");
 	exit (g_exit_code);
@@ -101,8 +91,8 @@ void	update_shlvl(char ***env)
 	lvl = ft_atoi_modified((*env)[i]);
 	lvl++;
 	new_lvl = ft_itoa(lvl);
-	// free((*env)[i]);
-	// (*env)[i] = NULL;
+	free((*env)[i]);
+	(*env)[i] = NULL;
 	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
 	free(new_lvl);
 	new_lvl = NULL;
@@ -185,10 +175,12 @@ int	main(int argc, char **argv, char **env)
 			}
 			else
 			{
+				printf("seg\n");
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
-					// ft_free(new_env, ft_tabsize(new_env));
-					ft_exit(exc[0].arg);
+					ft_free(new_env, ft_tabsize(new_env));
+					free(exc);
+					ft_exit(exc[0]);
 				}
 			}
 		}
