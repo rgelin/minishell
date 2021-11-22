@@ -74,7 +74,7 @@ void	ft_exit(char **cmd) //invalid read size of 8 ??
 			exit(255);
 		}
 		else if (arg[0] == '-')
-			g_exit_code = ft_atoi(arg) + (256 * (ft_atol(arg) / 256));
+			g_exit_code = ft_atoi(arg) + (256 * (ft_atoi(arg) / 256));
 		else
 			g_exit_code = ft_atoi(arg) - (256 * (ft_atoi(arg) / 256));
 	}
