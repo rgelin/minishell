@@ -106,19 +106,26 @@ void	no_arg(char ***env)
 */
 void	ft_export(t_exc exc, char ***env)
 {
-	char	*arg;
+	int	i;
 
-	arg = exc.arg[0];
 	g_exit_code = 0;
-	if (arg == NULL)
+	i = 0;
+	if (exc.arg == NULL)
 		no_arg(env);
-	else if (check_if_already_in_env(arg, env))
-		return ;
-	else if (find_var_in_env(arg, *env) != -1)
-	{
-		if (ft_strchr_modified(arg, '='))
-			modify_var_in_env(arg, env);
-	}
 	else
-		create_new_var_env(arg, env);
+	{
+		while (exc.arg[i])
+		{
+			if (check_if_already_in_env(exc.arg[i], env))
+				i++;
+			else if (find_var_in_env(exc.arg[i], *env) != -1)
+			{
+				if (ft_strchr_modified(exc.arg[i], '='))
+					modify_var_in_env(exc.arg[i++], env);
+			}
+			else
+				create_new_var_env(exc.arg[i++], env);
+		}
+
+	}
 }
