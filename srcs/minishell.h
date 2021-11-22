@@ -28,34 +28,37 @@ typedef struct s_exc
 {
 	char	*cmd;
 	char	*opt;
-	char	*arg;
-	int		pipe;
-	char	*input;
-	char	*output;
-	char	*rdirect;
+	char	**arg;
+	//int		pipe;
+	char	**input;
+	char	**output;
+	char	**redirect;
 	char	**env_cpy;
 }				t_exc;
 
 //structure pour le parsin qui sera free
 //quand le tableau de t_exc sera parfait
-/*
+
 typedef struct s_pars
 {
-	char *command;
-	char *option;
-	char **arg;
-	char *input;
-	char *output;
-	char *next_char;
+	int		pipe;
+	char 	*command;
+	char	**option;
+	char	**arg;
+	char	**redirect;
+	//char	**input;
+	//char	**output;
+	char	*next_char;
 }				t_pars;
-*/
+
 typedef struct s_state
 {
 	char *line;
-	char **command;
-	char *username;
-	int	*sq;
-	int *dq;
+	int	eof;
+	int	n_of_pipe;
+	int	*pipe;
+	char **cm;
+
 }				t_state;
 
 typedef	struct	s_exp_list
@@ -105,5 +108,24 @@ t_exp_list	*freelist(t_exp_list *stack);
 int			size_list(t_exp_list *stack);
 
 //parsing
-void	check_quote(t_state *state);
+t_pars	*parsing(t_state *s);
+t_pars	*split_line(t_state *line);
+int		*get_index(char *line, size_t size, char c);
+t_pars	*find_command(t_state *s);
+int		ft_get_index(char *s);
+int		ft_get_index_opt(char *s, char c, int i);
+int		ft_test(char *line);
+int		ft_check_space(char *line);
+int		*get_index(char *line, size_t size, char c);
+int		check_redirection(char *line);
+void	init_tab(t_pars *tab);
+//char	**get_everything(char *line, char c);
+int		check_quote(char *line, int	index);
+//void	ft_free_pars_tab(t_state *s);
+char	**ft_split_parsing(char *s, char c);
+void	ft_free_pars_tab(t_state *s);
+void	ft_free_pars_error(t_state *s);
+t_exc 	*last_parsing(t_pars *tab);
+char 	**get_redirect(char *line, char c);
+
 #endif

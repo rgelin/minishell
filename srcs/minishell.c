@@ -6,9 +6,10 @@ int	g_exit_code = 0;
 void	init_struct(t_state *state)
 {
 	state->line = NULL;
-	state->command = NULL;
-	state->dq = NULL;
-	state->sq = NULL;
+	state->pipe = NULL;
+	state->cm = NULL;
+	state->n_of_pipe = 0;
+	state->eof = 0;
 }
 
 char	**cpy_env(char **env)
@@ -73,21 +74,25 @@ int	main(int argc, char **argv, char **env)
 {
 	t_state *state;
 	char	**new_env;
-	int		d;
+	t_pars *tab;
+	t_exc	*exc;
 	(void)argc;
 	(void)argv;
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
+	tab = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
-	d = 0;
 	signal(SIGINT, ft_sig_int);
 	update_shlvl(&new_env);
 	while (1)
 	{
+		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
+		tab = parsing(state);
+		exc = last_parsing(tab);
 		if (!state->line)
 		{
 			// rl_replace_line("", 0);

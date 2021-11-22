@@ -13,8 +13,8 @@ static char	**create_cmd(t_exc command)
 		to_ret[i++] = command.cmd;
 	if (command.opt)
 		to_ret[i++] = command.opt;
-	if (command.arg)
-		to_ret[i++] = command.arg;
+	//if (command.arg)
+	//	to_ret[i++] = command.arg;
 	to_ret[i] = NULL;
 	while (--i >= 0)
 	{
