@@ -36,6 +36,9 @@ void	ft_sig_int()
 	rl_on_new_line();
 	rl_redisplay();
 }
+	int	pid;
+	int	pid2;
+	int	p1[2];
 
 
 void	ft_exit(char **cmd)
