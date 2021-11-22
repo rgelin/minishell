@@ -85,7 +85,13 @@ void	modify_var_in_env(char *arg, char ***env)
 	if (ft_strchr_modified(arg, '+'))
 	{
 		to_add = ft_to_add(arg);
-		temp = ft_strjoin((*env)[i], to_add);
+		if (ft_strchr_modified(arg, '='))
+			temp = ft_strjoin((*env)[i], to_add);
+		else
+		{
+			temp = ft_strjoin((*env)[i], "=");
+			temp = ft_strjoin(temp, to_add);
+		}
 		free(to_add);
 		to_add = NULL;
 	}

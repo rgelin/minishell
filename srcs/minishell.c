@@ -126,7 +126,6 @@ int	main(int argc, char **argv, char **env)
 			// rl_replace_line("minishell > exit\n", 0);
 			// rl_on_new_line();
 			// rl_redisplay();
-
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}

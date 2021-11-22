@@ -26,18 +26,15 @@ void	ft_echo(char **cmd)
 		return ;
 	}
 	if (!ft_strncmp(cmd[1], "$?", 2))
-	{
 		printf("%d\n", g_exit_code);
-		g_exit_code = 0;
-		return ;
-	}
-	if (!ft_strncmp(cmd[1], "-n", 2))
+	else if (!ft_strncmp(cmd[1], "-n", 2))
 		ft_print_line(cmd, 2);
 	else
 	{
 		ft_print_line(cmd, 1);
 		printf("\n");
 	}
+	g_exit_code = 0;
 }
 
 void	ft_pwd(char **cmd)

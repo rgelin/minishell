@@ -88,6 +88,7 @@ void	ft_cd(char **cmd, char ***env);
 void	ft_export(char **cmd, char ***env);
 char	**ft_realloc_env(char ***env, int size);
 char	*ft_strtrim_modified(char const *s1, char const *set);
+char	*ft_strjoin_free(char const *s1, char const *s2);
 int		find_var_in_env(char *arg, char **env);
 int		check_if_already_in_env(char *arg, char ***env);
 void	modify_var_in_env(char *arg, char ***env);

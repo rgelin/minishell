@@ -24,6 +24,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_sort_string_tab.c \
 				$(UTILS)ft_strchr_modified.c \
 				$(UTILS)ft_strtrim_modified.c \
+				$(UTILS)ft_strjoin_free.c \
 				$(UTILS)ft_atoi_modified.c \
 				$(UTILS)list.c
 

@@ -108,8 +108,8 @@ void	ft_export(char **cmd, char ***env)
 {
 	char	*arg;
 
-	arg = cmd[1];
 	g_exit_code = 0;
+	arg = ft_strtrim_modified(cmd[1], "\"");
 	if (arg == NULL)
 		no_arg(env);
 	else if (check_if_already_in_env(arg, env))
