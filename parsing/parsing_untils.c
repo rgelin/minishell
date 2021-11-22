@@ -59,6 +59,8 @@ int	*get_index(char *line, size_t size, char c)
 	}
 	while (line[i] != '\0')
 	{
+		if (c == '-' && line[i] == '-' && line[i -1] != ' ')
+			i++;
 		if (line[i] == c && check_quote(line, i))
 		{
 			p_tab[j] = i;

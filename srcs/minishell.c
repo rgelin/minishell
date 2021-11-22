@@ -143,7 +143,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			tab = parsing(state);
 			exc = last_parsing(tab);
-			if (check_builtin(exc[0].cmd) == 0)
+			/*if (check_builtin(exc[0].cmd) == 0)
 			{
 				ft_exec(exc[0]);
 				printf("minishell: %s: command not found\n", exc[0].cmd);
@@ -156,7 +156,7 @@ int	main(int argc, char **argv, char **env)
 					ft_free(new_env, ft_tabsize(new_env));
 					ft_exit(exc[0].arg);
 				}
-			}
+			}*/
 		}
 	}
 	return (0);
