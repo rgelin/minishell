@@ -67,7 +67,7 @@ void	update_shlvl(char ***env)
 	lvl = ft_atoi_modified((*env)[i]);
 	lvl++;
 	new_lvl = ft_itoa(lvl);
-	free((*env)[i]);
+	// free((*env)[i]);
 	(*env)[i] = NULL;
 	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
 	free(new_lvl);
@@ -118,124 +118,46 @@ int	main(int argc, char **argv, char **env)
 	t_exc	*exc;
 	(void)argc;
 	(void)argv;
-	t_exc	*exc;
 
 	exc = malloc(sizeof(t_exc) * 4);
-	(void)argc;
-	(void)argv;
-	exc[0].cmd = "ls";
-	exc[0].arg = NULL;
-	exc[0].opt = NULL;
-	exc[1].cmd = "ls";
-	exc[1].arg = NULL;
-	exc[1].opt = "-l";
-	exc[2].cmd = "ls";
-	exc[2].arg = NULL;
-	exc[2].opt = NULL;
-	exc[3].cmd = NULL;
-	exc[3].opt = NULL;
-	exc[3].arg = NULL;
-		
-		// if (check_builtin(exc.cmd) == 0)
-			// exit(ft_exec(exc));
-		// else
-		// {
-			// if (ft_execute_command(exc, &new_env) == EXIT)
-				// exit(EXIT);
-		// }
-	state = malloc(sizeof(t_state));
-	if (!state)
-		exit(EXIT_FAILURE);
 	tab = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
-	// update_shlvl(&new_env);
-	exc[0].cmd = "ls";
-	exc[0].arg = (char **)malloc(sizeof(char *) * 3);
-	exc[0].arg[0] = "srcs";
-	exc[0].arg[1] = "utils";
-	exc[0].arg[2] = NULL;
-	exc[0].opt = NULL;
-	exc[1].cmd = "ls";
-	exc[1].arg = NULL;
-	exc[1].opt = "-l";
-	exc[2].cmd = "ls";
-	exc[2].arg = NULL;
-	exc[2].opt = NULL;
-	exc[3].cmd = NULL;
-	exc[3].opt = NULL;
-	exc[3].arg = NULL;
-
+	update_shlvl(&new_env);
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
-	signal(SIGQUIT, SIG_IGN);
-	new_env = cpy_env(env); 
 	while (1)
 	{
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
-		tab = parsing(state);
-		exc = last_parsing(tab);
+		add_history(state->line);
 		if (!state->line)
 		{
-			// Check to redisplay properly
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}
 		else if (state->line[0] != '\0')
 		{
-			add_history(state->line);
-			state->command = ft_split(state->line, ' ');
-			if (!state->command)
-				exit(EXIT_FAILURE);
-			if (check_builtin(state->command[0]) == 0)
+			tab = parsing(state);
+			exc = last_parsing(tab);
+			if (check_builtin(exc[0].cmd) == 0)
 			{
 				ft_exec(exc[0]);
-				printf("minishell: %s: command not found\n", state->command[0]);
+				printf("minishell: %s: command not found\n", exc[0].cmd);
 				g_exit_code = 127;
-				free(state->line);
-				ft_free(state->command, ft_tabsize(state->command));
 			}
 			else
 			{
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
 					ft_free(new_env, ft_tabsize(new_env));
-					ft_exit(state->command);
+					ft_exit(exc[0].arg);
 				}
-				// rl_clear_history();
-				ft_free(state->command, ft_tabsize(state->command));
-				free(state->line);
 			}
 		}
-		add_history(state->line);
-		state->command = ft_split(state->line, ' ');
-		if (!state->command)
-		{
-			free(state->line);
-			exit(1);
-		}
-		// ft_execute(exc);
-	// 	if (check_builtin(state->command[0]) == 0)
-	// 	{
-	// 		printf("minishell : %s command not found\n", state->command[0]);
-	// 		free(state->line);
-	// 		ft_free(state->command, ft_tabsize(state->command));
-	// 	}
-	// 	else
-	// 	{
-	// 		if (ft_execute_command(state->command, &new_env) == EXIT)
-	// 		{
-	// 			free(state->line);
-	// 			ft_free(state->command, ft_tabsize(state->command));
-	// 			exit(EXIT);
-	// 		}
-	// 		ft_free(state->command, ft_tabsize(state->command));
-	// 		free(state->line);
-	// 	}
 	}
 	return (0);
 }

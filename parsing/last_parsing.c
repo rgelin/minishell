@@ -17,6 +17,8 @@ char *option(char **options)
 
 	size = 0;
 	i = 0;
+	if (options[i] == NULL)
+		return (NULL);
 	while (options[i])
 	{
 		size = size + ft_strlen(options[i]);
@@ -54,30 +56,30 @@ t_exc *last_parsing(t_pars *tab)
 	{
 		init_ptn(last_tab);
 		last_tab[i].cmd = tab[i].command;
-		printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
+		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
 		last_tab[i].opt = option(tab[i].option);
-		printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
+		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
 
 		last_tab[i].redirect = tab[i].redirect;
 		j = 0;
-		if (last_tab[i].redirect[j] != NULL)
-		{
-			while(last_tab[i].redirect[j])
-			{
-				printf("last_tab[%d]->redirect = %s\n", i, last_tab[i].redirect[j]);
-				j++;
-			}
-		}
+		// if (last_tab[i].redirect[j] != NULL)
+		// {
+		// 	while(last_tab[i].redirect[j])
+		// 	{
+		// 		// printf("last_tab[%d]->redirect = %s\n", i, last_tab[i].redirect[j]);
+		// 		j++;
+		// 	}
+		// }
 		last_tab[i].arg = tab[i].arg;
 		j = 0;
-		if (last_tab[i].arg[j] != NULL)
-		{
-			while(last_tab[i].arg[j])
-			{
-				printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
-				j++;
-			}
-		}
+		// if (last_tab[i].arg[j] != NULL)
+		// {
+		// 	while(last_tab[i].arg[j])
+		// 	{
+		// 		// printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
+		// 		j++;
+		// 	}
+		// }
 		i++;
 	}
 	return (last_tab);
