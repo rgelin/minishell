@@ -72,7 +72,7 @@ void	update_shlvl(char ***env)
 
 void	ft_execute(t_exc *tab, int nbr_cmd)
 {
-	int	*pid;
+	int	pid;
 	int	pid2;
 	int	p1[2];
 
