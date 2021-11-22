@@ -81,13 +81,13 @@ void	go_to_home(char ***env)
 		set_pwd_and_oldpwd(home, env);
 }
 //je prend comme hypothese que je recois "cd" dans le bon format(aucune erreur)
-void	ft_cd(char **cmd, char ***env)
+void	ft_cd(t_exc exc, char ***env)
 {
 	char	path[1024];
 	char	*arg;
 
 	g_exit_code = 0;
-	arg = cmd[1];
+	arg = exc.arg[0];
 	if (arg)
 	{
 		if (!ft_strncmp(arg, "..", 3))

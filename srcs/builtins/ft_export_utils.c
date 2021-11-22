@@ -32,7 +32,7 @@ int	find_var_in_env(char *arg, char **env)
 		if (!ft_strncmp(arg, env[i], j - 1))
 			return (i);
 	}
-	return (0);
+	return (-1); //changer les conditions par rapport a ca
 }
 
 //we check if the exact same argument already exist in env (add +1 strncmp in of just "ARG=")

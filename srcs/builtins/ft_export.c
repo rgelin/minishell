@@ -104,17 +104,17 @@ void	no_arg(char ***env)
 	* exit code = 1 
 	* Make a check error of ARG (ex: export +=9)
 */
-void	ft_export(char **cmd, char ***env)
+void	ft_export(t_exc exc, char ***env)
 {
 	char	*arg;
 
-	arg = cmd[1];
+	arg = exc.arg[0];
 	g_exit_code = 0;
 	if (arg == NULL)
 		no_arg(env);
 	else if (check_if_already_in_env(arg, env))
 		return ;
-	else if (find_var_in_env(arg, *env))
+	else if (find_var_in_env(arg, *env) != -1)
 	{
 		if (ft_strchr_modified(arg, '='))
 			modify_var_in_env(arg, env);

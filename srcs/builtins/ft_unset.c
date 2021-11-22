@@ -1,12 +1,12 @@
 #include "../minishell.h"
 
-void	ft_unset(char **cmd, char ***env)
+void	ft_unset(t_exc exc, char ***env)
 {
 	char	**new_env;
 	int		i;
 	char	*arg;
 
-	arg = cmd[1];
+	arg = exc.arg[0];
 	if (!arg || !find_var_in_env(arg, *env))
 		return ;
 	// new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
