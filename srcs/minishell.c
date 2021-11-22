@@ -70,7 +70,7 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-void	ft_execute(t_exc *tab, int nbr_cmd)
+void	ft_execute(t_exc *tab)
 {
 	int	pid;
 	int	pid2;
@@ -111,29 +111,20 @@ int	main(int argc, char **argv, char **env)
 	t_state *state;
 	char	**new_env;
 	int		d;
-	// int		p1[2];
-	// int		p2[2];
-	int		pid;
-	// t_exc	exc;
-	// int		out;
 	t_exc	*exc;
 
-	// char **arg = (char**)malloc(sizeof(char *) * 3);
-	// arg[0] = ft_strdup("plop");
-	// arg[1] = ft_strdup("lol");
-	// arg[2] = NULL;
 	exc = malloc(sizeof(t_exc) * 4);
 	(void)argc;
 	(void)argv;
-	// if (pipe(p1) == 1)
-		//exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
-	signal(SIGQUIT, SIG_IGN);
 	d = 0;
 	signal(SIGINT, ft_sig_int);
-	update_shlvl(&new_env);
+	// update_shlvl(&new_env);
 	exc[0].cmd = "ls";
-	exc[0].arg = NULL;
+	exc[0].arg = (char **)malloc(sizeof(char *) * 3);
+	exc[0].arg[0] = "srcs";
+	exc[0].arg[1] = "utils";
+	exc[0].arg[2] = NULL;
 	exc[0].opt = NULL;
 	exc[1].cmd = "ls";
 	exc[1].arg = NULL;
@@ -144,14 +135,7 @@ int	main(int argc, char **argv, char **env)
 	exc[3].cmd = NULL;
 	exc[3].opt = NULL;
 	exc[3].arg = NULL;
-		
-		// if (check_builtin(exc.cmd) == 0)
-			// exit(ft_exec(exc));
-		// else
-		// {
-			// if (ft_execute_command(exc, &new_env) == EXIT)
-				// exit(EXIT);
-		// }
+
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
@@ -163,18 +147,7 @@ int	main(int argc, char **argv, char **env)
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
 		if (!state->line)
 		{
-			// rl_replace_line("", 0);
-			// d = 1;
-			// free(state->line);
-			// state->line = NULL;
-			// rl_clear_history();
-			// rl_replace_line("", 0);
-			// rl_on_new_line();
-			// rl_redisplay();
-			// rl_replace_line("minishell > exit\n", 0);
-			// rl_on_new_line();
-			// rl_redisplay();
-
+			// Check to redisplay properly
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
 			exit(EXIT_SUCCESS);
 		}
@@ -186,6 +159,7 @@ int	main(int argc, char **argv, char **env)
 				exit(EXIT_FAILURE);
 			if (check_builtin(state->command[0]) == 0)
 			{
+				ft_exec(exc[0]);
 				printf("minishell: %s: command not found\n", state->command[0]);
 				g_exit_code = 127;
 				free(state->line);
@@ -210,7 +184,6 @@ int	main(int argc, char **argv, char **env)
 			free(state->line);
 			exit(1);
 		}
-		ft_exec(exc[1]);
 		// ft_execute(exc);
 	// 	if (check_builtin(state->command[0]) == 0)
 	// 	{

@@ -1,49 +1,51 @@
 #include "../srcs/minishell.h"
 
-static char	*ft_join_arg(char **args)
-{
-	char	*to_ret;
-	int		i;
-	int		size;
 
-	size = ft_tabsize(args);
+/*
+	arg == char ** avec plusieurs arg
+	=> char * cmd
+	=> char * opt
+	=> faire un tab taille n pour arg
+	=> size == cmd + opt + taille arg * taille char *
+*/
+
+static int	ft_size_cmd(t_exc cmd)
+{
+	int	i;
+	int	j;
+
 	i = 0;
-	while (i < size)
-	{
-		to_ret = ft_strjoin(to_ret, args[i]);
-		if (!to_ret)
-			exit(EXIT_FAILURE);
-		if (i < size - 1)
-		{
-			to_ret = ft_strjoin(to_ret, " ");
-			if (!to_ret)
-				exit(EXIT_FAILURE);
-		}
+	j = 0;
+	if (cmd.cmd)
 		i++;
-	}
-	return (to_ret);
+	if (cmd.opt)
+		i++;
+	while (cmd.arg[j++])
+		i++;
+	return (i + 1);
 }
 
 char	**create_cmd(t_exc command)
 {
 	char	**to_ret;
 	int		i;
+	int		j;
 
 	i = 0;
-	to_ret = (char **)malloc(sizeof(char *) * 4);
+	j = 0;
+	to_ret = (char **)malloc(sizeof(char *) * ft_size_cmd(command));
 	if (!to_ret)
 		return (NULL);
+	to_ret[ft_size_cmd(command)] = NULL;
 	if (command.cmd)
 		to_ret[i++] = command.cmd;
 	if (command.opt)
 		to_ret[i++] = command.opt;
 	if (command.arg)
-		to_ret[i++] = ft_join_arg(command.arg);
-	to_ret[i] = NULL;
-	while (--i >= 0)
 	{
-		if (!to_ret[i])
-			return (NULL);
+		while (command.arg[j])
+			to_ret[i++] = command.arg[j++];
 	}
+	to_ret[i] = NULL;
 	return (to_ret);
 }

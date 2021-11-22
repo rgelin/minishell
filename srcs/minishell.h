@@ -28,7 +28,7 @@ typedef struct s_exc
 {
 	char	*cmd;
 	char	*opt;
-	char	*arg;
+	char	**arg;
 	int		pipe;
 	char	*input;
 	char	*output;
