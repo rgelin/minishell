@@ -57,7 +57,6 @@ char **get_opt(char *line)
 			{
 				options[i] = ft_substr(line, index, opt - (index - 1));
 				options[i] = ft_strtrim(options[i], "- ");
-				printf("opt = %s\n", options[i]);
 				break ;
 			}
 			opt++;
@@ -125,7 +124,6 @@ char **get_arg(char *line)
 		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
 		{
 			arg[j] = ft_strdup(tmp[i]);
-			printf("arg = %s\n", arg[j]);
 			j++;
 		}
 		i++;

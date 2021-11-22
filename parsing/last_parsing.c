@@ -48,10 +48,11 @@ t_exc *last_parsing(t_pars *tab)
 		//fonction qui free tout mon tab
 		exit(EXIT_FAILURE);
 	}
-	init_ptn(last_tab);
+	//init_ptn(last_tab);
 	i = 0;
 	while (i < tab->pipe + 1)
 	{
+		init_ptn(last_tab);
 		last_tab[i].cmd = tab[i].command;
 		printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
 		last_tab[i].opt = option(tab[i].option);

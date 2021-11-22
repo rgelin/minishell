@@ -56,9 +56,9 @@ char **get_redirect_tab(char *line, int n)
 		start = index_tab[i];
 		end = index_tab[i + 1];
 		tab[i] = ft_substr(line, start, end - start);
-		printf("redirect = %s\n", tab[i]);
 		i++;
 	}
+	tab[i] = NULL;
 	free(index_tab);
 	return (tab);
 }
