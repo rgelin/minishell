@@ -89,7 +89,6 @@ void	ft_pwd(char **cmd);
 void	ft_cd(char **cmd, char ***env);
 
 void	ft_export(char **cmd, char ***env);
-<<<<<<< HEAD
 char	**ft_realloc_env(char ***env, int size);
 char	*ft_strtrim_modified(char const *s1, char const *set);
 int		find_var_in_env(char *arg, char **env);
@@ -107,17 +106,7 @@ t_exp_list	*remove_back(t_exp_list *stack);
 t_exp_list	*remove_front(t_exp_list *stack);
 t_exp_list	*freelist(t_exp_list *stack);
 int			size_list(t_exp_list *stack);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 char	**create_cmd(t_exc command);
->>>>>>> tmp fork
-=======
-char	**create_cmd(t_exc command);
->>>>>>> tmp fork
-=======
-char	**create_cmd(t_exc command);
->>>>>>> tmp fork
 
 //parsing
 t_pars	*parsing(t_state *s);
