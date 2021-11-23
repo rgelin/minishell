@@ -73,15 +73,15 @@ t_exc *last_parsing(t_pars *tab)
 		// }
 		if (tab[i].arg)
 			last_tab[i].arg = tab[i].arg;
-		j = 0;
-		if (tab[i].arg && last_tab[i].arg[j] != NULL)
-		{
-		 	while(last_tab[i].arg[j])
-		 	{
-		 		printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
-		 		j++;
-		 	}
-		}
+		// j = 0;
+		// if (tab[i].arg && last_tab[i].arg[j] != NULL)
+		// {
+		//  	while(last_tab[i].arg[j])
+		//  	{
+		//  		printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
+		//  		j++;
+		//  	}
+		// }
 		i++;
 	}
 	return (last_tab);
