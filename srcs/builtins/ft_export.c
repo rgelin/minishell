@@ -72,52 +72,26 @@ void	no_arg(char ***env)
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
-// char	*ft_trim_quotes(char *str, char c)
-// {
-// 	char	*new_str;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (!str)
-// 		return (NULL);
-// 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str)));
-// 	if (!new_str)
-// 		exit(EXIT_FAILURE);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c)
-// 			i++;
-// 		else
-// 			new_str[j++] = str[i++];
-// 	}
-// 	new_str[j] = '\0';
-// 	return (new_str);
-// }
-
 static char	*parse_arg(char *arg)
 {
 	char *res;
 	int	i;
 
-	printf("seg\n");
-	res = ft_strtrim_modified(arg, "\"");
+	res = ft_strtrim_modified(arg, "\""); //leak
 	free(arg);
 	arg = NULL;
 	i = -1;
-	// if (!ft_isalpha(arg[0]))
-	// 	return (NULL);
 	while (res[++i] != '=')
 	{
-		if (!ft_isalpha(arg[0]) || (res[i + 1] != '='  && !ft_isalnum(res[i])))
+		if (res[i] == '+' && res[i + 1] == '=')
+			break ;
+		else if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
 		{
 			printf("minishell: export: `%s': not a valid identifier\n", res);
 			g_exit_code = 1;
 			return (NULL);
 		}
 	}
-	printf("seg\n");
 	return (res);
 }
 
@@ -144,9 +118,9 @@ void	ft_export(t_exc exc, char ***env)
 			exc.arg[i] = parse_arg(exc.arg[i]);
 			if (!exc.arg[i])
 				i++;
-			if (check_if_already_in_env(exc.arg[i], env))
+			else if (check_if_already_in_env(exc.arg[i], env))
 				i++;
-			if (find_var_in_env(exc.arg[i], *env) != -1)
+			else if (find_var_in_env(exc.arg[i], *env) != -1)
 			{
 				if (ft_strchr_modified(exc.arg[i], '='))
 					modify_var_in_env(exc.arg[i++], env);
