@@ -144,11 +144,14 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
+	int		exit_child;
 	int		pid;
 	(void)argc;
 	(void)argv;
 
 	tab = NULL;
+	exit_child = 0;
+	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
 	state = malloc(sizeof(t_state));
@@ -180,15 +183,18 @@ int	main(int argc, char **argv, char **env)
 				{
 					if (ft_execute_command(exc[0], &new_env) == EXIT)
 					{
+						exit_child = 1;
 						ft_free(new_env, ft_tabsize(new_env));
 						free(exc);
 						ft_exit(exc[0]);
 					}
 				}
-				return (0);
+				exit(g_exit_code);
 			}
 			waitpid(pid, NULL, 0);
 		}
+		if (exit_child)
+			exit(g_exit_code);
 	}
 	return (0);
 }
