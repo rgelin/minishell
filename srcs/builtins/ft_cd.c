@@ -17,8 +17,8 @@ static void	set_pwd_and_oldpwd(char	*path, char ***env)
 	free(pwd);
 	pwd = NULL;
 	pwd = ft_strjoin("PWD=", path);
-	free((*env)[index_pwd]);
-	(*env)[index_pwd] = NULL;
+	// free((*env)[index_pwd]);
+	// (*env)[index_pwd] = NULL;
 	free((*env)[index_old]);
 	(*env)[index_old] = NULL;
 	(*env)[index_pwd] = pwd;
@@ -81,32 +81,35 @@ void	go_to_home(char ***env)
 		set_pwd_and_oldpwd(home, env);
 }
 //je prend comme hypothese que je recois "cd" dans le bon format(aucune erreur)
-void	ft_cd(char **cmd, char ***env)
+
+void	ft_cd(t_exc exc, char ***env)
 {
 	char	path[1024];
-	char	*arg;
 
 	g_exit_code = 0;
-	arg = cmd[1];
-	if (arg)
+	if (exc.arg != NULL)
 	{
-		if (!ft_strncmp(arg, "..", 3))
+		if (!ft_strncmp(exc.arg[0], "..", 3))
 		{
 			if (chdir("..") || !getcwd(path, 1024))
 			{
-				printf("minishell: cd: %s: %s\n", arg, strerror(errno));
+				printf("minishell: cd: %s: %s\n", exc.arg[0], strerror(errno));
 				g_exit_code = 1;
 			}
 			else
 				set_pwd_and_oldpwd(path, env);
 		}
-		else if (arg[0] == '~' && !arg[1])
+		else if (exc.arg[0][0] == '~' && !exc.arg[0][1])
 			go_to_home(env);
-		else if (arg[0] == '~' && arg[1] == '/')
-			go_path_from_home(arg, getenv("HOME"), env);
+		else if (exc.arg[0][0] == '~' && exc.arg[0][1] == '/')
+			go_path_from_home(exc.arg[0], getenv("HOME"), env);
 		else
-			go_to_final_path(arg, env);
+			go_to_final_path(exc.arg[0], env);
 	}
 	else
+	{
+
+		printf("cd\n");
 		go_to_home(env);
+	}
 }

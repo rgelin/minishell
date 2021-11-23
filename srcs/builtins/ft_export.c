@@ -96,6 +96,31 @@ void	no_arg(char ***env)
 // 	return (new_str);
 // }
 
+static char	*parse_arg(char *arg)
+{
+	char *res;
+	int	i;
+
+	printf("seg\n");
+	res = ft_strtrim_modified(arg, "\"");
+	free(arg);
+	arg = NULL;
+	i = -1;
+	// if (!ft_isalpha(arg[0]))
+	// 	return (NULL);
+	while (res[++i] != '=')
+	{
+		if (!ft_isalpha(arg[0]) || (res[i + 1] != '='  && !ft_isalnum(res[i])))
+		{
+			printf("minishell: export: `%s': not a valid identifier\n", res);
+			g_exit_code = 1;
+			return (NULL);
+		}
+	}
+	printf("seg\n");
+	return (res);
+}
+
 /*-------exit code---------
 	* ARG must begin by a letter
 	* ARG name can't contain only letters and numbers
@@ -104,21 +129,31 @@ void	no_arg(char ***env)
 	* exit code = 1 
 	* Make a check error of ARG (ex: export +=9)
 */
-void	ft_export(char **cmd, char ***env)
+void	ft_export(t_exc exc, char ***env)
 {
-	char	*arg;
+	int	i;
 
 	g_exit_code = 0;
-	arg = ft_strtrim_modified(cmd[1], "\"");
-	if (arg == NULL)
+	i = 0;
+	if (exc.arg == NULL)
 		no_arg(env);
-	else if (check_if_already_in_env(arg, env))
-		return ;
-	else if (find_var_in_env(arg, *env))
-	{
-		if (ft_strchr_modified(arg, '='))
-			modify_var_in_env(arg, env);
-	}
 	else
-		create_new_var_env(arg, env);
+	{
+		while (exc.arg[i])
+		{
+			exc.arg[i] = parse_arg(exc.arg[i]);
+			if (!exc.arg[i])
+				i++;
+			if (check_if_already_in_env(exc.arg[i], env))
+				i++;
+			if (find_var_in_env(exc.arg[i], *env) != -1)
+			{
+				if (ft_strchr_modified(exc.arg[i], '='))
+					modify_var_in_env(exc.arg[i++], env);
+			}
+			else
+				create_new_var_env(exc.arg[i++], env);
+		}
+
+	}
 }

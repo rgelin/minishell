@@ -1,9 +1,9 @@
-
 NAME		=	minishell
 LIBFT		=	./libft/
 UTILS		=	./utils/
 SOURCES		=	./srcs/
-BUILTINS	= ./srcs/builtins/
+PARSING 	=	./parsing/
+BUILTINS	=	./srcs/builtins/
 ERRORS		=	./errors/
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra
@@ -12,7 +12,6 @@ READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
-				$(SOURCES)parsing.c \
 				$(SOURCES)ft_exec.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
@@ -26,11 +25,25 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strtrim_modified.c \
 				$(UTILS)ft_strjoin_free.c \
 				$(UTILS)ft_atoi_modified.c \
-				$(UTILS)list.c
+				$(UTILS)list.c \
+				$(UTILS)create_cmd.c \
+				
+
+PARSG		=	$(PARSING)error_parsing.c \
+				$(PARSING)find_command.c \
+				$(PARSING)get_redirect.c \
+				$(PARSING)parsing_untils.c \
+				$(PARSING)parsing.c \
+				$(PARSING)split_line.c \
+				$(PARSING)split_parsing.c \
+				$(PARSING)last_parsing.c \
+				
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 
 OBJS		=	$(SRCS:.c=.o)
+
+OBJS_PARS	= $(PARSG:.c=.o)
 
 OBJS_UTILS	=	$(SRCS_UTILS:.c=.o)
 
@@ -53,11 +66,11 @@ NO_COLOR	=	\x1b[0m
 		@printf "$(YELLOW)Generating minishell objects... %-33.33s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
 
-$(NAME):	$(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
+$(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
-			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS) $(LIBFT)libft.a -o $(NAME)
+			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
@@ -67,7 +80,7 @@ bonus:	$(NAME)
 clean:
 		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-		@rm -f $(OBJS) $(OBJS_UTILS) $(OBJS_ERRORS)
+		@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
 		@echo "$(RED)Deleting executables...\n$(NO_COLOR)"

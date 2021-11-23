@@ -1,29 +1,5 @@
 #include "minishell.h"
 
-static char	**create_cmd(t_exc command)
-{
-	char	**to_ret;
-	int		i;
-
-	i = 0;
-	to_ret = (char **)malloc(sizeof(char *) * 4);
-	if (!to_ret)
-		return (NULL);
-	if (command.cmd)
-		to_ret[i++] = command.cmd;
-	if (command.opt)
-		to_ret[i++] = command.opt;
-	if (command.arg)
-		to_ret[i++] = command.arg;
-	to_ret[i] = NULL;
-	while (--i >= 0)
-	{
-		if (!to_ret[i])
-			return (NULL);
-	}
-	return (to_ret);
-}
-
 int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;
@@ -62,7 +38,7 @@ int	ft_exec(t_exc command)
 		ft_free(folder, ft_tabsize(folder));
 		ft_free(cmd, ft_tabsize(cmd));
 		return (EXIT_FAILURE);
-	}	
+	}
 	while (folder[++i])
 		execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));

@@ -18,29 +18,25 @@ static void	ft_print_line(char **cmd, int i)
 	}
 }
 
-void	ft_echo(char **cmd)
+void	ft_echo(t_exc exc)
 {
-	if (ft_tabsize(cmd) < 2)
-	{
+	if (ft_tabsize(exc.arg) < 1)
 		printf("\n");
-		return ;
-	}
-	if (!ft_strncmp(cmd[1], "$?", 2))
+	else if (!ft_strncmp(exc.arg[0], "$?", 2))
 		printf("%d\n", g_exit_code);
-	else if (!ft_strncmp(cmd[1], "-n", 2))
-		ft_print_line(cmd, 2);
+	else if (!ft_strncmp(exc.opt, "-n", 2))
+		ft_print_line(exc.arg, 2);
 	else
 	{
-		ft_print_line(cmd, 1);
+		ft_print_line(exc.arg, 1);
 		printf("\n");
 	}
 	g_exit_code = 0;
 }
 
-void	ft_pwd(char **cmd)
+void	ft_pwd()
 {
 	char	pwd[1024]; //redefinir la taille en mode bien
-	(void)cmd;
 	// if (cmd[1]) //pour l'instant protecion comme ca mais a voir avec les pipes pour plusieurs arguments
 	// {
 	// 	write (2, "pwd: too many arguments\n", 24); //faire une fonction de gestion d'erreur (avec perror je pense)

@@ -1,34 +1,38 @@
 
 #include "minishell.h"
 
-int	ft_execute_command(char **cmd, char ***env)
+int	ft_execute_command(t_exc exc, char ***env)
 {
-	if (check_builtin(cmd[0]) == ECHO)
+	// char **new_cmd;
+
+	// new_cmd = create_cmd(cmd);
+	if (check_builtin(exc.cmd) == ECHO)
 	{
-		ft_echo(cmd);
+		ft_echo(exc);
 		return (ECHO);
 	}
-	if (check_builtin(cmd[0]) == CD)
+	if (check_builtin(exc.cmd) == CD)
 	{
-		ft_cd(cmd, env);
+		ft_cd(exc, env);
 		return (CD);
 	}
-	if (check_builtin(cmd[0]) == PWD)
+	if (check_builtin(exc.cmd) == PWD)
 	{
-		ft_pwd(cmd);
+		printf("pwd\n");
+		ft_pwd(exc);
 		return (PWD);
 	}
-	if (check_builtin(cmd[0]) == EXPORT)
+	if (check_builtin(exc.cmd) == EXPORT)
 	{
-		ft_export(cmd, env);
+		ft_export(exc, env);
 		return (EXPORT);
 	}
-	if (check_builtin(cmd[0]) == UNSET)
+	if (check_builtin(exc.cmd) == UNSET)
 	{
-		ft_unset(cmd, env);
+		ft_unset(exc, env);
 		return (UNSET);
 	}
-	if (check_builtin(cmd[0]) == ENV)
+	if (check_builtin(exc.cmd) == ENV)
 	{
 		ft_env((*env));
 		return (ENV);
