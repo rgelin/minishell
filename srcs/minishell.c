@@ -144,13 +144,11 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
-	int		exit_child;
 	int		pid;
 	(void)argc;
 	(void)argv;
 
 	tab = NULL;
-	exit_child = 0;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
@@ -174,27 +172,24 @@ int	main(int argc, char **argv, char **env)
 		{
 			tab = parsing(state);
 			exc = last_parsing(tab);
+			if (check_builtin(exc[0].cmd) == EXIT)
+			{
+				ft_free(new_env, ft_tabsize(new_env));
+				free(exc);
+				g_exit_code = 0;
+				exit(g_exit_code);
+			}
 			pid = fork();
 			if (pid == 0)
 			{
 				if (check_builtin(exc[0].cmd) == 0)
 					g_exit_code = ft_exec(exc[0]);
 				else
-				{
-					if (ft_execute_command(exc[0], &new_env) == EXIT)
-					{
-						exit_child = 1;
-						ft_free(new_env, ft_tabsize(new_env));
-						free(exc);
-						ft_exit(exc[0]);
-					}
-				}
+					ft_execute_command(exc[0], &new_env);
 				exit(g_exit_code);
 			}
 			waitpid(pid, NULL, 0);
 		}
-		if (exit_child)
-			exit(g_exit_code);
 	}
 	return (0);
 }
