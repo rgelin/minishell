@@ -144,10 +144,10 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
+	int		pid;
 	(void)argc;
 	(void)argv;
 
-	exc = malloc(sizeof(t_exc) * 4);
 	tab = NULL;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
@@ -171,24 +171,23 @@ int	main(int argc, char **argv, char **env)
 		{
 			tab = parsing(state);
 			exc = last_parsing(tab);
-			if (check_builtin(exc[0].cmd) == 0)
+			pid = fork();
+			if (pid == 0)
 			{
-				// ft_exec(exc[0]);
-				printf("minishell: %s: command not found\n", exc[0].cmd);
-				g_exit_code = 127;
-			}
-			else
-			{
-				if (ft_execute_command(exc[0], &new_env) == EXIT)
+				if (check_builtin(exc[0].cmd) == 0)
+					g_exit_code = ft_exec(exc[0]);
+				else
 				{
-					ft_free(new_env, ft_tabsize(new_env));
-					ft_free(exc->arg, ft_tabsize(exc->arg));
-					ft_exit(exc[0]);
+					if (ft_execute_command(exc[0], &new_env) == EXIT)
+					{
+						ft_free(new_env, ft_tabsize(new_env));
+						free(exc);
+						ft_exit(exc[0]);
+					}
 				}
-				if (exc->arg)
-					ft_free(exc->arg, ft_tabsize(exc->arg));
-				free(exc->cmd);
+				return (0);
 			}
+			waitpid(pid, NULL, 0);
 		}
 	}
 	return (0);
