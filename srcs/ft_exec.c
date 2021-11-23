@@ -25,6 +25,7 @@ int	ft_exec(t_exc command)
 	char	**folder;
 	int		i;
 	char	**cmd;
+	int		exit_code;
 
 	cmd = create_cmd(command);
 	if (!cmd)
@@ -40,8 +41,8 @@ int	ft_exec(t_exc command)
 		return (EXIT_FAILURE);
 	}
 	while (folder[++i])
-		execve(folder[i], cmd, NULL);
+		exit_code = execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }

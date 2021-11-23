@@ -20,8 +20,11 @@ static int	ft_size_cmd(t_exc cmd)
 		i++;
 	if (cmd.opt)
 		i++;
-	while (cmd.arg[j++])
-		i++;
+	if (cmd.arg)
+	{
+		while (cmd.arg[j++])
+			i++;
+	}
 	return (i + 1);
 }
 
