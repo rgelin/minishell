@@ -81,7 +81,7 @@ static char	*parse_arg(char *arg)
 	free(arg);
 	arg = NULL;
 	i = -1;
-	while (res[++i] != '=')
+	while (res[++i] && res[i] != '=')
 	{
 		if (res[i] == '+' && res[i + 1] == '=')
 			break ;

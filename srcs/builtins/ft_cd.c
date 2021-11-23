@@ -108,7 +108,6 @@ void	ft_cd(t_exc exc, char ***env)
 	}
 	else
 	{
-
 		printf("cd\n");
 		go_to_home(env);
 	}
