@@ -132,5 +132,6 @@ void	ft_free_pars_tab(t_state *s);
 void	ft_free_pars_error(t_state *s);
 t_exc 	*last_parsing(t_pars *tab);
 char 	**get_redirect(char *line, char c);
+char	**ft_arg(char **arg);
 
 #endif
