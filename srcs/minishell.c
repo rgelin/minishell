@@ -1,5 +1,7 @@
 
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int	g_exit_code = 0;
 

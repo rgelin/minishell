@@ -17,11 +17,11 @@ char	**ft_realloc_env(char ***env, int size)
 
 int	find_var_in_env(char *arg, char **env)
 {
-	int	index;
+	//int	index;
 	int	i;
 	int	j;
 
-	index = 0;
+	//index = 0;
 	i = -1;
 	j = 0;
 	while (arg[j] && arg[j] != '+' && arg[j] != '=')
