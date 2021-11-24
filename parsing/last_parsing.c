@@ -39,7 +39,7 @@ char *option(char **options)
 	return (line);
 }
 
-t_exc *last_parsing(t_pars *tab)
+t_exc *last_parsing(t_pars *tab, char **env)
 {
 	int		i;
 	//int		j;
@@ -63,7 +63,7 @@ t_exc *last_parsing(t_pars *tab)
 		if (tab[i].redirect)
 			last_tab[i].redirect = tab[i].redirect;
 		if (tab[i].arg)
-			last_tab[i].arg = ft_arg(tab[i].arg);
+			last_tab[i].arg = ft_arg(tab[i].arg, env);
 		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
 		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
 		//j = 0;

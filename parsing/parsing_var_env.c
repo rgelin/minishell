@@ -17,11 +17,11 @@ char	*insert_exit_code(char *line, int index)
 	free(code);
 	new_line = ft_strjoin(new_line, rest);
 	free(rest);
-	free(line);
+	//free(line);
 	return (new_line);
 }
 
-char	*insert_var_env(char *line, int index)
+char	*insert_var_env(char *line, int index, char **env)
 {
 	char	*tmp;
 	char	*rest;
@@ -33,7 +33,6 @@ char	*insert_var_env(char *line, int index)
 	n = index;
 	m = 0;
 	tmp = ft_substr(line, 0, index);
-	//printf("%s\n", tmp);
 	new_line = NULL;
 	while(line[n] != '\0')
 	{
@@ -42,26 +41,22 @@ char	*insert_var_env(char *line, int index)
 		n++;
 		m++;
 	}
-	//printf("%s\n", ft_substr(line, index + 1, m));
-	var = getenv(ft_substr(line , index + 1, m - 1));
-	//printf("var = %s\n", var);
+	var = our_getenv(ft_substr(line , index + 1, m - 1), env);
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
-	//printf("rest = %s\n", rest);
 	new_line = ft_strjoin(tmp, var);
 	//free(var);
 	new_line = ft_strjoin(new_line, rest);
 	free(rest);
-	free(line);
+	//free(line);
 	return (new_line);
 }
 
-char	*check_var_env(char *line)
+char	*check_var_env(char *line, char **env)
 {
 	int		i;
 	char	*new_line;
 
 	i = 0;
-	
 	while (line[i] != '\0')
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
@@ -71,15 +66,16 @@ char	*check_var_env(char *line)
 		}
 		else if (line[i] == '$')
 		{
-			new_line = insert_var_env(line, i);
+			new_line = insert_var_env(line, i, env);
 			line = new_line;
 		}
 		i++;
 	}
+	//free la line du coup ? 
 	return (new_line);
 }
 
-char	*check_var_env_bis(char *line)
+char	*check_var_env_bis(char *line, char **env)
 {
 	int		i;
 	char	*new_line;
@@ -88,11 +84,11 @@ char	*check_var_env_bis(char *line)
 	if (line[i] == '$' && line[i + 1] == '?')
 	{
 		new_line = ft_itoa(g_exit_code);
-		free(line);
+		//free(line);
 	}
 	else if (line[i] == '$')
 	{
-		new_line = getenv(ft_strtrim(line, "$"));
+		new_line = our_getenv(ft_strtrim(line, "$"), env);
 		//free(line);
 	}
 	else
@@ -100,7 +96,7 @@ char	*check_var_env_bis(char *line)
 	return (new_line);
 }
 
-char	**ft_arg(char **arg)
+char	**ft_arg(char **arg, char **env)
 {
 	int	i;
 	
@@ -115,13 +111,13 @@ char	**ft_arg(char **arg)
 		{
 			arg[i] = ft_strtrim(arg[i], "\"");
 			//printf("before : %s\n", arg[i]);
-			arg[i] = check_var_env(arg[i]);
+			arg[i] = check_var_env(arg[i], env);
 			//printf("after : %s\n", arg[i]);
 		}
 		else
 		{
 			//printf("before : %s\n", arg[i]);
-			arg[i] = check_var_env_bis(arg[i]);
+			arg[i] = check_var_env_bis(arg[i], env);
 			//printf("after : %s\n", arg[i]);
 		}
 		i++;

@@ -84,3 +84,24 @@ int	check_redirection(char *line)
 	}
 	return (0);
 }
+
+char	*our_getenv(char *line, char **env)
+{
+	int		index;
+	char	*var;
+	char	*tmp;
+	char	**test;
+
+	index = find_var_in_env(line, env);
+	if (index >= 0)
+	{
+		var = env[index];
+		test = ft_split(var, '=');
+		tmp = ft_strdup(test[1]);
+	}
+	else
+	{
+		tmp = "";
+	}
+	return (tmp);
+}
