@@ -107,26 +107,26 @@ void	ft_export(t_exc exc, char ***env)
 {
 	int	i;
 
-	g_exit_code = 0;
 	i = 0;
-	if (exc.arg == NULL)
+	g_exit_code = 0;
+	if (!exc.arg)
 		no_arg(env);
 	else
 	{
 		while (exc.arg[i])
 		{
 			exc.arg[i] = parse_arg(exc.arg[i]);
-			if (!exc.arg[i])
-				i++;
-			else if (check_if_already_in_env(exc.arg[i], env))
-				i++;
-			else if (find_var_in_env(exc.arg[i], *env) != -1)
+			if (exc.arg[i] && !check_if_already_in_env(exc.arg[i], env))
 			{
-				if (ft_strchr_modified(exc.arg[i], '='))
-					modify_var_in_env(exc.arg[i++], env);
+				if (find_var_in_env(exc.arg[i], *env) != -1)
+				{
+					if (ft_strchr_modified(exc.arg[i], '='))
+						modify_var_in_env(exc.arg[i], env);
+				}
+				else
+					create_new_var_env(exc.arg[i], env);
 			}
-			else
-				create_new_var_env(exc.arg[i++], env);
+			i++;
 		}
 
 	}

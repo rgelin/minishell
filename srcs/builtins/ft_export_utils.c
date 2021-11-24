@@ -17,21 +17,25 @@ char	**ft_realloc_env(char ***env, int size)
 
 int	find_var_in_env(char *arg, char **env)
 {
-	int	index;
+	char	*to_find;
 	int	i;
-	int	j;
+	int j;
 
-	index = 0;
 	i = -1;
 	j = 0;
-	while (arg[j] && arg[j] != '+' && arg[j] != '=')
-		j++;
+	to_find = ft_strtrim_modified(arg, "+");
+	if (!to_find)
+		exit(EXIT_FAILURE);
+	while (to_find[j] && to_find[j] != '=')
+		j++;;
 	i = -1;
 	while (env[++i])
 	{
-		if (!ft_strncmp(arg, env[i], j - 1))
+		if (!ft_strncmp(env[i], to_find, j))
 			return (i);
 	}
+	free(to_find);
+	to_find = NULL;
 	return (-1); //changer les conditions par rapport a ca
 }
 
@@ -82,6 +86,7 @@ void	modify_var_in_env(char *arg, char ***env)
 	int		i;
 
 	i = find_var_in_env(arg, *env);
+	printf("i: %d\n", i);
 	if (ft_strchr_modified(arg, '+'))
 	{
 		to_add = ft_to_add(arg);
