@@ -1,6 +1,8 @@
 
 #include "../srcs/minishell.h"
 
+extern int	g_exit_code;
+
 void	init_ptn(t_exc *tab)
 {
 	tab->cmd = NULL;
@@ -36,11 +38,50 @@ char *option(char **options)
 	}
 	return (line);
 }
+/*
+void	check_var_env(char *line)
+{
+	int		i;
 
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '$' && line[i + 1] == '?')
+		{
+			//get_exit_code
+		}
+		else if (line[i] == '$')
+		{
+			
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	**arg(char **arg)
+{
+	int	i;
+	
+	i = 0;
+	while (arg && arg[i])
+	{
+		if (arg[i][0] == '\'')
+		{
+			arg[i] = ft_strtrim(arg[i], '\'');
+		}
+		else
+		{
+
+		}
+		i++;
+	}
+}
+*/
 t_exc *last_parsing(t_pars *tab)
 {
 	int		i;
-	int		j;
+	//int		j;
 	t_exc	*last_tab;
 	
 	last_tab = NULL;
@@ -51,18 +92,20 @@ t_exc *last_parsing(t_pars *tab)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
+	init_ptn(last_tab);
 	while (i < tab->pipe + 1)
 	{
-		init_ptn(last_tab);
 		if (tab[i].command)
 			last_tab[i].cmd = tab[i].command;
-		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
 		if (tab[i].option)
 			last_tab[i].opt = option(tab[i].option);
-		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
 		if (tab[i].redirect)
 			last_tab[i].redirect = tab[i].redirect;
-		j = 0;
+		if (tab[i].arg)
+			last_tab[i].arg = tab[i].arg;
+		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
+		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
+		//j = 0;
 		// if (last_tab[i].redirect[j] != NULL)
 		// {
 		// 	while(last_tab[i].redirect[j])
@@ -71,8 +114,6 @@ t_exc *last_parsing(t_pars *tab)
 		// 		j++;
 		// 	}
 		// }
-		if (tab[i].arg)
-			last_tab[i].arg = tab[i].arg;
 		// j = 0;
 		// if (tab[i].arg && last_tab[i].arg[j] != NULL)
 		// {
