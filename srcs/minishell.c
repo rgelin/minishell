@@ -173,7 +173,7 @@ int	main(int argc, char **argv, char **env)
 		else if (state->line[0] != '\0')
 		{
 			tab = parsing(state);
-			exc = last_parsing(tab);
+			exc = last_parsing(tab, env);
 			if (check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
