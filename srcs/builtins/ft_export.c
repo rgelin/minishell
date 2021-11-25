@@ -83,7 +83,7 @@ static char	*parse_arg(char *arg)
 	i = -1;
 	if (!ft_isalpha(res[0]))
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", res);
+		ft_perror("export", res, "not a valid identifier");
 		g_exit_code = 1;
 		return (NULL);
 	}
@@ -93,7 +93,7 @@ static char	*parse_arg(char *arg)
 			break ;
 		else if (!ft_isalnum(res[i]))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", res);
+			ft_perror("export", res, "not a valid identifier");
 			g_exit_code = 1;
 			return (NULL);
 		}
@@ -125,15 +125,11 @@ void	ft_export(t_exc exc, char ***env)
 	{
 		while (exc.arg[i])
 		{
-			printf("%s\n", exc.arg[i]);
-			// printf("%s\n", exc.opt);
 			exc.arg[i] = parse_arg(exc.arg[i]);
-			printf("%s\n", exc.arg[i]);
 			if (exc.arg[i] && !check_if_already_in_env(exc.arg[i], env))
 			{
 				if (find_var_in_env(exc.arg[i], *env) != -1)
 				{
-					// printf("test\n");
 					if (ft_strchr_modified(exc.arg[i], '='))
 						modify_var_in_env(exc.arg[i], env);
 				}

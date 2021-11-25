@@ -40,8 +40,7 @@ static void	go_to_final_path(char *arg, char ***env)
 	temp = NULL;
 	if (chdir(final_path))
 	{
-		ft_perror("cd", arg, strerror(errno), NULL);
-		// printf("minishell: cd: %s: %s\n", arg, strerror(errno));
+		ft_perror("cd", arg, strerror(errno));
 		g_exit_code = 1;
 	}
 	else
@@ -61,7 +60,7 @@ static void	go_path_from_home(char *arg, char *home, char ***env)
 	temp = NULL;
 	if (chdir(path_from_home))
 	{
-		printf("minishell: cd: %s: %s\n", path_from_home, strerror(errno));
+		ft_perror("cd", path_from_home, strerror(errno));
 		g_exit_code = 1;
 	}
 	else
@@ -77,7 +76,7 @@ void	go_to_home(char ***env)
 	home = getenv("HOME");
 	if (chdir(home))
 	{
-		printf("minishell: cd: %s: %s\n", home, strerror(errno));
+		ft_perror("cd", home, strerror(errno));
 		g_exit_code = 1;
 	}
 	else
@@ -96,7 +95,7 @@ void	ft_cd(t_exc exc, char ***env)
 		{
 			if (chdir("..") || !getcwd(path, 1024))
 			{
-				printf("minishell: cd: %s: %s\n", exc.arg[0], strerror(errno));
+				ft_perror("cd", exc.arg[0], strerror(errno));
 				g_exit_code = 1;
 			}
 			else
@@ -110,8 +109,5 @@ void	ft_cd(t_exc exc, char ***env)
 			go_to_final_path(exc.arg[0], env);
 	}
 	else
-	{
-		printf("cd\n");
 		go_to_home(env);
-	}
 }

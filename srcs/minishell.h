@@ -97,7 +97,7 @@ int		check_if_already_in_env(char *arg, char ***env);
 void	modify_var_in_env(char *arg, char ***env);
 int		ft_strcmp(char *s1, char *s2);
 
-void	ft_perror(char *cmd, char *arg, char *err_msg, char *other_msg);
+void	ft_perror(char *cmd, char *arg, char *err_msg);
 
 void	ft_unset(t_exc exc, char ***env);
 
