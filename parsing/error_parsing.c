@@ -1,4 +1,3 @@
-
 #include "../srcs/minishell.h"
 
 void	ft_free_pars_tab(t_state *s)
@@ -11,7 +10,7 @@ void	ft_free_pars_tab(t_state *s)
 	while (nbr <= s->n_of_pipe)
 	{
 		free(s->cm[nbr]);
-		nbr++;			
+		nbr++;
 	}
 }
 
@@ -29,7 +28,7 @@ void	ft_free_pars_error(t_state *s)
 		while (nbr <= s->n_of_pipe)
 		{
 			free(s->cm[nbr]);
-			nbr++;			
+			nbr++;
 		}
 	}
 	if (s)

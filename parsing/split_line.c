@@ -1,18 +1,15 @@
-
 #include "../srcs/minishell.h"
 
-
-//Pour split la line en diffente string entre les pipes
-void split_pipe(t_state *s)
+void	split_pipe(t_state *s)
 {
 	int	i;
 	int	next;
-	int start;
+	int	start;
 
 	i = 0;
 	start = 0;
 	next = s->pipe[i];
-	while (i <=s->n_of_pipe)
+	while (i <= s->n_of_pipe)
 	{
 		next = next - start;
 		s->cm[i] = ft_substr(s->line, start, next);
@@ -29,9 +26,9 @@ void split_pipe(t_state *s)
 	}
 }
 
-t_pars *split_line(t_state *s)
+t_pars	*split_line(t_state *s)
 {
-	t_pars *tab;
+	t_pars	*tab;
 
 	tab = NULL;
 	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));

@@ -153,7 +153,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
 		tab.option = get_opt(line);
-		tab.redirect = get_redirect(line, '>');
+		tab.redirect = get_redirect(line);
 		tab.arg = get_arg(line);
 	}
 	else
