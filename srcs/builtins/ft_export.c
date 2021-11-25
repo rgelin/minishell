@@ -81,11 +81,17 @@ static char	*parse_arg(char *arg)
 	free(arg);
 	arg = NULL;
 	i = -1;
+	if (!ft_isalpha(res[0]))
+	{
+		printf("minishell: export: `%s': not a valid identifier\n", res);
+		g_exit_code = 1;
+		return (NULL);
+	}
 	while (res[++i] && res[i + 1] != '=')
 	{
 		if (res[i] == '+' && res[i + 1] == '=')
 			break ;
-		else if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
+		else if (!ft_isalnum(res[i]))
 		{
 			printf("minishell: export: `%s': not a valid identifier\n", res);
 			g_exit_code = 1;
@@ -103,6 +109,10 @@ static char	*parse_arg(char *arg)
 	* exit code = 1 
 	* Make a check error of ARG (ex: export +=9)
 */
+/*-------Error---------
+* export A -->
+* export +=9 et export =9
+*/
 void	ft_export(t_exc exc, char ***env)
 {
 	int	i;
@@ -115,6 +125,8 @@ void	ft_export(t_exc exc, char ***env)
 	{
 		while (exc.arg[i])
 		{
+			printf("%s\n", exc.arg[i]);
+			printf("%s\n", exc.opt);
 			exc.arg[i] = parse_arg(exc.arg[i]);
 			if (exc.arg[i] && !check_if_already_in_env(exc.arg[i], env))
 			{
