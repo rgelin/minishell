@@ -95,6 +95,8 @@ char	*ft_strjoin_free(char const *s1, char const *s2);
 int		find_var_in_env(char *arg, char **env);
 int		check_if_already_in_env(char *arg, char ***env);
 void	modify_var_in_env(char *arg, char ***env);
+int		ft_strcmp(char *s1, char *s2);
+
 
 void	ft_unset(t_exc exc, char ***env);
 

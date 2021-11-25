@@ -161,7 +161,7 @@ int	main(int argc, char **argv, char **env)
 		if (!state->line)
 		{
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
-			exit(EXIT_SUCCESS);
+			exit(g_exit_code);
 		}
 		else if (state->line[0] != '\0')
 		{

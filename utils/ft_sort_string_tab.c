@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_string_tab.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:11:05 by rgelin            #+#    #+#             */
-/*   Updated: 2020/10/28 18:54:19 by rgelin           ###   ########.fr       */
+/*   Updated: 2021/11/24 23:54:13 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../srcs/minishell.h"
 
 int		ft_strcmp(char *s1, char *s2)
 {
