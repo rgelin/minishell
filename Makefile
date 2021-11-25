@@ -25,7 +25,6 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strtrim_modified.c \
 				$(UTILS)ft_strjoin_free.c \
 				$(UTILS)ft_atoi_modified.c \
-				$(UTILS)ft_perror.c \
 				$(UTILS)list.c \
 				$(UTILS)create_cmd.c \
 				
@@ -41,6 +40,7 @@ PARSG		=	$(PARSING)error_parsing.c \
 				
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
+				$(ERRORS)ft_perror.c
 
 OBJS		=	$(SRCS:.c=.o)
 
