@@ -3,8 +3,10 @@
 
 extern int	g_exit_code;
 
-static void	set_pwd_and_oldpwd(char	*path, char ***env)
+static void	set_pwd_and_oldpwd(char	*path, char ***env) //segfault dans le cas ou on unset PWD
 {
+	(void)path;
+	(void)env;
 	char	*old_pwd;
 	char	*pwd;
 	int		index_old;
@@ -38,7 +40,8 @@ static void	go_to_final_path(char *arg, char ***env)
 	temp = NULL;
 	if (chdir(final_path))
 	{
-		printf("minishell: cd: %s: %s\n", arg, strerror(errno));
+		ft_perror("cd", arg, strerror(errno), NULL);
+		// printf("minishell: cd: %s: %s\n", arg, strerror(errno));
 		g_exit_code = 1;
 	}
 	else

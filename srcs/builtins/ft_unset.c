@@ -29,6 +29,7 @@ void	ft_unset(t_exc exc, char ***env)
 	char	**new_env;
 	int		i;
 	int		j;
+	int		k;
 
 	i = -1;
 	if (exc.arg)
@@ -42,12 +43,13 @@ void	ft_unset(t_exc exc, char ***env)
 				if (!new_env)
 					exit(EXIT_FAILURE);
 				j = -1;
+				k = -1;
 				while ((*env)[++j])
 				{
 					if (j == find_var_in_env(exc.arg[i], *env))
 						j++;
-					new_env[j] = ft_strdup((*env)[j]); //reste un leak ici
-					if (!new_env[j])
+					new_env[++k] = ft_strdup((*env)[j]); //reste un leak ici
+					if (!new_env[k])
 						exit(EXIT_FAILURE);
 				}
 				new_env[j] = NULL;

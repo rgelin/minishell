@@ -11,7 +11,7 @@ void	create_new_var_env(char *arg, char ***env)
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_strtrim_modified(arg, "+");
+	cmd_cpy = ft_strtrim_modified(arg, "+"); //pas trim tous les + juste celui a cote du =
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];
@@ -126,8 +126,9 @@ void	ft_export(t_exc exc, char ***env)
 		while (exc.arg[i])
 		{
 			printf("%s\n", exc.arg[i]);
-			printf("%s\n", exc.opt);
+			// printf("%s\n", exc.opt);
 			exc.arg[i] = parse_arg(exc.arg[i]);
+			printf("%s\n", exc.arg[i]);
 			if (exc.arg[i] && !check_if_already_in_env(exc.arg[i], env))
 			{
 				if (find_var_in_env(exc.arg[i], *env) != -1)
