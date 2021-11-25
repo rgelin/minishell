@@ -1,15 +1,5 @@
-
 #include "../srcs/minishell.h"
 
-//surement la mettre en int et verifie le nombre de 
-//simple quote. n_of_sq % 2 != 0 du coup cest une error.
-// et quitter la fonction sans malloc
-//puis si il y a pas de double ou simple quote je peux direct verif et pipe
-//return direct la fonction pipe si il y a pas de quote ?
-
-//Dans un deuxieme temps verifier si le cas ou il y a des quote.
-
-// check le nbr de pipe et donner ces indices + verifie les sq
 int	check_parsing(t_state *s)
 {
 	if (!check_quote(s->line, s->eof))
@@ -22,8 +12,8 @@ int	check_parsing(t_state *s)
 		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
 	return (1);
 }
-//verifie si on est dans un simple ou double quote
-int	check_quote(char *line, int	index)
+
+int	check_quote(char *line, int index)
 {
 	int	i;
 	int	simple_quote;
@@ -53,7 +43,7 @@ int	check_quote(char *line, int	index)
 		return (1);
 	return (0);
 }
-//trouver le bon nombre de pipe
+
 void check_char(t_state *s)
 {
 	int	i;
@@ -69,7 +59,7 @@ void check_char(t_state *s)
 
 t_pars	*parsing(t_state *s)
 {
-	t_pars *tab;
+	t_pars	*tab;
 
 	tab = NULL;
 	check_char(s);

@@ -127,7 +127,7 @@ char	**ft_split_parsing(char *s, char c);
 void	ft_free_pars_tab(t_state *s);
 void	ft_free_pars_error(t_state *s);
 t_exc 	*last_parsing(t_pars *tab, char **env);
-char 	**get_redirect(char *line, char c);
+char 	**get_redirect(char *line);
 char	**ft_arg(char **arg, char **env);
 char	*our_getenv(char *line, char **env);
 #endif

@@ -1,4 +1,3 @@
-
 #include "../srcs/minishell.h"
 
 extern int	g_exit_code;
@@ -11,7 +10,7 @@ void	init_ptn(t_exc *tab)
 	tab->redirect = NULL;
 }
 
-char *option(char **options)
+char	*option(char **options)
 {
 	char	*line;
 	int		i;
@@ -39,17 +38,15 @@ char *option(char **options)
 	return (line);
 }
 
-t_exc *last_parsing(t_pars *tab, char **env)
+t_exc	*last_parsing(t_pars *tab, char **env)
 {
 	int		i;
-	//int		j;
 	t_exc	*last_tab;
-	
+
 	last_tab = NULL;
 	last_tab = malloc(sizeof(t_exc) * (tab->pipe + 1));
 	if (!last_tab)
 	{
-		//fonction qui free tout mon tab
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -64,26 +61,6 @@ t_exc *last_parsing(t_pars *tab, char **env)
 			last_tab[i].redirect = tab[i].redirect;
 		if (tab[i].arg)
 			last_tab[i].arg = ft_arg(tab[i].arg, env);
-		// printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
-		// printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
-		//j = 0;
-		// if (last_tab[i].redirect[j] != NULL)
-		// {
-		// 	while(last_tab[i].redirect[j])
-		// 	{
-		// 		// printf("last_tab[%d]->redirect = %s\n", i, last_tab[i].redirect[j]);
-		// 		j++;
-		// 	}
-		// }
-		// j = 0;
-		// if (tab[i].arg && last_tab[i].arg[j] != NULL)
-		// {
-		//  	while(last_tab[i].arg[j])
-		//  	{
-		//  		printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
-		//  		j++;
-		//  	}
-		// }
 		i++;
 	}
 	return (last_tab);
