@@ -123,7 +123,8 @@ void	ft_export(t_exc exc, char ***env)
 			else if (find_var_in_env(exc.arg[i], *env) != -1)
 			{
 				if (ft_strchr_modified(exc.arg[i], '='))
-					modify_var_in_env(exc.arg[i++], env);
+					modify_var_in_env(exc.arg[i], env);
+				i++;
 			}
 			else
 				create_new_var_env(exc.arg[i++], env);

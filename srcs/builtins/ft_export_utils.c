@@ -29,7 +29,7 @@ int	find_var_in_env(char *arg, char **env)
 	i = -1;
 	while (env[++i])
 	{
-		if (!ft_strncmp(arg, env[i], j - 1))
+		if (!ft_strncmp(arg, env[i], j))
 			return (i);
 	}
 	return (-1); //changer les conditions par rapport a ca
