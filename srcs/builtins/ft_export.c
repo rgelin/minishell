@@ -81,7 +81,7 @@ static char	*parse_arg(char *arg)
 	free(arg);
 	arg = NULL;
 	i = -1;
-	while (res[++i] && res[i] != '=')
+	while (res[++i] && res[i + 1] != '=')
 	{
 		if (res[i] == '+' && res[i + 1] == '=')
 			break ;
@@ -120,6 +120,7 @@ void	ft_export(t_exc exc, char ***env)
 			{
 				if (find_var_in_env(exc.arg[i], *env) != -1)
 				{
+					printf("test\n");
 					if (ft_strchr_modified(exc.arg[i], '='))
 						modify_var_in_env(exc.arg[i], env);
 				}
