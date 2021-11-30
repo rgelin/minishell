@@ -24,11 +24,11 @@ void	ft_echo(t_exc exc)
 		printf("\n");
 	else if (!ft_strncmp(exc.arg[0], "$?", 2))
 		printf("%d\n", g_exit_code);
-	else if (!ft_strncmp(exc.opt, "-n", 2))
-		ft_print_line(exc.arg, 2);
+	else if (exc.opt && !ft_strncmp(exc.opt, "-n", 3))
+		ft_print_line(exc.arg, 1);
 	else
 	{
-		ft_print_line(exc.arg, 1);
+		ft_print_line(exc.arg, 0);
 		printf("\n");
 	}
 	g_exit_code = 0;

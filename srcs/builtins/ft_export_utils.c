@@ -20,9 +20,11 @@ static char *get_to_find(char *arg)
 	char	*to_find;
 	int i;
 	int j;
+
 	i = 0;
 	j = 0;
-	to_find = ft_calloc(sizeof(char), ft_strlen(arg));
+	// to_find = ft_calloc(sizeof(char), (ft_strlen(arg) + 1));
+	to_find = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 	if (!to_find)
 		exit(EXIT_FAILURE);
 	while (arg[j] && arg[j] != '=')
@@ -39,39 +41,22 @@ static char *get_to_find(char *arg)
 }
 int find_var_in_env(char *arg, char **env)
 {
-	char    *to_find;
+	char	*to_find;
 	int i;
 	int j;
-	(void)env;
-	// i = 0;
-	// j = 0;
-	// to_find = ft_calloc(sizeof(char), ft_strlen(arg));
-	// if (!to_find)
-	//  exit(EXIT_FAILURE);
-	// while (arg[j] && arg[j] != '=')
-	// {
-	//  if (arg[i] == '+')
-	//      j++;
-	//  else
-	//      to_find[i++] = arg[j++];
-	// }
-	// if (to_find[i] != '=')
-	//  to_find[i++] = '=';
-	// to_find[i] = '\0';
+
 	to_find = get_to_find(arg);
-	// printf("%s\n", to_find);
 	i = -1;
 	j = 0;
-	// printf("len: %d\n", (int)ft_strlen(to_find));
 	while (env[++i])
 	{
 		j = 0;
 		while (env[i][j] && env[i][j] != '=')
 			j++;
-		// printf("j: %d || %c\n", j, env[i][j]);
 		if (!ft_strncmp(env[i], to_find, j) && ((int)ft_strlen(to_find) == j))
 		{
-			// printf("index: %d\n", i);
+			free(to_find);
+			to_find = NULL;
 			return (i);
 		}
 	}
@@ -79,30 +64,6 @@ int find_var_in_env(char *arg, char **env)
 	to_find = NULL;
 	return (-1); //changer les conditions par rapport a ca
 }
-
-// int	find_var_in_env(char *arg, char **env)
-// {
-// 	char	*to_find;
-// 	int	i;
-// 	int j;
-
-// 	i = -1;
-// 	j = 0;
-// 	to_find = ft_strtrim_modified(arg, "+");
-// 	if (!to_find)
-// 		exit(EXIT_FAILURE);
-// 	while (to_find[j] && to_find[j] != '=')
-// 		j++;;
-// 	i = -1;
-// 	while (env[++i])
-// 	{
-// 		if (!ft_strncmp(env[i], to_find, j))
-// 			return (i);
-// 	}
-// 	free(to_find);
-// 	to_find = NULL;
-// 	return (-1); //changer les conditions par rapport a ca
-// }
 
 //we check if the exact same argument already exist in env (add +1 strncmp in of just "ARG=")
 int		check_if_already_in_env(char *arg, char ***env)

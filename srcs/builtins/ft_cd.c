@@ -3,28 +3,54 @@
 
 extern int	g_exit_code;
 
-static void	set_pwd_and_oldpwd(char	*path, char ***env) //segfault dans le cas ou on unset PWD
+static void	set_pwd_and_oldpwd(char	*old_path, char ***env) //segfault dans le cas ou on unset PWD
 {
-	(void)path;
 	(void)env;
 	char	*old_pwd;
 	char	*pwd;
 	int		index_old;
 	int		index_pwd;
+	char	new_path[1024];
 
 	index_old = find_var_in_env("OLDPWD", *env);
 	index_pwd = find_var_in_env("PWD", *env);
-	pwd = ft_strtrim((*env)[index_pwd], "PWD=");
-	old_pwd = ft_strjoin("OLDPWD=", pwd);
-	free(pwd);
-	pwd = NULL;
-	pwd = ft_strjoin("PWD=", path);
-	// free((*env)[index_pwd]);
+	getcwd(new_path, 1024);
+	if (index_pwd != -1 && index_old != -1)
+	{
+		pwd = ft_strtrim((*env)[index_pwd], "PWD=");
+		old_pwd = ft_strjoin("OLDPWD=", pwd);
+		free(pwd);
+		pwd = ft_strjoin("PWD=", new_path);
+		// printf("pwd: %p\n", (*env)[index_pwd]);
+		// printf("pwd: %p\n", (*env)[index_old]);
+		// free((*env)[index_pwd]);
+		free((*env)[index_old]);
+		(*env)[index_pwd] = pwd;
+		(*env)[index_old] = old_pwd;
+	}
+	else if (index_pwd == -1 && index_old != -1)
+	{
+		old_pwd = ft_strjoin("OLDPWD=", old_path);
+		free((*env)[index_old]);
+		(*env)[index_old] = old_pwd;
+	}
+	else if (index_pwd != -1 && index_old == -1)
+	{
+		pwd = ft_strjoin("PWD=", new_path);
+		free((*env)[index_pwd]);
+		(*env)[index_pwd] = pwd;
+	}
+	else
+		return ;
+	// printf("old: %s\n", old_pwd);
+	// // pwd = ft_strjoin("PWD=", path);
+	// // printf("pwd: %s\n", pwd);
+	// old_pwd = ft_strjoin("OLDPWD=", pwd);
+	// free(pwd);
+	// pwd = NULL;
+	// pwd = ft_strjoin("PWD=", path);
 	// (*env)[index_pwd] = NULL;
-	free((*env)[index_old]);
-	(*env)[index_old] = NULL;
-	(*env)[index_pwd] = pwd;
-	(*env)[index_old] = old_pwd;
+	// (*env)[index_old] = NULL;
 }
 
 static void	go_to_final_path(char *arg, char ***env)
@@ -89,11 +115,13 @@ void	ft_cd(t_exc exc, char ***env)
 	char	path[1024];
 
 	g_exit_code = 0;
+	getcwd(path, 1024);
 	if (exc.arg != NULL)
 	{
 		if (!ft_strncmp(exc.arg[0], "..", 3))
 		{
-			if (chdir("..") || !getcwd(path, 1024))
+			// if (chdir("..") || !getcwd(path, 1024))
+			if (chdir(".."))
 			{
 				ft_perror("cd", exc.arg[0], strerror(errno));
 				g_exit_code = 1;
