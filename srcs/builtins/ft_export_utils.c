@@ -15,33 +15,58 @@ char	**ft_realloc_env(char ***env, int size)
 	return (new_env);
 }
 
-int	find_var_in_env(char *arg, char **env)
+static char *get_to_find(char *arg)
 {
-	//int	index;
-	int	i;
-	int	j;
+	char	*to_find;
+	int i;
+	int j;
 
-	//index = 0;
+	i = 0;
+	j = 0;
+	to_find = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
+	if (!to_find)
+		exit(EXIT_FAILURE);
+	while (arg[j] && arg[j] != '=')
+	{
+		if (arg[i] == '+')
+			j++;
+		else
+			to_find[i++] = arg[j++];
+	}
+	to_find[i] = '\0';
+	return (to_find);
+}
+int find_var_in_env(char *arg, char **env)
+{
+	char	*to_find;
+	int i;
+	int j;
+
+	to_find = get_to_find(arg);
 	i = -1;
 	j = 0;
-	while (arg[j] && arg[j] != '+' && arg[j] != '=')
-		j++;
-	i = -1;
 	while (env[++i])
 	{
-		if (!ft_strncmp(arg, env[i], j - 1))
+		j = 0;
+		while (env[i][j] && env[i][j] != '=')
+			j++;
+		if (!ft_strncmp(env[i], to_find, j) && ((int)ft_strlen(to_find) == j))
+		{
+			free(to_find);
+			to_find = NULL;
 			return (i);
+		}
 	}
-	return (-1); //changer les conditions par rapport a ca
+	free(to_find);
+	to_find = NULL;
+	return (-1);
 }
 
-//we check if the exact same argument already exist in env (add +1 strncmp in of just "ARG=")
 int		check_if_already_in_env(char *arg, char ***env)
 {
 	int i;
 
 	i = -1;
-	// printf("strlen: %d\n", (int)ft_strlen(cmd[1]));
 	while (arg && (*env)[++i])
 	{
 		if (!ft_strncmp(arg, (*env)[i], ft_strlen(arg) + 1))
@@ -85,7 +110,13 @@ void	modify_var_in_env(char *arg, char ***env)
 	if (ft_strchr_modified(arg, '+'))
 	{
 		to_add = ft_to_add(arg);
-		temp = ft_strjoin((*env)[i], to_add);
+		if (ft_strchr_modified((*env)[i], '='))
+			temp = ft_strjoin((*env)[i], to_add);
+		else
+		{
+			temp = ft_strjoin((*env)[i], "=");
+			temp = ft_strjoin_free(temp, to_add);
+		}
 		free(to_add);
 		to_add = NULL;
 	}

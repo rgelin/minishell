@@ -3,9 +3,6 @@
 
 int	ft_execute_command(t_exc exc, char ***env)
 {
-	// char **new_cmd;
-
-	// new_cmd = create_cmd(cmd);
 	if (check_builtin(exc.cmd) == ECHO)
 	{
 		ft_echo(exc);
