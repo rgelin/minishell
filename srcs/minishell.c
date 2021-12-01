@@ -147,13 +147,13 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 
 	tab = NULL;
-	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
-	update_shlvl(&new_env);
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
+	new_env = cpy_env(env);
+	update_shlvl(&new_env);
 	while (1)
 	{
 		init_struct(state);
@@ -163,7 +163,7 @@ int	main(int argc, char **argv, char **env)
 		if (!state->line)
 		{
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
-			exit(EXIT_SUCCESS);
+			exit(g_exit_code);
 		}
 		else if (state->line[0] != '\0')
 		{

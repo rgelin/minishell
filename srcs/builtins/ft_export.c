@@ -4,6 +4,13 @@
 // need to add case (export ARG+=10)
 extern int	g_exit_code;
 
+char	*ft_strtrim_plus(char *arg, char set)
+{
+
+}
+
+//reste le cas "export ARG+=9+9+=0"
+
 void	create_new_var_env(char *arg, char ***env)
 {
 	char	**new_env;
@@ -11,7 +18,7 @@ void	create_new_var_env(char *arg, char ***env)
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_strtrim_modified(arg, "+");
+	cmd_cpy = ft_strtrim_modified(arg, "+"); //pas trim tous les + juste celui a cote du =
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];
@@ -72,53 +79,63 @@ void	no_arg(char ***env)
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
-// char	*ft_trim_quotes(char *str, char c)
-// {
-// 	char	*new_str;
-// 	int		i;
-// 	int		j;
+static char	*parse_arg(char *arg)
+{
+	char *res;
+	int	i;
 
-// 	i = 0;
-// 	j = 0;
-// 	if (!str)
-// 		return (NULL);
-// 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str)));
-// 	if (!new_str)
-// 		exit(EXIT_FAILURE);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c)
-// 			i++;
-// 		else
-// 			new_str[j++] = str[i++];
-// 	}
-// 	new_str[j] = '\0';
-// 	return (new_str);
-// }
+	res = ft_strtrim_modified(arg, "\""); //leak
+	free(arg);
+	arg = NULL;
+	i = -1;
+	if (!ft_isalpha(res[0]))
+	{
+		ft_perror("export", res, "not a valid identifier");
+		g_exit_code = 1;
+		return (NULL);
+	}
+	while (res[++i] && res[i + 1] != '=')
+	{
+		if (res[i] == '+' && res[i + 1] == '=')
+			break ;
+		else if (!ft_isalnum(res[i]))
+		{
+			ft_perror("export", res, "not a valid identifier");
+			g_exit_code = 1;
+			return (NULL);
+		}
+	}
+	return (res);
+}
 
-/*-------exit code---------
-	* ARG must begin by a letter
-	* ARG name can't contain only letters and numbers
-		(!! ARG+=8 is ok but AR+G+=8 not ok --> + and = must follow each other)
-	* exit message: "export: `A.8': not a valid identifier"
-	* exit code = 1 
-	* Make a check error of ARG (ex: export +=9)
+/*-------Error---------
+* manque le cas d'erreur de -=9
 */
 void	ft_export(t_exc exc, char ***env)
 {
-	char	*arg;
+	int	i;
 
-	arg = exc.arg[0];
+	i = 0;
 	g_exit_code = 0;
-	if (arg == NULL)
+	if (!exc.arg)
 		no_arg(env);
-	else if (check_if_already_in_env(arg, env))
-		return ;
-	else if (find_var_in_env(arg, *env) != -1)
-	{
-		if (ft_strchr_modified(arg, '='))
-			modify_var_in_env(arg, env);
-	}
 	else
-		create_new_var_env(arg, env);
+	{
+		while (exc.arg[i])
+		{
+			exc.arg[i] = parse_arg(exc.arg[i]);
+			if (exc.arg[i] && !check_if_already_in_env(exc.arg[i], env))
+			{
+				if (find_var_in_env(exc.arg[i], *env) != -1)
+				{
+					if (ft_strchr_modified(exc.arg[i], '='))
+						modify_var_in_env(exc.arg[i], env);
+				}
+				else
+					create_new_var_env(exc.arg[i], env);
+			}
+			i++;
+		}
+
+	}
 }
