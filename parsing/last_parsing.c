@@ -37,7 +37,7 @@ char	*option(char **options)
 	}
 	return (line);
 }
-
+//faire la creation des redirections
 t_exc	*last_parsing(t_pars *tab, char **env)
 {
 	int		i;
