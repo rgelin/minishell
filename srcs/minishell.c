@@ -142,10 +142,11 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
-	int		pid;
+	// int		psid;
+	int		p1[2];
 	(void)argc;
 	(void)argv;
-
+	int i;
 	tab = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
@@ -156,6 +157,7 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
+		i = 0;
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
@@ -167,6 +169,12 @@ int	main(int argc, char **argv, char **env)
 		}
 		else if (state->line[0] != '\0')
 		{
+			if (pipe(p1) == -1)
+			{
+				g_exit_code = 1;
+				perror("pipe");
+				exit(g_exit_code);
+			}
 			tab = parsing(state);
 			exc = last_parsing(tab, env);
 			if (check_builtin(exc[0].cmd) == EXIT)
@@ -176,17 +184,51 @@ int	main(int argc, char **argv, char **env)
 				g_exit_code = 0;
 				exit(g_exit_code);
 			}
-			pid = fork();
-			if (pid == 0)
+			int nbr_cmd = tab->pipe + 1;
+			while (i < nbr_cmd)
 			{
-				if (check_builtin(exc[0].cmd) == 0)
-					g_exit_code = ft_exec(exc[0]);
-				else
-					ft_execute_command(exc[0], &new_env);
-				exit(g_exit_code);
+				if (check_builtin(exc[i].cmd) == EXIT)
+				{
+					ft_free(new_env, ft_tabsize(new_env));
+					free(exc);
+					g_exit_code = 0;
+					exit(g_exit_code);
+				}
+				pid = fork();
+				if (pid == 0) //ERREUR QUAND PLUSIEURS wc-l a la suite
+				{
+					if (i != 0) //si pas premiere commande redirect STDIN
+					{
+						if (dup2(p1[0], STDIN_FILENO) == -1)
+							perror("dup2 STDIN");
+						close(p1[0]);
+					}
+					else
+						close(p1[0]);
+					if (i < nbr_cmd - 1)
+					{
+						if (dup2(p1[1], STDOUT_FILENO) == -1)
+							perror("dup2 STDOUT");//si pas derniere cmd redirect STDOUT
+						close(p1[1]);
+					}
+					else
+						close(p1[1]);
+					if (check_builtin(exc[i].cmd) != 0)
+						ft_execute_command(exc[i], &env);
+					else
+						ft_exec(exc[i]);
+					exit(EXIT_SUCCESS);
+				}
+				i++;
+				if (i == nbr_cmd)
+				{
+					close(p1[0]);
+					close(p1[1]);
+				}
+				waitpid(pid, NULL, 0);
 			}
-			waitpid(pid, NULL, 0);
 		}
 	}
 	return (0);
 }
+
