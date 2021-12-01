@@ -80,6 +80,7 @@ void	ft_exit(t_exc exc) //invalid read size of 8 ??
 			g_exit_code = ft_atoi(exc.arg[0]) - (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
 	printf("exit\n");
+	free(exc);
 	exit (g_exit_code);
 }
 
@@ -172,9 +173,7 @@ int	main(int argc, char **argv, char **env)
 			if (check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
-				free(exc);
-				g_exit_code = 0;
-				exit(g_exit_code);
+				ft_exit(&exc);
 			}
 			pid = fork();
 			if (pid == 0)
