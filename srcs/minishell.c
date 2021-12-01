@@ -104,40 +104,50 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-void	ft_execute(t_exc *tab)
+int	exec_pipe(t_exc *exc, char **env, int size)
 {
-	int	pid;
-	int	pid2;
-	int	p1[2];
+	int		fd[2];
+	pid_t	pid;
+	int		i;
+	int		oldfd = STDIN_FILENO;
+	int		status;
 
-	if (pipe(p1) == -1)
-		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-	{ //CHILD
-		close(p1[0]);
-		dup2(p1[1], STDOUT_FILENO);
-		close(p1[1]);
-		ft_exec(tab[0]);
-		exit(EXIT_SUCCESS);
+	i = 0;
+	while (i <= size)
+	{
+		if (pipe(fd) == -1)
+		{
+			perror("error pipe");
+			exit(EXIT_FAILURE);
+		}
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("error fork");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			dup2(oldfd, STDIN_FILENO);
+			close(oldfd);
+			if (i <= size - 1)
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+			}
+			close(fd[0]);
+			if (check_builtin(exc[i].cmd) != 0)
+				status = ft_execute_command(exc[i], &env);
+			else
+				status = ft_exec(exc[i]);
+			exit(status);
+		}
+		waitpid(pid, &status, 0);
+		close(fd[1]);
+		oldfd = fd[0];
+		i++;
 	}
-	pid2 = fork();
-	if (pid2 == -1)
-		exit(EXIT_FAILURE);
-	if (pid2 == 0)
-	{ //CHILD 2
-		close(p1[1]);
-		dup2(p1[0], STDIN_FILENO);
-		close(p1[0]);
-		ft_exec(tab[1]);
-		exit(EXIT_SUCCESS);
-	}
-	close(p1[0]);
-	close(p1[1]);
-	waitpid(pid, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	return (status);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -146,11 +156,8 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
-	// int		psid;
-	int		p1[2];
 	(void)argc;
 	(void)argv;
-	int i;
 	tab = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
@@ -162,7 +169,6 @@ int	main(int argc, char **argv, char **env)
 	update_shlvl(&new_env);
 	while (1)
 	{
-		i = 0;
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
@@ -174,64 +180,16 @@ int	main(int argc, char **argv, char **env)
 		}
 		else if (state->line[0] != '\0')
 		{
-			if (pipe(p1) == -1)
-			{
-				g_exit_code = 1;
-				perror("pipe");
-				exit(g_exit_code);
-			}
 			tab = parsing(state);
 			exc = last_parsing(tab, env);
-			if (check_builtin(exc[0].cmd) == EXIT)
+			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
 				free(exc);
 				g_exit_code = 0;
 				exit(g_exit_code);
 			}
-			int nbr_cmd = tab->pipe + 1;
-			while (i < nbr_cmd)
-			{
-				if (check_builtin(exc[i].cmd) == EXIT)
-				{
-					ft_free(new_env, ft_tabsize(new_env));
-					free(exc);
-					g_exit_code = 0;
-					exit(g_exit_code);
-				}
-				pid = fork();
-				if (pid == 0) //ERREUR QUAND PLUSIEURS wc-l a la suite
-				{
-					if (i != 0) //si pas premiere commande redirect STDIN
-					{
-						if (dup2(p1[0], STDIN_FILENO) == -1)
-							perror("dup2 STDIN");
-						close(p1[0]);
-					}
-					else
-						close(p1[0]);
-					if (i < nbr_cmd - 1)
-					{
-						if (dup2(p1[1], STDOUT_FILENO) == -1)
-							perror("dup2 STDOUT");//si pas derniere cmd redirect STDOUT
-						close(p1[1]);
-					}
-					else
-						close(p1[1]);
-					if (check_builtin(exc[i].cmd) != 0)
-						ft_execute_command(exc[i], &env);
-					else
-						ft_exec(exc[i]);
-					exit(EXIT_SUCCESS);
-				}
-				i++;
-				if (i == nbr_cmd)
-				{
-					close(p1[0]);
-					close(p1[1]);
-				}
-				waitpid(pid, NULL, 0);
-			}
+			g_exit_code = exec_pipe(exc, env, tab->pipe);
 		}
 	}
 	return (0);
