@@ -101,40 +101,50 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-void	ft_execute(t_exc *tab)
+int	exec_pipe(t_exc *exc, char **env, int size)
 {
-	int	pid;
-	int	pid2;
-	int	p1[2];
+	int		fd[2];
+	pid_t	pid;
+	int		i;
+	int		oldfd = STDIN_FILENO;
+	int		status;
 
-	if (pipe(p1) == -1)
-		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-	{ //CHILD
-		close(p1[0]);
-		dup2(p1[1], STDOUT_FILENO);
-		close(p1[1]);
-		ft_exec(tab[0]);
-		exit(EXIT_SUCCESS);
+	i = 0;
+	while (i <= size)
+	{
+		if (pipe(fd) == -1)
+		{
+			perror("error pipe");
+			exit(EXIT_FAILURE);
+		}
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("error fork");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			dup2(oldfd, STDIN_FILENO);
+			close(oldfd);
+			if (i <= size - 1)
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+			}
+			close(fd[0]);
+			if (check_builtin(exc[i].cmd) != 0)
+				status = ft_execute_command(exc[i], &env);
+			else
+				status = ft_exec(exc[i]);
+			exit(status);
+		}
+		waitpid(pid, &status, 0);
+		close(fd[1]);
+		oldfd = fd[0];
+		i++;
 	}
-	pid2 = fork();
-	if (pid2 == -1)
-		exit(EXIT_FAILURE);
-	if (pid2 == 0)
-	{ //CHILD 2
-		close(p1[1]);
-		dup2(p1[0], STDIN_FILENO);
-		close(p1[0]);
-		ft_exec(tab[1]);
-		exit(EXIT_SUCCESS);
-	}
-	close(p1[0]);
-	close(p1[1]);
-	waitpid(pid, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	return (status);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -143,10 +153,8 @@ int	main(int argc, char **argv, char **env)
 	char	**new_env;
 	t_pars *tab;
 	t_exc	*exc;
-	int		pid;
 	(void)argc;
 	(void)argv;
-
 	tab = NULL;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
@@ -170,22 +178,14 @@ int	main(int argc, char **argv, char **env)
 		{
 			tab = parsing(state);
 			exc = last_parsing(tab, env);
-			if (check_builtin(exc[0].cmd) == EXIT)
+			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
 				ft_exit(&exc);
 			}
-			pid = fork();
-			if (pid == 0)
-			{
-				if (check_builtin(exc[0].cmd) == 0)
-					g_exit_code = ft_exec(exc[0]);
-				else
-					ft_execute_command(exc[0], &new_env);
-				exit(g_exit_code);
-			}
-			waitpid(pid, NULL, 0);
+			g_exit_code = exec_pipe(exc, env, tab->pipe);
 		}
 	}
 	return (0);
 }
+
