@@ -63,6 +63,7 @@ char	*our_getenv(char *line, char **env)
 	char	*tmp;
 	char	**test;
 
+	test = NULL;
 	index = find_var_in_env(line, env);
 	if (index >= 0)
 	{
@@ -74,5 +75,11 @@ char	*our_getenv(char *line, char **env)
 	{
 		tmp = "";
 	}
+	index = -1;
+	while(test[++index] != NULL)
+		free(test[index]);
+	free(test);
+	free(line);
+	var = NULL;
 	return (tmp);
 }

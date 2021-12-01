@@ -16,6 +16,7 @@ char	*insert_exit_code(char *line, int index)
 	free(code);
 	new_line = ft_strjoin(new_line, rest);
 	free(rest);
+	free(line);
 	return (new_line);
 }
 
@@ -44,6 +45,9 @@ char	*insert_var_env(char *line, int index, char **env)
 	new_line = ft_strjoin(tmp, var);
 	new_line = ft_strjoin(new_line, rest);
 	free(rest);
+	free(var);
+	free(tmp);
+	free(line);
 	return (new_line);
 }
 
@@ -67,6 +71,7 @@ char	*check_var_env(char *line, char **env)
 		}
 		i++;
 	}
+	free(line);
 	return (new_line);
 }
 

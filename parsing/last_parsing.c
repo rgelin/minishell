@@ -63,5 +63,33 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 			last_tab[i].arg = ft_arg(tab[i].arg, env);
 		i++;
 	}
+/*
+	int	j;
+	j = 0;
+	i = 0;
+	while (i < tab->pipe + 1)
+	{
+		printf("last_tab[%d]->command = %s\n", i, last_tab[i].cmd);
+		printf("last_tab[%d]->opt = %s\n", i, last_tab[i].opt);
+		j = 0;
+		if (tab[i].arg && last_tab[i].redirect[j] != NULL)
+		{
+		 	while(last_tab[i].redirect[j])
+		 	{
+		 		printf("last_tab[%d]->redirect = %s\n", i, last_tab[i].redirect[j]);
+		 		j++;
+		 	}
+		}
+		j = 0;
+		if (tab[i].arg && last_tab[i].arg[j] != NULL)
+		{
+	  		while(last_tab[i].arg[j])
+	  		{
+	  			printf("last_tab[%d].arg = %s\n", i, last_tab[i].arg[j]);
+	  			j++;
+		 	}
+		}
+		i++;
+	}*/
 	return (last_tab);
 }
