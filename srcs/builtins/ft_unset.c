@@ -32,6 +32,7 @@ void	ft_unset(t_exc exc, char ***env)
 	int		k;
 
 	i = -1;
+	g_exit_code = 0;
 	if (exc.arg)
 	{
 		while (exc.arg[++i])

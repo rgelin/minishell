@@ -18,7 +18,6 @@ int	ft_execute_command(t_exc exc, char ***env)
 	}
 	if (check_builtin(exc.cmd) == PWD)
 	{
-		printf("pwd\n");
 		ft_pwd(exc);
 		return (PWD);
 	}

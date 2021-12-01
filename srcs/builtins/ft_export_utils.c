@@ -22,7 +22,8 @@ static char *get_to_find(char *arg)
 	int j;
 	i = 0;
 	j = 0;
-	to_find = ft_calloc(sizeof(char), ft_strlen(arg));
+	// to_find = ft_calloc(sizeof(char), (ft_strlen(arg) + 1)); //leak
+	to_find = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 	if (!to_find)
 		exit(EXIT_FAILURE);
 	while (arg[j] && arg[j] != '=')
