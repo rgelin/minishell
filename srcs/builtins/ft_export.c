@@ -4,6 +4,13 @@
 // need to add case (export ARG+=10)
 extern int	g_exit_code;
 
+char	*ft_strtrim_plus(char *arg, char set)
+{
+
+}
+
+//reste le cas "export ARG+=9+9+=0"
+
 void	create_new_var_env(char *arg, char ***env)
 {
 	char	**new_env;
@@ -101,17 +108,8 @@ static char	*parse_arg(char *arg)
 	return (res);
 }
 
-/*-------exit code---------
-	* ARG must begin by a letter
-	* ARG name can't contain only letters and numbers
-		(!! ARG+=8 is ok but AR+G+=8 not ok --> + and = must follow each other)
-	* exit message: "export: `A.8': not a valid identifier"
-	* exit code = 1 
-	* Make a check error of ARG (ex: export +=9)
-*/
 /*-------Error---------
-* export A -->
-* export +=9 et export =9
+* manque le cas d'erreur de -=9
 */
 void	ft_export(t_exc exc, char ***env)
 {

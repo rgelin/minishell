@@ -178,8 +178,10 @@ int	main(int argc, char **argv, char **env)
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
 					ft_free(new_env, ft_tabsize(new_env));
+					ft_free(exc->arg, ft_tabsize(exc->arg));
 					ft_exit(exc[0]);
 				}
+				// ft_free(exc->arg, ft_tabsize(exc->arg));
 			}
 		}
 	}

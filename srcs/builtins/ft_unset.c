@@ -57,9 +57,6 @@ void	ft_unset(t_exc exc, char ***env)
 				ft_free(*env, ft_tabsize(*env));
 				*env = new_env;
 			}
-			// new_env = (char **)malloc(sizeof(char *) * (ft_tabsize(*env) + 1));
-
 		}
-
 	}
 }
