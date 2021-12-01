@@ -4,10 +4,10 @@
 // need to add case (export ARG+=10)
 extern int	g_exit_code;
 
-char	*ft_strtrim_plus(char *arg, char set)
-{
+// char	*ft_strtrim_plus(char *arg, char set)
+// {
 
-}
+// }
 
 //reste le cas "export ARG+=9+9+=0"
 
