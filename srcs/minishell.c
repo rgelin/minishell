@@ -181,7 +181,9 @@ int	main(int argc, char **argv, char **env)
 					ft_free(exc->arg, ft_tabsize(exc->arg));
 					ft_exit(exc[0]);
 				}
-				// ft_free(exc->arg, ft_tabsize(exc->arg));
+				if (exc->arg)
+					ft_free(exc->arg, ft_tabsize(exc->arg));
+				free(exc->cmd);
 			}
 		}
 	}
