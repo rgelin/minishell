@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exec_pipe(t_exc *exc, char **env, int size)
+int	exec_pipe(t_exc *exc, char ***env, int size)
 {
 	int		fd[2];
 	pid_t	pid;

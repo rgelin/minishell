@@ -97,11 +97,11 @@ int	main(int argc, char **argv, char **env)
 			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
+				ft_exit(exc[0]);
 				free(exc);
-				g_exit_code = 0;
 				exit(g_exit_code);
 			}
-			g_exit_code = exec_pipe(exc, new_env, tab->pipe);
+			g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
 	}
 	return (0);

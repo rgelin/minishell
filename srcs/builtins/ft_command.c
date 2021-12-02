@@ -88,5 +88,4 @@ void	ft_exit(t_exc exc)
 				- (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
 	printf("exit\n");
-	exit (g_exit_code);
 }
