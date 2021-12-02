@@ -5,7 +5,6 @@ SOURCES		=	./srcs/
 PARSING 	=	./parsing/
 BUILTINS	=	./srcs/builtins/
 ERRORS		=	./errors/
-OUT_DIR		=	obj
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
@@ -54,6 +53,7 @@ OBJS_UTILS	=	$(SRCS_UTILS:.c=.o)
 
 OBJS_ERRORS	=	$(SRCS_ERRORS:.c=.o)
 
+
 #-------------------COLORS----------------------
 
 RED			=	\x1b[31m
@@ -66,7 +66,6 @@ NO_COLOR	=	\x1b[0m
 
 
 #-------------------RULES-----------------------
-
 %.o: %.c
 		@printf "$(YELLOW)Generating minishell objects... %-33.33s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@
@@ -76,6 +75,9 @@ $(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
 			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
+			@echo "\nMoving objects in directory"
+# -@mkdir -p objects
+# -@find . -name "*.o" -exec mv "{}" ./objects \;
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
@@ -85,7 +87,8 @@ bonus:	$(NAME)
 clean:
 		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-		@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
+#-@rm -rf objects/
+	@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
 		@echo "$(RED)Deleting executables...\n$(NO_COLOR)"

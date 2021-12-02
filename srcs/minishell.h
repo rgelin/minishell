@@ -66,6 +66,7 @@ typedef struct s_exp_list
 }				t_exp_list;
 
 /*=========UTILS=========*/
+
 int		ft_tabsize(char **tab);
 int		ft_atoi_modified(const char *s);
 int		ft_strchr_modified(const char *s, int c);
@@ -81,11 +82,15 @@ t_exp_list	*remove_back(t_exp_list *stack);
 t_exp_list	*remove_front(t_exp_list *stack);
 t_exp_list	*freelist(t_exp_list *stack);
 char	**create_cmd(t_exc command);
+
 /*=========SRCS=========*/
+
 int		ft_execute_command(t_exc cmd, char ***env);
-int		execute(t_exc exc, char **env);
-int		exec_pipe(t_exc *exc, char **env, int size);
+int		execute(t_exc exc, char ***env);
+int		exec_pipe(t_exc *exc, char ***env, int size);
+
 /*=========PARSING=========*/
+
 t_pars	*parsing(t_state *s);
 t_pars	*split_line(t_state *line);
 t_pars	*find_command(t_state *s);
@@ -107,10 +112,14 @@ char	**get_redirect(char *line);
 char	**ft_arg(char **arg, char **env);
 //char	**get_everything(char *line, char c);
 t_exc	*last_parsing(t_pars *tab, char **env);
+
 /*=========ERROR=========*/
+
 int		check_builtin(char *cmd);
 void	ft_perror(char *cmd, char *arg, char *err_msg);
+
 /*=========BUILTIN=========*/
+
 void	ft_echo(t_exc exc);
 void	ft_env(char **env);
 void	ft_pwd(void);
@@ -124,7 +133,9 @@ int		check_if_already_in_env(char *arg, char ***env);
 char	**cpy_env(char **env);
 char	**ft_realloc_env(char ***env, int size);
 // void	ft_env(t_exc *exc);
+
 /*=========READLINE=========*/
+
 void	rl_replace_line(const char *text, int clear_undo);
 void	rl_clear_history(void);
 //void	rl_redisplay (void);

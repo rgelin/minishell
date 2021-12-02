@@ -19,12 +19,13 @@ char	**cpy_env(char **env)
 	int		i;
 	char	**env_cpy;
 
-	env_cpy = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
+	env_cpy = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 2));
 	if (!env_cpy)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (env[++i])
-		env_cpy[i] = strdup(env[i]);
+		env_cpy[i] = ft_strdup(env[i]);
+	env_cpy[i++] = ft_strdup("OLDPWD");
 	env_cpy[i] = NULL;
 	return (env_cpy);
 }
@@ -92,11 +93,17 @@ int	main(int argc, char **argv, char **env)
 			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
+				ft_exit(exc[0]);
 				free(exc);
-				g_exit_code = 0;
 				exit(g_exit_code);
 			}
-			g_exit_code = exec_pipe(exc, env, tab->pipe);
+			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
+				check_builtin(exc[0].cmd) == EXPORT))
+			{
+				ft_execute_command(exc[0], &new_env);
+			}
+			else
+				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
 	}
 	return (0);
