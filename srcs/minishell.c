@@ -59,19 +59,18 @@ void	update_shlvl(char ***env)
 	lvl++;
 	if (lvl > 1000)
 	{
-		// ft_perror("warning", NULL, "shell level ");
 		write(2, "minishell: warning: shell level (", 33);
 		write(2, ft_itoa(lvl), ft_strlen(ft_itoa(lvl)));
 		write(2, ") too high, resetting to 1\n", 27);
-		new_lvl = "1";
+		new_lvl = ft_strdup("1");
 	}
 	else
 		new_lvl = ft_itoa(lvl);
 	free((*env)[i]);
 	(*env)[i] = NULL;
 	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
-	// free(new_lvl);
-	// new_lvl = NULL;
+	free(new_lvl);
+	new_lvl = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
