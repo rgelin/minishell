@@ -24,7 +24,7 @@ char	**cpy_env(char **env)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (env[++i])
-		env_cpy[i] = strdup(env[i]);
+		env_cpy[i] = ft_strdup(env[i]);
 	env_cpy[i] = NULL;
 	return (env_cpy);
 }
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **env)
 				g_exit_code = 0;
 				exit(g_exit_code);
 			}
-			g_exit_code = exec_pipe(exc, env, tab->pipe);
+			g_exit_code = exec_pipe(exc, new_env, tab->pipe);
 		}
 	}
 	return (0);
