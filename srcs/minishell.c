@@ -113,9 +113,6 @@ int	main(int argc, char **argv, char **env)
 				free(exc);
 				exit(g_exit_code);
 			}
-<<<<<<< HEAD
-			g_exit_code = exec_pipe(exc, new_env, tab->pipe);
-=======
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
 				check_builtin(exc[0].cmd) == EXPORT))
 			{
@@ -123,7 +120,6 @@ int	main(int argc, char **argv, char **env)
 			}
 			else
 				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
->>>>>>> fix cd, export, exit_code, env (OLDPWD)
 		}
 	}
 	return (0);
