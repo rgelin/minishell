@@ -5,6 +5,7 @@ SOURCES		=	./srcs/
 PARSING 	=	./parsing/
 BUILTINS	=	./srcs/builtins/
 ERRORS		=	./errors/
+OUT_DIR		=	obj
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
@@ -13,11 +14,12 @@ READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_exec.c \
+				$(SOURCES)ft_exec_pipe.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
 				$(BUILTINS)ft_export.c \
 				$(BUILTINS)ft_export_utils.c \
-				$(BUILTINS)ft_unset.c
+				$(BUILTINS)ft_unset.c \
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_sort_string_tab.c \
@@ -27,6 +29,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_atoi_modified.c \
 				$(UTILS)list.c \
 				$(UTILS)create_cmd.c \
+				$(UTILS)check_str_digit.c \
 				
 
 PARSG		=	$(PARSING)error_parsing.c \
@@ -51,7 +54,6 @@ OBJS_UTILS	=	$(SRCS_UTILS:.c=.o)
 
 OBJS_ERRORS	=	$(SRCS_ERRORS:.c=.o)
 
-
 #-------------------COLORS----------------------
 
 RED			=	\x1b[31m
@@ -64,6 +66,7 @@ NO_COLOR	=	\x1b[0m
 
 
 #-------------------RULES-----------------------
+
 %.o: %.c
 		@printf "$(YELLOW)Generating minishell objects... %-33.33s\r$(NO_COLOR)" $@
 		@$(CC) $(FLAGS) -c $< -o $@

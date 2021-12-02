@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -17,8 +16,8 @@ void	init_struct(t_state *state)
 
 char	**cpy_env(char **env)
 {
-	int i;
-	char **env_cpy;
+	int		i;
+	char	**env_cpy;
 
 	env_cpy = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 1));
 	if (!env_cpy)
@@ -34,57 +33,15 @@ char	**cpy_env(char **env)
 	return (env_cpy);
 }
 
-void	ft_sig_int()
+/*pas le seul exit code --> recup les exit code d'execv*/
+void	ft_sig_int(int signal)
 {
-	g_exit_code = 1; //pas le seul exit code --> recup les exit code d'execv
+	(void)signal;
+	g_exit_code = 1;
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-}
-	int	pid;
-	int	pid2;
-	int	p1[2];
-
-int		check_str_digit(char *str)
-{
-	int	i;
-
-	i = -1;
-	if (str[0] == '-')
-		i++;
-	while (str[++i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (1);
-	}
-	return (0);
-}
-
-void	ft_exit(t_exc exc) //invalid read size of 8 ??
-{
-	if (exc.arg && exc.arg[1])
-	{
-		printf("exit\n");
-		printf("minishell: exit: too many arguments\n");
-		g_exit_code = 1;
-		return ;
-	}
-	else if (exc.arg || exc.opt)
-	{
-		if (exc.opt != NULL)
-			g_exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
-		else if (exc.arg && check_str_digit(exc.arg[0]))
-		{
-			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n", exc.arg[0]);
-			exit(255);
-		}
-		else
-			g_exit_code = ft_atoi(exc.arg[0]) - (256 * (ft_atoi(exc.arg[0]) / 256));
-	}
-	printf("exit\n");
-	exit (g_exit_code);
 }
 
 void	update_shlvl(char ***env)
@@ -104,58 +61,13 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-int	exec_pipe(t_exc *exc, char **env, int size)
-{
-	int		fd[2];
-	pid_t	pid;
-	int		i;
-	int		oldfd = STDIN_FILENO;
-	int		status;
-
-	i = 0;
-	while (i <= size)
-	{
-		if (pipe(fd) == -1)
-		{
-			perror("error pipe");
-			exit(EXIT_FAILURE);
-		}
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("error fork");
-			exit(EXIT_FAILURE);
-		}
-		if (pid == 0)
-		{
-			dup2(oldfd, STDIN_FILENO);
-			close(oldfd);
-			if (i <= size - 1)
-			{
-				dup2(fd[1], STDOUT_FILENO);
-				close(fd[1]);
-			}
-			close(fd[0]);
-			if (check_builtin(exc[i].cmd) != 0)
-				status = ft_execute_command(exc[i], &env);
-			else
-				status = ft_exec(exc[i]);
-			exit(status);
-		}
-		waitpid(pid, &status, 0);
-		close(fd[1]);
-		oldfd = fd[0];
-		i++;
-	}
-	return (status);
-}
-
 int	main(int argc, char **argv, char **env)
 {
-	t_state *state;
+	t_state	*state;
 	char	**new_env;
-	t_pars *tab;
+	t_pars	*tab;
 	t_exc	*exc;
+
 	(void)argc;
 	(void)argv;
 	tab = NULL;
@@ -194,4 +106,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
