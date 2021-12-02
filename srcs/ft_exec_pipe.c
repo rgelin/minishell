@@ -1,4 +1,6 @@
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int	exec_pipe(t_exc *exc, char ***env, int size)
 {
