@@ -26,14 +26,18 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 		}
 		if (pid == 0)
 		{
-			dup2(oldfd, STDIN_FILENO);
-			close(oldfd);
+			if (size != 0)
+			{
+				dup2(oldfd, STDIN_FILENO);
+				close(oldfd);
+			}
 			if (i <= size - 1)
 			{
 				dup2(fd[1], STDOUT_FILENO);
 				close(fd[1]);
 			}
-			close(fd[0]);
+			if (size != 0)
+				close(fd[0]);
 			status = execute(exc[i], env);
 			exit(status);
 		}

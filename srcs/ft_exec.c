@@ -46,6 +46,7 @@ static int	ft_exec(t_exc command)
 		exit_code = execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
+	printf("exit = %d\n", exit_code);
 	return (exit_code);
 }
 

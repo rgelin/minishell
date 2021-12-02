@@ -34,11 +34,12 @@ char	**cpy_env(char **env)
 void	ft_sig_int(int signal)
 {
 	(void)signal;
-	g_exit_code = 1;
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	rl_redisplay();
+	if (g_exit_code != 130)
+		rl_redisplay();
+	g_exit_code = 1;
 }
 
 void	update_shlvl(char ***env)
