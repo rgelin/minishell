@@ -63,6 +63,8 @@ void	update_shlvl(char ***env)
 		write(2, ft_itoa(lvl), ft_strlen(ft_itoa(lvl)));
 		write(2, ") too high, resetting to 1\n", 27);
 		new_lvl = ft_strdup("1");
+		if (!new_lvl)
+			exit(EXIT_FAILURE);
 	}
 	else
 		new_lvl = ft_itoa(lvl);
