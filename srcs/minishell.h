@@ -83,8 +83,8 @@ t_exp_list	*freelist(t_exp_list *stack);
 char	**create_cmd(t_exc command);
 /*=========SRCS=========*/
 int		ft_execute_command(t_exc cmd, char ***env);
-int		execute(t_exc exc, char ***env);
-int		exec_pipe(t_exc *exc, char ***env, int size);
+int		execute(t_exc exc, char **env);
+int		exec_pipe(t_exc *exc, char **env, int size);
 /*=========PARSING=========*/
 t_pars	*parsing(t_state *s);
 t_pars	*split_line(t_state *line);

@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char **env)
 				free(exc);
 				exit(g_exit_code);
 			}
-			g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
+			g_exit_code = exec_pipe(exc, new_env, tab->pipe);
 		}
 	}
 	return (0);

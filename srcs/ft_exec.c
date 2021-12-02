@@ -47,10 +47,10 @@ static int	ft_exec(t_exc command)
 	return (exit_code);
 }
 
-int	execute(t_exc exc, char ***env)
+int	execute(t_exc exc, char **env)
 {
 	if (check_builtin(exc.cmd) != 0)
-		return (ft_execute_command(exc, env));
+		return (ft_execute_command(exc, &env));
 	else
 		return (ft_exec(exc));
 }
