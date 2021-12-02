@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+extern int	g_exit_code;
+
 static int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;
@@ -47,10 +49,13 @@ static int	ft_exec(t_exc command)
 	return (exit_code);
 }
 
-int	execute(t_exc exc, char **env)
+int	execute(t_exc exc, char ***env)
 {
 	if (check_builtin(exc.cmd) != 0)
-		return (ft_execute_command(exc, &env));
+	{
+		ft_execute_command(exc, env);
+		return (g_exit_code);
+	}
 	else
 		return (ft_exec(exc));
 }
