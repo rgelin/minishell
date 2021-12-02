@@ -34,7 +34,7 @@ void	ft_echo(t_exc exc)
 	g_exit_code = 0;
 }
 
-void	ft_pwd()
+void	ft_pwd(void)
 {
 	char	pwd[1024];
 
@@ -60,4 +60,33 @@ void	ft_env(char **env)
 			printf("%s\n", env[i]);
 		i++;
 	}
+}
+
+/*invalid read size of 8 ??*/
+void	ft_exit(t_exc exc)
+{
+	if (exc.arg && exc.arg[1])
+	{
+		printf("exit\n");
+		printf("minishell: exit: too many arguments\n");
+		g_exit_code = 1;
+		return ;
+	}
+	else if (exc.arg || exc.opt)
+	{
+		if (exc.opt != NULL)
+			g_exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
+		else if (exc.arg && check_str_digit(exc.arg[0]))
+		{
+			printf("exit\n");
+			printf("minishell: exit: %s: numeric argument required\n",
+				exc.arg[0]);
+			exit(255);
+		}
+		else
+			g_exit_code = ft_atoi(exc.arg[0])
+				- (256 * (ft_atoi(exc.arg[0]) / 256));
+	}
+	printf("exit\n");
+	exit (g_exit_code);
 }
