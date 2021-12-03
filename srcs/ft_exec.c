@@ -1,6 +1,8 @@
 #include "minishell.h"
 
-int	ft_create_all_exec(char ***folder, t_exc command)
+extern int	g_exit_code;
+
+static int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;
 
@@ -20,7 +22,7 @@ int	ft_create_all_exec(char ***folder, t_exc command)
 	return (1);
 }
 
-int	ft_exec(t_exc command)
+static int	ft_exec(t_exc command)
 {
 	char	**folder;
 	int		i;
@@ -44,5 +46,17 @@ int	ft_exec(t_exc command)
 		exit_code = execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
+	printf("exit = %d\n", exit_code);
 	return (exit_code);
+}
+
+int	execute(t_exc exc, char ***env)
+{
+	if (check_builtin(exc.cmd) != 0)
+	{
+		ft_execute_command(exc, env);
+		return (g_exit_code);
+	}
+	else
+		return (ft_exec(exc));
 }

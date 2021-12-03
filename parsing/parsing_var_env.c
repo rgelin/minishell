@@ -64,6 +64,8 @@ char	*check_var_env(char *line, char **env)
 			new_line = insert_exit_code(line, i);
 			line = new_line;
 		}
+		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
+			i++;
 		else if (line[i] == '$')
 		{
 			new_line = insert_var_env(line, i, env);
@@ -71,7 +73,7 @@ char	*check_var_env(char *line, char **env)
 		}
 		i++;
 	}
-	free(line);
+	//free(line);
 	return (new_line);
 }
 
@@ -85,6 +87,8 @@ char	*check_var_env_bis(char *line, char **env)
 	{
 		new_line = ft_itoa(g_exit_code);
 	}
+	else if (line[i] == '$' && line[i + 1] == '\0')
+		new_line = line;
 	else if (line[i] == '$')
 	{
 		new_line = our_getenv(ft_strtrim(line, "$"), env);

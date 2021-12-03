@@ -37,7 +37,31 @@ char	*option(char **options)
 	}
 	return (line);
 }
+
+char	*ft_command(char *command)
+{
+	int	i;
+	char	*new;
+
+	i = 0;
+	if (!command)
+		return (NULL);
+	while (command[i] != '\0')
+	{
+		command[i] = ft_tolower(command[i]);
+		i++;
+	}
+	new = ft_strdup(command);
+	free(command);
+	return (new);
+}
 //faire la creation des redirections
+/*
+char	**ft_redirect(char **redirect)
+{
+
+}
+*/
 t_exc	*last_parsing(t_pars *tab, char **env)
 {
 	int		i;
@@ -54,7 +78,7 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 	while (i < tab->pipe + 1)
 	{
 		if (tab[i].command)
-			last_tab[i].cmd = tab[i].command;
+			last_tab[i].cmd = ft_command(tab[i].command);
 		if (tab[i].option)
 			last_tab[i].opt = option(tab[i].option);
 		if (tab[i].redirect)

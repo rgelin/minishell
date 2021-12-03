@@ -13,11 +13,12 @@ READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_exec.c \
+				$(SOURCES)ft_exec_pipe.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
 				$(BUILTINS)ft_export.c \
 				$(BUILTINS)ft_export_utils.c \
-				$(BUILTINS)ft_unset.c
+				$(BUILTINS)ft_unset.c \
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_sort_string_tab.c \
@@ -27,6 +28,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_atoi_modified.c \
 				$(UTILS)list.c \
 				$(UTILS)create_cmd.c \
+				$(UTILS)check_str_digit.c \
 				
 
 PARSG		=	$(PARSING)error_parsing.c \
@@ -73,6 +75,9 @@ $(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
 			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
+			@echo "\nMoving objects in directory"
+# -@mkdir -p objects
+# -@find . -name "*.o" -exec mv "{}" ./objects \;
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
@@ -82,7 +87,8 @@ bonus:	$(NAME)
 clean:
 		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-		@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
+#-@rm -rf objects/
+	@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
 		@echo "$(RED)Deleting executables...\n$(NO_COLOR)"

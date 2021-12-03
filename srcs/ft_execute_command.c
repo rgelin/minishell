@@ -15,7 +15,7 @@ int	ft_execute_command(t_exc exc, char ***env)
 	}
 	if (check_builtin(exc.cmd) == PWD)
 	{
-		ft_pwd(exc);
+		ft_pwd();
 		return (PWD);
 	}
 	if (check_builtin(exc.cmd) == EXPORT)
