@@ -14,6 +14,7 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_exec.c \
 				$(SOURCES)ft_exec_pipe.c \
+				$(SOURCES)set_env_cpy.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
 				$(BUILTINS)ft_export.c \
@@ -25,8 +26,6 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strchr_modified.c \
 				$(UTILS)ft_strtrim_modified.c \
 				$(UTILS)ft_strjoin_free.c \
-				$(UTILS)ft_atoi_modified.c \
-				$(UTILS)list.c \
 				$(UTILS)create_cmd.c \
 				$(UTILS)check_str_digit.c \
 				

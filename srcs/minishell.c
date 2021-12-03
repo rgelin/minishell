@@ -14,28 +14,6 @@ void	init_struct(t_state *state)
 	state->eof = 0;
 }
 
-char	**cpy_env(char **env)
-{
-	int		i;
-	char	**env_cpy;
-
-	env_cpy = (char **)malloc(sizeof(char *) * (ft_tabsize(env) + 2));
-	if (!env_cpy)
-		exit(EXIT_FAILURE);
-	i = -1;
-	while (env[++i])
-	{
-		env_cpy[i] = ft_strdup(env[i]);
-		if (!env_cpy[i])
-			exit(EXIT_FAILURE);
-	}
-	env_cpy[i] = ft_strdup("OLDPWD");
-	if (!env_cpy[i])
-		exit(EXIT_FAILURE);
-	env_cpy[++i] = NULL;
-	return (env_cpy);
-}
-
 /*pas le seul exit code --> recup les exit code d'execv*/
 void	ft_sig_int(int signal)
 {
@@ -43,36 +21,9 @@ void	ft_sig_int(int signal)
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	if (g_exit_code > 1)
+	if (g_exit_code <= 1)
 		rl_redisplay();
 	g_exit_code = 1;
-}
-
-void	update_shlvl(char ***env)
-{
-	int		i;
-	int		lvl;
-	char	*new_lvl;
-
-	i = find_var_in_env("SHLVL", *env);
-	lvl = ft_atoi_modified((*env)[i]);
-	lvl++;
-	if (lvl > 1000)
-	{
-		write(2, "minishell: warning: shell level (", 33);
-		write(2, ft_itoa(lvl), ft_strlen(ft_itoa(lvl)));
-		write(2, ") too high, resetting to 1\n", 27);
-		new_lvl = ft_strdup("1");
-		if (!new_lvl)
-			exit(EXIT_FAILURE);
-	}
-	else
-		new_lvl = ft_itoa(lvl);
-	free((*env)[i]);
-	(*env)[i] = NULL;
-	(*env)[i] = ft_strjoin("SHLVL=", new_lvl);
-	free(new_lvl);
-	new_lvl = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
