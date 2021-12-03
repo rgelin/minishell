@@ -6,13 +6,24 @@ extern int	g_exit_code;
 static void	ft_print_line(char **cmd, int i)
 {
 	char	*str_trim;
+	int		j;
 
 	while (cmd[i])
 	{
+		j = -1;
 		str_trim = ft_strtrim(cmd[i], "\"");
-		printf("%s", str_trim);
+		while (str_trim[++j])
+		{
+			if (str_trim[j] == '$' && str_trim[j + 1] == '?')
+			{
+				ft_putnbr_fd(g_exit_code, 1);
+				j++;
+			}
+			else
+				ft_putchar_fd(str_trim[j], 1);
+		}
 		if (cmd[i + 1])
-			printf(" ");
+			ft_putchar_fd(' ', 1);
 		i++;
 		free(str_trim);
 	}
@@ -22,7 +33,7 @@ void	ft_echo(t_exc exc)
 {
 	if (ft_tabsize(exc.arg) < 1)
 		printf("\n");
-	else if (!ft_strncmp(exc.arg[0], "$?", 2))
+	else if (!ft_strncmp(exc.arg[0], "$?", 3))
 		printf("%d\n", g_exit_code);
 	else if (exc.opt && !ft_strncmp(exc.opt, "-n", 3))
 		ft_print_line(exc.arg, 1);

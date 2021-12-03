@@ -43,7 +43,7 @@ void	ft_sig_int(int signal)
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	if (g_exit_code != 130)
+	if (g_exit_code > 1)
 		rl_redisplay();
 	g_exit_code = 1;
 }
