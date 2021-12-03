@@ -25,7 +25,11 @@ char	**cpy_env(char **env)
 		exit(EXIT_FAILURE);
 	i = -1;
 	while (env[++i])
-		env_cpy[i] = strdup(env[i]);
+	{
+		env_cpy[i] = ft_strdup(env[i]);
+		if (!env_cpy[i])
+			exit(EXIT_FAILURE);
+	}
 	env_cpy[i] = NULL;
 	return (env_cpy);
 }
@@ -80,7 +84,7 @@ void	ft_exit(t_exc exc) //invalid read size of 8 ??
 			g_exit_code = ft_atoi(exc.arg[0]) - (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
 	printf("exit\n");
-	free(exc);
+	// free(exc);
 	exit (g_exit_code);
 }
 
@@ -101,7 +105,7 @@ void	update_shlvl(char ***env)
 	new_lvl = NULL;
 }
 
-int	exec_pipe(t_exc *exc, char **env, int size)
+int	exec_pipe(t_exc *exc, char ***env, int size)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -134,7 +138,7 @@ int	exec_pipe(t_exc *exc, char **env, int size)
 			}
 			close(fd[0]);
 			if (check_builtin(exc[i].cmd) != 0)
-				status = ft_execute_command(exc[i], &env);
+				status = ft_execute_command(exc[i], env);
 			else
 				status = ft_exec(exc[i]);
 			exit(status);
@@ -181,9 +185,9 @@ int	main(int argc, char **argv, char **env)
 			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
-				ft_exit(&exc);
+				ft_exit(*exc);
 			}
-			g_exit_code = exec_pipe(exc, env, tab->pipe);
+			g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
 	}
 	return (0);
