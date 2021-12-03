@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+# include <limits.h>
 
 # include <errno.h>
 # include <string.h>
@@ -88,6 +89,9 @@ char	**create_cmd(t_exc command);
 int		ft_execute_command(t_exc cmd, char ***env);
 int		execute(t_exc exc, char ***env);
 int		exec_pipe(t_exc *exc, char ***env, int size);
+long	get_lvl_shlvl(char ***env);
+char	**cpy_env(char **env);
+void	update_shlvl(char ***env);
 
 /*=========PARSING=========*/
 
@@ -127,6 +131,7 @@ void	ft_cd(t_exc exc, char ***env);
 void	ft_export(t_exc exc, char ***env);
 void	ft_unset(t_exc exc, char ***env);
 void	ft_exit(t_exc exc);
+void	create_new_var_env(char *arg, char ***env);
 void	modify_var_in_env(char *arg, char ***env);
 int		find_var_in_env(char *arg, char **env);
 int		check_if_already_in_env(char *arg, char ***env);
