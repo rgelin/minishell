@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **env)
 				exit(g_exit_code);
 			}
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
-				check_builtin(exc[0].cmd) == EXPORT))
+				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
 			{
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
