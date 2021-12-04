@@ -16,14 +16,14 @@ static void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 	old_pwd = ft_strjoin("OLDPWD=", old_path);
 	if (index_pwd != -1)
 	{
-		// printf("%p\n", (*env)[index_pwd]);
 		free((*env)[index_pwd]);
+		(*env)[index_pwd] = NULL;
 		(*env)[index_pwd] = pwd;
 	}
 	if (index_old != -1)
 	{
-		// printf("%p\n", (*env)[index_old]);
 		free((*env)[index_old]);
+		(*env)[index_old] = NULL;
 		(*env)[index_old] = old_pwd;
 	}
 
