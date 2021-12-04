@@ -4,12 +4,29 @@
 // need to add case (export ARG+=10)
 extern int	g_exit_code;
 
-// char	*ft_strtrim_plus(char *arg, char set)
-// {
+char	*ft_strtrim_plus_equal(char *arg)
+{
+	char	*str;
+	int		i;
+	int		j;
 
-// }
-
-//reste le cas "export ARG+=9+9+=0"
+	str = (char *)malloc(sizeof(char) * ft_strlen(arg));
+	if (!str)
+		exit(EXIT_FAILURE);
+	i = -1;
+	j = 0;
+	while (arg && arg[++i] != '=')
+	{
+		if (!(arg[i] == '+' && arg[i + 1] == '='))
+			str[j++] = arg[i];
+	}
+	str[j++] = '=';
+	while (arg[++i])
+			str[j++] = arg[i];
+	str[j] = '\0';
+	printf("%s\n", str);
+	return (str);
+}
 
 void	create_new_var_env(char *arg, char ***env)
 {
@@ -18,7 +35,8 @@ void	create_new_var_env(char *arg, char ***env)
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_strtrim_modified(arg, "+"); //pas trim tous les + juste celui a cote du =
+	cmd_cpy = ft_strtrim_modified(arg,"+");
+	// cmd_cpy = ft_strtrim_plus_equal(arg);
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];

@@ -33,6 +33,7 @@ void	ft_unset(t_exc exc, char ***env)
 
 	i = -1;
 	g_exit_code = 0;
+	printf("test 2\n");
 	if (exc.arg)
 	{
 		while (exc.arg[++i])

@@ -46,7 +46,7 @@ static int	ft_exec(t_exc command)
 		exit_code = execve(folder[i], cmd, NULL);
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
-	printf("exit = %d\n", exit_code);
+	// printf("exit = %d\n", exit_code);
 	return (exit_code);
 }
 
@@ -54,7 +54,11 @@ int	execute(t_exc exc, char ***env)
 {
 	if (check_builtin(exc.cmd) != 0)
 	{
-		ft_execute_command(exc, env);
+		if (ft_execute_command(exc, env) == EXIT)
+		{
+			printf("minishell : %s command not found\n", exc.cmd);
+			g_exit_code = 127;
+		}
 		return (g_exit_code);
 	}
 	else
