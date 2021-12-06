@@ -43,7 +43,6 @@ char	*insert_var_env(char *line, int index, char **env)
 		m++;
 	}
 	nl = ft_substr(line, index + 1, m - 1);
-	
 	var = our_getenv(ft_strtrim(nl, "$"), env);
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
 	new_line = ft_strjoin(tmp, var);
@@ -55,7 +54,7 @@ char	*insert_var_env(char *line, int index, char **env)
 	free(nl);
 	return (new_line);
 }
-
+//Methode quand il y a les " "
 char	*check_var_env(char *line, char **env)
 {
 	int		i;
