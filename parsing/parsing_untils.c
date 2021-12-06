@@ -63,6 +63,7 @@ char	*our_getenv(char *line, char **env)
 	char	*tmp;
 	char	**test;
 
+	var = NULL;
 	test = NULL;
 	index = find_var_in_env(line, env);
 	if (index >= 0)
@@ -72,12 +73,18 @@ char	*our_getenv(char *line, char **env)
 		tmp = ft_strdup(test[1]);
 	}
 	else
+	{
+		tmp = malloc(sizeof(char*) * 2);
 		tmp = "";
+	}
 	index = -1;
-	while(test[++index] != NULL)
+	if (test != NULL)
+	{
+		while(test && test[++index] != NULL)
 		free(test[index]);
-	free(test);
+	}
+	if (test != NULL)
+		free(test);
 	free(line);
-	var = NULL;
 	return (tmp);
 }
