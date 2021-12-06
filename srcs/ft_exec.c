@@ -44,9 +44,10 @@ static int	ft_exec(t_exc command)
 	}
 	while (folder[++i])
 		exit_code = execve(folder[i], cmd, NULL);
+	if (i == ft_tabsize(folder))
+		ft_perror(command.cmd, NULL, "command not found");
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
-	printf("exit = %d\n", exit_code);
 	return (exit_code);
 }
 
