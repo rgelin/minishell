@@ -28,6 +28,8 @@ char	*insert_var_env(char *line, int index, char **env)
 	char	*var;
 	int		n;
 	int		m;
+	char	*nl;
+
 
 	n = index;
 	m = 0;
@@ -40,7 +42,9 @@ char	*insert_var_env(char *line, int index, char **env)
 		n++;
 		m++;
 	}
-	var = our_getenv(ft_substr(line, index + 1, m - 1), env);
+	nl = ft_substr(line, index + 1, m - 1);
+	
+	var = our_getenv(ft_strtrim(nl, "$"), env);
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
 	new_line = ft_strjoin(tmp, var);
 	new_line = ft_strjoin(new_line, rest);
@@ -48,6 +52,7 @@ char	*insert_var_env(char *line, int index, char **env)
 	free(var);
 	free(tmp);
 	free(line);
+	free(nl);
 	return (new_line);
 }
 
@@ -65,6 +70,8 @@ char	*check_var_env(char *line, char **env)
 			line = new_line;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
+			i++;
+		else if (line[i] == '$' && (line[i - 1] == '$' || line[i + 1] == '$'))
 			i++;
 		else if (line[i] == '$')
 		{
@@ -87,7 +94,7 @@ char	*check_var_env_bis(char *line, char **env)
 	{
 		new_line = ft_itoa(g_exit_code);
 	}
-	else if (line[i] == '$' && line[i + 1] == '\0')
+	else if (line[i] == '$' && (line[i + 1] == '$' || line[i + 1] == '\0'))
 		new_line = line;
 	else if (line[i] == '$')
 	{

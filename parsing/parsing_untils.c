@@ -72,9 +72,7 @@ char	*our_getenv(char *line, char **env)
 		tmp = ft_strdup(test[1]);
 	}
 	else
-	{
 		tmp = "";
-	}
 	index = -1;
 	while(test[++index] != NULL)
 		free(test[index]);

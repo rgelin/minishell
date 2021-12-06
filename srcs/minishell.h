@@ -99,7 +99,6 @@ t_pars	*parsing(t_state *s);
 t_pars	*split_line(t_state *line);
 t_pars	*find_command(t_state *s);
 int		ft_get_index(char *s);
-int		ft_get_index_opt(char *s, char c, int i);
 int		ft_test(char *line);
 int		ft_check_space(char *line);
 int		check_redirection(char *line);

@@ -10,17 +10,6 @@ void	init_tab(t_pars *tab)
 	//tab->output = NULL;
 	tab->next_char = NULL;
 }
-
-int	ft_get_index_opt(char *s, char c, int i)
-{
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
-}
 //pour avoir les options. regarder pour enlever et mettre get_everything
 char **get_opt(char *line)
 {
@@ -66,26 +55,6 @@ char **get_opt(char *line)
 	options[i] = NULL;
 	free(popt);
 	return (options);
-}
-
-int	check_number_char(char *line, char c)
-{
-	int	i;
-	int	n;
-	int	total;
-
-	total = 0;
-	i = -1;
-	n = 0;
-	while (line[++i] != '\0')
-	{
-		if (line[i] == c && check_quote(line, i))
-			n++;
-	}
-	total = n % 2;
-	if (total == 0)
-		return n;
-	return (0);
 }
 
 char **get_arg(char *line)
