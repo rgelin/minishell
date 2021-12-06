@@ -145,4 +145,6 @@ void	rl_clear_history(void);
 //void	rl_redisplay (void);
 //int	rl_on_new_line (void);
 //int	rl_on_new_line (void);
+
+void	ft_sig_int(int signal);
 #endif
