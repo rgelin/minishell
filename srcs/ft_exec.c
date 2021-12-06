@@ -56,7 +56,11 @@ int	execute(t_exc exc, char ***env)
 {
 	if (check_builtin(exc.cmd) != 0)
 	{
-		ft_execute_command(exc, env);
+		if (ft_execute_command(exc, env) == EXIT)
+		{
+			printf("minishell : %s: command not found\n", exc.cmd);
+			g_exit_code = 127;
+		}
 		return (g_exit_code);
 	}
 	else
