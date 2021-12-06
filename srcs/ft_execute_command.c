@@ -5,32 +5,32 @@ extern int g_exit_code;
 
 int	ft_execute_command(t_exc exc, char ***env)
 {
-	if (!ft_strncmp(exc.cmd, "echo", 5))
+	if (check_builtin(exc.cmd) == ECHO)
 	{
 		ft_echo(exc);
 		return (ECHO);
 	}
-	if (!ft_strncmp(exc.cmd, "cd", 3))
+	if (check_builtin(exc.cmd) == CD)
 	{
 		ft_cd(exc, env);
 		return (CD);
 	}
-	if (!ft_strncmp(exc.cmd, "pwd", 4))
+	if (check_builtin(exc.cmd) == PWD)
 	{
 		ft_pwd();
 		return (PWD);
 	}
-	if (!ft_strncmp(exc.cmd, "export", 7))
+	if (check_builtin(exc.cmd) == EXPORT)
 	{
 		ft_export(exc, env);
 		return (EXPORT);
 	}
-	if (!ft_strncmp(exc.cmd, "unset", 6))
+	if (check_builtin(exc.cmd) == UNSET)
 	{
 		ft_unset(exc, env);
 		return (UNSET);
 	}
-	if (!ft_strncmp(exc.cmd, "env", 3))
+	if (check_builtin(exc.cmd) == ENV)
 	{
 		ft_env((*env));
 		return (ENV);
