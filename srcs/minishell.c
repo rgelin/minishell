@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
-					printf("minishell : %s command not found\n", exc[0].cmd);
+					printf("minishell : %s: command not found\n", exc[0].cmd);
 					g_exit_code = 127;
 				}
 			}
