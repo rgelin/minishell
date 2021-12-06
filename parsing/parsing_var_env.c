@@ -47,11 +47,11 @@ char	*insert_var_env(char *line, int index, char **env)
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
 	new_line = ft_strjoin(tmp, var);
 	new_line = ft_strjoin(new_line, rest);
-	//free(rest);
-	//free(var);
-	//free(tmp);
-	//free(line);
-	//free(nl);
+	free(rest);
+	free(var);
+	free(tmp);
+	free(line);
+	free(nl);
 	return (new_line);
 }
 //Methode quand il y a les " "
