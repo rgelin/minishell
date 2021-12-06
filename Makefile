@@ -74,9 +74,6 @@ $(NAME):	$(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 			@$(MAKE) -C $(LIBFT)
 			@echo "$(GREEN)\nCompiling minishell...$(NO_COLOR)"
 			@$(CC) $(FLAGS) $(READ) $(READ2) $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS) -lreadline $(LIBFT)libft.a -o $(NAME)
-			@echo "\nMoving objects in directory"
-# -@mkdir -p objects
-# -@find . -name "*.o" -exec mv "{}" ./objects \;
 			@echo "\nMinishell ready to be used!"
 
 all:	$(NAME)
@@ -86,7 +83,6 @@ bonus:	$(NAME)
 clean:
 		@echo "$(RED)Deleting objects...\n$(NO_COLOR)"
 		@$(MAKE) clean -C $(LIBFT)
-#-@rm -rf objects/
 	@rm -f $(OBJS) $(OBJS_PARS) $(OBJS_UTILS) $(OBJS_ERRORS)
 
 fclean:	clean
