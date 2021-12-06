@@ -19,6 +19,7 @@ void	ft_sig_int(int signal)
 {
 	(void)signal;
 	printf("\n");
+	printf("main\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -37,7 +38,6 @@ int	main(int argc, char **argv, char **env)
 	tab = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_sig_int);
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **env)
 	update_shlvl(&new_env);
 	while (1)
 	{
+		// signal(SIGINT, &ft_sig_int);
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
@@ -68,6 +69,8 @@ int	main(int argc, char **argv, char **env)
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
 				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
 			{
+				signal(SIGINT, &ft_sig_int);
+				printf("coucou\n");
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
 					printf("minishell : %s: command not found\n", exc[0].cmd);
@@ -77,6 +80,7 @@ int	main(int argc, char **argv, char **env)
 			else
 				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
+
 	}
 	return (0);
 }
