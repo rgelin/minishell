@@ -24,12 +24,33 @@ static char	*parse_arg(char *arg)
 
 }
 
-void	ft_unset(t_exc exc, char ***env)
+static void	create_new_env(t_exc exc, char ***env, int i)
 {
 	char	**new_env;
-	int		i;
 	int		j;
 	int		k;
+
+	new_env = ft_calloc(sizeof(char *), (ft_tabsize(*env) + 1));
+	if (!new_env)
+		exit(EXIT_FAILURE);
+	j = -1;
+	k = -1;
+	while ((*env)[++j])
+	{
+		if (j == find_var_in_env(exc.arg[i], *env))
+			j++;
+		new_env[++k] = ft_strdup((*env)[j]); //reste un leak ici
+		if (!new_env[k])
+			exit(EXIT_FAILURE);
+	}
+	new_env[j] = NULL;
+	ft_free(*env, ft_tabsize(*env));
+	*env = new_env;
+}
+
+void	ft_unset(t_exc exc, char ***env)
+{
+	int		i;
 
 	i = -1;
 	g_exit_code = 0;
@@ -39,24 +60,7 @@ void	ft_unset(t_exc exc, char ***env)
 		{
 			exc.arg[i] = parse_arg(exc.arg[i]);
 			if (exc.arg[i] && find_var_in_env(exc.arg[i], *env))
-			{
-				new_env = ft_calloc(sizeof(char *), (ft_tabsize(*env) + 1));
-				if (!new_env)
-					exit(EXIT_FAILURE);
-				j = -1;
-				k = -1;
-				while ((*env)[++j])
-				{
-					if (j == find_var_in_env(exc.arg[i], *env))
-						j++;
-					new_env[++k] = ft_strdup((*env)[j]); //reste un leak ici
-					if (!new_env[k])
-						exit(EXIT_FAILURE);
-				}
-				new_env[j] = NULL;
-				ft_free(*env, ft_tabsize(*env));
-				*env = new_env;
-			}
+				create_new_env(exc, env, i);
 		}
 	}
 }
