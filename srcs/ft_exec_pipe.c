@@ -40,8 +40,7 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 				dup2(fd[1], STDOUT_FILENO);
 				close(fd[1]);
 			}
-			status = execute(exc[i], env);
-			exit(status);
+			execute(exc[i], env);
 		}
 		waitpid(pid, &status, 0);
 		close(fd[1]);

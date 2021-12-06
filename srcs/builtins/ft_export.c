@@ -15,16 +15,15 @@ char	*ft_strtrim_plus_equal(char *arg)
 		exit(EXIT_FAILURE);
 	i = -1;
 	j = 0;
-	while (arg && arg[++i] != '=')
+	while (arg && arg[++i] && arg[i] != '=')
 	{
 		if (!(arg[i] == '+' && arg[i + 1] == '='))
 			str[j++] = arg[i];
 	}
 	str[j++] = '=';
-	while (arg[++i])
+	while (arg && arg[++i])
 			str[j++] = arg[i];
 	str[j] = '\0';
-	printf("%s\n", str);
 	return (str);
 }
 
@@ -35,8 +34,11 @@ void	create_new_var_env(char *arg, char ***env)
 	char	*cmd_cpy;
 
 	new_env = ft_realloc_env(env, 2);
-	cmd_cpy = ft_strtrim_modified(arg,"+");
-	// cmd_cpy = ft_strtrim_plus_equal(arg);
+	if (ft_strchr(arg, '+'))
+		cmd_cpy = ft_strtrim_plus_equal(arg);
+	else
+		cmd_cpy = ft_strdup(arg);
+	// cmd_cpy = ft_strtrim_modified(arg,"+");
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];
@@ -135,6 +137,7 @@ void	ft_export(t_exc exc, char ***env)
 
 	i = 0;
 	g_exit_code = 0;
+	// printf("test\n");
 	if (!exc.arg)
 		no_arg(env);
 	else
