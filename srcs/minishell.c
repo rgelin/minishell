@@ -15,15 +15,27 @@ void	init_struct(t_state *state)
 }
 
 /*pas le seul exit code --> recup les exit code d'execv*/
-void	ft_sig_int(int signal)
+void	ft_ctrl_c(void)
 {
-	(void)signal;
-	printf("\n");
-	printf("main\n");
-	rl_replace_line("", 0);
+	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 	g_exit_code = 1;
+}
+
+void	ft_ctrl_backslash(void)
+{
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	ft_signal(int signal)
+{
+	if (signal == SIGINT)
+		ft_ctrl_c();
+	if (signal == SIGQUIT)
+		ft_ctrl_backslash();
 }
 
 int	main(int argc, char **argv, char **env)
@@ -37,15 +49,15 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	tab = NULL;
 	new_env = cpy_env(env);
-	signal(SIGQUIT, SIG_IGN);
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
 	update_shlvl(&new_env);
+	signal(SIGQUIT, &ft_signal);
+	signal(SIGINT, &ft_signal);
 	while (1)
 	{
-		// signal(SIGINT, &ft_sig_int);
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");
@@ -69,8 +81,6 @@ int	main(int argc, char **argv, char **env)
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
 				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
 			{
-				signal(SIGINT, &ft_sig_int);
-				printf("coucou\n");
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
 					printf("minishell : %s: command not found\n", exc[0].cmd);
