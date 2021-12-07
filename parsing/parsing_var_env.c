@@ -12,11 +12,13 @@ char	*insert_exit_code(char *line, int index)
 	code = ft_itoa(g_exit_code);
 	tmp_line = ft_substr(line, 0, index);
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
-	new_line = ft_strjoin(tmp_line, code);
-	free(code);
-	new_line = ft_strjoin(new_line, rest);
-	free(rest);
-	free(line);
+	new_line = ft_strjoin_double_free(tmp_line, code);
+	//free(code);
+	//free(tmp_line);
+	new_line = ft_strjoin_double_free(new_line, rest);
+	//free(rest);
+	//free(line);
+	line = NULL;
 	return (new_line);
 }
 
@@ -30,9 +32,12 @@ char	*insert_var_env(char *line, int index, char **env)
 	int		m;
 	char	*nl;
 
-
 	n = index;
 	m = 0;
+	tmp = NULL;
+	var = NULL;
+	nl = NULL;
+	rest = NULL;
 	tmp = ft_substr(line, 0, index);
 	new_line = NULL;
 	while (line[n] != '\0')
@@ -45,13 +50,10 @@ char	*insert_var_env(char *line, int index, char **env)
 	nl = ft_substr(line, index + 1, m - 1);
 	var = our_getenv(ft_strtrim(nl, "$"), env);
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
-	new_line = ft_strjoin(tmp, var);
-	new_line = ft_strjoin(new_line, rest);
-	//free(rest);
-	//free(var);
-	//free(tmp);
-	//free(line);
-	//free(nl);
+	new_line = ft_strjoin_double_free(tmp, var);
+	new_line = ft_strjoin_double_free(new_line, rest);
+	free(line);
+	line = NULL;
 	return (new_line);
 }
 //Methode quand il y a les " "
@@ -70,12 +72,13 @@ char	*check_var_env(char *line, char **env)
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
 			i++;
-		else if (line[i] == '$' && (line[i - 1] == '$' || line[i + 1] == '$'))
+		else if (line[i] == '$' && line[i + 1] == '$')
 			i++;
 		else if (line[i] == '$')
 		{
 			new_line = insert_var_env(line, i, env);
 			line = new_line;
+			i = 0;
 		}
 		i++;
 	}
