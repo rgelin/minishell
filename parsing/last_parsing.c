@@ -10,43 +10,6 @@ void	init_ptn(t_exc *tab)
 	tab->redirect = NULL;
 }
 
-void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (i < tab->pipe + 1)
-	{
-		if (last_tab[i].cmd)
-			free(last_tab[i].cmd);
-		if (last_tab[i].opt)
-			free(last_tab[i].opt);
-		j = 0;
-		if (last_tab[i].redirect[j] != NULL)
-		{
-		 	while(last_tab[i].redirect[j])
-		 	{
-		 		free(last_tab[i].redirect[j]);
-		 		j++;
-		 	}
-		}
-		j = 0;
-		if (tab[i].arg && last_tab[i].arg[j] != NULL)
-		{
-	  		while(last_tab[i].arg[j])
-	  		{
-	  			free(last_tab[i].arg[j]);
-	  			j++;
-		 	}
-		}
-		i++;
-	}
-	free(last_tab);
-	free(tab);
-}
-
 char	*option(char **options)
 {
 	char	*line;

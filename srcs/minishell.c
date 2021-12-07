@@ -25,6 +25,46 @@ void	ft_sig_int(int signal)
 	g_exit_code = 1;
 }
 
+void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	if (last_tab)
+	{
+		while (i <= tab->pipe)
+		{
+			if (last_tab[i].cmd)
+				free(last_tab[i].cmd);
+			if (last_tab[i].opt)
+				free(last_tab[i].opt);
+			j = 0;
+			if (last_tab[i].redirect[j])
+			{
+		 		while(last_tab[i].redirect[j] != NULL)
+		 		{
+		 			free(last_tab[i].redirect[j]);
+		 			j++;
+		 		}
+			}
+			j = 0;
+			if (last_tab[i].arg[j])
+			{
+	  			while(last_tab[i].arg[j] != NULL)
+	  			{
+	  				free(last_tab[i].arg[j]);
+	  				j++;
+		 		}
+			}
+			i++;
+		}
+	}
+	//free(last_tab);
+	//free(tab);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state	*state;
@@ -52,6 +92,7 @@ int	main(int argc, char **argv, char **env)
 		if (!state->line)
 		{
 			printf("\x1b[34mminishell > \x1b[0mexit\n");
+			//ft_free_tab_exc(exc, tab);
 			exit(g_exit_code);
 		}
 		else if (state->line[0] != '\0')
@@ -62,7 +103,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				ft_free(new_env, ft_tabsize(new_env));
 				ft_exit(exc[0]);
-				free(exc);
+				ft_free_tab_exc(exc, tab);
 				exit(g_exit_code);
 			}
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
