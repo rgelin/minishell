@@ -26,7 +26,7 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 
 	i = 0;
 	oldfd = -1;
-	signal(SIGINT, &ft_sig_int);
+	// signal(SIGINT, &ft_sig_int);
 	while (i <= size)
 	{
 		if (pipe(fd) == -1)
@@ -42,7 +42,7 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 		}
 		if (pid == 0)
 		{
-			signal(SIGINT, &ft_sigint_exec);
+			// signal(SIGINT, &ft_sigint_exec);
 			if (size != 0)
 			{
 				dup2(oldfd, STDIN_FILENO);
@@ -65,9 +65,18 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 		else
 		{
 			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+			{
+				status = WEXITSTATUS(status);
+
+			}
+			else if (WIFSIGNALED(status))
+			{
+				printf("\n");
+				status = -1;
+			}
 			//pas sur que ce soit tres legal tout ca
 			//mais cependant c'est une macro et pas une fonction
-			status = WEXITSTATUS(status);
 			close(fd[1]);
 			oldfd = fd[0];
 		}
