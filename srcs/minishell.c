@@ -15,12 +15,19 @@ void	init_struct(t_state *state)
 }
 
 /*pas le seul exit code --> recup les exit code d'execv*/
-void	ft_sig_int(int signal)
+void	ft_signal_msg(void)
 {
-	(void)signal;
-	printf("\n");
-	rl_replace_line("", 0);
+	if (g_exit_code == 131)
+		ft_putendl_fd("QUIT: 3", 1);
+	if (g_exit_code == 130)
+		ft_putchar_fd('\n', 1);
+}
+
+void	ft_ctrl_c(void)
+{
+	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 	g_exit_code = 1;
 }
@@ -63,6 +70,18 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 	}
 	//free(last_tab);
 	//free(tab);
+void	ft_ctrl_backslash(void)
+{
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	ft_signal(int signal)
+{
+	if (signal == SIGINT)
+		ft_ctrl_c();
+	if (signal == SIGQUIT)
+		ft_ctrl_backslash();
 }
 
 int	main(int argc, char **argv, char **env)
@@ -77,13 +96,13 @@ int	main(int argc, char **argv, char **env)
 	tab = NULL;
 	state = NULL;
 	new_env = cpy_env(env);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_sig_int);
 	state = malloc(sizeof(t_state));
 	if (!state)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
 	update_shlvl(&new_env);
+	signal(SIGQUIT, &ft_signal);
+	signal(SIGINT, &ft_signal);
 	while (1)
 	{
 		init_struct(state);
@@ -119,6 +138,7 @@ int	main(int argc, char **argv, char **env)
 			else
 				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
+
 	}
 	return (0);
 }

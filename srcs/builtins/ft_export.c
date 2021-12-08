@@ -38,7 +38,6 @@ void	create_new_var_env(char *arg, char ***env)
 		cmd_cpy = ft_strtrim_plus_equal(arg);
 	else
 		cmd_cpy = ft_strdup(arg);
-	// cmd_cpy = ft_strtrim_modified(arg,"+");
 	new_env[ft_tabsize(*env)] = cmd_cpy;
 	new_env[ft_tabsize(*env) + 1] = NULL;
 	temp = new_env[ft_tabsize(new_env) - 2];
@@ -118,7 +117,7 @@ static char	*parse_arg(char *arg)
 	{
 		if (res[i] == '+' && res[i + 1] == '=')
 			break ;
-		else if (!ft_isalnum(res[i]))
+		else if (!ft_isalnum(res[i]) && res[i] != '_')
 		{
 			ft_perror("export", res, "not a valid identifier");
 			g_exit_code = 1;
@@ -128,16 +127,12 @@ static char	*parse_arg(char *arg)
 	return (res);
 }
 
-/*-------Error---------
-* manque le cas d'erreur de -=9
-*/
 void	ft_export(t_exc exc, char ***env)
 {
 	int	i;
 
 	i = 0;
 	g_exit_code = 0;
-	// printf("test\n");
 	if (!exc.arg)
 		no_arg(env);
 	else
