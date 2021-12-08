@@ -5,27 +5,21 @@ extern int	g_exit_code;
 
 static void	ft_print_line(char **cmd, int i)
 {
-	char	*str_trim;
+	//char	*str_trim;
 	int		j;
 
 	while (cmd[i])
 	{
 		j = -1;
-		str_trim = ft_strtrim(cmd[i], "\"");
-		while (str_trim[++j])
+		//str_trim = ft_strtrim(cmd[i], "\"");
+		while (cmd[i][++j])
 		{
-			if (str_trim[j] == '$' && str_trim[j + 1] == '?')
-			{
-				ft_putnbr_fd(g_exit_code, 1);
-				j++;
-			}
-			else
-				ft_putchar_fd(str_trim[j], 1);
+			ft_putchar_fd(cmd[i][j], 1);
 		}
 		if (cmd[i + 1])
 			ft_putchar_fd(' ', 1);
 		i++;
-		free(str_trim);
+		//free(str_trim);
 	}
 }
 

@@ -35,6 +35,7 @@ int	*get_index(char *line, size_t size, char c)
 
 	j = 0;
 	i = 0;
+	p_tab = 0;
 	p_tab = malloc(sizeof(int *) * (size + 1));
 	if (!p_tab)
 	{
@@ -72,11 +73,8 @@ char	*our_getenv(char *line, char **env)
 		test = ft_split(var, '=');
 		tmp = ft_strdup(test[1]);
 	}
-	else
-	{
-		tmp = malloc(sizeof(char) * 2);
+	if (index == -1)
 		tmp = "";
-	}
 	index = -1;
 	while(test && test[++index] != NULL)
 		free(test[index]);

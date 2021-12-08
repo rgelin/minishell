@@ -75,6 +75,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	tab = NULL;
+	state = NULL;
 	new_env = cpy_env(env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig_int);
