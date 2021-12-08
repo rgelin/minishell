@@ -12,6 +12,8 @@ void	ft_free_pars_tab(t_state *s)
 		free(s->cm[nbr]);
 		nbr++;
 	}
+	if (s->cm != NULL)
+		free(s->cm);
 }
 
 void	ft_free_pars_error(t_state *s)
@@ -34,6 +36,3 @@ void	ft_free_pars_error(t_state *s)
 	if (s)
 		free(s);
 }
-
-//on doit free le tableau d index de pipe
-//

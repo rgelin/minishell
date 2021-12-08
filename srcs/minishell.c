@@ -71,6 +71,7 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 	//free(last_tab);
 	//free(tab);
 }
+
 void	ft_ctrl_backslash(void)
 {
 	rl_on_new_line();
