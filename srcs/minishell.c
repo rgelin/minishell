@@ -19,8 +19,8 @@ void	ft_signal_msg(void)
 {
 	if (g_exit_code == 131)
 		ft_putendl_fd("QUIT: 3", 1);
-	if (g_exit_code = 130)
-		ft_putchar_fd("\n", 1);
+	if (g_exit_code == 130)
+		ft_putchar_fd('\n', 1);
 }
 
 void	ft_ctrl_c(void)
