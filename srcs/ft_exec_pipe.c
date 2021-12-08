@@ -66,22 +66,15 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 		{
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status))
-			{
 				status = WEXITSTATUS(status);
-
-			}
 			else if (WIFSIGNALED(status))
-			{
-				printf("\n");
-				status = -1;
-			}
-			//pas sur que ce soit tres legal tout ca
-			//mais cependant c'est une macro et pas une fonction
-			close(fd[1]);
-			oldfd = fd[0];
+				status = 128 + WTERMSIG(status);
 		}
+		close(fd[1]);
+		oldfd = fd[0];
 		i++;
 	}
+	ft_signal_msg(status);
 	// printf("status: %d\n", status);
 	return (status); 
 }

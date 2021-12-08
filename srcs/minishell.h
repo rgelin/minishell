@@ -22,6 +22,7 @@
 # define ENV 6
 # define EXIT 7
 
+extern int	g_exit_code;
 // a rendre pour un tableau avec cette structure
 // pour les exc
 typedef struct s_exc
@@ -151,5 +152,8 @@ void	rl_clear_history(void);
 //int	rl_on_new_line (void);
 //int	rl_on_new_line (void);
 
+/*==========SIGNAL==========*/
 void	ft_sig_int(int signal);
+void	ft_signal_msg(int exit_code);
+
 #endif
