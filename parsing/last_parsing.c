@@ -33,6 +33,7 @@ char	*option(char **options)
 		free(options[i]);
 		i++;
 	}
+	free(option);
 	return (line);
 }
 
