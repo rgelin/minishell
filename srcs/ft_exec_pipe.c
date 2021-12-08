@@ -59,17 +59,14 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 			// printf("exit code: %d\n", status);
 			// exit(status);
 			
-			// exit(g_exit_code);
+			exit(status);
 		}
 		// wait(&status);
-		else
-		{
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status))
 				status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 				status = 128 + WTERMSIG(status);
-		}
 		close(fd[1]);
 		oldfd = fd[0];
 		i++;

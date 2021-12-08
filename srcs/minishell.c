@@ -64,8 +64,9 @@ void	ft_signal_msg(int exit_code)
 		ft_putchar_fd('\n', 1);
 }
 
-void	ft_ctrl_c(void)
+void	ft_ctrl_c(int signal)
 {
+	(void)signal;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -73,19 +74,20 @@ void	ft_ctrl_c(void)
 	g_exit_code = 1;
 }
 
-void	ft_ctrl_backslash(void)
+void	ft_ctrl_backslash(int signal)
 {
+	(void)signal;
 	rl_on_new_line();
-	// rl_redisplay();
+	rl_redisplay();
 }
 
-void	ft_signal(int signal)
-{
-	if (signal == SIGINT)
-		ft_ctrl_c();
-	if (signal == SIGQUIT)
-		ft_ctrl_backslash();
-}
+// void	ft_signal(int signal)
+// {
+// 	if (signal == SIGINT)
+// 		ft_ctrl_c();
+// 	if (signal == SIGQUIT)
+// 		ft_ctrl_backslash();
+// }
 
 int	main(int argc, char **argv, char **env)
 {
@@ -104,8 +106,8 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
 	update_shlvl(&new_env);
-	signal(SIGQUIT, &ft_signal);
-	signal(SIGINT, &ft_signal);
+	signal(SIGQUIT, &ft_ctrl_backslash);
+	signal(SIGINT, &ft_ctrl_c);
 	while (1)
 	{
 		init_struct(state);
