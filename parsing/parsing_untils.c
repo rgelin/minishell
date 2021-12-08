@@ -74,15 +74,12 @@ char	*our_getenv(char *line, char **env)
 	}
 	else
 	{
-		tmp = malloc(sizeof(char*) * 2);
+		tmp = malloc(sizeof(char) * 2);
 		tmp = "";
 	}
 	index = -1;
-	if (test != NULL)
-	{
-		while(test && test[++index] != NULL)
+	while(test && test[++index] != NULL)
 		free(test[index]);
-	}
 	if (test != NULL)
 		free(test);
 	free(line);
