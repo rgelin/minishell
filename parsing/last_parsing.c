@@ -35,6 +35,7 @@ char	*option(char **options)
 		free(options[i]);
 		i++;
 	}
+	free(option);
 	return (line);
 }
 
@@ -55,13 +56,7 @@ char	*ft_command(char *command)
 	free(command);
 	return (new);
 }
-//faire la creation des redirections
-/*
-char	**ft_redirect(char **redirect)
-{
 
-}
-*/
 t_exc	*last_parsing(t_pars *tab, char **env)
 {
 	int		i;
