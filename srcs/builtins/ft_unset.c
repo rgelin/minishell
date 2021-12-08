@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-extern int	g_exit_code;
+
 
 static char	*parse_arg(char *arg)
 {
@@ -16,7 +16,7 @@ static char	*parse_arg(char *arg)
 		if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
 		{
 			printf("minishell: export: `%s': not a valid identifier\n", res);
-			g_exit_code = 1;
+			g_global.exit_code = 1;
 			return (NULL);
 		}
 	}
@@ -53,7 +53,7 @@ void	ft_unset(t_exc exc, char ***env)
 	int		i;
 
 	i = -1;
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 	if (exc.arg)
 	{
 		while (exc.arg[++i])

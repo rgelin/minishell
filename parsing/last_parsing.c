@@ -1,6 +1,6 @@
 #include "../srcs/minishell.h"
 
-extern int	g_exit_code;
+
 
 void	init_ptn(t_exc *tab)
 {

@@ -1,6 +1,6 @@
 #include "../srcs/minishell.h"
 
-extern int	g_exit_code;
+
 
 char	*insert_exit_code(char *line, int index)
 {
@@ -9,7 +9,7 @@ char	*insert_exit_code(char *line, int index)
 	char	*rest;
 	char	*new_line;
 
-	code = ft_itoa(g_exit_code);
+	code = ft_itoa(g_global.exit_code);
 	tmp_line = ft_substr(line, 0, index);
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
 	new_line = ft_strjoin_double_free(tmp_line, code);
@@ -94,7 +94,7 @@ char	*check_var_env_bis(char *line, char **env)
 	i = 0;
 	if (line[i] == '$' && line[i + 1] == '?')
 	{
-		new_line = ft_itoa(g_exit_code);
+		new_line = ft_itoa(g_global.exit_code);
 	}
 	else if (line[i] == '$' && (line[i + 1] == '$' || line[i + 1] == '\0'))
 		new_line = line;

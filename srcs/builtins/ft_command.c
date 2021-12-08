@@ -1,7 +1,7 @@
 
 #include "../minishell.h"
 
-extern int	g_exit_code;
+
 
 static void	ft_print_line(char **cmd)
 {
@@ -28,18 +28,18 @@ void	ft_echo(t_exc exc)
 		ft_print_line(exc.arg);
 		printf("\n");
 	}
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 }
 
 void	ft_pwd(void)
 {
 	char	pwd[1024];
 
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 	if (!getcwd(pwd, 1024))
 	{
 		printf("minishell: pwd: %s\n", strerror(errno));
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 	}
 	else
 		printf("%s\n", pwd);
@@ -50,7 +50,7 @@ void	ft_env(char **env)
 	int	i;
 
 	i = 0;
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 	while (i < ft_tabsize(env))
 	{
 		if (ft_strchr_modified(env[i], '='))
@@ -66,13 +66,13 @@ void	ft_exit(t_exc exc)
 	{
 		printf("exit\n");
 		printf("minishell: exit: too many arguments\n");
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 		return ;
 	}
 	else if (exc.arg || exc.opt)
 	{
 		if (exc.opt != NULL)
-			g_exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
+			g_global.exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
 		else if (exc.arg && check_str_digit(exc.arg[0]))
 		{
 			printf("exit\n");
@@ -81,7 +81,7 @@ void	ft_exit(t_exc exc)
 			exit(255);
 		}
 		else
-			g_exit_code = ft_atoi(exc.arg[0])
+			g_global.exit_code = ft_atoi(exc.arg[0])
 				- (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
 	printf("exit\n");

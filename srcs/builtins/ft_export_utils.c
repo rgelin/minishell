@@ -36,6 +36,7 @@ static char *get_to_find(char *arg)
 	to_find[i] = '\0';
 	return (to_find);
 }
+
 int find_var_in_env(char *arg, char **env)
 {
 	char	*to_find;

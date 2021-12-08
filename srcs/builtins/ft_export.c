@@ -2,7 +2,7 @@
 #include "../minishell.h"
 
 // need to add case (export ARG+=10)
-extern int	g_exit_code;
+
 
 char	*ft_strtrim_plus_equal(char *arg)
 {
@@ -110,7 +110,7 @@ static char	*parse_arg(char *arg)
 	if (!ft_isalpha(res[0]))
 	{
 		ft_perror("export", res, "not a valid identifier");
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 		return (NULL);
 	}
 	while (res[++i] && res[i + 1] != '=')
@@ -120,7 +120,7 @@ static char	*parse_arg(char *arg)
 		else if (!ft_isalnum(res[i]) && res[i] != '_')
 		{
 			ft_perror("export", res, "not a valid identifier");
-			g_exit_code = 1;
+			g_global.exit_code = 1;
 			return (NULL);
 		}
 	}
@@ -132,7 +132,7 @@ void	ft_export(t_exc exc, char ***env)
 	int	i;
 
 	i = 0;
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 	if (!exc.arg)
 		no_arg(env);
 	else

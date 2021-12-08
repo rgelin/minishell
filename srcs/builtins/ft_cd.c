@@ -1,8 +1,6 @@
 
 #include "../minishell.h"
 
-extern int	g_exit_code;
-
 static void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 {
 	char	*old_pwd;
@@ -43,7 +41,7 @@ static void	go_to_final_path(char *arg, char ***env, char *old_path)
 	if (chdir(final_path))
 	{
 		ft_perror("cd", arg, strerror(errno));
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 	}
 	else
 		set_pwd_and_oldpwd(final_path, old_path, env);
@@ -63,7 +61,7 @@ static void	go_path_from_home(char *arg, char *home, char ***env, char *old_path
 	if (chdir(path_from_home))
 	{
 		ft_perror("cd", path_from_home, strerror(errno));
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 	}
 	else
 		set_pwd_and_oldpwd(path_from_home, old_path, env);
@@ -79,7 +77,7 @@ void	go_to_home(char ***env, char *old_path)
 	if (chdir(home))
 	{
 		ft_perror("cd", home, strerror(errno));
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 	}
 	else
 		set_pwd_and_oldpwd(home, old_path, env);
@@ -92,7 +90,7 @@ void	go_previous(char *arg, char *old_path, char ***env)
 	if (chdir("..") || !getcwd(path, 1024))
 	{
 		ft_perror("cd", arg, strerror(errno));
-		g_exit_code = 1;
+		g_global.exit_code = 1;
 	}
 	else
 		set_pwd_and_oldpwd(path, old_path, env);
@@ -102,7 +100,7 @@ void	ft_cd(t_exc exc, char ***env)
 {
 	char	old_path[1024];
 
-	g_exit_code = 0;
+	g_global.exit_code = 0;
 	getcwd(old_path, 1024);
 	if (exc.arg != NULL)
 	{

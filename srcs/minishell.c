@@ -1,14 +1,10 @@
 #include "minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
-
-int	g_exit_code = 0;
-
 #include <fcntl.h>
+
 void	init_struct(t_state *state)
 {
-	g_global.exit_code = 0;
-	g_global.fork_pid = 0;
 	state->line = NULL;
 	state->pipe = NULL;
 	state->cm = NULL;
@@ -58,42 +54,11 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 	//free(tab);
 }
 
-void	ft_signal_msg(int exit_code)
+void	init_global(void)
 {
-	if (exit_code == 131)
-		ft_putendl_fd("QUIT: 3", 1);
-	if (exit_code == 130)
-		ft_putchar_fd('\n', 1);
+	g_global.exit_code = 0;
+	g_global.fork_pid = 0;
 }
-
-void	ft_ctrl_c(int signal)
-{
-	(void)signal;
-	if (!g_global.fork_pid)
-	{
-		ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_exit_code = 1;
-	}
-}
-
-void	ft_ctrl_backslash(int signal)
-{
-	(void)signal;
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-// void	ft_signal(int signal)
-// {
-// 	if (signal == SIGINT)
-// 		ft_ctrl_c();
-// 	if (signal == SIGQUIT)
-// 		ft_ctrl_backslash();
-// }
-
 int	main(int argc, char **argv, char **env)
 {
 	t_state	*state;
@@ -110,6 +75,7 @@ int	main(int argc, char **argv, char **env)
 	if (!state)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
+	init_global();
 	update_shlvl(&new_env);
 	signal(SIGQUIT, &ft_ctrl_backslash);
 	signal(SIGINT, &ft_ctrl_c);
@@ -124,7 +90,7 @@ int	main(int argc, char **argv, char **env)
 			printf("exit\n");
 			// printf("\x1b[34mminishell > \x1b[0mexit\n");
 			//ft_free_tab_exc(exc, tab);
-			exit(g_exit_code);
+			exit(g_global.exit_code);
 		}
 		else if (state->line[0] != '\0')
 		{
@@ -135,7 +101,7 @@ int	main(int argc, char **argv, char **env)
 				ft_free(new_env, ft_tabsize(new_env));
 				ft_exit(exc[0]);
 				ft_free_tab_exc(exc, tab);
-				exit(g_exit_code);
+				exit(g_global.exit_code);
 			}
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
 				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
@@ -143,11 +109,11 @@ int	main(int argc, char **argv, char **env)
 				if (ft_execute_command(exc[0], &new_env) == EXIT)
 				{
 					printf("minishell : %s: command not found\n", exc[0].cmd);
-					g_exit_code = 127;
+					g_global.exit_code = 127;
 				}
 			}
 			else
-				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
+				g_global.exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
 
 	}

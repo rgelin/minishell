@@ -1,20 +1,30 @@
 NAME		=	minishell
+
+#-------------------SOURCES PATH----------------------
+
 LIBFT		=	./libft/
 UTILS		=	./utils/
 SOURCES		=	./srcs/
+EXEC		=	./srcs/execute/
 PARSING 	=	./parsing/
 BUILTINS	=	./srcs/builtins/
 ERRORS		=	./errors/
+
+#-------------------COMPILATION----------------------
+
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 
+#-------------------SOURCES FILES----------------------
+
 SRCS		=	$(SOURCES)minishell.c \
-				$(SOURCES)ft_execute_command.c \
-				$(SOURCES)ft_exec.c \
-				$(SOURCES)ft_exec_pipe.c \
 				$(SOURCES)set_env_cpy.c \
+				$(SOURCES)signal.c \
+				$(EXEC)ft_execute_command.c \
+				$(EXEC)ft_exec.c \
+				$(EXEC)ft_exec_pipe.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
 				$(BUILTINS)ft_export.c \
@@ -43,6 +53,8 @@ PARSG		=	$(PARSING)error_parsing.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 				$(ERRORS)ft_perror.c
+
+#-------------------OBJECTS----------------------
 
 OBJS		=	$(SRCS:.c=.o)
 
