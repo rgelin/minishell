@@ -15,22 +15,6 @@ void	init_struct(t_state *state)
 }
 
 /*pas le seul exit code --> recup les exit code d'execv*/
-void	ft_signal_msg(void)
-{
-	if (g_exit_code == 131)
-		ft_putendl_fd("QUIT: 3", 1);
-	if (g_exit_code == 130)
-		ft_putchar_fd('\n', 1);
-}
-
-void	ft_ctrl_c(void)
-{
-	ft_putchar_fd('\n', 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exit_code = 1;
-}
 
 void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 {
@@ -72,19 +56,38 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 	//free(tab);
 }
 
-void	ft_ctrl_backslash(void)
+void	ft_signal_msg(int exit_code)
 {
+	if (exit_code == 131)
+		ft_putendl_fd("QUIT: 3", 1);
+	if (exit_code == 130)
+		ft_putchar_fd('\n', 1);
+}
+
+void	ft_ctrl_c(int signal)
+{
+	(void)signal;
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_exit_code = 1;
+}
+
+void	ft_ctrl_backslash(int signal)
+{
+	(void)signal;
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void	ft_signal(int signal)
-{
-	if (signal == SIGINT)
-		ft_ctrl_c();
-	if (signal == SIGQUIT)
-		ft_ctrl_backslash();
-}
+// void	ft_signal(int signal)
+// {
+// 	if (signal == SIGINT)
+// 		ft_ctrl_c();
+// 	if (signal == SIGQUIT)
+// 		ft_ctrl_backslash();
+// }
 
 int	main(int argc, char **argv, char **env)
 {
@@ -103,8 +106,8 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	new_env = cpy_env(env);
 	update_shlvl(&new_env);
-	signal(SIGQUIT, &ft_signal);
-	signal(SIGINT, &ft_signal);
+	signal(SIGQUIT, &ft_ctrl_backslash);
+	signal(SIGINT, &ft_ctrl_c);
 	while (1)
 	{
 		init_struct(state);
@@ -113,7 +116,8 @@ int	main(int argc, char **argv, char **env)
 		add_history(state->line);
 		if (!state->line)
 		{
-			printf("\x1b[34mminishell > \x1b[0mexit\n");
+			printf("exit\n");
+			// printf("\x1b[34mminishell > \x1b[0mexit\n");
 			//ft_free_tab_exc(exc, tab);
 			exit(g_exit_code);
 		}

@@ -16,10 +16,14 @@ char	**cpy_env(char **env)
 		if (!env_cpy[i])
 			exit(EXIT_FAILURE);
 	}
-	env_cpy[i] = ft_strdup("OLDPWD");
-	if (!env_cpy[i])
-		exit(EXIT_FAILURE);
-	env_cpy[++i] = NULL;
+	if (find_var_in_env("OLDPWD", env) == -1)
+	{
+		env_cpy[i] = ft_strdup("OLDPWD");
+		if (!env_cpy[i])
+			exit(EXIT_FAILURE);
+		i++;
+	}
+	env_cpy[i] = NULL;
 	return (env_cpy);
 }
 
