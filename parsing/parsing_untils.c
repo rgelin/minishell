@@ -7,7 +7,7 @@ int	ft_get_index(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '-' || s[i] == ' ' || s[i] == '<' || s[i] == '>')
+		if (s[i] == ' ' || s[i] == '<' || s[i] == '>')
 			return (i);
 		i++;
 	}
