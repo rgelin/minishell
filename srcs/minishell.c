@@ -7,6 +7,8 @@ int	g_exit_code = 0;
 #include <fcntl.h>
 void	init_struct(t_state *state)
 {
+	g_global.exit_code = 0;
+	g_global.fork_pid = 0;
 	state->line = NULL;
 	state->pipe = NULL;
 	state->cm = NULL;
@@ -67,11 +69,14 @@ void	ft_signal_msg(int exit_code)
 void	ft_ctrl_c(int signal)
 {
 	(void)signal;
-	ft_putchar_fd('\n', 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exit_code = 1;
+	if (!g_global.fork_pid)
+	{
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exit_code = 1;
+	}
 }
 
 void	ft_ctrl_backslash(int signal)

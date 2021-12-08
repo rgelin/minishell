@@ -25,6 +25,15 @@
 extern int	g_exit_code;
 // a rendre pour un tableau avec cette structure
 // pour les exc
+typedef struct s_global
+{
+	pid_t	fork_pid;
+	int		exit_code;
+}	t_global;
+
+t_global	g_global;
+
+
 typedef struct s_exc
 {
 	char	*cmd;
