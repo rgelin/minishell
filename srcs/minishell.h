@@ -99,6 +99,7 @@ char	**create_cmd(t_exc command);
 int		ft_execute_command(t_exc cmd, char ***env);
 int		execute(t_exc exc, char ***env);
 int		exec_pipe(t_exc *exc, char ***env, int size);
+int		ft_exec_bis(t_exc *exc, int nbr_pipe, char ***env);
 long	get_lvl_shlvl(char ***env);
 char	**cpy_env(char **env);
 void	update_shlvl(char ***env);

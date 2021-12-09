@@ -64,3 +64,36 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 	// printf("status: %d\n", status);
 	return (status); 
 }
+
+int	ft_exec_bis(t_exc *exc, int nbr_pipe, char ***env)
+{
+	int	fds[2 * nbr_pipe];
+	int	i;
+	int	pid;
+	int	status;
+
+		for (int j = 0; j < nbr_pipe; j++)
+			pipe(fds + j * 2);
+	i = 0;
+	// printf("nbr pipe === %d\n", nbr_pipe);
+	while (i <= nbr_pipe * 2)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (i != 0)
+				dup2(fds[(i - 1) * 2], STDIN_FILENO);
+			if (i < nbr_pipe)
+				dup2(fds[i * 2 + 1], STDOUT_FILENO);
+			for(int j = 0; j < nbr_pipe * 2; j++)
+				close(fds[i]);
+			execute(exc[i], env);
+			exit(EXIT_SUCCESS);
+		}
+		waitpid(pid, &status, 0);
+		i++;
+	}
+	for (int j = 0; j < nbr_pipe * 2; j++)
+		close(fds[j]);
+	return (status);
+}
