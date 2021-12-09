@@ -130,6 +130,7 @@ int	main(int argc, char **argv, char **env)
 				ft_free(new_env, ft_tabsize(new_env));
 				ft_exit(exc[0]);
 				ft_free_tab_exc(exc, tab);
+				//system("leaks minishell");
 				exit(g_exit_code);
 			}
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
@@ -142,9 +143,12 @@ int	main(int argc, char **argv, char **env)
 				}
 			}
 			else
+			{
 				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
+			}
 		}
-
+		//system("leaks minishell");
 	}
+	//system("leaks minishell");
 	return (0);
 }
