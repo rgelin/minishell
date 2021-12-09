@@ -148,9 +148,7 @@ int	main(int argc, char **argv, char **env)
 				}
 			}
 			else
-			{
-				g_exit_code = exec_pipe(exc, &new_env, tab->pipe);
-			}
+				g_exit_code = ft_exec_bis(exc, tab->pipe, &new_env);
 		}
 		//system("leaks minishell");
 	}
