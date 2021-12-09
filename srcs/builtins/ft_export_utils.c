@@ -83,20 +83,16 @@ char	*ft_to_add(char *str)
 	int		count;
 	char	*res;
 
-	i = ft_strlen(str);
-	count = 0;
-	while (str[--i] != '=')
-		count++;
-	res = ft_calloc(sizeof(char), (size_t)(count + 1));
-	if (!res)
-		exit(EXIT_FAILURE);
 	i = 0;
 	while (str[i] != '=')
 		i++;
-	i++;
+	count = (int)ft_strlen(str) - i - 1;
+	res = (char *)malloc(sizeof(char) * (count + 1));
+	if (!res)
+		exit(EXIT_FAILURE);
 	j = 0;
-	while (str[i])
-		res[j++] = str[i++];
+	while (str[++i])
+		res[j++] = str[i];
 	res[j] = '\0';
 	return (res);
 }
