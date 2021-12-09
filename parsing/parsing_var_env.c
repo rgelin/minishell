@@ -78,7 +78,7 @@ char	*check_var_env(char *line, char **env)
 		{
 			new_line = insert_var_env(line, i, env);
 			line = new_line;
-			i = 0;
+			i = -1;
 		}
 		i++;
 	}
