@@ -4,21 +4,10 @@
 
 extern int	g_exit_code;
 
-void	ft_sigint_exec(int signal)
-{
-	(void)signal;
-	printf("\n");
-	printf("fork\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	g_exit_code = 130;
-}
-
 int	exec_pipe(t_exc *exc, char ***env, int size)
 {
 	int		fd[2];
-	pid_t	pid;
+	// pid_t	pid;
 	int		i;
 	int		oldfd;
 	int		status;
@@ -34,13 +23,13 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 			perror("error pipe");
 			exit(EXIT_FAILURE);
 		}
-		pid = fork();
-		if (pid == -1)
+		g_global.fork_pid = fork();
+		if (g_global.fork_pid == -1)
 		{
 			perror("error fork");
 			exit(EXIT_FAILURE);
 		}
-		if (pid == 0)
+		if (g_global.fork_pid == 0)
 		{
 			// signal(SIGINT, &ft_sigint_exec);
 			if (size != 0)
@@ -62,7 +51,7 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 			exit(status);
 		}
 		// wait(&status);
-			waitpid(pid, &status, 0);
+			waitpid(g_global.fork_pid, &status, 0);
 			if (WIFEXITED(status))
 				status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
