@@ -12,7 +12,7 @@ ERRORS		=	./errors/
 
 #-------------------COMPILATION----------------------
 
-CC			=	gcc
+CC			=	gcc -g
 FLAGS		=	-Wall -Werror -Wextra
 READ = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READ2 = -I/Users/$(USER)/.brew/opt/readline/include
