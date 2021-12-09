@@ -59,6 +59,7 @@ void	init_global(void)
 	g_global.exit_code = 0;
 	g_global.fork_pid = 0;
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state	*state;
