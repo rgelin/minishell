@@ -24,9 +24,9 @@ void	ft_ctrl_c(int signal)
 void	ft_ctrl_backslash(int signal)
 {
 	(void)signal;
-	// if (!g_global.fork_pid)
-	// {
-	// 	rl_on_new_line();
-	// 	rl_redisplay();
-	// }
+	if (!g_global.fork_pid)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

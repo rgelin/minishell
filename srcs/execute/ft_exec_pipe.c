@@ -60,6 +60,7 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 		oldfd = fd[0];
 		i++;
 	}
+	g_global.fork_pid = 0;
 	ft_signal_msg(status);
 	// printf("status: %d\n", status);
 	return (status); 

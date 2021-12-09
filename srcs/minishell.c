@@ -106,13 +106,7 @@ int	main(int argc, char **argv, char **env)
 			}
 			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
 				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
-			{
-				if (ft_execute_command(exc[0], &new_env) == EXIT)
-				{
-					printf("minishell : %s: command not found\n", exc[0].cmd);
-					g_global.exit_code = 127;
-				}
-			}
+				ft_execute_command(exc[0], &new_env);
 			else
 				g_global.exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
