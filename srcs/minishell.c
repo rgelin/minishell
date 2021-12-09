@@ -110,7 +110,8 @@ int	main(int argc, char **argv, char **env)
 			else
 				g_global.exit_code = exec_pipe(exc, &new_env, tab->pipe);
 		}
-
+		//system("leaks minishell");
 	}
+	//system("leaks minishell");
 	return (0);
 }
