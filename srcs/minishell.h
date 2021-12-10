@@ -9,7 +9,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <limits.h>
-
+# include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 
@@ -86,6 +86,8 @@ int		size_list(t_exp_list *stack);
 int		check_str_digit(char *str);
 char	*ft_strtrim_modified(char const *s1, char const *set);
 char	*ft_strjoin_free(char const *s1, char const *s2);
+char	*ft_get_last_input(t_exc cmd);
+char	*ft_get_last_output(t_exc cmd);
 void	ft_sort_string_tab(char **tab);
 t_exp_list	*add_front(t_exp_list *stack, char *str);
 t_exp_list	*add_back(t_exp_list *stack, char *str);
@@ -98,11 +100,13 @@ char	**create_cmd(t_exc command);
 
 int		ft_execute_command(t_exc cmd, char ***env);
 int		execute(t_exc exc, char ***env);
-int		exec_pipe(t_exc *exc, char ***env, int size);
-int		ft_exec_bis(t_exc *exc, int nbr_pipe, char ***env);
+int		ft_create_all_redirect(t_exc *exc, int size);
 long	get_lvl_shlvl(char ***env);
 char	**cpy_env(char **env);
 void	update_shlvl(char ***env);
+void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env);
+void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds);
+void	ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
 
 /*=========PARSING=========*/
 

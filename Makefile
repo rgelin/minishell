@@ -13,8 +13,10 @@ READ2 = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_execute_command.c \
 				$(SOURCES)ft_exec.c \
-				$(SOURCES)ft_exec_pipe.c \
 				$(SOURCES)set_env_cpy.c \
+				$(SOURCES)ft_create_file.c \
+				$(SOURCES)ft_execute_pipe.c \
+				$(SOURCES)ft_redirection.c \
 				$(BUILTINS)ft_command.c \
 				$(BUILTINS)ft_cd.c \
 				$(BUILTINS)ft_export.c \
@@ -28,7 +30,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strjoin_free.c \
 				$(UTILS)create_cmd.c \
 				$(UTILS)check_str_digit.c \
-				
+				$(UTILS)ft_get_last_file.c \
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \
