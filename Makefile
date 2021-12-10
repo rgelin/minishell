@@ -38,7 +38,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_strjoin_free.c \
 				$(UTILS)create_cmd.c \
 				$(UTILS)check_str_digit.c \
-				
+				$(UTILS)ft_get_last_file.c \
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \
