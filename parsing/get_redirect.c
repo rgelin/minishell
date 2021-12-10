@@ -48,6 +48,7 @@ char	**get_redirect_tab(char *line, int n)
 		start = index_tab[i];
 		end = index_tab[i + 1];
 		tab[i] = ft_substr(line, start, end - start);
+		tab[i] = ft_strtrim(tab[i], " ");
 		//tab[i] = ft_strtrim_modified(tab[i], " ");
 		//printf("%s\n", tab[i]);
 		i++;

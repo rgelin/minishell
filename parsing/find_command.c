@@ -9,6 +9,7 @@ void	init_tab(t_pars *tab)
 	//tab->input = NULL;
 	//tab->output = NULL;
 	tab->next_char = NULL;
+	tab->redirect = NULL;
 }
 //pour avoir les options. regarder pour enlever et mettre get_everything
 char **get_opt(char *line)
