@@ -35,12 +35,12 @@ static int	ft_exec(t_exc command, char **env)
 		ft_perror(command.cmd, NULL, "command not found");
 	folder = ft_split(getenv(env[find_var_in_env("PATH", env)]), ':');
 	if (!folder)
-		return (EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	if (!folder || !ft_create_all_exec(&folder, command))
 	{
 		ft_free(folder, ft_tabsize(folder));
 		ft_free(cmd, ft_tabsize(cmd));
-		return (EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	}
 	while (folder[++i])
 		exit_code = execve(folder[i], cmd, NULL);
@@ -48,10 +48,11 @@ static int	ft_exec(t_exc command, char **env)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
 		exit_code = 127;
+		exit(exit_code);
 	}
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
-	return (exit_code);
+	exit (exit_code);
 }
 
 int	execute(t_exc exc, char ***env)
@@ -59,8 +60,8 @@ int	execute(t_exc exc, char ***env)
 	if (check_builtin(exc.cmd) != 0)
 	{
 		ft_execute_command(exc, env);
-		return (g_global.exit_code);
+		exit (g_global.exit_code);
 	}
 	else
-		return (ft_exec(exc, *env));
+		exit (ft_exec(exc, *env));
 }
