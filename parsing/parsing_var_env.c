@@ -124,7 +124,9 @@ char	**ft_arg(char **arg, char **env)
 			arg[i] = check_var_env(arg[i], env);
 		}
 		else
-			arg[i] = check_var_env_bis(arg[i], env);
+		{
+			arg[i] = check_var_env(arg[i], env);
+		}
 		i++;
 	}
 	return (arg);
