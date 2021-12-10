@@ -109,7 +109,6 @@ int	main(int argc, char **argv, char **env)
 				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
 				ft_execute_command(exc[0], &new_env);
 			else
-				// g_exit_code = ft_exec_bis(exc, tab->pipe, &new_env);
 				ft_execute_pipe(exc, tab->pipe, new_env);
 		}
 		//system("leaks minishell");
