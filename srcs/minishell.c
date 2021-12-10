@@ -30,7 +30,7 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 			if (last_tab[i].opt)
 				free(last_tab[i].opt);
 			j = 0;
-			if (last_tab[i].redirect[j])
+			if (last_tab[i].redirect && last_tab[i].redirect[j])
 			{
 		 		while(last_tab[i].redirect[j] != NULL)
 		 		{
@@ -39,7 +39,7 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 		 		}
 			}
 			j = 0;
-			if (last_tab[i].arg[j])
+			if (last_tab[i].arg && last_tab[i].arg[j])
 			{
 	  			while(last_tab[i].arg[j] != NULL)
 	  			{
