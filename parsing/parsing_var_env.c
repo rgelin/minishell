@@ -69,6 +69,7 @@ char	*check_var_env(char *line, char **env)
 		{
 			new_line = insert_exit_code(line, i);
 			line = new_line;
+			i = -1;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
 			i++;
@@ -79,6 +80,10 @@ char	*check_var_env(char *line, char **env)
 			new_line = insert_var_env(line, i, env);
 			line = new_line;
 			i = -1;
+		}
+		else
+		{
+			new_line = line;
 		}
 		i++;
 	}
