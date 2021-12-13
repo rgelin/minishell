@@ -42,6 +42,13 @@ static int	ft_exec(t_exc command, char **env)
 		ft_free(cmd, ft_tabsize(cmd));
 		exit (EXIT_FAILURE);
 	}
+	exit_code = execve(command.cmd, cmd, NULL);
+	if (exit_code == 0)
+	{
+		ft_free(folder, ft_tabsize(folder));
+		ft_free(cmd, ft_tabsize(cmd));
+		exit(EXIT_SUCCESS);
+	}
 	while (folder[++i])
 		exit_code = execve(folder[i], cmd, NULL);
 	if (i == ft_tabsize(folder))
