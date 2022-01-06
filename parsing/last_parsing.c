@@ -75,7 +75,10 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 		if (tab[i].option)
 			last_tab[i].opt = option(tab[i].option);
 		if (tab[i].redirect)
-			last_tab[i].redirect = tab[i].redirect;
+		{
+			//last_tab[i].redirect = tab[i].redirect;
+			heredoc_or_redirect(tab[i].redirect, last_tab);
+		}
 		if (tab[i].arg)
 			last_tab[i].arg = ft_arg(tab[i].arg, env);
 		i++;

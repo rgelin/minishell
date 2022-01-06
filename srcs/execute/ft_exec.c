@@ -42,14 +42,14 @@ int	ft_try_exec(t_exc command, char **cmd, char **folder)
 static int	ft_exec(t_exc command, char **env)
 {
 	char	**folder;
-	int		i;
+	//int		i;
 	char	**cmd;
 	int		exit_code;
 
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
-	i = -1;
+	//i = -1;
 	if (find_var_in_env("PATH", env) == -1)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
