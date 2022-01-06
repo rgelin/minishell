@@ -14,9 +14,13 @@ void	ft_heredoc(char **heredoc)
 {
 	int	i;
 	int	pid;
+
 	pid = fork();
 	if (pid == -1)
-		exit(EXIT_FAILURE);
+	{
+		g_global.exit_code = 1;
+		return ;
+	}
 	if (pid == 0)
 	{
 		i = -1;
@@ -25,6 +29,5 @@ void	ft_heredoc(char **heredoc)
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, NULL, 0);
-	free(heredoc[0]);
-	free(heredoc);
+	g_global.exit_code = 0;
 }
