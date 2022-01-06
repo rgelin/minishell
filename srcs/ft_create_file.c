@@ -56,4 +56,5 @@ void	ft_create_all_redirect(t_exc *exc, int size)
 		ret = ft_create_redirect(exc[i]);
 		i++;
 	}
+	(void)ret;
 }
