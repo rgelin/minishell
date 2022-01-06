@@ -1,8 +1,6 @@
 
 #include "../minishell.h"
 
-extern int g_exit_code;
-
 int	ft_execute_command(t_exc exc, char ***env)
 {
 	if (check_builtin(exc.cmd) == ECHO)
