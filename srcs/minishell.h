@@ -58,6 +58,7 @@ typedef struct s_pars
 	char	**option;
 	char	**arg;
 	char	**redirect;
+	char	**heredoc;
 	char	*next_char;
 }				t_pars;
 
