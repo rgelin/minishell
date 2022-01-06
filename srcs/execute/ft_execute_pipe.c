@@ -1,6 +1,4 @@
 #include "../minishell.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 static void	ft_open_pipes(int nbr_pipe, int **fds)
 {

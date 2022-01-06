@@ -1,6 +1,4 @@
 #include "minishell.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 static void	ft_simple(char *heredoc)
 {
@@ -8,7 +6,7 @@ static void	ft_simple(char *heredoc)
 
 	rl_on_new_line();
 	line = readline("> ");
-	while (ft_strcmp(line, heredoc) != 0 && line != '\0')
+	while (ft_strcmp(line, heredoc) != 0 && line[0] != '\0')
 		line = readline("> ");
 }
 

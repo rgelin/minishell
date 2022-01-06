@@ -11,6 +11,8 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # include "../libft/libft.h" 
 # define ECHO 1
