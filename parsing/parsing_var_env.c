@@ -1,7 +1,5 @@
 #include "../srcs/minishell.h"
 
-
-
 char	*insert_exit_code(char *line, int index)
 {
 	char	*code;
@@ -13,11 +11,7 @@ char	*insert_exit_code(char *line, int index)
 	tmp_line = ft_substr(line, 0, index);
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
 	new_line = ft_strjoin_double_free(tmp_line, code);
-	//free(code);
-	//free(tmp_line);
 	new_line = ft_strjoin_double_free(new_line, rest);
-	//free(rest);
-	//free(line);
 	line = NULL;
 	return (new_line);
 }
@@ -57,6 +51,7 @@ char	*insert_var_env(char *line, int index, char **env)
 	return (new_line);
 }
 //Methode quand il y a les " "
+
 char	*check_var_env(char *line, char **env)
 {
 	int		i;

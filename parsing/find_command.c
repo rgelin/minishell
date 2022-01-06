@@ -1,4 +1,3 @@
-
 #include "../srcs/minishell.h"
 
 void	init_tab(t_pars *tab)
@@ -11,105 +10,8 @@ void	init_tab(t_pars *tab)
 	tab->next_char = NULL;
 	tab->redirect = NULL;
 }
-//pour avoir les options. regarder pour enlever et mettre get_everything
-char **get_opt(char *line)
-{
-	int	i;
-	int	opt;
-	int *popt;
-	int index;
-	char **options;
-
-	opt = 0;
-	i = -1;
-	while (line[++i] != '\0')
-	{
-		if (line[i] == '-')
-			opt++;
-	}
-	popt = get_index(line, opt, '-');
-	options = malloc(sizeof(char *) * (opt + 1));
-	if (!options)
-	{
-		free(options);
-		//plutot mettre en void pour pouvoir free et exit
-		return (NULL);
-	}
-	i = 0;
-	opt = 0;
-	while (popt[i] != -1)
-	{
-		index = popt[i];
-		opt = index;
-		while (line[opt] !='\0')
-		{
-			if (check_quote(line, opt) && (line[opt] == ' ' || line[opt + 1] == '\0'))
-			{
-				options[i] = ft_substr(line, index, opt - (index - 1));
-				options[i] = ft_strtrim(options[i], "- ");
-				break ;
-			}
-			opt++;
-		}
-		i++;
-	}
-	options[i] = NULL;
-	free(popt);
-	return (options);
-}
-
-char **get_arg(char *line)
-{
-	char	**arg;
-	char	**tmp;
-	int		i;
-	int		j;
-	int		n;
-
-	n = 0;
-	i = 1;
-	j = 0;
-	tmp = ft_split_parsing(line, ' ');
-	while (tmp[i] != NULL)
-	{
-		if (*tmp[i] == '<' || *tmp[i] == '>')
-			break ;
-		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
-			n++;
-		i++;
-	}
-	arg = NULL;
-	arg = malloc(sizeof(char *) * (n + 1));
-	if (!arg)
-	{
-		free(arg);
-		//plutot mettre en void pour pouvoir free et exit
-		return (NULL);
-	}
-	i = 1;
-	while (tmp[i] != NULL)
-	{
-		if (*tmp[i] == '<' || *tmp[i] == '>')
-			break ;
-		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
-		{
-			arg[j] = ft_strdup(tmp[i]);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
-	free(tmp);
-	arg[j] = NULL;
-	return (arg);
-}
-
 //je reprendre tout mais pas vraiment clean
+
 t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
@@ -134,7 +36,7 @@ t_pars	get_command(char *line, t_state *s)
 	return (tab);
 }
 
-t_pars *find_command(t_state *s)
+t_pars	*find_command(t_state *s)
 {
 	int		i;
 	t_pars	*comd;

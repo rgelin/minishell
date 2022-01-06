@@ -68,7 +68,6 @@ void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
 		{
 			if (dup2(fds[n_pipe - 2], STDIN_FILENO) == -1)
 			{
-				printf("n_pipe === %d", n_pipe);
 				ft_perror("dup2", NULL, "Error dup2 STDIN");
 				g_global.exit_code = EXIT_FAILURE;
 				exit(g_global.exit_code);
@@ -92,7 +91,6 @@ void	ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe)
 			{
 				ft_perror("dup2", NULL, "Error dup2 STDOUT");
 				g_global.exit_code = EXIT_FAILURE;
-				// exit(g_global.exit_code);
 			}
 		}
 	}

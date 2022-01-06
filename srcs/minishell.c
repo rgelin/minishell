@@ -32,20 +32,20 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 			j = 0;
 			if (last_tab[i].redirect && last_tab[i].redirect[j])
 			{
-		 		while(last_tab[i].redirect[j] != NULL)
-		 		{
-		 			free(last_tab[i].redirect[j]);
-		 			j++;
-		 		}
+				while(last_tab[i].redirect[j] != NULL)
+				{
+					free(last_tab[i].redirect[j]);
+					j++;
+				}
 			}
 			j = 0;
 			if (last_tab[i].arg && last_tab[i].arg[j])
 			{
-	  			while(last_tab[i].arg[j] != NULL)
-	  			{
-	  				free(last_tab[i].arg[j]);
-	  				j++;
-		 		}
+				while(last_tab[i].arg[j] != NULL)
+				{
+					free(last_tab[i].arg[j]);
+					j++;
+				}
 			}
 			i++;
 		}
@@ -97,6 +97,11 @@ int	main(int argc, char **argv, char **env)
 		{
 			tab = parsing(state);
 			exc = last_parsing(tab, env);
+			// char **heredoc = malloc(sizeof(char *) * 2);
+			// heredoc[1] = NULL;
+			// heredoc[0] = ft_strdup("ls");
+			// exc[0].heredoc = heredoc;
+			// exc[1].heredoc = NULL;
 			ft_create_all_redirect(exc, tab->pipe);
 			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 			{
@@ -105,8 +110,8 @@ int	main(int argc, char **argv, char **env)
 				ft_free_tab_exc(exc, tab);
 				exit(g_global.exit_code);
 			}
-			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD ||
-				check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
+			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
+				|| check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
 				ft_execute_command(exc[0], &new_env);
 			else
 				ft_execute_pipe(exc, tab->pipe, new_env);

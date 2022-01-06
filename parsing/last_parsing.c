@@ -6,6 +6,7 @@ void	init_ptn(t_exc *tab)
 	tab->opt = NULL;
 	tab->arg = NULL;
 	tab->redirect = NULL;
+	tab->heredoc = NULL;
 }
 
 char	*option(char **options)
@@ -38,7 +39,7 @@ char	*option(char **options)
 
 char	*ft_command(char *command)
 {
-	int	i;
+	int		i;
 	char	*new;
 
 	i = 0;
