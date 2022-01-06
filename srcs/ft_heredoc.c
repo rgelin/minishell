@@ -10,10 +10,12 @@ static void	ft_simple(char *heredoc)
 		line = readline("> ");
 }
 
-void	ft_heredoc(char **heredoc)
+void	ft_heredoc(t_exc cmd)
 {
 	int	i;
 
+	if (cmd.heredoc == NULL)
+		return ;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)
 	{
@@ -23,8 +25,8 @@ void	ft_heredoc(char **heredoc)
 	if (g_global.fork_pid == 0)
 	{
 		i = -1;
-		while (heredoc[++i])
-			ft_simple(heredoc[i]);
+		while (cmd.heredoc[++i])
+			ft_simple(cmd.heredoc[i]);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(g_global.fork_pid, NULL, 0);

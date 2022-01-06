@@ -116,7 +116,7 @@ void		update_shlvl(char ***env);
 void		ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env);
 void		ft_redirect_input(t_exc cmd, int n_pipe, int *fds);
 void		ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
-void		ft_heredoc(char **heredoc);
+void		ft_heredoc(t_exc cmd);
 
 /*=========PARSING=========*/
 
