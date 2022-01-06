@@ -45,13 +45,13 @@ static void	ft_waiting_all_child(int nbr_pipe, int *status)
 	i = 0;
 	while (i <= nbr_pipe)
 	{
-		waitpid(0, status, 0);
+		waitpid(g_global.fork_pid, status, 0);
 		if (g_global.fork_pid > 0)
 		{
 			if (WIFEXITED(*status))
-				*status = WEXITSTATUS(*status);
+				g_global.exit_code = WEXITSTATUS(*status);
 			else if (WIFSIGNALED(*status))
-				*status = 128 + WTERMSIG(*status);
+				g_global.exit_code = 128 + WTERMSIG(*status);
 		}
 		i++;
 	}
@@ -77,7 +77,7 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
 			ft_redirect_input(cmds[i], n_pipe, fds);
 			ft_close_pipes(nbr_pipe, fds);
-			execute(cmds[i], &env);
+			exit (execute(cmds[i], &env));
 		}
 		n_pipe += 2;
 		i++;

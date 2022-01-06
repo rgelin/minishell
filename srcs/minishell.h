@@ -109,7 +109,7 @@ t_exp_list	*freelist(t_exp_list *stack);
 
 int			ft_execute_command(t_exc cmd, char ***env);
 int			execute(t_exc exc, char ***env);
-int			ft_create_all_redirect(t_exc *exc, int size);
+void		ft_create_all_redirect(t_exc *exc, int size);
 long		get_lvl_shlvl(char ***env);
 char		**cpy_env(char **env);
 void		update_shlvl(char ***env);
