@@ -51,11 +51,11 @@ int	exec_pipe(t_exc *exc, char ***env, int size)
 			exit(status);
 		}
 		// wait(&status);
-			waitpid(g_global.fork_pid, &status, 0);
-			if (WIFEXITED(status))
-				status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				status = 128 + WTERMSIG(status);
+		waitpid(g_global.fork_pid, &status, 0);
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			status = 128 + WTERMSIG(status);
 		close(fd[1]);
 		oldfd = fd[0];
 		i++;

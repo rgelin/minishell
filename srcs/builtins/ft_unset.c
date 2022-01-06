@@ -1,7 +1,5 @@
 #include "../minishell.h"
 
-
-
 static char	*parse_arg(char *arg)
 {
 	char	*res;
@@ -15,7 +13,7 @@ static char	*parse_arg(char *arg)
 	{
 		if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", res);
+			ft_perror("export", res, "not a valid identifier");
 			g_global.exit_code = 1;
 			return (NULL);
 		}
@@ -39,7 +37,7 @@ static void	create_new_env(t_exc exc, char ***env, int i)
 	{
 		if (j == find_var_in_env(exc.arg[i], *env))
 			j++;
-		new_env[++k] = ft_strdup((*env)[j]); //reste un leak ici
+		new_env[++k] = ft_strdup((*env)[j]);
 		if (!new_env[k])
 			exit(EXIT_FAILURE);
 	}

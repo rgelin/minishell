@@ -1,8 +1,6 @@
 
 #include "../minishell.h"
 
-
-
 static void	ft_print_line(char **cmd)
 {
 	int	i;

@@ -1,9 +1,6 @@
 
 #include "../minishell.h"
 
-// need to add case (export ARG+=10)
-
-
 char	*ft_strtrim_plus_equal(char *arg)
 {
 	char	*str;
@@ -84,8 +81,6 @@ void	no_arg(char ***env)
 		if (ft_strchr_modified((*env)[i], '=') == 0)
 		{
 			new_env[i] = ft_strdup((*env)[i]);
-			if (!new_env[i])
-				exit(EXIT_FAILURE);
 		}
 		else
 			new_env[i] = add_quotes((*env)[i]);
@@ -93,7 +88,7 @@ void	no_arg(char ***env)
 	new_env[i] = NULL;
 	ft_sort_string_tab(new_env);
 	i = -1;
-	while (new_env[++i])
+	while (new_env && new_env[++i])
 			printf("declare -x %s\n", new_env[i]);
 	ft_free(new_env, ft_tabsize(new_env));
 }
