@@ -1,4 +1,6 @@
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 static void	ft_simple(char *heredoc)
 {
