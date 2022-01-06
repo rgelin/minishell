@@ -39,7 +39,6 @@ char	**create_cmd(t_exc command)
 	to_ret = (char **)malloc(sizeof(char *) * ft_size_cmd(command));
 	if (!to_ret)
 		return (NULL);
-	to_ret[ft_size_cmd(command)] = NULL;
 	if (command.cmd)
 		to_ret[i++] = command.cmd;
 	if (command.opt)

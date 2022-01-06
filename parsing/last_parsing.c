@@ -6,6 +6,7 @@ void	init_ptn(t_exc *tab)
 	tab->opt = NULL;
 	tab->arg = NULL;
 	tab->redirect = NULL;
+	tab->heredoc = NULL;
 }
 
 char	*option(char **options)

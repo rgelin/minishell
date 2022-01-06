@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 18:29:20 by rgelin            #+#    #+#             */
-/*   Updated: 2021/11/19 11:49:33 by jlong            ###   ########.fr       */
+/*   Updated: 2021/12/15 13:03:04 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
