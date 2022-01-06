@@ -13,21 +13,20 @@ static void	ft_simple(char *heredoc)
 void	ft_heredoc(char **heredoc)
 {
 	int	i;
-	int	pid;
 
-	pid = fork();
-	if (pid == -1)
+	g_global.fork_pid = fork();
+	if (g_global.fork_pid == -1)
 	{
 		g_global.exit_code = 1;
 		return ;
 	}
-	if (pid == 0)
+	if (g_global.fork_pid == 0)
 	{
 		i = -1;
 		while (heredoc[++i])
 			ft_simple(heredoc[i]);
 		exit(EXIT_SUCCESS);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(g_global.fork_pid, NULL, 0);
 	g_global.exit_code = 0;
 }
