@@ -1,5 +1,11 @@
 #include "../srcs/minishell.h"
 
+void	init_quote(t_quote *quote)
+{
+	quote->simple_quote = 0;
+	quote->double_quote = 0;
+}
+
 int	check_parsing(t_state *s)
 {
 	if (!check_quote(s->line, s->eof))
@@ -15,36 +21,34 @@ int	check_parsing(t_state *s)
 
 int	check_quote(char *line, int index)
 {
-	int	i;
-	int	simple_quote;
-	int	double_quote;
+	int		i;
+	t_quote	quote;
 
-	simple_quote = 0;
-	double_quote = 0;
+	init_quote(&quote);
 	i = -1;
 	while (++i < index)
 	{
 		if (line[i] == '\'')
 		{
-			if (simple_quote == 0 && double_quote == 0)
-				simple_quote = 1;
+			if (quote.simple_quote == 0 && quote.double_quote == 0)
+				quote.simple_quote = 1;
 			else
-				simple_quote = 0;
+				quote.simple_quote = 0;
 		}
 		if (line[i] == '"')
 		{
-			if (double_quote == 0 && simple_quote == 0)
-				double_quote = 1;
+			if (quote.double_quote == 0 && quote.simple_quote == 0)
+				quote.double_quote = 1;
 			else
-				double_quote = 0;
+				quote.double_quote = 0;
 		}		
 	}
-	if (simple_quote == 0 && double_quote == 0)
+	if (quote.simple_quote == 0 && quote.double_quote == 0)
 		return (1);
 	return (0);
 }
 
-void check_char(t_state *s)
+void	check_char(t_state *s)
 {
 	int	i;
 

@@ -47,10 +47,7 @@ int	*get_index(char *line, size_t size, char c)
 		if (c == '-' && line[i] == '-' && line[i -1] != ' ')
 			i++;
 		if (line[i] == c && check_quote(line, i))
-		{
-			p_tab[j] = i;
-			j++;
-		}
+			p_tab[j++] = i;
 		i++;
 	}
 	p_tab[j] = -1;
@@ -76,7 +73,7 @@ char	*our_getenv(char *line, char **env)
 	if (index == -1)
 		tmp = "";
 	index = -1;
-	while(test && test[++index] != NULL)
+	while (test && test[++index] != NULL)
 		free(test[index]);
 	if (test != NULL)
 		free(test);

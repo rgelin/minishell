@@ -1,7 +1,5 @@
 #include "../srcs/minishell.h"
 
-
-
 void	init_ptn(t_exc *tab)
 {
 	tab->cmd = NULL;
@@ -40,7 +38,7 @@ char	*option(char **options)
 
 char	*ft_command(char *command)
 {
-	int	i;
+	int		i;
 	char	*new;
 
 	i = 0;
