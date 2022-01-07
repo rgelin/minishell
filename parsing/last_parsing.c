@@ -63,9 +63,7 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 	last_tab = NULL;
 	last_tab = malloc(sizeof(t_exc) * (tab->pipe + 1));
 	if (!last_tab)
-	{
 		exit(EXIT_FAILURE);
-	}
 	i = 0;
 	init_ptn(last_tab);
 	while (i < tab->pipe + 1)

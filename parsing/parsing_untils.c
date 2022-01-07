@@ -14,17 +14,15 @@ int	ft_get_index(char *s)
 	return (0);
 }
 
-int	ft_test(char *line)
+void	init_tmp(t_tmp *tmp)
 {
-	int	x;
-
-	x = ft_strlen(line);
-	while (line[x] != ' ' && x != 0)
-		x--;
-	if (x != 0)
-		return (x);
-	x--;
-	return (0);
+	tmp->tmp = NULL;
+	tmp->rest = NULL;
+	tmp->new_line = NULL;
+	tmp->n = 0;
+	tmp->m = 0;
+	tmp->nl = NULL;
+	tmp->var = NULL;
 }
 
 int	*get_index(char *line, size_t size, char c)

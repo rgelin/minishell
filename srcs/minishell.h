@@ -72,11 +72,21 @@ typedef struct s_state
 
 }				t_state;
 
+typedef struct s_tmp
+{
+	char	*tmp;
+	char	*rest;
+	char	*new_line;
+	int		n;
+	int		m;
+	char	*nl;
+	char	*var;
+}				t_tmp;
+
 typedef struct s_quote
 {
 	int	simple_quote;
 	int	double_quote;
-
 }				t_quote;
 
 typedef struct s_exp_list
@@ -124,7 +134,7 @@ t_pars	*parsing(t_state *s);
 t_pars	*split_line(t_state *line);
 t_pars	*find_command(t_state *s);
 int		ft_get_index(char *s);
-int		ft_test(char *line);
+void	init_tmp(t_tmp *tmp);
 int		ft_check_space(char *line);
 int		check_redirection(char *line);
 int		check_quote(char *line, int index);

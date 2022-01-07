@@ -18,39 +18,28 @@ char	*insert_exit_code(char *line, int index)
 
 char	*insert_var_env(char *line, int index, char **env)
 {
-	char	*tmp;
-	char	*rest;
-	char	*new_line;
-	char	*var;
-	int		n;
-	int		m;
-	char	*nl;
+	t_tmp	tmp;
 
-	n = index;
-	m = 0;
-	tmp = NULL;
-	var = NULL;
-	nl = NULL;
-	rest = NULL;
-	tmp = ft_substr(line, 0, index);
-	new_line = NULL;
-	while (line[n] != '\0')
+	init_tmp(&tmp);
+	tmp.n = index;
+	tmp.tmp = ft_substr(line, 0, index);
+	tmp.new_line = NULL;
+	while (line[tmp.n] != '\0')
 	{
-		if (line[n] == ' ' || line[n] == '\0')
+		if (line[tmp.n] == ' ' || line[tmp.n] == '\0')
 			break ;
-		n++;
-		m++;
+		tmp.n++;
+		tmp.m++;
 	}
-	nl = ft_substr(line, index + 1, m - 1);
-	var = our_getenv(ft_strtrim(nl, "$"), env);
-	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
-	new_line = ft_strjoin_double_free(tmp, var);
-	new_line = ft_strjoin_double_free(new_line, rest);
+	tmp.nl = ft_substr(line, index + 1, tmp.m - 1);
+	tmp.var = our_getenv(ft_strtrim(tmp.nl, "$"), env);
+	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
+	tmp.new_line = ft_strjoin_double_free(tmp.tmp, tmp.var);
+	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
 	free(line);
 	line = NULL;
-	return (new_line);
+	return (tmp.new_line);
 }
-//Methode quand il y a les " "
 
 char	*check_var_env(char *line, char **env)
 {
