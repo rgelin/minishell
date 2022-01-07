@@ -41,8 +41,10 @@ t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
 	t_pars	tab;
+	//char	*new_line;
 	(void)s;
 	init_tab(&tab);
+	//check heredoc
 	if (ft_get_index(line) != 0)
 	{
 		next = ft_get_index(line);
