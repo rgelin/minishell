@@ -53,6 +53,7 @@ char	*cut_heredoc(char *line, int index, char **tab_here)
 	printf("nl = %s\n", nl);
 	//var = our_getenv(ft_strtrim(nl, "$"), env);
 	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
+	printf("rest = %ss\n", rest);
 	new_line = ft_strjoin_double_free(tmp, var);
 	new_line = ft_strjoin_double_free(new_line, rest);
 	free(line);
@@ -60,7 +61,7 @@ char	*cut_heredoc(char *line, int index, char **tab_here)
 	return (new_line);
 }
 
-char	*get_heredoc(char *line, t_pars *tab_here)
+void	get_heredoc(char *line, t_pars *tab_here)
 {
 	int		i;
 	char	*new_line;
@@ -82,10 +83,11 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 		{
 			new_line = cut_heredoc(line, i, tab_here->heredoc++);
 			line = new_line;
+			printf("new_line = %s\n", new_line);
 			i = -1;
 		}
 		i++;
 	}
 	tab_here->heredoc = NULL;
-	return (new_line);
+	//return (new_line);
 }

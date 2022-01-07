@@ -55,7 +55,6 @@ PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)ft_join_free.c \
 				$(PARSING)get_option.c \
 				$(PARSING)get_arg.c \
-				$(PARSING)herodoc_redirect.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 				$(ERRORS)ft_perror.c
