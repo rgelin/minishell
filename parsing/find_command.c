@@ -36,7 +36,7 @@ t_pars	get_command(char *line, t_state *s)
 	}
 	return (tab);
 }*/
-
+//fonction où on recoit chaque ligne divisé par des pipes
 t_pars	get_command(char *line, t_state *s)
 {
 	int		next;

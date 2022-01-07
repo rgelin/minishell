@@ -1,5 +1,6 @@
 #include "../srcs/minishell.h"
 
+//error si on a des trucs comme <> ou >< ?
 void	split_redirect(char **redirect, t_exc *tab, int m)
 {
 	int	i;
