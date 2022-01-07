@@ -21,7 +21,7 @@ char	*cut_heredoc(char *line, int index, char **tab_here)
 	char	*tmp;
 	char	*rest;
 	char	*new_line;
-	//char	*var;
+	char	*var;
 	int		n;
 	int		m;
 	char	*nl;
@@ -71,7 +71,7 @@ void	get_heredoc(char *line, t_pars *tab_here)
 	nbr_of_here = nbr_of_heredoc(line);
 	if (nbr_of_here > 0)
 	{
-		tab_here->heredoc = malloc(sizeof(char *) * (nbr_of_here + 1);
+		tab_here->heredoc = malloc(sizeof(char *) * (nbr_of_here + 1));
 		if (!tab_here->heredoc)
 			exit(EXIT_FAILURE);
 	}
