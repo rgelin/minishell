@@ -18,17 +18,12 @@ void	ft_heredoc(t_exc cmd)
 		return ;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)
-	{
-		g_global.exit_code = 1;
 		return ;
-	}
 	if (g_global.fork_pid == 0)
 	{
 		i = -1;
 		while (cmd.heredoc[++i])
 			ft_simple(cmd.heredoc[i]);
-		exit(EXIT_SUCCESS);
 	}
 	waitpid(g_global.fork_pid, NULL, 0);
-	g_global.exit_code = 0;
 }

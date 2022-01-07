@@ -39,7 +39,7 @@ t_pars new_parsing(char *line)
 		{
 			//c'est ce qu on doit rentrer dans le heredoc
 			//fonction heredoc
-			heredoc = 0
+			heredoc = 0;
 			//previous a 1
 		}
 		else if (*tmp[i] == '<'|| *tmp[i] == '>')
@@ -54,7 +54,7 @@ t_pars new_parsing(char *line)
 		else if (*tmp && (previous == 1 || cmd == 0 || heredoc == 0)) // a verifie pour la commande
 		{
 			//ca devient ma commande
-			cmd = 1
+			cmd = 1;
 			//previous = 0
 		}
 		else if (*tmp && previous == 0 && cmd == 1)
