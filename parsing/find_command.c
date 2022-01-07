@@ -22,6 +22,34 @@ t_pars	get_command(char *line, t_state *s)
 	if (ft_get_index(line) != 0)
 	{
 		printf("ici\n");
+<<<<<<< HEAD
+=======
+		next = ft_get_index(line);
+		tab.command = ft_substr(line, 0, next);
+		tab.command = ft_strtrim(tab.command, " ");
+		tab.option = get_opt(line);
+		tab.redirect = get_redirect(line);
+		tab.arg = get_arg(line);
+	}
+	else
+	{
+		tab.command = ft_substr(line, 0, ft_strlen(line));
+		tab.command = ft_strtrim(tab.command, " ");
+	}
+	return (tab);
+}*/
+//fonction où on recoit chaque ligne divisé par des pipes
+t_pars	get_command(char *line, t_state *s)
+{
+	int		next;
+	t_pars	tab;
+	//char	*new_line;
+	(void)s;
+	init_tab(&tab);
+	//check heredoc
+	if (ft_get_index(line) != 0)
+	{
+>>>>>>> dc0977684e4c722bd036eec1a59a1ed4f6a4309f
 		next = ft_get_index(line);
 		tab.command = ft_substr(line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
