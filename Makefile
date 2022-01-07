@@ -55,6 +55,7 @@ PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)ft_join_free.c \
 				$(PARSING)get_option.c \
 				$(PARSING)get_arg.c \
+				$(PARSING)get_heredoc.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 				$(ERRORS)ft_perror.c
