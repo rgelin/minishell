@@ -12,6 +12,8 @@ char	*insert_exit_code(char *line, int index)
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
 	new_line = ft_strjoin_double_free(tmp_line, code);
 	new_line = ft_strjoin_double_free(new_line, rest);
+	//free(line);
+	free(rest);
 	line = NULL;
 	return (new_line);
 }
@@ -37,8 +39,27 @@ char	*insert_var_env(char *line, int index, char **env)
 	tmp.new_line = ft_strjoin_double_free(tmp.tmp, tmp.var);
 	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
 	free(line);
+	free(tmp.rest);
 	line = NULL;
 	return (tmp.new_line);
+}
+
+char	*check_var_env_bis(char *line, char **env, char c, int i)
+{
+	char	*new_line;
+
+	new_line = NULL;
+	if (c == '?')
+	{
+		new_line = insert_exit_code(line, i);
+		line = new_line;
+	}
+	else
+	{
+		new_line = insert_var_env(line, i, env);
+		line = new_line;
+	}
+	return (new_line);
 }
 
 char	*check_var_env(char *line, char **env)
@@ -51,8 +72,7 @@ char	*check_var_env(char *line, char **env)
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
-			new_line = insert_exit_code(line, i);
-			line = new_line;
+			line = check_var_env_bis(line, env, '?', i);
 			i = -1;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
@@ -61,38 +81,13 @@ char	*check_var_env(char *line, char **env)
 			i++;
 		else if (line[i] == '$')
 		{
-			new_line = insert_var_env(line, i, env);
-			line = new_line;
+			line = check_var_env_bis(line, env, ' ', i);
 			i = -1;
 		}
 		else
-		{
 			new_line = line;
-		}
 		i++;
 	}
-	//free(line);
-	return (new_line);
-}
-
-char	*check_var_env_bis(char *line, char **env)
-{
-	int		i;
-	char	*new_line;
-
-	i = 0;
-	if (line[i] == '$' && line[i + 1] == '?')
-	{
-		new_line = ft_itoa(g_global.exit_code);
-	}
-	else if (line[i] == '$' && (line[i + 1] == '$' || line[i + 1] == '\0'))
-		new_line = line;
-	else if (line[i] == '$')
-	{
-		new_line = our_getenv(ft_strtrim(line, "$"), env);
-	}
-	else
-		new_line = line;
 	return (new_line);
 }
 

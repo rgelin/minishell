@@ -47,6 +47,15 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 					j++;
 				}
 			}
+			j = 0;
+			if (last_tab[i].heredoc && last_tab[i].heredoc[j])
+			{
+				while(last_tab[i].heredoc[j] != NULL)
+				{
+					free(last_tab[i].heredoc[j]);
+					j++;
+				}
+			}
 			i++;
 		}
 	}

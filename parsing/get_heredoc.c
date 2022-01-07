@@ -84,6 +84,8 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 	int		nbr_of_here;
 	char	**tab;
 
+	new_line = NULL;
+	tab = NULL;
 	nbr_of_here = nbr_of_heredoc(line);
 	if (nbr_of_here < 1)
 		return (line);
