@@ -43,7 +43,7 @@ char	**get_arg(char *line)
 	{
 		if (*tmp[i] == '<' || *tmp[i] == '>')
 			break ;
-		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>')
+		if (*tmp[i] != '-' && *tmp[i] != '<' && *tmp[i] != '>') 
 			n++;
 		i++;
 	}

@@ -35,7 +35,7 @@ char	**get_redirect_tab(char *line, int n)
 	char	**tab;
 	int		*index_tab;
 
-	i = -1;
+	i = 0;
 	tab = NULL;
 	index_tab = NULL;
 	end = 0;
@@ -43,12 +43,15 @@ char	**get_redirect_tab(char *line, int n)
 	if (!tab)
 		exit(EXIT_FAILURE);
 	index_tab = get_index_redirect(line, n);
-	while (index_tab[++i] != -1)
+	while (index_tab[i] != -1)
 	{
 		start = index_tab[i];
 		end = index_tab[i + 1];
 		tab[i] = ft_substr(line, start, end - start);
 		tab[i] = ft_strtrim(tab[i], " ");
+		//tab[i] = ft_strtrim_modified(tab[i], " ");
+		//printf("%s\n", tab[i]);
+		i++;
 	}
 	tab[i] = NULL;
 	free(index_tab);

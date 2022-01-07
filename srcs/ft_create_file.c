@@ -44,7 +44,7 @@ static int	ft_create_redirect(t_exc exc)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_create_all_redirect(t_exc *exc, int size)
+void	ft_create_all_redirect(t_exc *exc, int size)
 {
 	int	i;
 	int	ret;
@@ -54,10 +54,7 @@ int	ft_create_all_redirect(t_exc *exc, int size)
 	while (i <= size)
 	{
 		ret = ft_create_redirect(exc[i]);
-		if (ret == -2)
-			ret = EXIT_SUCCESS;
 		i++;
 	}
-	g_global.exit_code = ret;
-	return (ret);
+	(void)ret;
 }

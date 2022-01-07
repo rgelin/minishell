@@ -58,6 +58,7 @@ typedef struct s_pars
 	char	**option;
 	char	**arg;
 	char	**redirect;
+	char	**heredoc;
 	char	*next_char;
 }				t_pars;
 
@@ -108,14 +109,14 @@ t_exp_list	*freelist(t_exp_list *stack);
 
 int			ft_execute_command(t_exc cmd, char ***env);
 int			execute(t_exc exc, char ***env);
-int			ft_create_all_redirect(t_exc *exc, int size);
+void		ft_create_all_redirect(t_exc *exc, int size);
 long		get_lvl_shlvl(char ***env);
 char		**cpy_env(char **env);
 void		update_shlvl(char ***env);
 void		ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env);
 void		ft_redirect_input(t_exc cmd, int n_pipe, int *fds);
 void		ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
-void		ft_heredoc(char **heredoc);
+void		ft_heredoc(t_exc cmd);
 
 /*=========PARSING=========*/
 
@@ -143,7 +144,7 @@ char	*ft_strjoin_double_free(char *s1, char *s2);
 void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
 char	**get_opt(char *line);
 char	**get_arg(char *line);
-
+void	heredoc_or_redirect(char **redirect, t_exc *tab);
 void	split_pipe(t_state *s);
 
 /*=========ERROR=========*/

@@ -20,60 +20,49 @@ static int	ft_create_all_exec(char ***folder, t_exc command)
 	return (1);
 }
 
-static int	ft_free_exec(char **folder, char **cmd, int exit_code)
+static int	ft_free_exec(char **folder, char **cmd)
 {
 	ft_free(folder, ft_tabsize(folder));
 	ft_free(cmd, ft_tabsize(cmd));
-	g_global.exit_code = exit_code;
-	return (exit_code);
+	return (EXIT_FAILURE);
 }
 
 int	ft_try_exec(t_exc command, char **cmd, char **folder)
 {
-	int	exit_code;
 	int	i;
 
 	i = -1;
 	while (folder[++i])
-		exit_code = execve(folder[i], cmd, NULL);
-	if (exit_code == -1)
-		exit_code = execve(command.cmd, cmd, NULL);
-	if (i == ft_tabsize(folder))
-	{
-		ft_perror(command.cmd, NULL, "command not found");
-		g_global.exit_code = 127;
-	}
-	else
-		g_global.exit_code = exit_code;
-	return (g_global.exit_code);
+		execve(folder[i], cmd, NULL);
+	execve(command.cmd, cmd, NULL);
+	ft_perror(command.cmd, NULL, "command not found");
+	return (127);
 }
 
 static int	ft_exec(t_exc command, char **env)
 {
 	char	**folder;
-	int		i;
+	//int		i;
 	char	**cmd;
+	int		exit_code;
 
 	cmd = create_cmd(command);
 	if (!cmd)
-		return (EXIT_FAILURE);
-	i = -1;
+		exit (EXIT_FAILURE);
+	//i = -1;
 	if (find_var_in_env("PATH", env) == -1)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
-		g_global.exit_code = 127;
-		exit(g_global.exit_code);
+		return (127);
 	}
 	folder = ft_split(getenv(env[find_var_in_env("PATH", env)]), ':');
 	if (!folder)
-	{
-		g_global.exit_code = EXIT_FAILURE;
-		exit (g_global.exit_code);
-	}
+		return (ft_free_exec(folder, cmd));
 	if (!ft_create_all_exec(&folder, command))
-		exit (ft_free_exec(folder, cmd, EXIT_FAILURE));
-	ft_try_exec(command, cmd, folder);
-	return (ft_free_exec(folder, cmd, g_global.exit_code));
+		return (ft_free_exec(folder, cmd));
+	exit_code = ft_try_exec(command, cmd, folder);
+	ft_free_exec(folder, cmd);
+	return (exit_code);
 }
 
 int	execute(t_exc exc, char ***env)
@@ -81,9 +70,8 @@ int	execute(t_exc exc, char ***env)
 	if (check_builtin(exc.cmd) != 0)
 	{
 		ft_execute_command(exc, env);
-		printf("exit: %d\n", g_global.exit_code);
-		exit (g_global.exit_code);
+		return (g_global.exit_code);
 	}
 	else
-		exit (ft_exec(exc, *env));
+		return (ft_exec(exc, *env));
 }
