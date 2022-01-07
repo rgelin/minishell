@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **env)
 			printf("exit\n");
 			// printf("\x1b[34mminishell > \x1b[0mexit\n");
 			//ft_free_tab_exc(exc, tab);
-			exit(g_global.exit_code);
+			exit(EXIT_FAILURE);
 		}
 		else if (state->line[0] != '\0')
 		{
