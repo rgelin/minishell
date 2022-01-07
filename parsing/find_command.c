@@ -41,15 +41,22 @@ t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
 	t_pars	tab;
-
 	(void)s;
 	init_tab(&tab);
-	next = ft_get_index(line);
-	tab.command = ft_substr(line, 0, next);
-	tab.command = ft_strtrim(tab.command, " ");
-	tab.option = get_opt(line);
-	tab.redirect = get_redirect(line);
-	tab.arg = get_arg(line);
+	if (ft_get_index(line) != 0)
+	{
+		next = ft_get_index(line);
+		tab.command = ft_substr(line, 0, next);
+		tab.command = ft_strtrim(tab.command, " ");
+		tab.option = get_opt(line);
+		tab.redirect = get_redirect(line);
+		tab.arg = get_arg(line);
+	}
+	else
+	{
+		tab.command = ft_substr(line, 0, ft_strlen(line));
+		tab.command = ft_strtrim(tab.command, " ");
+	}
 	return (tab);
 }
 
