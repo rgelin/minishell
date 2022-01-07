@@ -6,6 +6,7 @@ t_pars new_parsing(char *line)
 	char	**tmp;
 	int		i;
 	int		heredoc;
+	int		nbr_of_heredoc;
 	int		previous;
 	int		cmd;
 	int		redirection;
@@ -15,6 +16,7 @@ t_pars new_parsing(char *line)
 	previous = 0;
 	cmd = 0;
 	redirection = 0;
+	nbr_of_heredoc = 0;
 	init_tab(&tab);
 	tmp = ft_split_parsing(line, ' ');
 	while (tmp[i] != NULL)
@@ -25,18 +27,24 @@ t_pars new_parsing(char *line)
 			//heredoc = 1 si le << est collé au texte je vais devoir changer
 			//le heredoc à 0 est bien mettre les lettres à rentré
 			// et noté previous a 1
+			if (tmp[i][2] == '\0')
+			{
+				heredoc = 1;
+			}
+			else
+				previous = 1;
+			nbr_of_heredoc++;
 		}
 		else if (*tmp && heredoc == 1)
 		{
 			//c'est ce qu on doit rentrer dans le heredoc
 			//fonction heredoc
-			//heredoc = 0
+			heredoc = 0
 			//previous a 1
 		}
 		else if (*tmp[i] == '<'|| *tmp[i] == '>')
 		{
 			//fonction redirection
-			//si heredoc est = 1 c'est une error ? a verif
 			//redirection = 1
 		}
 		else if (*tmp && redirection == 1)
@@ -46,7 +54,7 @@ t_pars new_parsing(char *line)
 		else if (*tmp && (previous == 1 || cmd == 0 || heredoc == 0)) // a verifie pour la commande
 		{
 			//ca devient ma commande
-			//cmd = 1
+			cmd = 1
 			//previous = 0
 		}
 		else if (*tmp && previous == 0 && cmd == 1)
