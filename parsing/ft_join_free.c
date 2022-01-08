@@ -20,7 +20,7 @@ char	*ft_strjoin_double_free(char *s1, char *s2)
 		new_str[count + ft_strlen(s1)] = s2[count];
 	new_str[count + ft_strlen(s1)] = '\0';
 	free(s1);
-	if (ft_strlen(s2) > 0)
-		free(s2);
+	//if (ft_strlen(s2) > 0)
+	//	free(s2);
 	return (new_str);
 }

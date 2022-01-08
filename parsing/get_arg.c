@@ -1,11 +1,13 @@
 #include "../srcs/minishell.h"
 
-char	**return_arg(char **tmp, int n)
+char	**return_arg(char **tab, int n)
 {
 	int		j;
 	int		i;
 	char	**arg;
+	char	**tmp;
 
+	tmp = tab;
 	arg = NULL;
 	j = 0;
 	i = 0;

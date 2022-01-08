@@ -12,8 +12,9 @@ char	*insert_exit_code(char *line, int index)
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
 	new_line = ft_strjoin_double_free(tmp_line, code);
 	new_line = ft_strjoin_double_free(new_line, rest);
-	//free(line);
+	free(line);
 	free(rest);
+	free(code);
 	line = NULL;
 	return (new_line);
 }

@@ -50,8 +50,12 @@ char	*cut_heredoc(char *line, int index, char **tab_here)
 	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
 	tmp.new_line = ft_strjoin_double_free(tmp.tmp, "");
 	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
-	//free(line);
+	//if	(line)
+	//	free(line);
 	//line = NULL;
+	//if (tmp.tmp)
+	//	free(tmp.tmp);
+	free(tmp.rest);
 	return (tmp.new_line);
 }
 
@@ -65,7 +69,7 @@ char	*get_tab_heredoc(char *line, char **tab)
 	j = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '<' && line[i + 1] == '<')
+		if (line[i] && line[i] == '<' && line[i + 1] == '<')
 		{
 			new_line = cut_heredoc(line, i, &tab[j]);
 			j++;
@@ -83,9 +87,11 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 	char	*new_line;
 	int		nbr_of_here;
 	char	**tab;
+	char	*tmp;
 
 	new_line = NULL;
 	tab = NULL;
+	nbr_of_here = 0;
 	nbr_of_here = nbr_of_heredoc(line);
 	if (nbr_of_here < 1)
 		return (line);
@@ -94,6 +100,10 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 		exit(EXIT_FAILURE);
 	new_line = get_tab_heredoc(line, tab);
 	tab_here->heredoc = tab;
-	new_line = ft_strtrim(new_line, " ");
-	return (new_line);
+	//new_line = ft_strtrim(new_line, " ");
+	tmp = ft_strtrim(new_line, " ");
+	free(line);
+	//free(new_line);
+	line = NULL;
+	return (tmp);
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:41:17 by jvander-          #+#    #+#             */
-/*   Updated: 2021/12/15 13:03:45 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/08 17:39:05 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/*
 int	ft_isset(char c, char const *set)
 {
 	size_t	i;
@@ -39,6 +39,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	begin_count = 0;
 	end_count = ft_strlen(s1) - 1;
+	printf("end_count = %d\n", end_count);
 	while (s1[begin_count] && ft_isset(s1[begin_count], set))
 		begin_count++;
 	while (s1[end_count] && end_count > begin_count
@@ -50,4 +51,24 @@ char	*ft_strtrim(char const *s1, char const *set)
 	free((void *)s1);
 	s1 = NULL;
 	return (new_str);
+}
+*/
+char	*ft_strtrim(char *s1, char const *set)
+{
+	size_t	j;
+	size_t	i;
+	char	*line;
+	i = 0;
+	if (!set || !s1)
+		return (NULL);
+	while (s1[i] && ft_strchr(set, s1[i]) != NULL)
+		i++;
+	j = ft_strlen(&s1[i]);
+	if (j != 0)
+		while (s1[i + j - 1] && ft_strchr(set, s1[i + j - 1]) != NULL)
+			j--;
+	line = ft_substr(s1, i, j);
+	free(s1);
+	s1 = NULL;
+	return (line);
 }

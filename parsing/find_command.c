@@ -22,7 +22,7 @@ t_pars	get_command(char *line, t_state *s)
 	init_tab(&tab);
 	new_line = get_heredoc(line, &tab);
 	//printf("new_line = %s\n", new_line);
-	if (ft_get_index(new_line) != 0)
+	if (new_line && ft_get_index(new_line) != 0)
 	{
 		next = ft_get_index(new_line);
 		tab.command = ft_substr(new_line, 0, next);
@@ -31,7 +31,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.redirect = get_redirect(new_line);
 		tab.arg = get_arg(new_line);
 	}
-	else
+	else if (new_line)
 	{
 		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
 		tab.command = ft_strtrim(tab.command, " ");
@@ -55,6 +55,5 @@ t_pars	*find_command(t_state *s)
 	}
 	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s);
-	//free(s->line);
 	return (comd);
 }
