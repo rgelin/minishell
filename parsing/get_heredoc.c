@@ -102,7 +102,7 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 	tab_here->heredoc = tab;
 	//new_line = ft_strtrim(new_line, " ");
 	tmp = ft_strtrim(new_line, " ");
-	free(line);
+	//free(line);
 	//free(new_line);
 	line = NULL;
 	return (tmp);

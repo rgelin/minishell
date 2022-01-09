@@ -2,20 +2,20 @@
 
 void	ft_free_pars_tab(t_state *s)
 {
-	//int	nbr;
+	int	nbr;
 
-	//nbr = 0;
+	nbr = 0;
 	if (s->pipe)
 		free(s->pipe);
-	/*while (nbr <= s->n_of_pipe)
+	while (nbr <= s->n_of_pipe)
 	{
 		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
 		{
-			//printf("s->cm[%d] = %s\n", nbr,s->cm[nbr]);
+			printf("s->cm[%d] = %s\n", nbr,s->cm[nbr]);
 			free((void*)s->cm[nbr]);
 		}
 		nbr++;
-	}*/
+	}
 	if (s->cm)
 		free(s->cm);
 }
