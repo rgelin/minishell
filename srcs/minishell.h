@@ -192,7 +192,5 @@ void		rl_clear_history(void);
 void		ft_signal_msg(int exit_code);
 void		ft_ctrl_c(int signal);
 void		ft_ctrl_backslash(int signal);
-void	ft_ctrl_backslash_heredoc(int signal);
-void	ft_ctrl_c_heredoc(int signal);
 
 #endif
