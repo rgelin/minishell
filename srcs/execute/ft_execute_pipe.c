@@ -70,8 +70,6 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 	while (++i <= nbr_pipe)
 	{
 		ft_heredoc(cmds[i]);
-		if (ft_strcmp("", cmds[i].cmd) == 0)
-			return ;
 		g_global.fork_pid = fork();
 		if (g_global.fork_pid == 0)
 		{

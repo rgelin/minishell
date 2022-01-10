@@ -44,7 +44,6 @@ static int	ft_exec(t_exc command, char **env)
 	char	**folder;
 	char	**cmd;
 
-
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
@@ -72,5 +71,9 @@ int	execute(t_exc exc, char ***env)
 		return (g_global.exit_code);
 	}
 	else
+	{
+		if (ft_strcmp("", exc.cmd) == 0)
+			return (EXIT_FAILURE);
 		return (ft_exec(exc, *env));
+	}
 }
