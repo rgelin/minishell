@@ -5,6 +5,8 @@ void	init_ptn(t_exc *tab)
 	tab->cmd = NULL;
 	tab->opt = NULL;
 	tab->arg = NULL;
+	tab->input = NULL;
+	tab->output= NULL;
 	tab->redirect = NULL;
 	tab->heredoc = NULL;
 }
@@ -60,14 +62,14 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 	int		i;
 	t_exc	*last_tab;
 
-	last_tab = NULL;
+	//last_tab = NULL;
 	last_tab = malloc(sizeof(t_exc) * (tab->pipe + 1));
 	if (!last_tab)
 		exit(EXIT_FAILURE);
 	i = 0;
-	init_ptn(last_tab);
 	while (i < tab->pipe + 1)
 	{
+		init_ptn(&last_tab[i]);
 		if (tab[i].command)
 			last_tab[i].cmd = ft_command(tab[i].command);
 		if (tab[i].option)

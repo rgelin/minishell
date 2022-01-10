@@ -80,6 +80,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	tab = NULL;
 	state = NULL;
+	exc = NULL;
 	new_env = cpy_env(env);
 	state = malloc(sizeof(t_state));
 	if (!state)

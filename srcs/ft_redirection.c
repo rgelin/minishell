@@ -26,7 +26,7 @@ static void	ft_set_output_file(char *output)
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
 	}
-	free(output);
+	//free(output);
 }
 
 static void	ft_set_input_file(char *input)
