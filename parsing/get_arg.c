@@ -17,7 +17,7 @@ char	**return_arg_echo(char **tab, int n)
 		free(arg);
 		return (NULL);
 	}
-	while (ft_strncmp(tmp[i], "-n", 3) == 0)
+	while (tmp[i] && ft_strncmp(tmp[i], "-n", 3) == 0)
 		i++;
 	while (i < ft_tabsize(tmp))
 	{
@@ -47,7 +47,7 @@ char	**ft_echo_arg(char *line)
 	i = 1;
 	arg = NULL;
 	tmp = ft_split_parsing(line, ' ');
-	while (ft_strncmp(tmp[i], "-n", 3) == 0)
+	while (tmp[i] && ft_strncmp(tmp[i], "-n", 3) == 0)
 		i++;
 	while (i < ft_tabsize(tmp))
 	{
