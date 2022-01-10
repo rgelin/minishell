@@ -6,7 +6,7 @@ static void	ft_simple(char *heredoc)
 
 	rl_on_new_line();
 	line = readline("> ");
-	while (ft_strcmp(line, heredoc) != 0 && line[0] != '\0')
+	while (ft_strcmp(line, heredoc) != 0)
 		line = readline("> ");
 }
 
@@ -24,6 +24,7 @@ void	ft_heredoc(t_exc cmd)
 		i = -1;
 		while (cmd.heredoc[++i])
 			ft_simple(cmd.heredoc[i]);
+		exit(EXIT_SUCCESS);
 	}
-	waitpid(g_global.fork_pid, NULL, 0);
+	waitpid(0, NULL, 0);
 }
