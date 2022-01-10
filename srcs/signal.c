@@ -2,6 +2,7 @@
 
 void	ft_signal_msg(int exit_code)
 {
+	printf("signal code: %d\n", g_global.exit_code);
 	if (exit_code == 131)
 		ft_putendl_fd("QUIT: 3", 1);
 	if (exit_code == 130)

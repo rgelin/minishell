@@ -43,9 +43,11 @@ static void	ft_waiting_all_child(int nbr_pipe, int *status)
 	int	i;
 
 	i = 0;
+	(void)nbr_pipe;
 	while (i <= nbr_pipe)
 	{
 		waitpid(0, status, 0);
+		printf("status [%d]: %d\n",i, *status);
 		if (g_global.fork_pid > 0)
 		{
 			if (WIFEXITED(*status))
@@ -55,7 +57,8 @@ static void	ft_waiting_all_child(int nbr_pipe, int *status)
 		}
 		i++;
 	}
-	printf("exit code: %d\")
+	// g_global.exit_code = *status;
+	printf("exit code: %d\n", g_global.exit_code);
 }
 
 void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
@@ -83,6 +86,8 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 	}
 	ft_close_pipes(nbr_pipe, fds);
 	ft_waiting_all_child(nbr_pipe, &status);
-	ft_signal_msg(status);
+	printf("status: %d\n", status);
+	ft_signal_msg(g_global.exit_code);
+	printf("exit code: %d\n", g_global.exit_code);
 	free(fds);
 }
