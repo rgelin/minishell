@@ -27,14 +27,14 @@ static int	ft_free_exec(char **folder, char **cmd)
 	return (EXIT_FAILURE);
 }
 
-int	ft_try_exec(t_exc command, char **cmd, char **folder)
+static int	ft_try_exec(t_exc command, char **cmd, char **folder)
 {
 	int	i;
 
 	i = -1;
 	while (folder[++i])
-		execve(folder[i], cmd, NULL);
-	execve(command.cmd, cmd, NULL);
+		g_global.exit_code = execve(folder[i], cmd, NULL);
+	g_global.exit_code = execve(command.cmd, cmd, NULL);
 	ft_perror(command.cmd, NULL, "command not found");
 	return (127);
 }
@@ -42,14 +42,12 @@ int	ft_try_exec(t_exc command, char **cmd, char **folder)
 static int	ft_exec(t_exc command, char **env)
 {
 	char	**folder;
-	//int		i;
 	char	**cmd;
-	int		exit_code;
+
 
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
-	//i = -1;
 	if (find_var_in_env("PATH", env) == -1)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
@@ -60,9 +58,10 @@ static int	ft_exec(t_exc command, char **env)
 		return (ft_free_exec(folder, cmd));
 	if (!ft_create_all_exec(&folder, command))
 		return (ft_free_exec(folder, cmd));
-	exit_code = ft_try_exec(command, cmd, folder);
+	g_global.exit_code = ft_try_exec(command, cmd, folder);
+	command.exit_code = g_global.exit_code;
 	ft_free_exec(folder, cmd);
-	return (exit_code);
+	return (g_global.exit_code);
 }
 
 int	execute(t_exc exc, char ***env)

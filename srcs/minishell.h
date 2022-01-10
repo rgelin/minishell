@@ -44,6 +44,7 @@ typedef struct s_exc
 	char	**heredoc; //{"cat", "ls", NULL}
 	char	**redirect;
 	char	**env_cpy;
+	int		exit_code;
 }				t_exc;
 
 /*structure pour le parsin qui sera free

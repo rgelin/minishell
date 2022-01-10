@@ -76,7 +76,7 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
 			ft_redirect_input(cmds[i], n_pipe, fds);
 			ft_close_pipes(nbr_pipe, fds);
-			exit(execute(cmds[i], &env));
+			exit (execute(cmds[i], &env));
 		}
 		n_pipe += 2;
 	}
