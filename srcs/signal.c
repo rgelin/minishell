@@ -2,10 +2,7 @@
 
 void	ft_signal_msg(int exit_code)
 {
-	if (exit_code == 131)
-		ft_putendl_fd("QUIT: 3", 1);
-	if (exit_code == 130)
-		ft_putchar_fd('\n', 1);
+	(void)exit_code;
 }
 
 void	ft_ctrl_c(int signal)
@@ -19,6 +16,8 @@ void	ft_ctrl_c(int signal)
 		rl_redisplay();
 		g_global.exit_code = 1;
 	}
+	else
+		ft_putchar_fd('\n', 1);
 }
 
 void	ft_ctrl_backslash(int signal)
@@ -29,4 +28,6 @@ void	ft_ctrl_backslash(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	else
+		ft_putendl_fd("QUIT: 3", 1);
 }

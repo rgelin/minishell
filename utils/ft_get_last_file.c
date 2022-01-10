@@ -11,6 +11,7 @@ char	*ft_get_last_input(t_exc cmd)
 	current = cmd.redirect;
 	while (current && current[++i])
 	{
+		//printf("s === %s\n", current[i]);
 		if (ft_strncmp(current[i], "<", 1) == 0)
 			input_file = current[i];
 	}
