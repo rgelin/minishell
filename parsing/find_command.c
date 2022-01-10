@@ -27,9 +27,9 @@ t_pars	get_command(char *line, t_state *s)
 		next = ft_get_index(new_line);
 		tab.command = ft_substr(new_line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		tab.option = get_opt(new_line);
+		tab.option = get_opt(new_line, tab.command);
 		tab.redirect = get_redirect(new_line);
-		tab.arg = get_arg(new_line);
+		tab.arg = get_arg(new_line, tab.command);
 	}
 	else if (new_line)
 	{

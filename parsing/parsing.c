@@ -60,7 +60,7 @@ void	check_char(t_state *s)
 	}
 	s->eof = i;
 }
-
+//malloc tab;
 t_pars	*parsing(t_state *s)
 {
 	t_pars	*tab;

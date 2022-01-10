@@ -152,8 +152,8 @@ char	**ft_arg(char **arg, char **env);
 t_exc	*last_parsing(t_pars *tab, char **env);
 char	*ft_strjoin_double_free(char *s1, char *s2);
 void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
-char	**get_opt(char *line);
-char	**get_arg(char *line);
+char	**get_opt(char *line, char *cmd);
+char	**get_arg(char *line, char *cmd);
 char 	*get_heredoc(char *line, t_pars *tab_here);
 void	split_pipe(t_state *s);
 
