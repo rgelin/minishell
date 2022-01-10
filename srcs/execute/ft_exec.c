@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-static int	ft_create_all_exec(char ***folder, t_exc command)
+int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;
 
@@ -27,14 +27,14 @@ static int	ft_free_exec(char **folder, char **cmd)
 	return (EXIT_FAILURE);
 }
 
-static int	ft_try_exec(t_exc command, char **cmd, char **folder)
+static int	ft_try_exec(t_exc command, char **cmd, char **folder, char **env)
 {
 	int	i;
 
 	i = -1;
 	while (folder[++i])
-		g_global.exit_code = execve(folder[i], cmd, NULL);
-	g_global.exit_code = execve(command.cmd, cmd, NULL);
+		g_global.exit_code = execve(folder[i], cmd, env);
+	g_global.exit_code = execve(command.cmd, cmd, env);
 	ft_perror(command.cmd, NULL, "command not found");
 	return (127);
 }
@@ -57,7 +57,7 @@ static int	ft_exec(t_exc command, char **env)
 		return (ft_free_exec(folder, cmd));
 	if (!ft_create_all_exec(&folder, command))
 		return (ft_free_exec(folder, cmd));
-	g_global.exit_code = ft_try_exec(command, cmd, folder);
+	g_global.exit_code = ft_try_exec(command, cmd, folder, env);
 	command.exit_code = g_global.exit_code;
 	ft_free_exec(folder, cmd);
 	return (g_global.exit_code);
