@@ -13,6 +13,7 @@ static void	ft_simple(char *heredoc)
 void	ft_heredoc(t_exc cmd)
 {
 	int	i;
+	int	status;
 
 	if (cmd.heredoc == NULL)
 		return ;
@@ -26,5 +27,5 @@ void	ft_heredoc(t_exc cmd)
 			ft_simple(cmd.heredoc[i]);
 		exit(EXIT_SUCCESS);
 	}
-	waitpid(0, NULL, 0);
+	waitpid(0, &status, 0);
 }

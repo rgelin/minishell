@@ -84,6 +84,6 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 	}
 	ft_close_pipes(nbr_pipe, fds);
 	ft_waiting_all_child(nbr_pipe, &status);
-	ft_signal_msg(status);
+	ft_signal_msg(g_global.exit_code);
 	free(fds);
 }
