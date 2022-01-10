@@ -6,20 +6,28 @@ static int	ft_create_file(char *name)
 	int		fd;
 
 	file_name = ft_strdup(name);
+	if (!file_name)
+	{
+		g_global.exit_code = EXIT_FAILURE;
+		perror("malloc");
+		return (g_global.exit_code);
+	}
 	fd = open(file_name, O_CREAT, 0644);
 	if (fd == -1)
 	{
 		perror("open");
 		g_global.exit_code = EXIT_FAILURE;
+		free(file_name);
+		return (g_global.exit_code);
 	}
 	if (close(fd) == -1)
 	{
 		perror("close");
 		g_global.exit_code = EXIT_FAILURE;
+		free(file_name);
+		return (g_global.exit_code);
 	}
 	free(file_name);
-	if (g_global.exit_code == EXIT_FAILURE)
-		return (g_global.exit_code);
 	g_global.exit_code = EXIT_SUCCESS;
 	return (g_global.exit_code);
 }
