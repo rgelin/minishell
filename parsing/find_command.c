@@ -36,7 +36,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
 		tab.command = ft_strtrim(tab.command, " ");
 	}
-	free(new_line);
+	//free(new_line);
 	return (tab);
 }
 
