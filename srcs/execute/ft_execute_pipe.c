@@ -69,10 +69,12 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 	ft_open_pipes(nbr_pipe, &fds);
 	while (++i <= nbr_pipe)
 	{
+		ft_heredoc(cmds[i]);
+		if (ft_strcmp("", cmds[i].cmd) == 0)
+			return ;
 		g_global.fork_pid = fork();
 		if (g_global.fork_pid == 0)
 		{
-			ft_heredoc(cmds[i]);
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
 			ft_redirect_input(cmds[i], n_pipe, fds);
 			ft_close_pipes(nbr_pipe, fds);

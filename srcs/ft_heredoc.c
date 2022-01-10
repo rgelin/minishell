@@ -24,6 +24,7 @@ void	ft_heredoc(t_exc cmd)
 		i = -1;
 		while (cmd.heredoc[++i])
 			ft_simple(cmd.heredoc[i]);
+		exit(EXIT_SUCCESS);
 	}
-	waitpid(g_global.fork_pid, NULL, 0);
+	waitpid(0, NULL, 0);
 }
