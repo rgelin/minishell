@@ -26,7 +26,6 @@ static void	ft_set_output_file(char *output)
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
 	}
-	free(output);
 }
 
 static void	ft_set_input_file(char *input)
@@ -52,7 +51,6 @@ static void	ft_set_input_file(char *input)
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
 	}
-	free(input);
 }
 
 void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)

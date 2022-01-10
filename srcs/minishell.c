@@ -91,6 +91,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, &ft_ctrl_c);
 	while (1)
 	{
+		g_global.fork_pid = 0;
 		init_struct(state);
 		rl_on_new_line();
 		state->line = readline("\x1b[34mminishell > \x1b[0m");

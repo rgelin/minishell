@@ -44,6 +44,7 @@ static int	ft_exec(t_exc command, char **env)
 	char	**folder;
 	char	**cmd;
 
+	ft_signal_msg(g_global.exit_code);
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
