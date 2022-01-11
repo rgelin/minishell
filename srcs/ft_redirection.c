@@ -5,9 +5,9 @@ static void	ft_set_output_file(char *output)
 	int	fd;
 
 	if (ft_strncmp(output, ">>", 2) == 0)
-		fd = open(output + 3, O_RDWR | O_APPEND, 0644);
+		fd = open(output + 2, O_RDWR | O_APPEND, 0644);
 	else
-		fd = open(output + 2, O_RDWR | O_TRUNC, 0644);
+		fd = open(output + 1, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_perror("open", output, "Impossible to open file");
@@ -32,7 +32,7 @@ static void	ft_set_input_file(char *input)
 {
 	int	fd;
 
-	fd = open(input + 2, O_RDONLY);
+	fd = open(input + 1, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_perror("open", input, "Impossible to open file");

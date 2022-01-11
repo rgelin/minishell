@@ -44,9 +44,9 @@ static int	ft_create_redirect(t_exc exc)
 	while (current)
 	{
 		if (ft_strncmp(current, ">>", 2) == 0)
-			g_global.exit_code = ft_create_file(current + 3);
-		else if (ft_strncmp(current, ">", 1) == 0)
 			g_global.exit_code = ft_create_file(current + 2);
+		else if (ft_strncmp(current, ">", 1) == 0)
+			g_global.exit_code = ft_create_file(current + 1);
 		current = exc.redirect[++i];
 	}
 	return (EXIT_SUCCESS);
