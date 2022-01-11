@@ -43,7 +43,7 @@ typedef struct s_exc
 	char	**arg;
 	char	**input;
 	char	**output;
-	char	**heredoc; //{"cat", "ls", NULL}
+	char	**heredoc;
 	char	**redirect;
 	char	**env_cpy;
 	int		exit_code;
@@ -133,33 +133,33 @@ void		ft_heredoc(t_exc cmd);
 
 /*=========PARSING=========*/
 
-t_pars	*parsing(t_state *s);
-t_pars	*split_line(t_state *line);
-t_pars	*find_command(t_state *s);
-int		ft_get_index(char *s);
-void	init_tmp(t_tmp *tmp);
-int		ft_check_space(char *line);
-int		check_redirection(char *line);
-int		check_quote(char *line, int index);
-int		*get_index(char *line, size_t size, char c);
-int		*get_index(char *line, size_t size, char c);
-void	init_tab(t_pars *tab);
-void	ft_free_pars_tab(t_state *s);
-void	ft_free_pars_error(t_state *s);
-//void	ft_free_pars_tab(t_state *s);
-char	*our_getenv(char *line, char **env);
-char	**ft_split_parsing(char *s, char c);
-char	**get_redirect(char *line);
-char	**ft_arg(char **arg, char **env);
-//char	**get_everything(char *line, char c);
-t_exc	*last_parsing(t_pars *tab, char **env);
-char	*ft_strjoin_double_free(char *s1, char *s2);
-void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
-char	**get_opt(char *line, char *cmd);
-char	**get_arg(char *line, char *cmd);
-char 	*get_heredoc(char *line, t_pars *tab_here);
-void	split_pipe(t_state *s);
-void	ft_error_malloc(t_state *s);
+t_pars		*parsing(t_state *s);
+t_pars		*split_line(t_state *line);
+t_pars		*find_command(t_state *s);
+int			ft_get_index(char *s);
+void		init_tmp(t_tmp *tmp);
+int			ft_check_space(char *line);
+int			check_redirection(char *line);
+int			check_quote(char *line, int index);
+int			*get_index(char *line, size_t size, char c);
+int			*get_index(char *line, size_t size, char c);
+void		init_tab(t_pars *tab);
+void		ft_free_pars_tab(t_state *s);
+void		ft_free_pars_error(t_state *s);
+//void		ft_free_pars_tab(t_state *s);
+char		*our_getenv(char *line, char **env);
+char		**ft_split_parsing(char *s, char c);
+char		**get_redirect(char *line);
+char		**ft_arg(char **arg, char **env);
+//char		**get_everything(char *line, char c);
+t_exc		*last_parsing(t_pars *tab, char **env);
+char		*ft_strjoin_double_free(char *s1, char *s2);
+void		ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
+char		**get_opt(char *line, char *cmd);
+char		**get_arg(char *line, char *cmd);
+char		*get_heredoc(char *line, t_pars *tab_here);
+void		split_pipe(t_state *s);
+void		ft_error_malloc(t_state *s);
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);
@@ -168,12 +168,12 @@ int			ft_check_error_arg_opt(t_exc exc);
 
 /*=========BUILTIN=========*/
 
-int		ft_echo(t_exc exc);
-int		ft_env(char **env);
-int		ft_pwd(void);
-int		ft_cd(t_exc exc, char ***env);
-int		ft_export(t_exc exc, char ***env);
-int		ft_unset(t_exc exc, char ***env);
+int			ft_echo(t_exc exc);
+int			ft_env(char **env);
+int			ft_pwd(void);
+int			ft_cd(t_exc exc, char ***env);
+int			ft_export(t_exc exc, char ***env);
+int			ft_unset(t_exc exc, char ***env);
 void		ft_exit(t_exc exc);
 void		create_new_var_env(char *arg, char ***env);
 void		modify_var_in_env(char *arg, char ***env);
