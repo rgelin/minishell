@@ -96,7 +96,7 @@ void	go_previous(char *arg, char *old_path, char ***env)
 		set_pwd_and_oldpwd(path, old_path, env);
 }
 
-void	ft_cd(t_exc exc, char ***env)
+int	ft_cd(t_exc exc, char ***env)
 {
 	char	old_path[1024];
 
@@ -115,4 +115,5 @@ void	ft_cd(t_exc exc, char ***env)
 	}
 	else
 		go_to_home(env, old_path);
+	return (CD);
 }

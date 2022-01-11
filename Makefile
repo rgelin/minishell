@@ -59,7 +59,8 @@ PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)get_heredoc.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
-				$(ERRORS)ft_perror.c
+				$(ERRORS)ft_perror.c \
+				$(ERRORS)ft_error_builtin.c \
 
 #-------------------OBJECTS----------------------
 

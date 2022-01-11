@@ -29,7 +29,7 @@ static int	ft_new_length(char const *s1, char const *set)
 	return (count);
 }
 
-char		*ft_strtrim_modified(char const *s1, char const *set) //leak
+char	*ft_strtrim_modified(char const *s1, char const *set) //leak
 {
 	int		i;
 	int		index;

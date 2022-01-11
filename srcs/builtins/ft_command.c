@@ -1,8 +1,6 @@
 
 #include "../minishell.h"
 
-
-
 static void	ft_print_line(char **cmd)
 {
 	int	i;
@@ -17,7 +15,7 @@ static void	ft_print_line(char **cmd)
 	}
 }
 
-void	ft_echo(t_exc exc)
+int	ft_echo(t_exc exc)
 {
 	if (exc.opt && ft_strchr(exc.opt, 'n'))
 		ft_print_line(exc.arg);
@@ -29,9 +27,10 @@ void	ft_echo(t_exc exc)
 		printf("\n");
 	}
 	g_global.exit_code = 0;
+	return (ECHO);
 }
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	pwd[1024];
 
@@ -43,9 +42,10 @@ void	ft_pwd(void)
 	}
 	else
 		printf("%s\n", pwd);
+	return (PWD);
 }
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
@@ -57,6 +57,7 @@ void	ft_env(char **env)
 			printf("%s\n", env[i]);
 		i++;
 	}
+	return (ENV);
 }
 
 /*invalid read size of 8 ??*/

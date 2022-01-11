@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_string_tab.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:11:05 by rgelin            #+#    #+#             */
-/*   Updated: 2021/11/24 23:54:13 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:50:31 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
 
-int		ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] && s2[i])
@@ -25,9 +25,9 @@ int		ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int		ft_tab_len(char **tab)
+int	ft_tab_len(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])

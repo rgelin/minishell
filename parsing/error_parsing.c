@@ -10,7 +10,7 @@ void	ft_free_pars_tab(t_state *s)
 	while (nbr <= s->n_of_pipe)
 	{
 		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
-			free((void*)s->cm[nbr]);
+			free ((void*)s->cm[nbr]);
 		nbr++;
 	}
 	if (s->cm)

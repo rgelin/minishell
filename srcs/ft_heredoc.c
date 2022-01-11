@@ -31,4 +31,5 @@ void	ft_heredoc(t_exc cmd)
 	}
 	waitpid(0, &status, 0);
 	g_global.in_heredoc = 0;
+	return ;
 }

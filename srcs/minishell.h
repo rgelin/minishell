@@ -163,15 +163,16 @@ void	split_pipe(t_state *s);
 
 int			check_builtin(char *cmd);
 void		ft_perror(char *cmd, char *arg, char *err_msg);
+int			ft_check_error_arg_opt(t_exc exc);
 
 /*=========BUILTIN=========*/
 
-void		ft_echo(t_exc exc);
-void		ft_env(char **env);
-void		ft_pwd(void);
-void		ft_cd(t_exc exc, char ***env);
-void		ft_export(t_exc exc, char ***env);
-void		ft_unset(t_exc exc, char ***env);
+int		ft_echo(t_exc exc);
+int		ft_env(char **env);
+int		ft_pwd(void);
+int		ft_cd(t_exc exc, char ***env);
+int		ft_export(t_exc exc, char ***env);
+int		ft_unset(t_exc exc, char ***env);
 void		ft_exit(t_exc exc);
 void		create_new_var_env(char *arg, char ***env);
 void		modify_var_in_env(char *arg, char ***env);
@@ -190,7 +191,7 @@ void		rl_clear_history(void);
 //int	rl_on_new_line (void);
 
 /*==========SIGNAL==========*/
-void		ft_signal_msg(int exit_code);
+void		ft_signal_msg();
 void		ft_ctrl_c(int signal);
 void		ft_ctrl_backslash(int signal);
 void		ft_set_signal(void);

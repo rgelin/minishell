@@ -1,6 +1,5 @@
 #include "../srcs/minishell.h"
 
-
 /*
 	arg == char ** avec plusieurs arg
 	=> char * cmd

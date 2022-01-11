@@ -127,7 +127,7 @@ static char	*parse_arg(char *arg)
 	return (res);
 }
 
-void	ft_export(t_exc exc, char ***env)
+int	ft_export(t_exc exc, char ***env)
 {
 	int	i;
 
@@ -152,6 +152,6 @@ void	ft_export(t_exc exc, char ***env)
 			}
 			i++;
 		}
-
 	}
+	return (EXPORT);
 }
