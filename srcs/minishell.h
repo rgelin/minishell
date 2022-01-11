@@ -30,6 +30,7 @@ typedef struct s_global
 {
 	pid_t	fork_pid;
 	int		exit_code;
+	int		in_heredoc;
 }	t_global;
 
 t_global	g_global;
@@ -192,5 +193,6 @@ void		rl_clear_history(void);
 void		ft_signal_msg(int exit_code);
 void		ft_ctrl_c(int signal);
 void		ft_ctrl_backslash(int signal);
+void		ft_set_signal(void);
 
 #endif
