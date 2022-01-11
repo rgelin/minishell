@@ -36,4 +36,24 @@ void	ft_free_pars_error(t_state *s)
 	}
 	if (s)
 		free(s);
+	g_global.exit_code = 1;
+}
+
+void	ft_error_malloc(t_state *s)
+{
+	int	nbr;
+
+	nbr = 0;
+	if (s->pipe)
+		free(s->pipe);
+	while (nbr <= s->n_of_pipe)
+	{
+		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
+			free((void*)s->cm[nbr]);
+		nbr++;
+	}
+	if (s->cm)
+		free(s->cm);
+	ft_perror("Malloc", NULL, "Error allocation memory");
+	g_global.exit_code = 1;
 }

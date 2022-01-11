@@ -108,6 +108,8 @@ int	main(int argc, char **argv, char **env)
 		else if (state->line[0] != '\0')
 		{
 			tab = parsing(state);
+			//mettre condition si tab = NULL;
+			//et ne pas faire exc = last_parsing
 			exc = last_parsing(tab, env);
 			// char **heredoc = malloc(sizeof(char *) * 2);
 			// heredoc[1] = NULL;
