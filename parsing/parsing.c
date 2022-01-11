@@ -13,6 +13,7 @@ int	check_parsing(t_state *s)
 		write(1, "Error quote\n", 12);
 		ft_free_pars_error(s);
 		exit(EXIT_FAILURE);
+		//return 0;
 	}
 	if (s->n_of_pipe >= 0)
 		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
@@ -70,8 +71,10 @@ t_pars	*parsing(t_state *s)
 	if (check_parsing(s))
 	{
 		tab = split_line(s);
+		tab->pipe = s->n_of_pipe;
+		ft_free_pars_tab(s);
 	}
-	tab->pipe = s->n_of_pipe;
-	ft_free_pars_tab(s);
+	//tab->pipe = s->n_of_pipe;
+	//ft_free_pars_tab(s);
 	return (tab);
 }

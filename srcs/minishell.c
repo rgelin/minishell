@@ -145,6 +145,8 @@ int	main(int argc, char **argv, char **env)
 		if (state->line[0] != '\0')
 		{
 			tab = parsing(state);
+			//mettre condition si tab = NULL;
+			//et ne pas faire exc = last_parsing
 			exc = last_parsing(tab, env);
 			ft_execute_line(exc, tab, new_env);
 		}

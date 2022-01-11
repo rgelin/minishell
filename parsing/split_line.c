@@ -33,9 +33,8 @@ t_pars	*split_line(t_state *s)
 	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));
 	if (!s->cm)
 	{
-		write(1, "Error malloc\n", 13);
-		ft_free_pars_error(s);
-		exit(EXIT_FAILURE);
+		ft_error_malloc(s);
+		return (tab);
 	}
 	split_pipe(s);
 	tab = find_command(s);
