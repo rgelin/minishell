@@ -29,7 +29,7 @@ char	*insert_var_env(char *line, int index, char **env)
 	tmp.new_line = NULL;
 	while (line[tmp.n] != '\0')
 	{
-		if (line[tmp.n] == ' ' || line[tmp.n] == '\0')
+		if (line[tmp.n] == ' ' || line[tmp.n] == '\'' || line[tmp.n] == '\0')
 			break ;
 		tmp.n++;
 		tmp.m++;
