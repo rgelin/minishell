@@ -20,12 +20,10 @@ void	ft_ctrl_c(int signal)
 	{
 		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 		g_global.exit_code = 1;
 	}
-	// else
-	// 	ft_putchar_fd('\n', 1);
 }
 
 void	ft_ctrl_backslash(int signal)
@@ -38,6 +36,4 @@ void	ft_ctrl_backslash(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	// else
-	// 	ft_putendl_fd("QUIT: 3", 1);
 }

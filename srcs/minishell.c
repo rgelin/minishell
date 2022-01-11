@@ -117,6 +117,7 @@ void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
 void	ft_prompt(t_state **state, t_exc *exc, t_pars *tab)
 {
 	g_global.fork_pid = 0;
+	g_global.exit_code = 0;
 	init_struct(*state);
 	rl_on_new_line();
 	(*state)->line = readline("\x1b[34mminishell > \x1b[0m");
