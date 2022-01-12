@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:41:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 12:26:49 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:29:10 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*ft_strtrim(char *s1, char const *set)
 {
 	size_t	j;
 	size_t	i;
-
 	char	*line;
+
 	i = 0;
 	if (!set || !s1)
 		return (NULL);
