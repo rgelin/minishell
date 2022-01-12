@@ -36,10 +36,7 @@ int	*get_index(char *line, size_t size, char c)
 	p_tab = 0;
 	p_tab = malloc(sizeof(int *) * (size + 1));
 	if (!p_tab)
-	{
-		free (p_tab);
-		return (0);
-	}
+		exit(EXIT_FAILURE);
 	while (line[i] != '\0')
 	{
 		if (c == '-' && line[i] == '-' && line[i -1] != ' ')

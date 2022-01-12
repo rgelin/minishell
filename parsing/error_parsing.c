@@ -55,5 +55,4 @@ void	ft_error_malloc(t_state *s)
 	if (s->cm)
 		free(s->cm);
 	ft_perror("Malloc", NULL, "Error allocation memory");
-	g_global.exit_code = 1;
 }

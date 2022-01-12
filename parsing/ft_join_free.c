@@ -12,7 +12,7 @@ char	*ft_strjoin_double_free(char *s1, char *s2)
 	count = -1;
 	new_str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (new_str == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	while (s1[++count])
 		new_str[count] = s1[count];
 	count = -1;

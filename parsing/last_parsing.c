@@ -27,6 +27,8 @@ char	*option(char **options)
 		i++;
 	}
 	line = malloc(sizeof(line) * (size + 2));
+	if (!line)
+		exit(EXIT_FAILURE);
 	i = 0;
 	line[0] = '-';
 	line[1] = '\0';

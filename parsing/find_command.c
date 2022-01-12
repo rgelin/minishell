@@ -48,12 +48,7 @@ t_pars	*find_command(t_state *s)
 	i = -1;
 	comd = malloc(sizeof(t_pars) * (s->n_of_pipe + 1));
 	if (!comd)
-	{
-		free(comd);
-		ft_free_pars_error(s);
-		write(1, "Error malloc\n", 13);
 		exit(EXIT_FAILURE);
-	}
 	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s);
 	return (comd);

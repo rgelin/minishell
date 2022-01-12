@@ -10,10 +10,7 @@ int	*get_index_redirect(char *line, size_t size)
 	i = -1;
 	p_tab = malloc(sizeof(int *) * (size + 1));
 	if (!p_tab)
-	{
-		free(p_tab);
-		return (0);
-	}
+		exit(EXIT_FAILURE);
 	while (line[++i] != '\0')
 	{
 		if (((line[i] == '<' && line[i + 1] == '<')
