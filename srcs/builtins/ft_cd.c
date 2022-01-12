@@ -1,42 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:35 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
-
-static void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
-{
-	char	*old_pwd;
-	char	*pwd;
-	int		index_old;
-	int		index_pwd;
-
-	index_old = find_var_in_env("OLDPWD", *env);
-	index_pwd = find_var_in_env("PWD", *env);
-	pwd = ft_strjoin("PWD=", path);
-	old_pwd = ft_strjoin("OLDPWD=", old_path);
-	if (index_pwd != -1)
-	{
-		free((*env)[index_pwd]);
-		(*env)[index_pwd] = NULL;
-		(*env)[index_pwd] = pwd;
-	}
-	if (index_old != -1)
-	{
-		free((*env)[index_old]);
-		(*env)[index_old] = NULL;
-		(*env)[index_old] = old_pwd;
-	}
-
-}
 
 static void	go_to_final_path(char *arg, char ***env, char *old_path)
 {
 	char	*final_path;
 	char	path[1024];
 	char	*temp;
-	
+
 	getcwd(path, 1024);
 	temp = ft_strjoin(path, "/");
 	final_path = ft_strjoin(temp, arg);
-	free(temp);
+	free (temp);
 	temp = NULL;
 	if (chdir(final_path))
 	{
@@ -49,7 +34,8 @@ static void	go_to_final_path(char *arg, char ***env, char *old_path)
 	final_path = NULL;
 }
 
-static void	go_path_from_home(char *arg, char *home, char ***env, char *old_path)
+static void	go_path_from_home(char *arg, char *home, char ***env,
+	char *old_path)
 {
 	char	*path_from_home;
 	char	*temp;

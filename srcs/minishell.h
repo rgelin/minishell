@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:44:43 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -111,6 +123,8 @@ char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_get_last_input(t_exc cmd);
 char		*ft_get_last_output(t_exc cmd);
 void		ft_sort_string_tab(char **tab);
+void		ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
+char		*ft_strtrim_plus_equal(char *arg);
 char		**create_cmd(t_exc command);
 t_exp_list	*add_front(t_exp_list *stack, char *str);
 t_exp_list	*add_back(t_exp_list *stack, char *str);
@@ -130,6 +144,8 @@ void		ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env);
 void		ft_redirect_input(t_exc cmd, int n_pipe, int *fds);
 void		ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
 void		ft_heredoc(t_exc cmd);
+void		init_struct(t_state *state);
+void		init_variables(t_state **state, t_pars **tab, t_exc **exc);
 
 /*=========PARSING=========*/
 
@@ -154,7 +170,6 @@ char		**ft_arg(char **arg, char **env);
 //char		**get_everything(char *line, char c);
 t_exc		*last_parsing(t_pars *tab, char **env);
 char		*ft_strjoin_double_free(char *s1, char *s2);
-void		ft_free_tab_exc(t_exc *last_tab, t_pars *tab);
 char		**get_opt(char *line, char *cmd);
 char		**get_arg(char *line, char *cmd);
 char		*get_heredoc(char *line, t_pars *tab_here);
@@ -182,6 +197,7 @@ int			find_var_in_env(char *arg, char **env);
 int			check_if_already_in_env(char *arg, char ***env);
 char		**cpy_env(char **env);
 char		**ft_realloc_env(char ***env, int size);
+void		set_pwd_and_oldpwd(char	*path, char *old_path, char ***env);
 // void	ft_env(t_exc *exc);
 
 /*=========READLINE=========*/
@@ -193,7 +209,7 @@ void		rl_clear_history(void);
 //int	rl_on_new_line (void);
 
 /*==========SIGNAL==========*/
-void		ft_signal_msg();
+void		ft_signal_msg(void);
 void		ft_ctrl_c(int signal);
 void		ft_ctrl_backslash(int signal);
 void		ft_set_signal(void);
