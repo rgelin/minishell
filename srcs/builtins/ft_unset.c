@@ -1,4 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:45 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 14:13:37 by rgelin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
+char	**ft_realloc_env(char ***env, int size)
+{
+	char	**new_env;
+	int		i;
+
+	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize((*env)) + size));
+	if (!new_env)
+		exit(EXIT_FAILURE);
+	i = -1;
+	while ((*env)[++i])
+		new_env[i] = (*env)[i];
+	return (new_env);
+}
 
 static char	*parse_arg(char *arg)
 {
@@ -19,9 +45,11 @@ static char	*parse_arg(char *arg)
 		}
 	}
 	return (res);
-
 }
 
+/*
+*	LEAKS ligne 56 ; new_env[++k] = ft_strdup((*env)[j]);
+*/
 static void	create_new_env(t_exc exc, char ***env, int i)
 {
 	char	**new_env;
@@ -46,7 +74,7 @@ static void	create_new_env(t_exc exc, char ***env, int i)
 	*env = new_env;
 }
 
-void	ft_unset(t_exc exc, char ***env)
+int	ft_unset(t_exc exc, char ***env)
 {
 	int		i;
 
@@ -61,4 +89,5 @@ void	ft_unset(t_exc exc, char ***env)
 				create_new_env(exc, env, i);
 		}
 	}
+	return (UNSET);
 }

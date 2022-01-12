@@ -1,17 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:44:48 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 14:13:23 by rgelin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	ft_signal_msg(int exit_code)
+void	ft_signal_msg(void)
 {
-	printf("signal code: %d\n", g_global.exit_code);
-	if (exit_code == 131)
-		ft_putendl_fd("QUIT: 3", 1);
-	if (exit_code == 130)
+	if (g_global.exit_code == 130)
 		ft_putchar_fd('\n', 1);
+	else if (g_global.exit_code == 131)
+		ft_putendl_fd("QUIT: 3", 1);
 }
 
 void	ft_ctrl_c(int signal)
 {
 	(void)signal;
+	if (g_global.in_heredoc)
+	{
+		ft_putchar_fd('\n', 1);
+		return ;
+	}
 	if (!g_global.fork_pid)
 	{
 		ft_putchar_fd('\n', 1);
@@ -25,6 +41,8 @@ void	ft_ctrl_c(int signal)
 void	ft_ctrl_backslash(int signal)
 {
 	(void)signal;
+	if (g_global.in_heredoc)
+		return ;
 	if (!g_global.fork_pid)
 	{
 		rl_on_new_line();

@@ -1,63 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 13:36:53 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 
-void	init_struct(t_state *state)
+void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 {
-	state->line = NULL;
-	state->pipe = NULL;
-	state->cm = NULL;
-	state->n_of_pipe = 0;
-	state->eof = 0;
-}
-
-/*pas le seul exit code --> recup les exit code d'execv*/
-
-void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	if (last_tab)
+	if (check_builtin(exc->cmd) != ECHO)
+		g_global.exit_code = 0;
+	ft_create_all_redirect(exc, tab->pipe);
+	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
-		while (i <= tab->pipe)
-		{
-			if (last_tab[i].cmd)
-				free(last_tab[i].cmd);
-			if (last_tab[i].opt)
-				free(last_tab[i].opt);
-			j = 0;
-			if (last_tab[i].redirect && last_tab[i].redirect[j])
-			{
-				while(last_tab[i].redirect[j] != NULL)
-				{
-					free(last_tab[i].redirect[j]);
-					j++;
-				}
-			}
-			j = 0;
-			if (last_tab[i].arg && last_tab[i].arg[j])
-			{
-				while(last_tab[i].arg[j] != NULL)
-				{
-					free(last_tab[i].arg[j]);
-					j++;
-				}
-			}
-			i++;
-		}
+		ft_free(new_env, ft_tabsize(new_env));
+		ft_exit(exc[0]);
+		ft_free_tab_exc(exc, tab);
+		exit(g_global.exit_code);
 	}
-	//free(last_tab);
-	//free(tab);
+	if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
+			|| check_builtin(exc[0].cmd) == EXPORT
+			|| check_builtin(exc[0].cmd) == UNSET))
+		ft_execute_command(exc[0], &new_env);
+	else
+		ft_execute_pipe(exc, tab->pipe, new_env);
+	ft_free_tab_exc(exc, tab);
 }
 
-void	init_global(void)
+void	ft_signal(void)
 {
-	g_global.exit_code = 0;
+	signal(SIGQUIT, &ft_ctrl_backslash);
+	signal(SIGINT, &ft_ctrl_c);
+}
+
+void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
+{
+	(void)tab;
+	(void)exc;
+	if (!state->line)
+	{
+		printf("exit\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_prompt(t_state **state, t_exc *exc, t_pars *tab)
+{
 	g_global.fork_pid = 0;
+	init_struct(*state);
+	rl_on_new_line();
+	(*state)->line = readline("\x1b[34mminishell > \x1b[0m");
+	add_history((*state)->line);
+	ft_ctrl_d(*state, exc, tab);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -69,55 +72,22 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	tab = NULL;
-	state = NULL;
 	new_env = cpy_env(env);
-	state = malloc(sizeof(t_state));
-	if (!state)
-		exit(EXIT_FAILURE);
-	new_env = cpy_env(env);
-	init_global();
+	init_variables(&state, &tab, &exc);
 	update_shlvl(&new_env);
-	signal(SIGQUIT, &ft_ctrl_backslash);
-	signal(SIGINT, &ft_ctrl_c);
+	ft_signal();
 	while (1)
 	{
-		init_struct(state);
-		rl_on_new_line();
-		state->line = readline("\x1b[34mminishell > \x1b[0m");
-		add_history(state->line);
-		if (!state->line)
-		{
-			printf("exit\n");
-			// printf("\x1b[34mminishell > \x1b[0mexit\n");
-			//ft_free_tab_exc(exc, tab);
-			exit(EXIT_FAILURE);
-		}
-		else if (state->line[0] != '\0')
+		ft_prompt(&state, exc, tab);
+		if (state->line[0] != '\0')
 		{
 			tab = parsing(state);
-			exc = last_parsing(tab, env);
-			// char **heredoc = malloc(sizeof(char *) * 2);
-			// heredoc[1] = NULL;
-			// heredoc[0] = ft_strdup("ls");
-			// exc[0].heredoc = heredoc;
-			// exc[1].heredoc = NULL;
-			ft_create_all_redirect(exc, tab->pipe);
-			if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
+			if (tab)
 			{
-				ft_free(new_env, ft_tabsize(new_env));
-				ft_exit(exc[0]);
-				ft_free_tab_exc(exc, tab);
-				exit(g_global.exit_code);
+				exc = last_parsing(tab, env);
+				ft_execute_line(exc, tab, new_env);
 			}
-			if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
-				|| check_builtin(exc[0].cmd) == EXPORT || check_builtin(exc[0].cmd) == UNSET))
-				ft_execute_command(exc[0], &new_env);
-			else
-				ft_execute_pipe(exc, tab->pipe, new_env);
 		}
-		//system("leaks minishell");
 	}
-	//system("leaks minishell");
 	return (0);
 }

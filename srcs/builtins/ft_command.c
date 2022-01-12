@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_command.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:53 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -15,7 +26,7 @@ static void	ft_print_line(char **cmd)
 	}
 }
 
-void	ft_echo(t_exc exc)
+int	ft_echo(t_exc exc)
 {
 	if (exc.opt && ft_strchr(exc.opt, 'n'))
 		ft_print_line(exc.arg);
@@ -27,9 +38,10 @@ void	ft_echo(t_exc exc)
 		printf("\n");
 	}
 	g_global.exit_code = 0;
+	return (ECHO);
 }
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	pwd[1024];
 
@@ -41,9 +53,10 @@ void	ft_pwd(void)
 	}
 	else
 		printf("%s\n", pwd);
+	return (PWD);
 }
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
@@ -55,6 +68,7 @@ void	ft_env(char **env)
 			printf("%s\n", env[i]);
 		i++;
 	}
+	return (ENV);
 }
 
 /*invalid read size of 8 ??*/
@@ -70,7 +84,8 @@ void	ft_exit(t_exc exc)
 	else if (exc.arg || exc.opt)
 	{
 		if (exc.opt != NULL)
-			g_global.exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
+			g_global.exit_code = ft_atoi(exc.opt)
+				+ (256 * (ft_atoi(exc.opt) / 256));
 		else if (exc.arg && check_str_digit(exc.arg[0]))
 		{
 			printf("exit\n");

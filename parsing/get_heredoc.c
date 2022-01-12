@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_heredoc.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:07 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:07 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
-int		nbr_of_heredoc(char *line)
+int	nbr_of_heredoc(char *line)
 {
 	int	i;
 	int	n;
@@ -9,83 +21,101 @@ int		nbr_of_heredoc(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (check_quote(line, i) && line[i] == '>' && line[i] == '>')
+		if (check_quote(line, i) && line[i] == '<' && line[i + 1] == '<')
 			n++;
 		i++;
 	}
 	return (n);
 }
 
-char	*cut_heredoc(char *line, int index, char **tab_here)
+void	count_char(t_tmp *tmp, char *line)
 {
-	char	*tmp;
-	char	*rest;
-	char	*new_line;
-	char	*var;
-	int		n;
-	int		m;
-	char	*nl;
-
-	n = index;
-	m = 0;
-	tmp = NULL;
-	var = NULL;
-	nl = NULL;
-	rest = NULL;
-	new_line = NULL;
-	tmp = ft_substr(line, 0, index);
-	while (line[n] == '>')
+	while (line[tmp->n] == '<')
 	{
-		n++;
-		m++;
+		tmp->n++;
+		tmp->m++;
 	}
-	while (line[n] == ' ' || line[n] == '\0')
+	while (line[tmp->n] == ' ' || line[tmp->n] == '\0')
 	{
-		n++;
-		m++;
+		tmp->n++;
+		tmp->m++;
 	}
-	while (line[n] != ' ' || line[n] == '\0')
+	while (ft_isascii(line[tmp->n]))
 	{
-		n++;
-		m++;
-	}
-	nl = ft_substr(line, index + 1, m - 1);
-	printf("nl = %s\n", nl);
-	//var = our_getenv(ft_strtrim(nl, "$"), env);
-	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
-	new_line = ft_strjoin_double_free(tmp, var);
-	new_line = ft_strjoin_double_free(new_line, rest);
-	free(line);
-	line = NULL;
-	return (new_line);
+		if (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+			break ;
+		tmp->n++;
+		tmp->m++;
+	}	
 }
 
-char	*get_heredoc(char *line, t_pars *tab_here)
+char	*cut_heredoc(char *line, int index, char **tab_here)
 {
-	int		i;
+	t_tmp	tmp;
+
+	init_tmp(&tmp);
+	tmp.n = index;
+	tmp.tmp = ft_substr(line, 0, index);
+	count_char(&tmp, line);
+	*tab_here = ft_substr(line, index + 1, tmp.m - 1);
+	*tab_here = ft_strtrim(*tab_here, "< ");
+	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
+	tmp.new_line = ft_strjoin_double_free(tmp.tmp, "");
+	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
+	//if	(line)
+	//	free(line);
+	//line = NULL;
+	//if (tmp.tmp)
+	//	free(tmp.tmp);
+	free(tmp.rest);
+	return (tmp.new_line);
+}
+
+char	*get_tab_heredoc(char *line, char **tab)
+{
 	char	*new_line;
-	int		nbr_of_here;
+	int		i;
+	int		j;
 
 	i = 0;
-	nbr_of_here = nbr_of_heredoc(line);
-	if (nbr_of_here > 0)
-	{
-		tab_here->heredoc = malloc(sizeof(char *) * (nbr_of_here + 1));
-		if (!tab_here->heredoc)
-			exit(EXIT_FAILURE);
-	}
-	else
-		return (line);
+	j = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '>' && line[i + 1] == '>')
+		if (line[i] && line[i] == '<' && line[i + 1] == '<')
 		{
-			new_line = cut_heredoc(line, i, tab_here->heredoc++);
+			new_line = cut_heredoc(line, i, &tab[j]);
+			j++;
 			line = new_line;
 			i = -1;
 		}
 		i++;
 	}
-	tab_here->heredoc = NULL;
+	tab[j] = NULL;
 	return (new_line);
+}
+
+char	*get_heredoc(char *line, t_pars *tab_here)
+{
+	char	*new_line;
+	int		nbr_of_here;
+	char	**tab;
+	char	*tmp;
+
+	new_line = NULL;
+	tab = NULL;
+	nbr_of_here = 0;
+	nbr_of_here = nbr_of_heredoc(line);
+	if (nbr_of_here < 1)
+		return (line);
+	tab = malloc(sizeof(char *) * (nbr_of_here + 1));
+	if (!tab)
+		exit(EXIT_FAILURE);
+	new_line = get_tab_heredoc(line, tab);
+	tab_here->heredoc = tab;
+	//new_line = ft_strtrim(new_line, " ");
+	tmp = ft_strtrim(new_line, " ");
+	//free(line);
+	//free(new_line);
+	line = NULL;
+	return (tmp);
 }

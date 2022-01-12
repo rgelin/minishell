@@ -1,37 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_execute_command.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:24:46 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:24:56 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
 int	ft_execute_command(t_exc exc, char ***env)
 {
+	if (ft_check_error_arg_opt(exc))
+		return (EXIT_FAILURE);
 	if (check_builtin(exc.cmd) == ECHO)
-	{
-		ft_echo(exc);
-		return (ECHO);
-	}
+		return (ft_echo(exc));
 	if (check_builtin(exc.cmd) == CD)
-	{
-		ft_cd(exc, env);
-		return (CD);
-	}
+		return (ft_cd(exc, env));
 	if (check_builtin(exc.cmd) == PWD)
-	{
-		ft_pwd();
-		return (PWD);
-	}
+		return (ft_pwd());
 	if (check_builtin(exc.cmd) == EXPORT)
-	{
-		ft_export(exc, env);
-		return (EXPORT);
-	}
+		return (ft_export(exc, env));
 	if (check_builtin(exc.cmd) == UNSET)
-	{
-		ft_unset(exc, env);
-		return (UNSET);
-	}
+		return (ft_unset(exc, env));
 	if (check_builtin(exc.cmd) == ENV)
-	{
-		ft_env((*env));
-		return (ENV);
-	}
+		return (ft_env((*env)));
 	return (EXIT);
 }

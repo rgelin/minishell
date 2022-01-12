@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_option.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:05 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 void	return_opt(int *popt, char *line, char **options)
@@ -28,7 +40,34 @@ void	return_opt(int *popt, char *line, char **options)
 	options[i] = NULL;
 }
 
-char	**get_opt(char *line)
+char	**ft_echo_option(char *line)
+{
+	char	**tmp;
+	int		i;
+	char	**opt;
+
+	i = 0;
+	tmp = ft_split_parsing(line, ' ');
+	if ((ft_strncmp(tmp[1], "-n", 3)) != 0)
+		opt = NULL;
+	else if (ft_strncmp(tmp[1], "-n", 3) == 0)
+	{
+		opt = malloc(sizeof(char *) * 2);
+		if (!opt)
+			exit(EXIT_FAILURE);
+		opt[0] = ft_strdup(tmp[1]);
+		opt[1] = NULL;
+	}
+	while (tmp[i])
+	{
+		free(tmp[i]);
+		i++;
+	}
+	free(tmp);
+	return (opt);
+}
+
+char	**get_opt(char *line, char *cmd)
 {
 	int		i;
 	int		opt;
@@ -37,6 +76,12 @@ char	**get_opt(char *line)
 
 	opt = 0;
 	i = -1;
+	options = NULL;
+	(void)cmd;
+	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
+	{
+		return (ft_echo_option(line));
+	}
 	while (line[++i] != '\0')
 	{
 		if (check_quote(line, i) && line[i] == '-')
@@ -45,10 +90,7 @@ char	**get_opt(char *line)
 	popt = get_index(line, opt, '-');
 	options = malloc(sizeof(char *) * (opt + 1));
 	if (!options)
-	{
-		free(options);
-		return (NULL);
-	}
+		exit(EXIT_FAILURE);
 	return_opt(popt, line, options);
 	free(popt);
 	return (options);

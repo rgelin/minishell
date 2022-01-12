@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_command.c                                    :+:      :+:    :+:   */
+/*   ft_signal_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 11:48:08 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:48:27 by jvander-         ###   ########.fr       */
+/*   Created: 2022/01/12 11:33:56 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:33:57 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/minishell.h"
+#include "minishell.h"
 
-char	**split_command(char *line)
+void	ft_handler_heredoc(int sig_code)
 {
-	char	**command;
+	if (!g_global.fork_pid)
+	{
+		if (sig_code == SIGINT)
+			exit(1);
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+		}
+	}
+	else
+		if (sig_code == SIGINT)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+}
 
-	command = ft_split(line, ' ');
-	if (!command)
-		return (NULL);
-	if (!ft_strncmp(command[0], "cd", 2))
-		return (ft_free(command, ft_tabsize(command)));
-	return (command);
+void	ft_set_signal(void)
+{
+	signal(SIGINT, ft_handler_heredoc);
+	signal(SIGQUIT, ft_handler_heredoc);
 }

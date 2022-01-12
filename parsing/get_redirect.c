@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_redirect.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:00 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 int	*get_index_redirect(char *line, size_t size)
@@ -10,10 +22,7 @@ int	*get_index_redirect(char *line, size_t size)
 	i = -1;
 	p_tab = malloc(sizeof(int *) * (size + 1));
 	if (!p_tab)
-	{
-		free(p_tab);
-		return (0);
-	}
+		exit(EXIT_FAILURE);
 	while (line[++i] != '\0')
 	{
 		if (((line[i] == '<' && line[i + 1] == '<')
@@ -49,13 +58,10 @@ char	**get_redirect_tab(char *line, int n)
 		end = index_tab[i + 1];
 		tab[i] = ft_substr(line, start, end - start);
 		tab[i] = ft_strtrim(tab[i], " ");
-		//tab[i] = ft_strtrim_modified(tab[i], " ");
-		//printf("%s\n", tab[i]);
 		i++;
 	}
 	tab[i] = NULL;
 	free(index_tab);
-	//free(line);
 	return (tab);
 }
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_command.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:12 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 void	init_tab(t_pars *tab)
@@ -5,8 +17,7 @@ void	init_tab(t_pars *tab)
 	tab->command = NULL;
 	tab->option = NULL;
 	tab->arg = NULL;
-	//tab->input = NULL;
-	//tab->output = NULL;
+	tab->heredoc = NULL;
 	tab->next_char = NULL;
 	tab->redirect = NULL;
 }
@@ -15,27 +26,28 @@ t_pars	get_command(char *line, t_state *s)
 {
 	int		next;
 	t_pars	tab;
-	//char	*new_line;
+	char	*new_line;
+
 	(void)s;
 	init_tab(&tab);
-	//check heredoc
-	if (ft_get_index(line) != 0)
+	new_line = get_heredoc(line, &tab);
+	if (new_line && ft_get_index(new_line) != 0)
 	{
-		next = ft_get_index(line);
-		tab.command = ft_substr(line, 0, next);
+		next = ft_get_index(new_line);
+		tab.command = ft_substr(new_line, 0, next);
 		tab.command = ft_strtrim(tab.command, " ");
-		tab.option = get_opt(line);
-		tab.redirect = get_redirect(line);
-		tab.arg = get_arg(line);
+		tab.option = get_opt(new_line, tab.command);
+		tab.redirect = get_redirect(new_line);
+		tab.arg = get_arg(new_line, tab.command);
 	}
-	else
+	else if (new_line)
 	{
-		tab.command = ft_substr(line, 0, ft_strlen(line));
+		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
 		tab.command = ft_strtrim(tab.command, " ");
 	}
+	//free(new_line);
 	return (tab);
 }
-//fonction où on recoit chaque ligne divisé par des pipes
 
 t_pars	*find_command(t_state *s)
 {
@@ -45,14 +57,8 @@ t_pars	*find_command(t_state *s)
 	i = -1;
 	comd = malloc(sizeof(t_pars) * (s->n_of_pipe + 1));
 	if (!comd)
-	{
-		free(comd);
-		ft_free_pars_error(s);
-		write(1, "Error malloc\n", 13);
 		exit(EXIT_FAILURE);
-	}
 	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s);
-	free(s->line);
 	return (comd);
 }

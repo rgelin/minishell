@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_line.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:33 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:02 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 void	split_pipe(t_state *s)
@@ -32,11 +44,7 @@ t_pars	*split_line(t_state *s)
 	tab = NULL;
 	s->cm = malloc(sizeof(char *) * (s->n_of_pipe + 1));
 	if (!s->cm)
-	{
-		write(1, "Error malloc\n", 13);
-		ft_free_pars_error(s);
 		exit(EXIT_FAILURE);
-	}
 	split_pipe(s);
 	tab = find_command(s);
 	//ft_free_pars(s);

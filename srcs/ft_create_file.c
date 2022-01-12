@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_file.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:33:41 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+static int	ft_exit_create_file(char *file_name)
+{
+	g_global.exit_code = EXIT_FAILURE;
+	if (file_name)
+		free(file_name);
+	return (g_global.exit_code);
+}
 
 static int	ft_create_file(char *name)
 {
@@ -6,22 +26,23 @@ static int	ft_create_file(char *name)
 	int		fd;
 
 	file_name = ft_strdup(name);
+	if (!file_name)
+	{
+		perror("malloc");
+		return (ft_exit_create_file(file_name));
+	}
 	fd = open(file_name, O_CREAT, 0644);
 	if (fd == -1)
 	{
 		perror("open");
-		g_global.exit_code = EXIT_FAILURE;
+		return (ft_exit_create_file(file_name));
 	}
 	if (close(fd) == -1)
 	{
 		perror("close");
-		g_global.exit_code = EXIT_FAILURE;
+		return (ft_exit_create_file(file_name));
 	}
-	free(file_name);
-	if (g_global.exit_code == EXIT_FAILURE)
-		return (g_global.exit_code);
-	g_global.exit_code = EXIT_SUCCESS;
-	return (g_global.exit_code);
+	return (ft_exit_create_file(file_name));
 }
 
 static int	ft_create_redirect(t_exc exc)
@@ -36,9 +57,9 @@ static int	ft_create_redirect(t_exc exc)
 	while (current)
 	{
 		if (ft_strncmp(current, ">>", 2) == 0)
-			g_global.exit_code = ft_create_file(current + 3);
-		else if (ft_strncmp(current, ">", 1) == 0)
 			g_global.exit_code = ft_create_file(current + 2);
+		else if (ft_strncmp(current, ">", 1) == 0)
+			g_global.exit_code = ft_create_file(current + 1);
 		current = exc.redirect[++i];
 	}
 	return (EXIT_SUCCESS);

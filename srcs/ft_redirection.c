@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirection.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:33:53 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	ft_set_output_file(char *output)
@@ -5,9 +17,9 @@ static void	ft_set_output_file(char *output)
 	int	fd;
 
 	if (ft_strncmp(output, ">>", 2) == 0)
-		fd = open(output + 3, O_RDWR | O_APPEND, 0644);
+		fd = open(output + 2, O_RDWR | O_APPEND, 0644);
 	else
-		fd = open(output + 2, O_RDWR | O_TRUNC, 0644);
+		fd = open(output + 1, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_perror("open", output, "Impossible to open file");
@@ -26,14 +38,13 @@ static void	ft_set_output_file(char *output)
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
 	}
-	free(output);
 }
 
 static void	ft_set_input_file(char *input)
 {
 	int	fd;
 
-	fd = open(input + 2, O_RDONLY);
+	fd = open(input + 1, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_perror("open", input, "Impossible to open file");
@@ -52,7 +63,6 @@ static void	ft_set_input_file(char *input)
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
 	}
-	free(input);
 }
 
 void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)

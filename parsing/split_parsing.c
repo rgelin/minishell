@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_parsing.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:38 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:02 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 static int	ft_count_words(char *s, char c)
@@ -43,7 +55,7 @@ static char	*ft_strncpy(char *s, int size)
 
 	to_ret = malloc(sizeof(char) * (size + 1));
 	if (to_ret == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	to_ret[size] = '\0';
 	size--;
 	while (size >= 0 && s[size])
@@ -83,7 +95,7 @@ char	**ft_split_parsing(char *s, char c)
 	nbr_words = ft_count_words(s, c);
 	to_ret = ft_calloc((nbr_words + 1), sizeof(char *));
 	if (to_ret == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	i = 0;
 	j = 0;
 	while (j < nbr_words)

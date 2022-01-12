@@ -1,25 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:40 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:56 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_realloc_env(char ***env, int size)
-{
-	char	**new_env;
-	int		i;
-
-	new_env = (char **)malloc(sizeof(char *) * (ft_tabsize((*env)) + size));
-	if (!new_env)
-		exit(EXIT_FAILURE);
-	i = -1;
-	while ((*env)[++i])
-		new_env[i] = (*env)[i];
-	return (new_env);
-}
-
-static char *get_to_find(char *arg)
+static char	*get_to_find(char *arg)
 {
 	char	*to_find;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -37,11 +34,11 @@ static char *get_to_find(char *arg)
 	return (to_find);
 }
 
-int find_var_in_env(char *arg, char **env)
+int	find_var_in_env(char *arg, char **env)
 {
 	char	*to_find;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	to_find = get_to_find(arg);
 	i = -1;
@@ -63,9 +60,9 @@ int find_var_in_env(char *arg, char **env)
 	return (-1);
 }
 
-int		check_if_already_in_env(char *arg, char ***env)
+int	check_if_already_in_env(char *arg, char ***env)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (arg && (*env)[++i])

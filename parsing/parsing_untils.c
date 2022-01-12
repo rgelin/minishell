@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_untils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:00 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 int	ft_get_index(char *s)
@@ -14,17 +26,26 @@ int	ft_get_index(char *s)
 	return (0);
 }
 
-int	ft_test(char *line)
+void	init_ptn(t_exc *tab)
 {
-	int	x;
+	tab->cmd = NULL;
+	tab->opt = NULL;
+	tab->arg = NULL;
+	tab->input = NULL;
+	tab->output = NULL;
+	tab->redirect = NULL;
+	tab->heredoc = NULL;
+}
 
-	x = ft_strlen(line);
-	while (line[x] != ' ' && x != 0)
-		x--;
-	if (x != 0)
-		return (x);
-	x--;
-	return (0);
+void	init_tmp(t_tmp *tmp)
+{
+	tmp->tmp = NULL;
+	tmp->rest = NULL;
+	tmp->new_line = NULL;
+	tmp->n = 0;
+	tmp->m = 0;
+	tmp->nl = NULL;
+	tmp->var = NULL;
 }
 
 int	*get_index(char *line, size_t size, char c)
@@ -38,10 +59,7 @@ int	*get_index(char *line, size_t size, char c)
 	p_tab = 0;
 	p_tab = malloc(sizeof(int *) * (size + 1));
 	if (!p_tab)
-	{
-		free (p_tab);
-		return (0);
-	}
+		exit(EXIT_FAILURE);
 	while (line[i] != '\0')
 	{
 		if (c == '-' && line[i] == '-' && line[i -1] != ' ')

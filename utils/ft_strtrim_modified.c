@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim_modified.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:47:38 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:47:56 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 static int	in_charset(char c, const char *str)
@@ -29,7 +41,10 @@ static int	ft_new_length(char const *s1, char const *set)
 	return (count);
 }
 
-char		*ft_strtrim_modified(char const *s1, char const *set) //leak
+/*
+* LEAK
+*/
+char	*ft_strtrim_modified(char const *s1, char const *set)
 {
 	int		i;
 	int		index;
@@ -49,4 +64,27 @@ char		*ft_strtrim_modified(char const *s1, char const *set) //leak
 	}
 	res[index] = '\0';
 	return (res);
+}
+
+char	*ft_strtrim_plus_equal(char *arg)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	str = (char *)malloc(sizeof(char) * ft_strlen(arg));
+	if (!str)
+		exit(EXIT_FAILURE);
+	i = -1;
+	j = 0;
+	while (arg && arg[++i] && arg[i] != '=')
+	{
+		if (!(arg[i] == '+' && arg[i + 1] == '='))
+			str[j++] = arg[i];
+	}
+	str[j++] = '=';
+	while (arg && arg[++i])
+			str[j++] = arg[i];
+	str[j] = '\0';
+	return (str);
 }

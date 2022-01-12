@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:56:37 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-static int	ft_create_all_exec(char ***folder, t_exc command)
+int	ft_create_all_exec(char ***folder, t_exc command)
 {
 	int	i;
 
@@ -27,14 +39,14 @@ static int	ft_free_exec(char **folder, char **cmd)
 	return (EXIT_FAILURE);
 }
 
-int	ft_try_exec(t_exc command, char **cmd, char **folder)
+static int	ft_try_exec(t_exc command, char **cmd, char **folder, char **env)
 {
 	int	i;
 
 	i = -1;
 	while (folder[++i])
-		execve(folder[i], cmd, NULL);
-	execve(command.cmd, cmd, NULL);
+		g_global.exit_code = execve(folder[i], cmd, env);
+	g_global.exit_code = execve(command.cmd, cmd, env);
 	ft_perror(command.cmd, NULL, "command not found");
 	return (127);
 }
@@ -42,14 +54,12 @@ int	ft_try_exec(t_exc command, char **cmd, char **folder)
 static int	ft_exec(t_exc command, char **env)
 {
 	char	**folder;
-	//int		i;
 	char	**cmd;
-	int		exit_code;
 
+	ft_signal_msg();
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
-	//i = -1;
 	if (find_var_in_env("PATH", env) == -1)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
@@ -60,9 +70,10 @@ static int	ft_exec(t_exc command, char **env)
 		return (ft_free_exec(folder, cmd));
 	if (!ft_create_all_exec(&folder, command))
 		return (ft_free_exec(folder, cmd));
-	exit_code = ft_try_exec(command, cmd, folder);
+	g_global.exit_code = ft_try_exec(command, cmd, folder, env);
+	command.exit_code = g_global.exit_code;
 	ft_free_exec(folder, cmd);
-	return (exit_code);
+	return (g_global.exit_code);
 }
 
 int	execute(t_exc exc, char ***env)
@@ -73,5 +84,9 @@ int	execute(t_exc exc, char ***env)
 		return (g_global.exit_code);
 	}
 	else
+	{
+		if (ft_strcmp("", exc.cmd) == 0)
+			return (EXIT_FAILURE);
 		return (ft_exec(exc, *env));
+	}
 }

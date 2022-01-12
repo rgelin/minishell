@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 13:04:32 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 void	init_quote(t_quote *quote)
@@ -12,7 +24,7 @@ int	check_parsing(t_state *s)
 	{
 		write(1, "Error quote\n", 12);
 		ft_free_pars_error(s);
-		exit(EXIT_FAILURE);
+		return (0);
 	}
 	if (s->n_of_pipe >= 0)
 		s->pipe = get_index(s->line, (s->n_of_pipe + 1), '|');
@@ -70,8 +82,8 @@ t_pars	*parsing(t_state *s)
 	if (check_parsing(s))
 	{
 		tab = split_line(s);
+		tab->pipe = s->n_of_pipe;
 	}
-	tab->pipe = s->n_of_pipe;
 	ft_free_pars_tab(s);
 	return (tab);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_var_env.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:22:01 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 char	*insert_exit_code(char *line, int index)
@@ -12,45 +24,56 @@ char	*insert_exit_code(char *line, int index)
 	rest = ft_substr(line, index + 2, (ft_strlen(line) - index));
 	new_line = ft_strjoin_double_free(tmp_line, code);
 	new_line = ft_strjoin_double_free(new_line, rest);
+	free(line);
+	free(rest);
+	free(code);
 	line = NULL;
 	return (new_line);
 }
 
 char	*insert_var_env(char *line, int index, char **env)
 {
-	char	*tmp;
-	char	*rest;
-	char	*new_line;
-	char	*var;
-	int		n;
-	int		m;
-	char	*nl;
+	t_tmp	tmp;
 
-	n = index;
-	m = 0;
-	tmp = NULL;
-	var = NULL;
-	nl = NULL;
-	rest = NULL;
-	tmp = ft_substr(line, 0, index);
-	new_line = NULL;
-	while (line[n] != '\0')
+	init_tmp(&tmp);
+	tmp.n = index;
+	tmp.tmp = ft_substr(line, 0, index);
+	tmp.new_line = NULL;
+	while (line[tmp.n] != '\0')
 	{
-		if (line[n] == ' ' || line[n] == '\0')
+		if (line[tmp.n] == ' ' || line[tmp.n] == '\'' || line[tmp.n] == '\0')
 			break ;
-		n++;
-		m++;
+		tmp.n++;
+		tmp.m++;
 	}
-	nl = ft_substr(line, index + 1, m - 1);
-	var = our_getenv(ft_strtrim(nl, "$"), env);
-	rest = ft_substr(line, index + m, (ft_strlen(line) - index));
-	new_line = ft_strjoin_double_free(tmp, var);
-	new_line = ft_strjoin_double_free(new_line, rest);
+	tmp.nl = ft_substr(line, index + 1, tmp.m - 1);
+	tmp.var = our_getenv(ft_strtrim(tmp.nl, "$"), env);
+	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
+	tmp.new_line = ft_strjoin_double_free(tmp.tmp, tmp.var);
+	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
 	free(line);
+	free(tmp.rest);
 	line = NULL;
+	return (tmp.new_line);
+}
+
+char	*check_var_env_bis(char *line, char **env, char c, int i)
+{
+	char	*new_line;
+
+	new_line = NULL;
+	if (c == '?')
+	{
+		new_line = insert_exit_code(line, i);
+		line = new_line;
+	}
+	else
+	{
+		new_line = insert_var_env(line, i, env);
+		line = new_line;
+	}
 	return (new_line);
 }
-//Methode quand il y a les " "
 
 char	*check_var_env(char *line, char **env)
 {
@@ -62,8 +85,7 @@ char	*check_var_env(char *line, char **env)
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
-			new_line = insert_exit_code(line, i);
-			line = new_line;
+			line = check_var_env_bis(line, env, '?', i);
 			i = -1;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
@@ -72,38 +94,13 @@ char	*check_var_env(char *line, char **env)
 			i++;
 		else if (line[i] == '$')
 		{
-			new_line = insert_var_env(line, i, env);
-			line = new_line;
+			line = check_var_env_bis(line, env, ' ', i);
 			i = -1;
 		}
 		else
-		{
 			new_line = line;
-		}
 		i++;
 	}
-	//free(line);
-	return (new_line);
-}
-
-char	*check_var_env_bis(char *line, char **env)
-{
-	int		i;
-	char	*new_line;
-
-	i = 0;
-	if (line[i] == '$' && line[i + 1] == '?')
-	{
-		new_line = ft_itoa(g_global.exit_code);
-	}
-	else if (line[i] == '$' && (line[i + 1] == '$' || line[i + 1] == '\0'))
-		new_line = line;
-	else if (line[i] == '$')
-	{
-		new_line = our_getenv(ft_strtrim(line, "$"), env);
-	}
-	else
-		new_line = line;
 	return (new_line);
 }
 
