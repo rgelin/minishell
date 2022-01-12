@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:22:12 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/12 15:07:00 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_pars	get_command(char *line, t_state *s)
 		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
 		tab.command = ft_strtrim(tab.command, " ");
 	}
-	//free(new_line);
+	free(new_line);
 	return (tab);
 }
 

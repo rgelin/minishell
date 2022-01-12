@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 13:07:21 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:51:47 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*new_redirect(char *line)
 	free(line);
 	line = NULL;
 	//free(tmp.tmp);
-	//free(tmp.var);
+	free(tmp.var);
 	return (tmp.new_line);
 }
 

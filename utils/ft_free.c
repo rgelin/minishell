@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:38:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 13:25:00 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:28:36 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 			if (last_tab[i].opt)
 				free(last_tab[i].opt);
 			if (last_tab[i].redirect)
-				ft_free(last_tab->redirect, ft_tabsize(last_tab->redirect) - 1);
+				ft_free(last_tab->redirect, ft_tabsize(last_tab->redirect));
 			if (last_tab[i].arg)
-				ft_free(last_tab->arg, ft_tabsize(last_tab->arg) - 1);
+				ft_free(last_tab->arg, ft_tabsize(last_tab->arg));
 			if (last_tab[i].heredoc)
-					ft_free(last_tab->heredoc, ft_tabsize(last_tab->heredoc) - 1);
+				ft_free(last_tab->heredoc, ft_tabsize(last_tab->heredoc));
 			// ft_free_redirect(last_tab, i);
 			// ft_free_arg(last_tab, i);
 			// ft_free_heredoc(last_tab, i);
