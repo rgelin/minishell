@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:47:45 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:13:00 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	ft_free_pars_tab(t_state *s)
 {
-	int	nbr;
+	//int	nbr;
 
-	nbr = 0;
+	//nbr = 0;
 	if (s->pipe)
 		free(s->pipe);
-	while (nbr <= s->n_of_pipe)
+	/*while (nbr <= s->n_of_pipe)
 	{
 		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
 			free(s->cm[nbr]);
 		nbr++;
-	}
+	}*/
 	if (s->cm)
 		free(s->cm);
 	if (s->line)
