@@ -13,10 +13,7 @@ char	**return_arg_echo(char **tab, int n)
 	i = 1;
 	arg = malloc(sizeof(char *) * (n + 1));
 	if (!arg)
-	{
-		free(arg);
-		return (NULL);
-	}
+		exit(EXIT_FAILURE);
 	while (tmp[i] && ft_strncmp(tmp[i], "-n", 3) == 0)
 		i++;
 	while (i < ft_tabsize(tmp))
@@ -85,10 +82,7 @@ char	**return_arg(char **tab, int n)
 	i = 0;
 	arg = malloc(sizeof(char *) * (n + 1));
 	if (!arg)
-	{
-		free(arg);
-		return (NULL);
-	}
+		exit(EXIT_FAILURE);
 	while (tmp[++i] != NULL)
 	{
 		if (*tmp[i] == '<' || *tmp[i] == '>')

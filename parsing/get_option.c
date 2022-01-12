@@ -42,9 +42,7 @@ char	**ft_echo_option(char *line)
 	{
 		opt = malloc(sizeof(char *) * 2);
 		if (!opt)
-		{
 			exit(EXIT_FAILURE);
-		}
 		opt[0] = ft_strdup(tmp[1]);
 		opt[1] = NULL;
 	}
@@ -80,10 +78,7 @@ char	**get_opt(char *line, char *cmd)
 	popt = get_index(line, opt, '-');
 	options = malloc(sizeof(char *) * (opt + 1));
 	if (!options)
-	{
-		free(options);
-		return (NULL);
-	}
+		exit(EXIT_FAILURE);
 	return_opt(popt, line, options);
 	free(popt);
 	return (options);
