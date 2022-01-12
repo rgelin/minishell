@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 12:16:37 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/12 13:36:53 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 		ft_execute_command(exc[0], &new_env);
 	else
 		ft_execute_pipe(exc, tab->pipe, new_env);
+	ft_free_tab_exc(exc, tab);
 }
 
 void	ft_signal(void)
@@ -43,10 +44,11 @@ void	ft_signal(void)
 
 void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
 {
+	(void)tab;
+	(void)exc;
 	if (!state->line)
 	{
 		printf("exit\n");
-		ft_free_tab_exc(exc, tab);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -70,8 +72,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	init_variables(&state, &tab, &exc);
 	new_env = cpy_env(env);
+	init_variables(&state, &tab, &exc);
 	update_shlvl(&new_env);
 	ft_signal();
 	while (1)

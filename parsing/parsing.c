@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:22:01 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/12 13:04:32 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_pars	*parsing(t_state *s)
 	{
 		tab = split_line(s);
 		tab->pipe = s->n_of_pipe;
-		ft_free_pars_tab(s);
 	}
+	ft_free_pars_tab(s);
 	return (tab);
 }
