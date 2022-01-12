@@ -160,6 +160,7 @@ char		**get_arg(char *line, char *cmd);
 char		*get_heredoc(char *line, t_pars *tab_here);
 void		split_pipe(t_state *s);
 void		ft_error_malloc(t_state *s);
+void		init_ptn(t_exc *tab);
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);

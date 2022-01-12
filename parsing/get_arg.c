@@ -59,12 +59,9 @@ char	**ft_echo_arg(char *line)
 		}
 	}
 	arg = return_arg_echo(tmp, n);
-	i = 0;
-	while (tmp[i])
-	{
+	i = -1;
+	while (tmp[++i])
 		free(tmp[i]);
-		i++;
-	}
 	free(tmp);
 	return (arg);
 }
@@ -107,9 +104,7 @@ char	**get_arg(char *line, char *cmd)
 	n = 0;
 	i = 1;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
-	{
 		return (ft_echo_arg(line));
-	}
 	tmp = ft_split_parsing(line, ' ');
 	while (tmp[i] != NULL)
 	{
@@ -120,12 +115,9 @@ char	**get_arg(char *line, char *cmd)
 		i++;
 	}
 	arg = return_arg(tmp, n);
-	i = 0;
-	while (tmp[i])
-	{
+	i = -1;
+	while (tmp[++i])
 		free(tmp[i]);
-		i++;
-	}
 	free(tmp);
 	return (arg);
 }

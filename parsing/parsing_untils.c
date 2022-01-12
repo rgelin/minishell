@@ -14,6 +14,17 @@ int	ft_get_index(char *s)
 	return (0);
 }
 
+void	init_ptn(t_exc *tab)
+{
+	tab->cmd = NULL;
+	tab->opt = NULL;
+	tab->arg = NULL;
+	tab->input = NULL;
+	tab->output = NULL;
+	tab->redirect = NULL;
+	tab->heredoc = NULL;
+}
+
 void	init_tmp(t_tmp *tmp)
 {
 	tmp->tmp = NULL;

@@ -1,16 +1,5 @@
 #include "../srcs/minishell.h"
 
-void	init_ptn(t_exc *tab)
-{
-	tab->cmd = NULL;
-	tab->opt = NULL;
-	tab->arg = NULL;
-	tab->input = NULL;
-	tab->output= NULL;
-	tab->redirect = NULL;
-	tab->heredoc = NULL;
-}
-
 char	*option(char **options)
 {
 	char	*line;
@@ -29,14 +18,13 @@ char	*option(char **options)
 	line = malloc(sizeof(line) * (size + 2));
 	if (!line)
 		exit(EXIT_FAILURE);
-	i = 0;
+	i = -1;
 	line[0] = '-';
 	line[1] = '\0';
-	while (options[i])
+	while (options[++i])
 	{
 		line = ft_strcat(line, options[i]);
 		free(options[i]);
-		i++;
 	}
 	return (line);
 }
@@ -68,8 +56,8 @@ char	*new_redirect(char *line)
 	i = 0;
 	while (line[i] == '>' || line[i] == '<')
 		i++;
-	tmp.tmp = ft_substr(line, 0, i );
-	while(line[i] && line[i] == ' ')
+	tmp.tmp = ft_substr(line, 0, i);
+	while (line[i] && line[i] == ' ')
 		i++;
 	tmp.n = i;
 	while (line[i] && ft_isascii(line[i]) && line[i] != ' ')
