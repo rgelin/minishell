@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:45 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:45 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	**ft_realloc_env(char ***env, int size)
@@ -35,6 +47,9 @@ static char	*parse_arg(char *arg)
 	return (res);
 }
 
+/*
+*	LEAKS ligne 56 ; new_env[++k] = ft_strdup((*env)[j]);
+*/
 static void	create_new_env(t_exc exc, char ***env, int i)
 {
 	char	**new_env;
@@ -50,7 +65,7 @@ static void	create_new_env(t_exc exc, char ***env, int i)
 	{
 		if (j == find_var_in_env(exc.arg[i], *env))
 			j++;
-		new_env[++k] = ft_strdup((*env)[j]); //reste un leak ici
+		new_env[++k] = ft_strdup((*env)[j]);
 		if (!new_env[k])
 			exit(EXIT_FAILURE);
 	}

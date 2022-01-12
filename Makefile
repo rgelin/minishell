@@ -32,8 +32,10 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(BUILTINS)ft_export.c \
 				$(BUILTINS)ft_export_utils.c \
 				$(BUILTINS)ft_unset.c \
+				$(BUILTINS)ft_cd_utils.c \
 				$(SOURCES)ft_heredoc.c \
 				$(SOURCES)ft_signal_heredoc.c \
+				$(SOURCES)ft_init.c \
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_sort_string_tab.c \
@@ -43,6 +45,7 @@ SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)create_cmd.c \
 				$(UTILS)check_str_digit.c \
 				$(UTILS)ft_get_last_file.c \
+				$(UTILS)ft_free.c \
 
 PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)find_command.c \

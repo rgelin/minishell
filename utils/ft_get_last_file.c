@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_last_file.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:47:01 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:47:10 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 char	*ft_get_last_input(t_exc cmd)
@@ -11,7 +23,6 @@ char	*ft_get_last_input(t_exc cmd)
 	current = cmd.redirect;
 	while (current && current[++i])
 	{
-		//printf("s === %s\n", current[i]);
 		if (ft_strncmp(current[i], "<", 1) == 0)
 			input_file = current[i];
 	}

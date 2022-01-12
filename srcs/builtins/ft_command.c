@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_command.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:53 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -73,7 +84,8 @@ void	ft_exit(t_exc exc)
 	else if (exc.arg || exc.opt)
 	{
 		if (exc.opt != NULL)
-			g_global.exit_code = ft_atoi(exc.opt) + (256 * (ft_atoi(exc.opt) / 256));
+			g_global.exit_code = ft_atoi(exc.opt)
+				+ (256 * (ft_atoi(exc.opt) / 256));
 		else if (exc.arg && check_str_digit(exc.arg[0]))
 		{
 			printf("exit\n");

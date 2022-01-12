@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_file.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:33:41 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+static int	ft_exit_create_file(char *file_name)
+{
+	g_global.exit_code = EXIT_FAILURE;
+	if (file_name)
+		free(file_name);
+	return (g_global.exit_code);
+}
 
 static int	ft_create_file(char *name)
 {
@@ -8,28 +28,21 @@ static int	ft_create_file(char *name)
 	file_name = ft_strdup(name);
 	if (!file_name)
 	{
-		g_global.exit_code = EXIT_FAILURE;
 		perror("malloc");
-		return (g_global.exit_code);
+		return (ft_exit_create_file(file_name));
 	}
 	fd = open(file_name, O_CREAT, 0644);
 	if (fd == -1)
 	{
 		perror("open");
-		g_global.exit_code = EXIT_FAILURE;
-		free(file_name);
-		return (g_global.exit_code);
+		return (ft_exit_create_file(file_name));
 	}
 	if (close(fd) == -1)
 	{
 		perror("close");
-		g_global.exit_code = EXIT_FAILURE;
-		free(file_name);
-		return (g_global.exit_code);
+		return (ft_exit_create_file(file_name));
 	}
-	free(file_name);
-	g_global.exit_code = EXIT_SUCCESS;
-	return (g_global.exit_code);
+	return (ft_exit_create_file(file_name));
 }
 
 static int	ft_create_redirect(t_exc exc)

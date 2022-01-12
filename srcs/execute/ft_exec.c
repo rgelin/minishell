@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:56:37 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_create_all_exec(char ***folder, t_exc command)
@@ -44,7 +56,7 @@ static int	ft_exec(t_exc command, char **env)
 	char	**folder;
 	char	**cmd;
 
-	ft_signal_msg(g_global.exit_code);
+	ft_signal_msg();
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);

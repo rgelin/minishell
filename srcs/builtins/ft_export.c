@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:23:43 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
-
-// need to add case (export ARG+=10)
-
-
-char	*ft_strtrim_plus_equal(char *arg)
-{
-	char	*str;
-	int		i;
-	int		j;
-
-	str = (char *)malloc(sizeof(char) * ft_strlen(arg));
-	if (!str)
-		exit(EXIT_FAILURE);
-	i = -1;
-	j = 0;
-	while (arg && arg[++i] && arg[i] != '=')
-	{
-		if (!(arg[i] == '+' && arg[i + 1] == '='))
-			str[j++] = arg[i];
-	}
-	str[j++] = '=';
-	while (arg && arg[++i])
-			str[j++] = arg[i];
-	str[j] = '\0';
-	return (str);
-}
 
 void	create_new_var_env(char *arg, char ***env)
 {
@@ -94,16 +79,19 @@ void	no_arg(char ***env)
 	ft_sort_string_tab(new_env);
 	i = -1;
 	while (new_env[++i])
-			printf("declare -x %s\n", new_env[i]);
+		printf("declare -x %s\n", new_env[i]);
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
+/*leak
+*	ligne 105 res = ft_strtrim_modified(arg, "\"");
+*/
 static char	*parse_arg(char *arg)
 {
-	char *res;
-	int	i;
+	char	*res;
+	int		i;
 
-	res = ft_strtrim_modified(arg, "\""); //leak
+	res = ft_strtrim_modified(arg, "\"");
 	free(arg);
 	arg = NULL;
 	i = -1;

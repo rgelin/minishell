@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_execute_pipe.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
+/*   Updated: 2022/01/12 11:29:18 by jvander-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static void	ft_open_pipes(int nbr_pipe, int **fds)
@@ -41,7 +53,7 @@ static void	ft_close_pipes(int nbr_pipe, int *fds)
 static void	ft_waiting_all_child(int nbr_pipe)
 {
 	int	i;
-	int status;
+	int	status;
 
 	i = 0;
 	while (i <= nbr_pipe)
@@ -60,6 +72,15 @@ static void	ft_waiting_all_child(int nbr_pipe)
 	}
 }
 
+void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= nbr_pipe)
+		ft_heredoc(cmds[i]);
+}
+
 void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 {
 	int	*fds;
@@ -67,10 +88,8 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 	int	n_pipe;
 
 	n_pipe = 0;
-	i = -1;
 	ft_open_pipes(nbr_pipe, &fds);
-	while (++i <= nbr_pipe)
-		ft_heredoc(cmds[i]);
+	ft_exec_heredoc(nbr_pipe, cmds);
 	i = -1;
 	while (++i <= nbr_pipe)
 	{
