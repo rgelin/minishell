@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:10:36 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/12 15:10:34 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 		ft_execute_command(exc[0], &new_env);
 	else
 		ft_execute_pipe(exc, tab->pipe, new_env);
-	ft_free_tab_exc(exc, tab);
 }
 
 void	ft_signal(void)
@@ -87,6 +86,7 @@ int	main(int argc, char **argv, char **env)
 				exc = last_parsing(tab, env);
 				ft_execute_line(exc, tab, new_env);
 			}
+			ft_free_tab_exc(exc, tab);
 		}
 	}
 	return (0);
