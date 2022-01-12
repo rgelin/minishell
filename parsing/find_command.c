@@ -5,8 +5,6 @@ void	init_tab(t_pars *tab)
 	tab->command = NULL;
 	tab->option = NULL;
 	tab->arg = NULL;
-	//tab->input = NULL;
-	//tab->output = NULL;
 	tab->heredoc = NULL;
 	tab->next_char = NULL;
 	tab->redirect = NULL;
@@ -21,7 +19,6 @@ t_pars	get_command(char *line, t_state *s)
 	(void)s;
 	init_tab(&tab);
 	new_line = get_heredoc(line, &tab);
-	//printf("new_line = %s\n", new_line);
 	if (new_line && ft_get_index(new_line) != 0)
 	{
 		next = ft_get_index(new_line);

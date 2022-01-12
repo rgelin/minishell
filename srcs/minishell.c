@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:43:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:16:37 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ int	main(int argc, char **argv, char **env)
 		if (state->line[0] != '\0')
 		{
 			tab = parsing(state);
-			//mettre condition si tab = NULL;
-			//et ne pas faire exc = last_parsing
-			exc = last_parsing(tab, env);
-			ft_execute_line(exc, tab, new_env);
+			if (tab)
+			{
+				exc = last_parsing(tab, env);
+				ft_execute_line(exc, tab, new_env);
+			}
 		}
 	}
 	return (0);
