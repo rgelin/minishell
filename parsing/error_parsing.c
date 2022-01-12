@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_parsing.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
+/*   Updated: 2022/01/12 12:24:08 by jlong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/minishell.h"
 
 void	ft_free_pars_tab(t_state *s)
@@ -10,7 +22,7 @@ void	ft_free_pars_tab(t_state *s)
 	while (nbr <= s->n_of_pipe)
 	{
 		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
-			free ((void*)s->cm[nbr]);
+			free(s->cm[nbr]);
 		nbr++;
 	}
 	if (s->cm)
@@ -49,7 +61,7 @@ void	ft_error_malloc(t_state *s)
 	while (nbr <= s->n_of_pipe)
 	{
 		if (s->cm[nbr] != NULL || s->cm[nbr][0] == '\0')
-			free ((void*)s->cm[nbr]);
+			free(s->cm[nbr]);
 		nbr++;
 	}
 	if (s->cm)
