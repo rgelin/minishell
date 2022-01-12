@@ -3,18 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+         #
+#    By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 10:07:20 by jvander-          #+#    #+#              #
-#    Updated: 2021/11/20 18:03:49 by rgelin           ###   ########.fr        #
+#    Updated: 2022/01/12 12:05:45 by jvander-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
 CC		=	gcc
-
-GNL		=	../GNL/
 
 FLAGS	=	-Wall -Werror -Wextra
 
@@ -66,8 +64,6 @@ SRC		=	ft_isdigit.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 			ft_atol.c \
-			$(GNL)get_next_line_utils.c \
-			$(GNL)get_next_line.c \
 
 #-------------------COLORS----------------------
 
