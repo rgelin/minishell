@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:52 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 12:45:00 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,23 @@ char	*ft_command(char *command)
 {
 	int		i;
 	char	*new;
+	char	*tmp;
 
 	i = 0;
 	if (!command)
 		return (NULL);
-	while (command[i] != '\0')
+	tmp = ft_strdup(command);
+	while (tmp[i] != '\0')
 	{
-		command[i] = ft_tolower(command[i]);
+		tmp[i] = ft_tolower(tmp[i]);
 		i++;
 	}
-	new = ft_strdup(command);
+	if ((ft_strncmp(tmp, "cd", 3)) == 0 || (ft_strncmp(tmp, "export", 6)) == 0)
+		new = ft_strdup(command);
+	else
+		new = ft_strdup(tmp);
 	free(command);
+	free(tmp);
 	return (new);
 }
 
