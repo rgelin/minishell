@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 03:17:19 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/13 03:18:45 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static char	**ft_simple(char *heredoc)
 	i = 0;
 	while (ft_strcmp(line[i], heredoc) != 0)
 	{
-		printf("line= %s\n", line[i]);
 		line = ft_realloc(line);
-		printf("line= %s\n", line[i]);
 		line[++i] = readline("> ");
 		line[i + 1] = NULL;
 	}
