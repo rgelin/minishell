@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:17:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:28:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,5 +215,6 @@ void		ft_signal_msg(void);
 void		ft_ctrl_c(int signal);
 void		ft_ctrl_backslash(int signal);
 void		ft_set_signal(void);
-
+void		ft_ctrl_d(t_state *state);
+void		ft_signal(void);
 #endif

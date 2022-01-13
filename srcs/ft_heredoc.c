@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 15:38:22 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:28:47 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,6 @@ static void	ft_simple(char *heredoc, int *fds, int n_pipe)
 	free(line);
 	close(fd);
 }
-// static void	ft_test(char *heredoc, int *fds, int n_pipe)
-// {
-// 	char	*line;
-
-// 	line = readline("> ");
-// 	dup2(fds[n_pipe + 1], STDOUT_FILENO);
-// 	close(fds[n_pipe + 1]);
-// 	write(fds[n_pipe + 1], line, ft_strlen(line));
-// 	while (ft_strcmp(line, heredoc) != 0)
-// 	{
-// 		free(line);
-// 		line = readline("> ");
-// 		write(fds[n_pipe + 1], line, ft_strlen(line));
-// 	}
-// 	dup2(fds[n_pipe], STDIN_FILENO);
-// 	close(fds[n_pipe]);
-// 	free(line);
-// }
-
-// static void	ft_iscat(t_exc cmd)
-// {
-// 	if (cmd.cmd)
-// 	{
-// 		if (!ft_strcmp(cmd.cmd, "cat"))
-// 		{
-// 			free(cmd.cmd);
-// 			cmd.cmd = ft_strdup("");
-// 		}
-// 	}
-// }
 
 void	ft_heredoc(t_exc cmd, int *fds, int n_pipe)
 {
@@ -75,7 +45,6 @@ void	ft_heredoc(t_exc cmd, int *fds, int n_pipe)
 
 	if (cmd.heredoc == NULL)
 		return ;
-	// ft_iscat(cmd);
 	g_global.in_heredoc = 1;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:32 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:53:37 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/13 16:25:34 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 
 int	check_lower_case(t_exc exc)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	// printf("cmd: %s\n", exc.cmd);

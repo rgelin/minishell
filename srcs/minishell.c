@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:19:04 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:43:12 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
+static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 {
 	int	n_pipe;
 	int	*fds;
+
 	n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc, fds, n_pipe);
-	if (check_builtin(exc->cmd) != ECHO)
+	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
-	// ft_exec_heredoc(tab->pipe, exc);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
 		ft_free(new_env, ft_tabsize(new_env));
@@ -41,31 +41,14 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 		ft_execute_pipe(exc, tab->pipe, new_env, fds);
 }
 
-void	ft_signal(void)
-{
-	signal(SIGQUIT, &ft_ctrl_backslash);
-	signal(SIGINT, &ft_ctrl_c);
-}
-
-void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
-{
-	(void)tab;
-	(void)exc;
-	if (!state->line)
-	{
-		printf("exit\n");
-		exit(EXIT_SUCCESS);
-	}
-}
-
-void	ft_prompt(t_state *state, t_exc *exc, t_pars *tab)
+void	ft_prompt(t_state *state)
 {
 	g_global.fork_pid = 0;
 	init_struct(state);
 	rl_on_new_line();
 	(state)->line = readline("\x1b[34mminishell > \x1b[0m");
 	add_history(state->line);
-	ft_ctrl_d(state, exc, tab);
+	ft_ctrl_d(state);
 	if (state && state->line[0] == '\0')
 	{
 		free(state->line);
@@ -88,7 +71,7 @@ int	main(int argc, char **argv, char **env)
 	ft_signal();
 	while (1)
 	{
-		ft_prompt(state, exc, tab);
+		ft_prompt(state);
 		if (state->line && state->line[0] != '\0')
 		{
 			tab = parsing(state);

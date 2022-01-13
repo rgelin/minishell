@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:56 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:33:57 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:38:19 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_handler_heredoc(int sig_code)
 	if (!g_global.fork_pid)
 	{
 		if (sig_code == SIGINT)
+		{
+			g_global.exit_code = 1;
 			exit(1);
+		}
 		else
 		{
 			rl_on_new_line();

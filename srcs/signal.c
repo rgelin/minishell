@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:48 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:13:23 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/13 16:45:33 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_ctrl_c(int signal)
 	(void)signal;
 	if (g_global.in_heredoc)
 	{
+		g_global.exit_code = 1;
 		ft_putchar_fd('\n', 1);
 		return ;
 	}
@@ -47,5 +48,20 @@ void	ft_ctrl_backslash(int signal)
 	{
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	ft_signal(void)
+{
+	signal(SIGQUIT, &ft_ctrl_backslash);
+	signal(SIGINT, &ft_ctrl_c);
+}
+
+void	ft_ctrl_d(t_state *state)
+{
+	if (!state->line)
+	{
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
 	}
 }

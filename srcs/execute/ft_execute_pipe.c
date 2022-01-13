@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:16:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:25:08 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,12 @@ static void	ft_waiting_all_child(int nbr_pipe)
 			g_global.exit_code = status;
 		i++;
 	}
-	// g_global.exit_code = *status;
-	// printf("exit code: %d\n", g_global.exit_code);
 }
 
 void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i <= nbr_pipe)
 		ft_heredoc(cmds[i], fds, n_pipe);

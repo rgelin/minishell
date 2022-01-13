@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:06:47 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:43:32 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ static int	ft_create_file(char *name)
 		perror("close");
 		return (ft_exit_create_file(file_name));
 	}
-	return (ft_exit_create_file(file_name));
+	return (EXIT_SUCCESS);
 }
 
 static int	ft_create_redirect(t_exc exc)
 {
 	char	*current;
 	int		i;
-
+	int		status;
+	
 	i = 0;
 	if (!exc.redirect || !ft_tabsize(exc.redirect))
 		return (-2);
@@ -57,11 +58,11 @@ static int	ft_create_redirect(t_exc exc)
 	while (current)
 	{
 		if (ft_strncmp(current, ">>", 2) == 0)
-			g_global.exit_code = ft_create_file(current + 2);
+			status = ft_create_file(current + 2);
 		else if (ft_strncmp(current, ">", 1) == 0)
-			g_global.exit_code = ft_create_file(current + 1);
-		if (g_global.exit_code == 1)
-			return (1);
+			status = ft_create_file(current + 1);
+		if (status == 1)
+			return (status);
 		current = exc.redirect[++i];
 	}
 	return (EXIT_SUCCESS);
@@ -79,5 +80,4 @@ void	ft_create_all_redirect(t_exc *exc, int size)
 		ret = ft_create_redirect(exc[i]);
 		i++;
 	}
-	(void)ret;
 }
