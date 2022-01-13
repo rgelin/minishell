@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:33 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 15:46:13 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 13:13:20 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ t_pars	*split_line(t_state *s)
 		exit(EXIT_FAILURE);
 	split_pipe(s);
 	tab = find_command(s);
-	//ft_free_pars(s);
 	return (tab);
 }

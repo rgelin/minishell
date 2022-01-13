@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:07 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/13 09:20:47 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 13:12:53 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ char	*cut_heredoc(char *line, int index, char **tab_here)
 	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
 	tmp.new_line = ft_strjoin_double_free(tmp.tmp, "");
 	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
-	//if	(line)
-	//	free(line);
-	//line = NULL;
-	//if (tmp.tmp)
-	//	free(tmp.tmp);
 	free(tmp.rest);
 	return (tmp.new_line);
 }

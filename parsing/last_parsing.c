@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/13 12:45:00 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 13:12:27 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*new_redirect(char *line)
 	tmp.new_line = ft_strjoin_double_free(tmp.tmp, tmp.var);
 	free(line);
 	line = NULL;
-	//free(tmp.tmp);
 	free(tmp.var);
 	return (tmp.new_line);
 }
