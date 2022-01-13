@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:07 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 15:28:12 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 09:20:02 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,16 @@ char	*get_heredoc(char *line, t_pars *tab_here)
 	nbr_of_here = 0;
 	nbr_of_here = nbr_of_heredoc(line);
 	if (nbr_of_here < 1)
-		return (line);
+	{
+		tmp = ft_strdup(line);
+		return (tmp);
+	}
 	tab = malloc(sizeof(char *) * (nbr_of_here + 1));
 	if (!tab)
 		exit(EXIT_FAILURE);
 	new_line = get_tab_heredoc(line, tab);
 	tab_here->heredoc = tab;
-	//new_line = ft_strtrim(new_line, " ");
 	tmp = ft_strtrim(new_line, " ");
-	//free(line);
-	//free(new_line);
 	line = NULL;
 	return (tmp);
 }
