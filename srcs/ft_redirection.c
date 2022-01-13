@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:33:53 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:33:39 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,22 @@ static void	ft_set_input_file(char *input)
 void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
 {
 	char	*input;
-
+	int		fd;
+	
 	input = ft_get_last_input(cmd);
 	if (input)
 		ft_set_input_file(input);
+	if (cmd.heredoc)
+	{
+		fd = open("/tmp/heredoc.txt", O_RDWR | O_CREAT, 0644);
+		if (dup2(fd, STDIN_FILENO) == -1)
+		{
+			ft_perror("dup2", NULL, "Error dup2 STDIN");
+			g_global.exit_code = EXIT_FAILURE;
+			exit(g_global.exit_code);
+		}
+		close(fd);
+	}
 	if (n_pipe != 0)
 	{
 		if (!ft_get_last_input(cmd))
