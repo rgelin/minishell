@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 03:18:45 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/13 03:26:03 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ static char	**ft_simple(char *heredoc)
 	return (line);
 }
 
+static void	ft_iscat(t_exc cmd)
+{
+	if (cmd.cmd)
+	{
+		if (!ft_strcmp(cmd.cmd, "cat"))
+		{
+			free(cmd.cmd);
+			cmd.cmd = ft_strdup("");
+		}
+	}
+}
+
 void	ft_heredoc(t_exc cmd)
 {
 	int	i;
@@ -55,6 +67,7 @@ void	ft_heredoc(t_exc cmd)
 
 	if (cmd.heredoc == NULL)
 		return ;
+	ft_iscat(cmd);
 	g_global.in_heredoc = 1;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)
