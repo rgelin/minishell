@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 14:51:47 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 11:28:57 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*option(char **options)
 	size = 0;
 	i = 0;
 	if (options[i] == NULL)
+	{
+		free(options);
 		return (NULL);
+	}
 	while (options[i])
 	{
 		size = size + ft_strlen(options[i]);
@@ -38,6 +41,7 @@ char	*option(char **options)
 		line = ft_strcat(line, options[i]);
 		free(options[i]);
 	}
+	free(options);
 	return (line);
 }
 
