@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 15:29:20 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 12:47:02 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 	if (check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
+	ft_exec_heredoc(tab->pipe, exc);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
 		ft_free(new_env, ft_tabsize(new_env));
@@ -52,14 +53,19 @@ void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
 	}
 }
 
-void	ft_prompt(t_state **state, t_exc *exc, t_pars *tab)
+void	ft_prompt(t_state *state, t_exc *exc, t_pars *tab)
 {
 	g_global.fork_pid = 0;
-	init_struct(*state);
+	init_struct(state);
 	rl_on_new_line();
-	(*state)->line = readline("\x1b[34mminishell > \x1b[0m");
-	add_history((*state)->line);
-	ft_ctrl_d(*state, exc, tab);
+	(state)->line = readline("\x1b[34mminishell > \x1b[0m");
+	add_history(state->line);
+	ft_ctrl_d(state, exc, tab);
+	if (state && state->line[0] == '\0')
+	{
+		free(state->line);
+		state->line = NULL;
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -77,8 +83,8 @@ int	main(int argc, char **argv, char **env)
 	ft_signal();
 	while (1)
 	{
-		ft_prompt(&state, exc, tab);
-		if (state->line[0] != '\0')
+		ft_prompt(state, exc, tab);
+		if (state->line && state->line[0] != '\0')
 		{
 			tab = parsing(state);
 			if (tab)

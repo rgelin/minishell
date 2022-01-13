@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:38:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 15:17:43 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 09:44:12 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ void	ft_free_tab_exc(t_exc *last_tab, t_pars *tab)
 			if (last_tab[i].opt)
 				free(last_tab[i].opt);
 			if (last_tab[i].redirect)
-				ft_free(last_tab->redirect, ft_tabsize(last_tab->redirect));
+				ft_free(last_tab[i].redirect, ft_tabsize(last_tab[i].redirect));
 			if (last_tab[i].arg)
-				ft_free(last_tab->arg, ft_tabsize(last_tab->arg));
+				ft_free(last_tab[i].arg, ft_tabsize(last_tab[i].arg));
 			if (last_tab[i].heredoc)
-				ft_free(last_tab->heredoc, ft_tabsize(last_tab->heredoc));
-			// ft_free_redirect(last_tab, i);
-			// ft_free_arg(last_tab, i);
-			// ft_free_heredoc(last_tab, i);
+				ft_free(last_tab[i].heredoc, ft_tabsize(last_tab[i].heredoc));
 		}
 	}
+	free(tab);
+	free(last_tab);
 }

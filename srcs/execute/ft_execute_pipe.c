@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 03:25:54 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/13 13:44:35 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 
 	n_pipe = 0;
 	ft_open_pipes(nbr_pipe, &fds);
-	ft_exec_heredoc(nbr_pipe, cmds);
 	i = -1;
 	while (++i <= nbr_pipe)
 	{

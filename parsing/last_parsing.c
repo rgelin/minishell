@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 14:51:47 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/13 13:12:27 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*option(char **options)
 	size = 0;
 	i = 0;
 	if (options[i] == NULL)
+	{
+		free(options);
 		return (NULL);
+	}
 	while (options[i])
 	{
 		size = size + ft_strlen(options[i]);
@@ -38,6 +41,7 @@ char	*option(char **options)
 		line = ft_strcat(line, options[i]);
 		free(options[i]);
 	}
+	free(options);
 	return (line);
 }
 
@@ -45,17 +49,23 @@ char	*ft_command(char *command)
 {
 	int		i;
 	char	*new;
+	char	*tmp;
 
 	i = 0;
 	if (!command)
 		return (NULL);
-	while (command[i] != '\0')
+	tmp = ft_strdup(command);
+	while (tmp[i] != '\0')
 	{
-		command[i] = ft_tolower(command[i]);
+		tmp[i] = ft_tolower(tmp[i]);
 		i++;
 	}
-	new = ft_strdup(command);
+	if ((ft_strncmp(tmp, "cd", 3)) == 0 || (ft_strncmp(tmp, "export", 6)) == 0)
+		new = ft_strdup(command);
+	else
+		new = ft_strdup(tmp);
 	free(command);
+	free(tmp);
 	return (new);
 }
 
@@ -78,7 +88,6 @@ char	*new_redirect(char *line)
 	tmp.new_line = ft_strjoin_double_free(tmp.tmp, tmp.var);
 	free(line);
 	line = NULL;
-	//free(tmp.tmp);
 	free(tmp.var);
 	return (tmp.new_line);
 }
