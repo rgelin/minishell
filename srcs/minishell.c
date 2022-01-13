@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/13 11:23:52 by jlong            ###   ########.fr       */
+=======
+/*   Updated: 2022/01/13 11:14:46 by jvander-         ###   ########.fr       */
+>>>>>>> 430409aaab6daf6b3e0666ad8e009cf1a0d9a5ae
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +24,7 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 	if (check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
+	ft_exec_heredoc(tab->pipe, exc);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
 		ft_free(new_env, ft_tabsize(new_env));

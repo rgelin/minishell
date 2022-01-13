@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:51:13 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:14:16 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env)
 
 	n_pipe = 0;
 	ft_open_pipes(nbr_pipe, &fds);
-	ft_exec_heredoc(nbr_pipe, cmds);
 	i = -1;
 	while (++i <= nbr_pipe)
 	{
