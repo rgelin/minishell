@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:23:35 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:22:00 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_cd(t_exc exc, char ***env)
 
 	g_global.exit_code = 0;
 	getcwd(old_path, 1024);
+	if (check_lower_case(exc))
+		return (CD);
 	if (exc.arg != NULL)
 	{
 		if (!ft_strncmp(exc.arg[0], "..", 3))

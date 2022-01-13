@@ -3,23 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:33:50 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 03:17:19 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_simple(char *heredoc)
+static char **ft_realloc(char **tab)
 {
-	char	*line;
+	int	i;
+	char **res;
+	
+	i = -1;
+	res = malloc(sizeof(char *) * (ft_tabsize(tab) + 2));
+	if (!res)
+		exit(EXIT_FAILURE);
+	while (tab[++i])
+		res[i] = tab[i];
+	return (res);
+}
 
+static char	**ft_simple(char *heredoc)
+{
+	char	**line;
+	int		i;
+
+	line = malloc(sizeof(char *) + 1);
+	if (!line)
+		exit(EXIT_FAILURE);
 	rl_on_new_line();
-	line = readline("> ");
-	while (ft_strcmp(line, heredoc) != 0)
-		line = readline("> ");
+	i = -1;
+	line[++i] = readline("> ");
+	line[++i] = NULL;
+	i = 0;
+	while (ft_strcmp(line[i], heredoc) != 0)
+	{
+		printf("line= %s\n", line[i]);
+		line = ft_realloc(line);
+		printf("line= %s\n", line[i]);
+		line[++i] = readline("> ");
+		line[i + 1] = NULL;
+	}
+	return (line);
 }
 
 void	ft_heredoc(t_exc cmd)

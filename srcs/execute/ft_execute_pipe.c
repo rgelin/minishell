@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:13:56 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/12 14:53:19 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_waiting_all_child(int nbr_pipe)
 		i++;
 	}
 	// g_global.exit_code = *status;
-	printf("exit code: %d\n", g_global.exit_code);
+	// printf("exit code: %d\n", g_global.exit_code);
 }
 
 void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds)

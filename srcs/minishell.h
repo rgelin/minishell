@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:44:43 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:22:46 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int			ft_echo(t_exc exc);
 int			ft_env(char **env);
 int			ft_pwd(void);
 int			ft_cd(t_exc exc, char ***env);
+int			check_lower_case(t_exc exc);
 int			ft_export(t_exc exc, char ***env);
 int			ft_unset(t_exc exc, char ***env);
 void		ft_exit(t_exc exc);
