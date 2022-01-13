@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 14:40:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:19:04 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 {
+	int	n_pipe;
+	int	*fds;
+	n_pipe = 0;
+	ft_open_pipes(tab->pipe, &fds);
+	ft_exec_heredoc(tab->pipe, exc, fds, n_pipe);
 	if (check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
@@ -33,7 +38,7 @@ void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 			|| check_builtin(exc[0].cmd) == UNSET))
 		ft_execute_command(exc[0], &new_env);
 	else
-		ft_execute_pipe(exc, tab->pipe, new_env);
+		ft_execute_pipe(exc, tab->pipe, new_env, fds);
 }
 
 void	ft_signal(void)
@@ -49,7 +54,7 @@ void	ft_ctrl_d(t_state *state, t_exc *exc, t_pars *tab)
 	if (!state->line)
 	{
 		printf("exit\n");
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }
 

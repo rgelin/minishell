@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:33:41 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:06:47 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_create_file(char *name)
 	fd = open(file_name, O_CREAT, 0644);
 	if (fd == -1)
 	{
-		perror("open");
+		ft_perror("open", file_name, "Impossible to open file");
 		return (ft_exit_create_file(file_name));
 	}
 	if (close(fd) == -1)
@@ -60,6 +60,8 @@ static int	ft_create_redirect(t_exc exc)
 			g_global.exit_code = ft_create_file(current + 2);
 		else if (ft_strncmp(current, ">", 1) == 0)
 			g_global.exit_code = ft_create_file(current + 1);
+		if (g_global.exit_code == 1)
+			return (1);
 		current = exc.redirect[++i];
 	}
 	return (EXIT_SUCCESS);
@@ -72,7 +74,7 @@ void	ft_create_all_redirect(t_exc *exc, int size)
 
 	ret = 0;
 	i = 0;
-	while (i <= size)
+	while (!ret && i <= size)
 	{
 		ret = ft_create_redirect(exc[i]);
 		i++;

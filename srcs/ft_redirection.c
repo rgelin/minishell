@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 15:33:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:08:46 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_set_output_file(char *output)
 		fd = open(output + 1, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
+		printf("plop\n");
 		ft_perror("open", output, "Impossible to open file");
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
