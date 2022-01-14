@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 16:03:14 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 17:58:22 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,14 @@ char	*option(char **options)
 	int		size;
 
 	size = 0;
-	i = 0;
-	if (options[i] == NULL)
+	i = -1;
+	if (options[0] == NULL)
 	{
 		free(options);
 		return (NULL);
 	}
-	while (options[i])
-	{
+	while (options[++i])
 		size = size + ft_strlen(options[i]);
-		i++;
-	}
 	line = malloc(sizeof(line) * (size + 2));
 	if (!line)
 		exit(EXIT_FAILURE);
@@ -37,11 +34,8 @@ char	*option(char **options)
 	line[0] = '-';
 	line[1] = '\0';
 	while (options[++i])
-	{
 		line = ft_strcat(line, options[i]);
-		free(options[i]);
-	}
-	free(options);
+	ft_free(options, ft_tabsize(options));
 	return (line);
 }
 
