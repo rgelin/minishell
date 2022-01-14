@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:22:00 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 13:40:50 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*our_getenv(char *line, char **env)
 		tmp = ft_strdup(test[1]);
 	}
 	if (index == -1)
-		tmp = "";
+		tmp = ft_strdup("");
 	index = -1;
 	while (test && test[++index] != NULL)
 		free(test[index]);

@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/14 12:06:42 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 12:37:26 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ static int	ft_exit_create_file(char *file_name)
 	return (g_global.exit_code);
 }
 //changement nom ici
+/*
+char	*check_file_name(char	*name)
+{
+	char	*file_name;
+
+	file_name = ft_strdup(name);
+
+}
+*/
 static int	ft_create_file(char *name)
 {
 	char	*file_name;

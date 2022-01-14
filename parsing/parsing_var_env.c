@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 08:11:17 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 16:24:49 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*insert_var_env(char *line, int index, char **env)
 	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
 	free(line);
 	free(tmp.rest);
+	free(tmp.var);
 	line = NULL;
 	return (tmp.new_line);
 }
@@ -65,12 +66,12 @@ char	*check_var_env_bis(char *line, char **env, char c, int i)
 	if (c == '?')
 	{
 		new_line = insert_exit_code(line, i);
-		line = new_line;
+		//line = new_line;
 	}
 	else
 	{
 		new_line = insert_var_env(line, i, env);
-		line = new_line;
+		//line = new_line;
 	}
 	return (new_line);
 }
@@ -81,11 +82,13 @@ char	*check_var_env(char *line, char **env)
 	char	*new_line;
 
 	i = 0;
+	new_line = NULL;
 	while (line[i] != '\0')
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
-			line = check_var_env_bis(line, env, '?', i);
+			new_line = check_var_env_bis(line, env, '?', i);
+			line = new_line;
 			i = -1;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
@@ -94,7 +97,8 @@ char	*check_var_env(char *line, char **env)
 			i++;
 		else if (line[i] == '$')
 		{
-			line = check_var_env_bis(line, env, ' ', i);
+			new_line = check_var_env_bis(line, env, ' ', i);
+			line = new_line;
 			i = -1;
 		}
 		else
