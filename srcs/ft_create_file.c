@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:43:32 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/14 12:06:42 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_exit_create_file(char *file_name)
 		free(file_name);
 	return (g_global.exit_code);
 }
-
+//changement nom ici
 static int	ft_create_file(char *name)
 {
 	char	*file_name;
@@ -42,6 +42,7 @@ static int	ft_create_file(char *name)
 		perror("close");
 		return (ft_exit_create_file(file_name));
 	}
+	free(file_name);
 	return (EXIT_SUCCESS);
 }
 

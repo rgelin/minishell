@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/13 13:12:27 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 07:09:09 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*new_redirect(char *line)
 	return (tmp.new_line);
 }
 
-char	**get_redirect_bis(char **tab_redirect)
+char	**get_redirect_bis(char **tab_redirect, char **env)
 {
 	int		i;
 	char	**new;
@@ -104,6 +104,7 @@ char	**get_redirect_bis(char **tab_redirect)
 		tab_redirect[i] = new_redirect(tab_redirect[i]);
 		i++;
 	}
+	tab_redirect = ft_arg(tab_redirect, env);
 	new = tab_redirect;
 	return (new);
 }
@@ -126,7 +127,7 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 		if (tab[i].option)
 			last_tab[i].opt = option(tab[i].option);
 		if (tab[i].redirect)
-			last_tab[i].redirect = get_redirect_bis(tab[i].redirect);
+			last_tab[i].redirect = get_redirect_bis(tab[i].redirect, env);
 		if (tab[i].heredoc)
 			last_tab[i].heredoc = tab[i].heredoc;
 		if (tab[i].arg)

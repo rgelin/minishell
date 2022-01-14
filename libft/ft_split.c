@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:07:10 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 15:15:19 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 07:19:27 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	**ft_free(char **s, int len_tab)
 		return (NULL);
 	while (i < len_tab && s[i])
 	{
-		//printf("%s\n", s[i]);
 		free(s[i]);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:43:12 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/14 12:09:05 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ int	main(int argc, char **argv, char **env)
 			{
 				exc = last_parsing(tab, env);
 				ft_execute_line(exc, tab, new_env);
+				ft_free_tab_exc(exc, tab);
 			}
-			ft_free_tab_exc(exc, tab);
+			//ft_free_tab_exc(exc, tab);
 		}
 	}
 	return (0);
