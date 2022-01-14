@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:22:08 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 18:08:51 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ char	**ft_echo_arg(char *line)
 		}
 	}
 	arg = return_arg_echo(tmp, n);
-	i = -1;
-	while (tmp[++i])
-		free(tmp[i]);
-	free(tmp);
+	ft_free(tmp, ft_tabsize(tmp));
 	return (arg);
 }
 
