@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:58 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 13:41:01 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 17:21:44 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,5 @@ char	*ft_strjoin_double_free(char *s1, char *s2)
 		new_str[count + ft_strlen(s1)] = s2[count];
 	new_str[count + ft_strlen(s1)] = '\0';
 	free(s1);
-	//if (ft_strlen(s2) > 0)
-	//	free(s2);
 	return (new_str);
 }

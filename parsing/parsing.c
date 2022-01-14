@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 12:02:31 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 17:21:28 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	check_parsing(t_state *s)
 	if (!check_quote(s->line, s->eof))
 	{
 		write(1, "Error quote\n", 12);
-		//ft_free_pars_error(s);
 		return (0);
 	}
 	if (s->n_of_pipe >= 0)
@@ -83,8 +82,6 @@ t_pars	*parsing(t_state *s)
 	{
 		tab = split_line(s);
 		tab->pipe = s->n_of_pipe;
-		//ft_free(s->cm, tab->pipe + 1);
-		//ft_free_pars_tab(s);
 	}
 	ft_free(s->cm, s->n_of_pipe + 1);
 	ft_free_pars_tab(s);

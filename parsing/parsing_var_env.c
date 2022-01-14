@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 16:24:49 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/14 17:22:01 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ char	*check_var_env_bis(char *line, char **env, char c, int i)
 	if (c == '?')
 	{
 		new_line = insert_exit_code(line, i);
-		//line = new_line;
 	}
 	else
 	{
 		new_line = insert_var_env(line, i, env);
-		//line = new_line;
 	}
 	return (new_line);
 }
