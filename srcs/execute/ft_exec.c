@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 15:05:04 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 12:27:33 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	ft_create_all_exec(char ***folder, t_exc command)
 		return (0);
 	while ((*folder)[i])
 	{
-		(*folder)[i] = ft_strjoin((*folder)[i], "/");
+		(*folder)[i] = ft_strjoin_free((*folder)[i], "/");
 		if (!(*folder)[i])
 			return (0);
-		(*folder)[i] = ft_strjoin((*folder)[i], command.cmd);
+		(*folder)[i] = ft_strjoin_free((*folder)[i], command.cmd);
 		if (!(*folder)[i])
 			return (0);
 		i++;
