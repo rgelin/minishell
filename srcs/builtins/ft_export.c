@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:13:32 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/15 14:47:16 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	no_arg(char ***env)
 		if (ft_strchr_modified((*env)[i], '=') == 0)
 		{
 			new_env[i] = ft_strdup((*env)[i]);
+			if (!new_env[i])
+				exit(EXIT_FAILURE);
 		}
 		else
 			new_env[i] = add_quotes((*env)[i]);
