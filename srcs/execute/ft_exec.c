@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:05:24 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:08:44 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	ft_try_exec(t_exc command, char **cmd, char **folder, char **env)
 	int	i;
 
 	i = -1;
-	if (!ft_strlen(command.cmd) && ft_tabsize(command.heredoc))
+	if (!ft_strlen(command.cmd) && ft_tabsize(command.heredoc)
+		&& g_global.exit_code == 0)
 		exit(EXIT_SUCCESS);
 	if (ft_tabsize(command.heredoc) && g_global.exit_code == 1)
 		exit(EXIT_FAILURE);
