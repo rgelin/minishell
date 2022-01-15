@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 13:24:43 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:35:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
 	}
 	return (0);
 }
+
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 {
 	int	n_pipe;

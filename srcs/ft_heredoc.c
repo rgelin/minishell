@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:28:47 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:36:41 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ft_simple(char *heredoc, int *fds, int n_pipe)
 {
 	int		fd;
 	char	*line;
+
 	(void)fds;
 	(void)n_pipe;
 	fd = open("/tmp/heredoc.txt", O_TRUNC | O_WRONLY | O_CREAT, 0644);
