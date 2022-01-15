@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/14 12:37:26 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/15 14:36:28 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*check_file_name(char	*name)
 
 }
 */
+
 static int	ft_create_file(char *name)
 {
 	char	*file_name;
@@ -60,7 +61,7 @@ static int	ft_create_redirect(t_exc exc)
 	char	*current;
 	int		i;
 	int		status;
-	
+
 	i = 0;
 	if (!exc.redirect || !ft_tabsize(exc.redirect))
 		return (-2);

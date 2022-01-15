@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/14 12:11:09 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/15 14:35:42 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
 {
 	char	*input;
 	int		fd;
-	
+
 	input = ft_get_last_input(cmd);
 	if (input)
 		ft_set_input_file(input);
