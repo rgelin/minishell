@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:28:01 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 13:44:59 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ int			ft_echo(t_exc exc);
 int			ft_env(char **env);
 int			ft_pwd(void);
 int			ft_cd(t_exc exc, char ***env);
-int			check_lower_case(t_exc exc);
 int			ft_export(t_exc exc, char ***env);
 int			ft_unset(t_exc exc, char ***env);
 void		ft_exit(t_exc exc);

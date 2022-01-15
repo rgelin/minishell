@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:22:00 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/15 13:52:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,19 @@ int	ft_cd(t_exc exc, char ***env)
 
 	g_global.exit_code = 0;
 	getcwd(old_path, 1024);
-	if (check_lower_case(exc))
-		return (CD);
 	if (exc.arg != NULL)
 	{
-		if (!ft_strncmp(exc.arg[0], "..", 3))
+		if (!ft_strncmp(exc.arg[0], "/", 1))
+		{
+			if (chdir(exc.arg[0]))
+			{
+				ft_perror("cd", exc.arg[0], strerror(errno));
+				g_global.exit_code = 1;
+			}
+			else
+				set_pwd_and_oldpwd(exc.arg[0], old_path, env);
+		}
+		else if (!ft_strncmp(exc.arg[0], "..", 3))
 			go_previous(exc.arg[0], old_path, env);
 		else if (exc.arg[0][0] == '~' && !exc.arg[0][1])
 			go_to_home(env, old_path);

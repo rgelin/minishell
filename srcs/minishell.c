@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/14 16:59:23 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/15 13:24:43 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
+static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
+{
+	int	i;
+
+	i = -1;
+	while (++i < tab->pipe)
+	{
+		if (ft_tabsize(exc[i].heredoc))
+			return (1);
+	}
+	return (0);
+}
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 {
 	int	n_pipe;
@@ -23,6 +35,8 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 	n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc, fds, n_pipe);
+	if (ft_contain_heredoc(exc, tab) && g_global.exit_code == 1)
+		return ;
 	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);

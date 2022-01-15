@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:32 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:25:34 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:05:26 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,4 @@ void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 		(*env)[index_old] = NULL;
 		(*env)[index_old] = old_pwd;
 	}
-}
-
-int	check_lower_case(t_exc exc)
-{
-	int	i;
-
-	i = -1;
-	// printf("cmd: %s\n", exc.cmd);
-	while (exc.cmd[++i])
-	{
-		if (exc.cmd[i] < 'a' && exc.cmd[i] > 'z')
-			return (1);
-	}
-	return (0);
 }

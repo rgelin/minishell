@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 14:13:37 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/15 13:53:23 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*parse_arg(char *arg)
 	{
 		if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
 		{
-			ft_perror("export", res, "not a valid identifier");
+			ft_perror("unset", res, "not a valid identifier");
 			g_global.exit_code = 1;
 			return (NULL);
 		}

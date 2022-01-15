@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/13 16:25:08 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:03:25 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_close_pipes(int nbr_pipe, int *fds)
 	}
 }
 
-static void	ft_waiting_all_child(int nbr_pipe)
+static int	ft_waiting_all_child(int nbr_pipe)
 {
 	int	i;
 	int	status;
@@ -67,10 +67,9 @@ static void	ft_waiting_all_child(int nbr_pipe)
 			else if (WIFSIGNALED(status))
 				status = 128 + WTERMSIG(status);
 		}
-		if (i == 0)
-			g_global.exit_code = status;
 		i++;
 	}
+	return (status);
 }
 
 void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
@@ -102,7 +101,7 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env, int *fds)
 		n_pipe += 2;
 	}
 	ft_close_pipes(nbr_pipe, fds);
-	ft_waiting_all_child(nbr_pipe);
+	g_global.exit_code = ft_waiting_all_child(nbr_pipe);
 	ft_signal_msg();
 	free(fds);
 }
