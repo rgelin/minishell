@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:03:25 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:31:28 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ static int	ft_waiting_all_child(int nbr_pipe)
 			else if (WIFSIGNALED(status))
 				status = 128 + WTERMSIG(status);
 		}
+		if (i == 0)
+			g_global.exit_code = status;
 		i++;
 	}
-	return (status);
+	return (g_global.exit_code);
 }
 
 void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
