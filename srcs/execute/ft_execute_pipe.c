@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_pipe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:03:25 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:07:38 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
 		ft_heredoc(cmds[i], fds, n_pipe);
 }
 
-void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env, int *fds)
+void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds)
 {
 	int	i;
 	int	n_pipe;
@@ -96,7 +96,7 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env, int *fds)
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
 			ft_redirect_input(cmds[i], n_pipe, fds);
 			ft_close_pipes(nbr_pipe, fds);
-			exit (execute(cmds[i], &env));
+			exit (execute(cmds[i], env));
 		}
 		n_pipe += 2;
 	}

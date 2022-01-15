@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 13:44:59 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:08:12 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		ft_create_all_redirect(t_exc *exc, int size);
 long		get_lvl_shlvl(char ***env);
 char		**cpy_env(char **env);
 void		update_shlvl(char ***env);
-void		ft_execute_pipe(t_exc *cmds, int nbr_pipe, char **env, int *fds);
+void		ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds);
 void		ft_redirect_input(t_exc cmd, int n_pipe, int *fds);
 void		ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
 void		ft_heredoc(t_exc cmd, int *fds, int n_pipe);

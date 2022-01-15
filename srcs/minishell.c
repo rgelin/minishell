@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 13:24:43 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:08:23 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
 	}
 	return (0);
 }
-static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
+
+static void ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {
 	int	n_pipe;
 	int	*fds;
@@ -42,7 +43,7 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
-		ft_free(new_env, ft_tabsize(new_env));
+		ft_free(*new_env, ft_tabsize(*new_env));
 		ft_exit(exc[0]);
 		ft_free_tab_exc(exc, tab);
 		exit(g_global.exit_code);
@@ -50,7 +51,7 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char **new_env)
 	if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
 			|| check_builtin(exc[0].cmd) == EXPORT
 			|| check_builtin(exc[0].cmd) == UNSET))
-		ft_execute_command(exc[0], &new_env);
+		ft_execute_command(exc[0], new_env);
 	else
 		ft_execute_pipe(exc, tab->pipe, new_env, fds);
 }
@@ -92,7 +93,7 @@ int	main(int argc, char **argv, char **env)
 			if (tab)
 			{
 				exc = last_parsing(tab, env);
-				ft_execute_line(exc, tab, new_env);
+				ft_execute_line(exc, tab, &new_env);
 				ft_free_tab_exc(exc, tab);
 			}
 			//ft_free_tab_exc(exc, tab);
