@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 18:10:48 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/16 15:29:13 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,13 @@ char	*check_var_env(char *line, char **env)
 	int		i;
 	char	*new_line;
 
-	i = 0;
+	i = -1;
 	new_line = NULL;
-	while (line[i] != '\0')
+	while (line[++i] != '\0')
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
-			new_line = check_var_env_bis(line, env, '?', i);
-			line = new_line;
+			line = check_var_env_bis(line, env, '?', i);
 			i = -1;
 		}
 		else if (line[i] == '$' && (line[i + 1] == '\0' || line[i + 1] == ' '))
@@ -95,13 +94,11 @@ char	*check_var_env(char *line, char **env)
 			i++;
 		else if (line[i] == '$')
 		{
-			new_line = check_var_env_bis(line, env, ' ', i);
-			line = new_line;
+			line = check_var_env_bis(line, env, ' ', i);
 			i = -1;
 		}
 		else
 			new_line = line;
-		i++;
 	}
 	return (new_line);
 }

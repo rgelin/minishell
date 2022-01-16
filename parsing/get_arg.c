@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 18:08:51 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/16 15:19:06 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ char	**return_arg_echo(char **tab, int n)
 		else if (tmp[i - 1][0] == '>' || tmp[i - 1][0] == '<')
 			i++;
 		else
-		{
-			arg[j] = ft_strdup(tmp[i]);
-			j++;
-			i++;
-		}
+			arg[j++] = ft_strdup(tmp[i++]);
 	}
 	arg[j] = NULL;
 	return (arg);
@@ -64,11 +60,8 @@ char	**ft_echo_arg(char *line)
 			i++;
 		else if (tmp[i - 1][0] == '>' || tmp[i - 1][0] == '<')
 			i++;
-		else
-		{
-			n++;
-			i++;
-		}
+		else if (n++ && i++)
+			continue ;
 	}
 	arg = return_arg_echo(tmp, n);
 	ft_free(tmp, ft_tabsize(tmp));
