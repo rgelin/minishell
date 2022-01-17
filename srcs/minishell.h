@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:45:27 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 11:25:28 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,10 @@ int			*get_index(char *line, size_t size, char c);
 void		init_tab(t_pars *tab);
 void		ft_free_pars_tab(t_state *s);
 void		ft_free_pars_error(t_state *s);
-//void		ft_free_pars_tab(t_state *s);
 char		*our_getenv(char *line, char **env);
 char		**ft_split_parsing(char *s, char c);
 char		**get_redirect(char *line);
 char		**ft_arg(char **arg, char **env);
-//char		**get_everything(char *line, char c);
 t_exc		*last_parsing(t_pars *tab, char **env);
 char		*ft_strjoin_double_free(char *s1, char *s2);
 char		**get_opt(char *line, char *cmd);
@@ -200,15 +198,11 @@ char		**cpy_env(char **env);
 char		**ft_realloc_env(char ***env, int size);
 void		set_pwd_and_oldpwd(char	*path, char *old_path, char ***env);
 void		go_to_path(t_exc exc, char *old_path, char ***env);
-// void	ft_env(t_exc *exc);
 
 /*=========READLINE=========*/
 
 void		rl_replace_line(const char *text, int clear_undo);
 void		rl_clear_history(void);
-//void	rl_redisplay (void);
-//int	rl_on_new_line (void);
-//int	rl_on_new_line (void);
 
 /*==========SIGNAL==========*/
 void		ft_signal_msg(void);
