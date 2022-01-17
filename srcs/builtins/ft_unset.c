@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 13:53:23 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 14:06:21 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*parse_arg(char *arg)
 	i = -1;
 	while (res[++i])
 	{
-		if (!ft_isalpha(res[0]) || !ft_isalnum(res[i]))
+		if ((!ft_isalpha(res[0]) || !ft_isalnum(res[i])) && res[i] != '_')
 		{
 			ft_perror("unset", res, "not a valid identifier");
 			g_global.exit_code = 1;

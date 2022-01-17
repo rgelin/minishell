@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:27:31 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 14:19:44 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_env(char **env)
 
 void	ft_exit(t_exc exc)
 {
-	if (exc.arg && exc.arg[1])
+	if (ft_tabsize(exc.arg) > 1)
 	{
 		printf("exit\n");
 		printf("minishell: exit: too many arguments\n");
