@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:47:35 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:02:22 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char **env)
 		ft_prompt(state);
 		if (state->line && state->line[0] != '\0')
 		{
-			tab = parsing(state);
+			tab = parsing(state, new_env);
 			ft_minishell(tab, exc, env, &new_env);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 13:43:26 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:22:35 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,9 @@ void		ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe);
 void		ft_open_pipes(int nbr_pipe, int **fds);
 /*=========PARSING=========*/
 
-t_pars		*parsing(t_state *s);
-t_pars		*split_line(t_state *line);
-t_pars		*find_command(t_state *s);
+t_pars		*parsing(t_state *s, char **env);
+t_pars		*split_line(t_state *line, char **env);
+t_pars		*find_command(t_state *s, char **env);
 int			ft_get_index(char *s);
 void		init_tmp(t_tmp *tmp);
 int			ft_check_space(char *line);

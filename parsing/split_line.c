@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:33 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/13 13:13:20 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:22:54 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	split_pipe(t_state *s)
 	s->cm[i] = ft_strtrim(s->cm[i], " ");
 }
 
-t_pars	*split_line(t_state *s)
+t_pars	*split_line(t_state *s, char **env)
 {
 	t_pars	*tab;
 
@@ -46,6 +46,6 @@ t_pars	*split_line(t_state *s)
 	if (!s->cm)
 		exit(EXIT_FAILURE);
 	split_pipe(s);
-	tab = find_command(s);
+	tab = find_command(s, env);
 	return (tab);
 }

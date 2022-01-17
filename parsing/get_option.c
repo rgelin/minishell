@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_option.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 17:51:50 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:55:10 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	return_opt(int *popt, char *line, char **options)
 	{
 		index = popt[i];
 		opt = index;
-		while (line[opt] != '\0')
+		while (line && line[opt] != '\0')
 		{
 			if (check_quote(line, opt)
 				&& (line[opt] == ' ' || line[opt + 1] == '\0'))
@@ -82,9 +82,9 @@ char	**get_opt(char *line, char *cmd)
 	{
 		return (ft_echo_option(line));
 	}
-	while (line[++i] != '\0')
+	while (line && line[++i] != '\0')
 	{
-		if (check_quote(line, i) && line[i] == '-')
+		if (line && check_quote(line, i) && line[i] == '-')
 			opt++;
 	}
 	popt = get_index(line, opt, '-');

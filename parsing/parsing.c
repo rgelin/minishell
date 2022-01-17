@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 17:52:02 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:22:46 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_char(t_state *s)
 	s->eof = i;
 }
 
-t_pars	*parsing(t_state *s)
+t_pars	*parsing(t_state *s, char **env)
 {
 	t_pars	*tab;
 
@@ -80,7 +80,7 @@ t_pars	*parsing(t_state *s)
 	check_char(s);
 	if (check_parsing(s))
 	{
-		tab = split_line(s);
+		tab = split_line(s, env);
 		tab->pipe = s->n_of_pipe;
 	}
 	ft_free(s->cm, s->n_of_pipe + 1);
