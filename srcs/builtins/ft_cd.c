@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:43:27 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:55:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	go_to_home(char ***env, char *old_path)
 {
 	char	*home;
 
-	home = getenv("HOME");
+	home = our_getenv(ft_strdup("HOME"), *env);
 	if (chdir(home))
 	{
 		ft_perror("cd", home, strerror(errno));
