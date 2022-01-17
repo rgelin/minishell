@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 17:52:02 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 14:55:12 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@ void	init_quote(t_quote *quote)
 
 int	check_parsing(t_state *s)
 {
+	if (s->n_of_pipe == -1)
+	{
+		ft_putendl_fd("Error syntax", 2);
+		return (0);
+	}
 	if (!check_quote(s->line, s->eof))
 	{
-		write(1, "Error quote\n", 12);
+		write(2, "Error quote\n", 12);
 		return (0);
 	}
 	if (s->n_of_pipe >= 0)
@@ -66,7 +71,12 @@ void	check_char(t_state *s)
 	i = -1;
 	while (s->line[++i] != '\0')
 	{	
-		if (s->line[i] == 124 && check_quote(s->line, i))
+		if (s->line[i] == '|' && s->line[i + 1] == '|')
+		{
+			s->n_of_pipe = -1;
+			return ;
+		}
+		if (s->line[i] == '|' && check_quote(s->line, i))
 			s->n_of_pipe++;
 	}
 	s->eof = i;
