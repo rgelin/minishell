@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 17:23:18 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 18:05:14 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ char	*our_getenv(char *line, char **env)
 	if (test != NULL)
 		free(test);
 	free(line);
-	return (tmp);
+	return (ft_strtrim(tmp, " "));
 }

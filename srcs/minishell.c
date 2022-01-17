@@ -6,10 +6,8 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 18:02:22 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 18:05:09 by jlong            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
-
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -73,11 +71,11 @@ void	ft_prompt(t_state *state)
 	}
 }
 
-static void	ft_minishell(t_pars	*tab, t_exc *exc, char **env, char ***new_env)
+static void	ft_minishell(t_pars	*tab, t_exc *exc, char ***new_env)
 {
 	if (tab)
 	{
-		exc = last_parsing(tab, env);
+		exc = last_parsing(tab, *new_env);
 		ft_execute_line(exc, tab, new_env);
 		ft_free_tab_exc(exc, tab);
 	}

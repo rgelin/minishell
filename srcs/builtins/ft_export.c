@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:27:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 14:15:10 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static char	*parse_arg(char *arg)
 	free(arg);
 	arg = NULL;
 	i = -1;
-	if (!ft_isalpha(res[0]))
+	if (!ft_isalpha(res[0]) && res[0] != '_')
 	{
 		ft_perror("export", res, "not a valid identifier");
 		g_global.exit_code = 1;
