@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 18:05:09 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 18:07:27 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **env)
 		if (state->line && state->line[0] != '\0')
 		{
 			tab = parsing(state, new_env);
-			ft_minishell(tab, exc, env, &new_env);
+			ft_minishell(tab, exc, &new_env);
 		}
 	}
 	return (0);
