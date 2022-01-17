@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:47:16 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 11:27:39 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,6 @@ void	no_arg(char ***env)
 	ft_free(new_env, ft_tabsize(new_env));
 }
 
-/*leak
-*	ligne 105 res = ft_strtrim_modified(arg, "\"");
-*/
 static char	*parse_arg(char *arg)
 {
 	char	*res;

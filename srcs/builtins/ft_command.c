@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:34:37 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 11:27:31 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	ft_env(char **env)
 	return (ENV);
 }
 
-/*invalid read size of 8 ??*/
 void	ft_exit(t_exc exc)
 {
 	if (exc.arg && exc.arg[1])
