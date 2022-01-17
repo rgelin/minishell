@@ -60,6 +60,7 @@ PARSG		=	$(PARSING)error_parsing.c \
 				$(PARSING)get_option.c \
 				$(PARSING)get_arg.c \
 				$(PARSING)get_heredoc.c \
+				$(PARSING)last_parsing_bis.c \
 
 SRCS_ERRORS	=	$(ERRORS)check_builtin.c \
 				$(ERRORS)ft_perror.c \

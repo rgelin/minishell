@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/14 17:58:22 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 13:48:42 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,48 @@ char	*new_redirect(char *line)
 	return (tmp.new_line);
 }
 
+char	*ft_arg_bis(char *arg, char **env)
+{
+	if (arg[0] == '\'')
+	{
+		arg = ft_strtrim(arg, "\'");
+	}
+	else if (arg[0] == '\"')
+	{
+		arg = ft_strtrim(arg, "\"");
+		arg = check_var_env(arg, env);
+	}
+	else
+	{
+		arg = check_var_env(arg, env);
+	}
+	return (arg);
+}
+
 char	**get_redirect_bis(char **tab_redirect, char **env)
 {
+	char	**new_tab;
 	int		i;
-	char	**new;
 
-	new = NULL;
 	i = 0;
 	while (tab_redirect[i])
 	{
 		tab_redirect[i] = new_redirect(tab_redirect[i]);
 		i++;
 	}
-	tab_redirect = ft_arg(tab_redirect, env);
-	new = tab_redirect;
-	return (new);
+	i = 0;
+	while (tab_redirect[i])
+	{
+		if (ft_strncmp(tab_redirect[i], ">>", 2) == 0)
+			tab_redirect[i] = get_var_env_bis(tab_redirect[i], env, 2);
+		else if (ft_strncmp(tab_redirect[i], ">", 1) == 0)
+			tab_redirect[i] = get_var_env_bis(tab_redirect[i], env, 1);
+		else if (ft_strncmp(tab_redirect[i], "<", 1) == 0)
+			tab_redirect[i] = get_var_env_bis(tab_redirect[i], env, 1);
+		i++;
+	}
+	new_tab = tab_redirect;
+	return (new_tab);
 }
 
 t_exc	*last_parsing(t_pars *tab, char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:25:28 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:43:26 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,10 @@ char		*get_heredoc(char *line, t_pars *tab_here);
 void		split_pipe(t_state *s);
 void		ft_error_malloc(t_state *s);
 void		init_ptn(t_exc *tab);
+char		*check_var_env(char *line, char **env);
+char		*get_var_env_bis(char *tab_redirect, char **env, int i);
+char		*ft_arg_bis(char *arg, char **env);
+
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);
