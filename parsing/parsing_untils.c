@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 13:51:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:11:53 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ char	*our_getenv(char *line, char **env)
 	if (test != NULL)
 		free(test);
 	free(line);
-	return (tmp);
+	return (ft_strtrim(tmp, " "));
 }
