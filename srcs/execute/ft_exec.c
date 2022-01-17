@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:08:44 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:52:03 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,19 @@ static int	ft_exec(t_exc command, char **env)
 {
 	char	**folder;
 	char	**cmd;
+	char	*line;
 
 	ft_signal_msg();
 	cmd = create_cmd(command);
 	if (!cmd)
 		exit (EXIT_FAILURE);
-	if (find_var_in_env("PATH", env) == -1)
+	line = our_getenv(ft_strdup("PATH"), env);
+	if (!ft_strcmp(line, ""))
 	{
 		ft_perror(command.cmd, NULL, "command not found");
 		return (127);
 	}
-	folder = ft_split(getenv(env[find_var_in_env("PATH", env)]), ':');
+	folder = ft_split(line, ':');
 	if (!folder)
 		return (ft_free_exec(folder, cmd));
 	if (!ft_create_all_exec(&folder, command))
