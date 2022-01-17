@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 17:08:12 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/01/17 10:45:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int			check_if_already_in_env(char *arg, char ***env);
 char		**cpy_env(char **env);
 char		**ft_realloc_env(char ***env, int size);
 void		set_pwd_and_oldpwd(char	*path, char *old_path, char ***env);
+void		go_to_path(t_exc exc, char *old_path, char ***env);
 // void	ft_env(t_exc *exc);
 
 /*=========READLINE=========*/

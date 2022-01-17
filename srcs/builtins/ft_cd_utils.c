@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:32 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:05:26 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:42:47 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 		(*env)[index_old] = NULL;
 		(*env)[index_old] = old_pwd;
 	}
+}
+
+void	go_to_path(t_exc exc, char *old_path, char ***env)
+{
+	if (chdir(exc.arg[0]))
+	{
+		ft_perror("cd", exc.arg[0], strerror(errno));
+		g_global.exit_code = 1;
+	}
+	else
+		set_pwd_and_oldpwd(exc.arg[0], old_path, env);
 }

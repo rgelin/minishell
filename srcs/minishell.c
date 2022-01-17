@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:33:07 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:50:15 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
 	return (0);
 }
 
-static void ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
+static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {
 	int	n_pipe;
 	int	*fds;
@@ -73,6 +73,16 @@ void	ft_prompt(t_state *state)
 	}
 }
 
+static void	ft_minishell(t_pars	*tab, t_exc *exc, char **env, char ***new_env)
+{
+	if (tab)
+	{
+		exc = last_parsing(tab, env);
+		ft_execute_line(exc, tab, new_env);
+		ft_free_tab_exc(exc, tab);
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_state	*state;
@@ -92,13 +102,7 @@ int	main(int argc, char **argv, char **env)
 		if (state->line && state->line[0] != '\0')
 		{
 			tab = parsing(state);
-			if (tab)
-			{
-				exc = last_parsing(tab, env);
-				ft_execute_line(exc, tab, &new_env);
-				ft_free_tab_exc(exc, tab);
-			}
-			//ft_free_tab_exc(exc, tab);
+			ft_minishell(tab, exc, env, &new_env);
 		}
 	}
 	return (0);

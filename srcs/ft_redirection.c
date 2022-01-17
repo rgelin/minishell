@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:35:42 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:38:35 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	ft_set_output_file(char *output)
 		fd = open(output + 1, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		printf("plop\n");
 		ft_perror("open", output, "Impossible to open file");
 		g_global.exit_code = EXIT_FAILURE;
 		exit(g_global.exit_code);
@@ -66,14 +65,10 @@ static void	ft_set_input_file(char *input)
 	}
 }
 
-void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
+static void	ft_open_tmp(t_exc cmd)
 {
-	char	*input;
-	int		fd;
+	int	fd;
 
-	input = ft_get_last_input(cmd);
-	if (input)
-		ft_set_input_file(input);
 	if (cmd.heredoc)
 	{
 		fd = open("/tmp/heredoc.txt", O_RDWR | O_CREAT, 0644);
@@ -83,8 +78,23 @@ void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
 			g_global.exit_code = EXIT_FAILURE;
 			exit(g_global.exit_code);
 		}
-		close(fd);
+		if (close(fd) == -1)
+		{
+			ft_perror("close", NULL, "Error close file");
+			g_global.exit_code = EXIT_FAILURE;
+			exit(g_global.exit_code);
+		}
 	}
+}
+
+void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
+{
+	char	*input;
+
+	input = ft_get_last_input(cmd);
+	if (input)
+		ft_set_input_file(input);
+	ft_open_tmp(cmd);
 	if (n_pipe != 0)
 	{
 		if (!ft_get_last_input(cmd))

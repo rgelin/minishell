@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:32:25 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:53:07 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
 	int	i;
 
 	i = -1;
-	while (++i <= nbr_pipe)
+	while (++i <= nbr_pipe && g_global.exit_code != 1)
 		ft_heredoc(cmds[i], fds, n_pipe);
 }
 
