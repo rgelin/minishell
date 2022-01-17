@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:50:15 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/17 11:47:35 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
 	int	i;
 
 	i = -1;
-	while (++i < tab->pipe)
+	while (++i <= tab->pipe)
 	{
 		if (ft_tabsize(exc[i].heredoc))
 			return (1);
