@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 17:57:52 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 18:10:56 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	else if (new_line)
 	{
 		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
-		tab.command = ft_strtrim(tab.command, " ");
+		tab.command = ft_arg_bis(ft_strtrim(tab.command, " "), env);
 	}
 	free(new_line);
 	return (tab);
