@@ -6,19 +6,17 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:19:36 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:31:24 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_simple(char *heredoc, int *fds, int n_pipe)
+static void	ft_simple(char *heredoc)
 {
 	int		fd;
 	char	*line;
 
-	(void)fds;
-	(void)n_pipe;
 	fd = open("/tmp/heredoc.txt", O_TRUNC | O_WRONLY | O_CREAT, 0644);
 	if (fd == -1)
 	{
@@ -41,26 +39,26 @@ static void	ft_simple(char *heredoc, int *fds, int n_pipe)
 	close(fd);
 }
 
-void	ft_heredoc(t_exc cmd, int *fds, int n_pipe)
+int	ft_heredoc(t_exc cmd)
 {
 	int	i;
 	int	status;
 
 	if (cmd.heredoc == NULL)
-		return ;
+		return 0;
 	g_global.in_heredoc = 1;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)
-		return ;
+		return 0;
 	if (g_global.fork_pid == 0)
 	{
 		ft_set_signal();
 		i = -1;
 		while (cmd.heredoc[++i])
-			ft_simple(cmd.heredoc[i], fds, n_pipe);
+			ft_simple(cmd.heredoc[i]);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(0, &status, 0);
 	g_global.in_heredoc = 0;
-	return ;
+	return 0;
 }

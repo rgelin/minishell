@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 19:47:03 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:27:43 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	else if (new_line)
 	{
 		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
-		tab.command = ft_arg_bis(ft_strtrim(tab.command, " "), env);
+		tab.command = ft_arg_bis(ft_strtrim(tab.command, " \t"), env);
 	}
 	free(new_line);
 	return (tab);

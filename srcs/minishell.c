@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 11:23:49 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 14:28:53 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (++i <= tab->pipe)
 	{
 		if (ft_tabsize(exc[i].heredoc))

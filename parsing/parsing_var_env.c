@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 13:22:30 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:46:05 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*check_var_env(char *line, char **env)
 	}
 	return (new_line);
 }
-/*
+
 char	**ft_arg(char **arg, char **env)
 {
 	int	i;
@@ -127,8 +127,8 @@ char	**ft_arg(char **arg, char **env)
 	}
 	return (arg);
 }
-*/
 
+/*
 char	**ft_arg(char **arg, char **env)
 {
 	int	i;
@@ -143,3 +143,4 @@ char	**ft_arg(char **arg, char **env)
 	}
 	return (arg);
 }
+*/
