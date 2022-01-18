@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:31:24 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:59:02 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	ft_heredoc(t_exc cmd)
 	{
 		ft_set_signal();
 		i = -1;
-		while (cmd.heredoc[++i])
+		while (cmd.heredoc[++i] && g_global.exit_code == 0)
 			ft_simple(cmd.heredoc[i]);
-		exit(EXIT_SUCCESS);
+		exit(g_global.exit_code);
 	}
 	waitpid(0, &status, 0);
 	g_global.in_heredoc = 0;
