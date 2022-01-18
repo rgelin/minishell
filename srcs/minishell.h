@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:31:34 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:36:28 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void		ft_redirect_output(t_exc cmd, int n_pipe, int *fds, int nbr_pipe);
 int			ft_heredoc(t_exc cmd);
 void		init_struct(t_state *state);
 void		init_variables(t_state **state, t_pars **tab, t_exc **exc);
-void		ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe);
+void		ft_exec_heredoc(int nbr_pipe, t_exc *cmds);
 void		ft_open_pipes(int nbr_pipe, int **fds);
 /*=========PARSING=========*/
 

@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:29:48 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:36:16 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_waiting_all_child(int nbr_pipe)
 	return (g_global.exit_code);
 }
 
-void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
+void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds)
 {
 	int	i;
 	int	ret;
@@ -82,7 +82,7 @@ void	ft_exec_heredoc(int nbr_pipe, t_exc *cmds, int *fds, int n_pipe)
 	i = -1;
 	ret = 0;
 	while (++i <= nbr_pipe && !ret)
-		ret = ft_heredoc(cmds[i], fds, n_pipe);
+		ret = ft_heredoc(cmds[i]);
 }
 
 void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds)

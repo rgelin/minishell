@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:28:53 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:36:35 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 
 	n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
-	ft_exec_heredoc(tab->pipe, exc, fds, n_pipe);
+	ft_exec_heredoc(tab->pipe, exc);
 	if (ft_contain_heredoc(exc, tab) && g_global.exit_code == 1)
 		return ;
 	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)
