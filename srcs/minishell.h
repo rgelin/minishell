@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 17:22:35 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 10:59:51 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void		init_ptn(t_exc *tab);
 char		*check_var_env(char *line, char **env);
 char		*get_var_env_bis(char *tab_redirect, char **env, int i);
 char		*ft_arg_bis(char *arg, char **env);
-
+char		*check_all_string(char	*line, char **env);
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);
