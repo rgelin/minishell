@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:22:57 by jvander-          #+#    #+#             */
-/*   Updated: 2021/12/15 13:02:46 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:21:02 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_builtin(char *cmd)
 {
+	if (!cmd)
+		return (0);
 	if (!ft_strncmp(cmd, "echo", 5))
 		return (ECHO);
 	if (!ft_strncmp(cmd, "cd", 3))
