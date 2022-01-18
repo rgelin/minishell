@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:36:35 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:32:17 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-
-static int	ft_contain_heredoc(t_exc *exc, t_pars *tab)
-{
-	int	i;
-
-	i = 0;
-	while (++i <= tab->pipe)
-	{
-		if (ft_tabsize(exc[i].heredoc))
-			return (1);
-	}
-	return (0);
-}
 
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {
@@ -36,10 +23,10 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 	n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
-	if (ft_contain_heredoc(exc, tab) && g_global.exit_code == 1)
-		return ;
 	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
+	if (g_global.exit_code == 1)
+		return ;
 	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
