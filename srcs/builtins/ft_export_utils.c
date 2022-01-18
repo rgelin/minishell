@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:40 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 17:16:56 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:24:15 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_to_find(char *arg)
 	to_find[i] = '\0';
 	return (to_find);
 }
-//bug dans la fonction
+
 int	find_var_in_env(char *arg, char **env)
 {
 	char	*to_find;

@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 16:19:46 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:24:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_set_input_file(char *input)
 static void	ft_open_tmp(t_exc cmd)
 {
 	int	fd;
-	
+
 	if (cmd.heredoc)
 	{
 		fd = open("/tmp/heredoc.txt", O_RDWR | O_CREAT, 0644);
@@ -84,14 +84,13 @@ static void	ft_open_tmp(t_exc cmd)
 			g_global.exit_code = EXIT_FAILURE;
 			exit(g_global.exit_code);
 		}
-		// ft_set_stdin_back(fd_in);
 	}
 }
 
 void	ft_redirect_input(t_exc cmd, int n_pipe, int *fds)
 {
 	char	*input;
-	
+
 	ft_open_tmp(cmd);
 	input = ft_get_last_input(cmd);
 	if (input)
