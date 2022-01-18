@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 14:36:28 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:22:21 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,9 @@ void		ft_free_pars_tab(t_state *s);
 void		ft_free_pars_error(t_state *s);
 char		*our_getenv(char *line, char **env);
 char		**ft_split_parsing(char *s, char c);
-char		**get_redirect(char *line);
+//test
+char		*get_redirect(char *line, t_pars *tab_here);
+//char		**get_redirect(char *line);
 char		**ft_arg(char **arg, char **env);
 t_exc		*last_parsing(t_pars *tab, char **env);
 char		*ft_strjoin_double_free(char *s1, char *s2);

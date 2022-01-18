@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 17:55:10 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:58:34 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	**get_opt(char *line, char *cmd)
 	opt = 0;
 	i = -1;
 	options = NULL;
-	(void)cmd;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
 	{
 		return (ft_echo_option(line));

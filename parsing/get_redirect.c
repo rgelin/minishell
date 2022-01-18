@@ -3,90 +3,126 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/12 12:22:00 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:54:36 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
 
-int	*get_index_redirect(char *line, size_t size)
+int	nbr_of_redirect(char *line)
 {
 	int	i;
-	int	j;
-	int	*p_tab;
-
-	j = 0;
-	i = -1;
-	p_tab = malloc(sizeof(int *) * (size + 1));
-	if (!p_tab)
-		exit(EXIT_FAILURE);
-	while (line[++i] != '\0')
-	{
-		if (((line[i] == '<' && line[i + 1] == '<')
-				|| (line[i] == '>' && line[i + 1] == '>'))
-			&& check_quote(line, i))
-			p_tab[j++] = i++;
-		else if ((line[i] == '<' || line[i] == '>') && check_quote(line, i))
-			p_tab[j++] = i;
-	}
-	p_tab[j] = -1;
-	return (p_tab);
-}
-
-char	**get_redirect_tab(char *line, int n)
-{
-	int		i;
-	int		start;
-	int		end;
-	char	**tab;
-	int		*index_tab;
-
-	i = 0;
-	tab = NULL;
-	index_tab = NULL;
-	end = 0;
-	tab = malloc(sizeof(char *) * (n + 1));
-	if (!tab)
-		exit(EXIT_FAILURE);
-	index_tab = get_index_redirect(line, n);
-	while (index_tab[i] != -1)
-	{
-		start = index_tab[i];
-		end = index_tab[i + 1];
-		tab[i] = ft_substr(line, start, end - start);
-		tab[i] = ft_strtrim(tab[i], " ");
-		i++;
-	}
-	tab[i] = NULL;
-	free(index_tab);
-	return (tab);
-}
-
-char	**get_redirect(char *line)
-{
-	int		i;
-	char	**tab;
-	int		n;
+	int	n;
 
 	n = 0;
 	i = 0;
-	tab = NULL;
 	while (line[i] != '\0')
 	{
-		if (((line[i] == '<' && line[i + 1] == '<')
-				|| (line[i] == '>' && line[i + 1] == '>'))
-			&& check_quote(line, i))
-		{
-			n++;
-			i++;
-		}
-		else if ((line[i] == '<' || line[i] == '>') && check_quote(line, i))
+		if (check_quote(line, i) && (line[i] == '<' ||line[i] == '>'))
 			n++;
 		i++;
 	}
-	tab = get_redirect_tab(line, n);
-	return (tab);
+	return (n);
+}
+
+void	count_char_bis(t_tmp *tmp, char *line)
+{
+	while (line[tmp->n] == '<'  || line[tmp->n] == '>')
+	{
+		tmp->n++;
+		tmp->m++;
+	}
+	while (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+	{
+		tmp->n++;
+		tmp->m++;
+	}
+	while (ft_isascii(line[tmp->n]))
+	{
+		if (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+			break ;
+		tmp->n++;
+		tmp->m++;
+	}	
+}
+
+char	*cut_redirect(char *line, int index, char **tab_here, char c)
+{
+	t_tmp	tmp;
+	char	*symbole;
+
+	
+	init_tmp(&tmp);
+	symbole = NULL;
+	tmp.n = index;
+	tmp.tmp = ft_substr(line, 0, index);
+	count_char_bis(&tmp, line);
+	tmp.rest = ft_substr(line, index + tmp.m, (ft_strlen(line) - index));
+	tmp.new_line = ft_strjoin_double_free(tmp.tmp, "");
+	tmp.new_line = ft_strjoin_double_free(tmp.new_line, tmp.rest);
+	*tab_here = ft_substr(line, index + 1, tmp.m - 1);
+	*tab_here = ft_strtrim(*tab_here, " ");
+	if (c == '<')
+		symbole = ft_strdup("<");
+	else if (c == '>')
+		symbole = ft_strdup(">");
+	tmp.nl = ft_strjoin_double_free(symbole, *tab_here);
+	free(*tab_here);
+	*tab_here = NULL;
+	*tab_here = tmp.nl;
+	free(tmp.rest);
+	return (tmp.new_line);
+}
+
+char	*get_tab_redirect(char *line, char **tab)
+{
+	char	*new_line;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] && (line[i] == '<' || line[i] == '>'))
+		{
+			new_line = cut_redirect(line, i, &tab[j], line[i]);
+			j++;
+			line = new_line;
+			i = -1;
+		}
+		i++;
+	}
+	tab[j] = NULL;
+	return (new_line);
+}
+
+char	*get_redirect(char *line, t_pars *tab_here)
+{
+	char	*new_line;
+	int		nbr_of_here;
+	char	**tab;
+	char	*tmp;
+
+	new_line = NULL;
+	tab = NULL;
+	nbr_of_here = 0;
+	nbr_of_here = nbr_of_redirect(line);
+	if (nbr_of_here < 1)
+	{
+		tmp = ft_strdup(line);
+		free(line);
+		return (tmp);
+	}
+	tab = malloc(sizeof(char *) * (nbr_of_here + 1));
+	if (!tab)
+		exit(EXIT_FAILURE);
+	new_line = get_tab_redirect(line, tab);
+	tab_here->redirect = tab;
+	tmp = ft_strtrim(new_line, " ");
+	line = NULL;
+	return (tmp);
 }
