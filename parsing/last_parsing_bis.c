@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing_bis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 13:13:55 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:22:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int	check_all_string_bis(char	**line, char **env, char c, int index)
 			break ;
 		i++;
 	}
-	printf("line = %s\n", (*line));
+	// printf("line = %s\n", (*line));
 	tmp.n = i + 1;
 	tmp.nl = ft_substr((*line), 0, index);
-	printf("tmp.nl = %s\n", tmp.nl);
+	// printf("tmp.nl = %s\n", tmp.nl);
 	tmp.tmp = ft_substr((*line), index, i - index);
-	printf("tmp.tmp = %s\n", tmp.tmp);
+	// printf("tmp.tmp = %s\n", tmp.tmp);
 	tmp.rest = ft_substr((*line), i, (ft_strlen((*line)) - i));
-	printf("tmp.rest = %s\n", tmp.rest);
+	// printf("tmp.rest = %s\n", tmp.rest);
 	tmp.var = ft_arg_bis(tmp.tmp, env);
 	tmp.new_line = ft_strjoin_double_free(tmp.nl, tmp.var);
 	size = ft_strlen(tmp.new_line);

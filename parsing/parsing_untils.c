@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_untils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 18:05:14 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:23:14 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ char	*our_getenv(char *line, char **env)
 	{
 		var = env[index];
 		test = ft_split(var, '=');
-		tmp = ft_strdup(test[1]);
+		if (ft_tabsize(test) > 1)
+			tmp = ft_strdup(test[1]);
 	}
 	if (index == -1)
 		tmp = ft_strdup("");
