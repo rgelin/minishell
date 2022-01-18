@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 15:58:34 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:28:01 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**ft_echo_option(char *line)
 	free(tmp);
 	return (opt);
 }
-
+/*
 char	**get_opt(char *line, char *cmd)
 {
 	int		i;
@@ -92,5 +92,65 @@ char	**get_opt(char *line, char *cmd)
 		exit(EXIT_FAILURE);
 	return_opt(popt, line, options);
 	free(popt);
+	return (options);
+}
+*/
+
+void	return_opt(int *popt, char *line, char **options)
+{
+	int	i;
+	int	opt;
+	int	index;
+
+	i = 0;
+	opt = 0;
+	while (popt[i] != -1)
+	{
+		index = popt[i];
+		opt = index;
+		while (line && line[opt] != '\0')
+		{
+			if (check_quote(line, opt)
+				&& (line[opt] == ' ' || line[opt + 1] == '\0'))
+			{
+				options[i] = ft_substr(line, index, opt - (index - 1));
+				options[i] = ft_strtrim(options[i], "- ");
+				break ;
+			}
+			opt++;
+		}
+		i++;
+	}
+	options[i] = NULL;
+}
+
+char	**get_opt(char *line, char *cmd)
+{
+	char	**options;
+	char	**tab;
+	int		i;
+	int		n;
+	options = NULL;
+	i = 1;
+
+	tab = NULL;
+	n = 0;
+	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
+	{
+		return (ft_echo_option(line));
+	}
+	tab = ft_split_parsing(line, ' ');
+	while (tab[i] != NULL)
+	{
+		if (*tab[i] != '-')
+			break ;
+		i++;
+		n++;
+	}
+	if (n > 0)
+	{
+		
+	}
+	ft_free(tab, ft_tabsize(tab));
 	return (options);
 }
