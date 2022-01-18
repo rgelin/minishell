@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 16:01:20 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:39:54 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_tab(t_pars *tab)
 	tab->heredoc = NULL;
 	tab->next_char = NULL;
 	tab->redirect = NULL;
+	tab->regroupe_exit = 0;
 }
 
 char	*ft_get_command(char *line, char **env)
@@ -49,7 +50,7 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	if (new_line && ft_get_index(new_line) != 0)
 	{
 		tab.command = ft_get_command(new_line, env);
-		tab.option = get_opt(new_line, tab.command);
+		tab.option = get_opt(new_line, tab.command, &tab);
 		tab.arg = get_arg(new_line, tab.command);
 	}
 	else if (new_line)

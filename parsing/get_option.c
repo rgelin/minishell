@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 16:28:01 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:39:56 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ char	**ft_echo_option(char *line)
 	free(tmp);
 	return (opt);
 }
-/*
-char	**get_opt(char *line, char *cmd)
+
+char	**get_opt(char *line, char *cmd, t_pars *s)
 {
 	int		i;
 	int		opt;
@@ -77,6 +77,7 @@ char	**get_opt(char *line, char *cmd)
 	opt = 0;
 	i = -1;
 	options = NULL;
+	(void)s;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
 	{
 		return (ft_echo_option(line));
@@ -94,9 +95,9 @@ char	**get_opt(char *line, char *cmd)
 	free(popt);
 	return (options);
 }
-*/
 
-void	return_opt(int *popt, char *line, char **options)
+/*
+void	return_opt(int	*popt, char *line, char **options)
 {
 	int	i;
 	int	opt;
@@ -122,9 +123,9 @@ void	return_opt(int *popt, char *line, char **options)
 		i++;
 	}
 	options[i] = NULL;
-}
-
-char	**get_opt(char *line, char *cmd)
+}*/
+/*
+char	**get_opt(char *line, char *cmd, t_pars *s)
 {
 	char	**options;
 	char	**tab;
@@ -149,8 +150,13 @@ char	**get_opt(char *line, char *cmd)
 	}
 	if (n > 0)
 	{
-		
+		options = malloc(sizeof(char *) * (n + 1));
+		if (!options)
+			exit(EXIT_FAILURE);
+		s->regroupe_exit = 1;
 	}
+	return_opt(line, options);
 	ft_free(tab, ft_tabsize(tab));
 	return (options);
 }
+*/
