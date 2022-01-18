@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/17 18:10:56 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/17 19:47:03 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_get_command(char *line, char **env)
 
 t_pars	get_command(char *line, t_state *s, char **env)
 {
-	int		next;
+	//int		next;
 	t_pars	tab;
 	char	*new_line;
 
@@ -60,10 +60,9 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	new_line = get_heredoc(line, &tab);;
 	if (new_line && ft_get_index(new_line) != 0)
 	{
-		next = ft_get_index(new_line);
+		//next = ft_get_index(new_line);
 		//tab.command = ft_substr(new_line, 0, next);
 		//tab.command = ft_strtrim(tab.command, " ");
-		//ft_get_command(new_line, env);
 		tab.command = ft_get_command(new_line, env);
 		tab.option = get_opt(new_line, tab.command);
 		tab.redirect = get_redirect(new_line);
