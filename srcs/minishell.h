@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 09:47:53 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:21:31 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,8 @@ char		*ft_strjoin_double_free(char *s1, char *s2);
 char		**get_opt(char *line, int n, char **env);
 int			check_is_opt(char *line);
 //char		**get_opt(char *line, char *cmd, t_pars *s);
+char		**ft_echo_option(int n);
+void		ft_echo_arg(char *line, char **env, t_pars *tab);
 void		get_arg(char *line, char *cmd, char **env, t_pars *tab);
 char		*get_heredoc(char *line, t_pars *tab_here);
 void		split_pipe(t_state *s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_var_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 09:04:32 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:56:54 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*check_var_env(char *line, char **env)
 	}
 	return (new_line);
 }
-
+/*
 char	**ft_arg(char **arg, char **env)
 {
 	int	i;
@@ -127,8 +127,8 @@ char	**ft_arg(char **arg, char **env)
 	}
 	return (arg);
 }
+*/
 
-/*
 char	**ft_arg(char **arg, char **env)
 {
 	int	i;
@@ -136,11 +136,8 @@ char	**ft_arg(char **arg, char **env)
 	i = 0;
 	while (arg && arg[i])
 	{
-		// printf("before - arg[%d] = %s\n", i, arg[i]);
 		arg[i] = check_all_string(arg[i], env);
-		// printf("after - arg[%d] = %s\n", i, arg[i]);
 		i++;
 	}
 	return (arg);
 }
-*/
