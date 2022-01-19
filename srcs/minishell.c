@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 15:32:17 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 08:51:24 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {
-	int	n_pipe;
+	//int	n_pipe;
 	int	*fds;
 
-	n_pipe = 0;
+	//n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
 	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)

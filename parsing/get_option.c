@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_option.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 16:39:56 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 10:05:11 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**ft_echo_option(char *line)
 	free(tmp);
 	return (opt);
 }
-
+/*
 char	**get_opt(char *line, char *cmd, t_pars *s)
 {
 	int		i;
@@ -95,7 +95,7 @@ char	**get_opt(char *line, char *cmd, t_pars *s)
 	free(popt);
 	return (options);
 }
-
+*/
 /*
 void	return_opt(int	*popt, char *line, char **options)
 {
@@ -124,39 +124,29 @@ void	return_opt(int	*popt, char *line, char **options)
 	}
 	options[i] = NULL;
 }*/
-/*
-char	**get_opt(char *line, char *cmd, t_pars *s)
-{
-	char	**options;
-	char	**tab;
-	int		i;
-	int		n;
-	options = NULL;
-	i = 1;
 
-	tab = NULL;
-	n = 0;
-	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
+char	**get_opt(char *line, int n, char **env)
+{
+	char	**tmp;
+	int		i;
+	int		m;
+	char	**tab;
+
+	i = 1;
+	m = 0;
+	tab = malloc(sizeof(char *) * (n + 1));
+	if (!tab)
+		exit(EXIT_FAILURE);
+	tmp = ft_split_parsing(line, ' ');
+	tmp = ft_arg(tmp, env);
+	while (tmp && check_is_opt(tmp[i]))
 	{
-		return (ft_echo_option(line));
-	}
-	tab = ft_split_parsing(line, ' ');
-	while (tab[i] != NULL)
-	{
-		if (*tab[i] != '-')
-			break ;
+		tab[m] = ft_strdup(tmp[i]);
+		tab[m] = ft_strtrim(tab[m], "- ");
+		m++;
 		i++;
-		n++;
 	}
-	if (n > 0)
-	{
-		options = malloc(sizeof(char *) * (n + 1));
-		if (!options)
-			exit(EXIT_FAILURE);
-		s->regroupe_exit = 1;
-	}
-	return_opt(line, options);
-	ft_free(tab, ft_tabsize(tab));
-	return (options);
+	tab[m] = NULL;
+	ft_free(tmp, ft_tabsize(tmp));
+	return (tab);
 }
-*/

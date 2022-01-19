@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing_bis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 14:37:10 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 08:52:12 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,10 @@ int	check_all_string_bis(char	**line, char **env, char c, int index)
 char	*check_all_string(char	*line, char **env)
 {
 	int		i;
-	int		double_quote;
-	int		simple_quote;
 	t_tmp	tmp;
 
 	init_tmp(&tmp);
 	i = 0;
-	double_quote = 0;
-	simple_quote = 0;
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\'')
