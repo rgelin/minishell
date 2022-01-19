@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 13:54:50 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 15:07:13 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_create_redirect(t_exc exc)
 	i = 0;
 	status = 0;
 	if (!exc.redirect || !ft_tabsize(exc.redirect))
-		return (-2);
+		return (0);
 	current = exc.redirect[i];
 	while (current)
 	{
