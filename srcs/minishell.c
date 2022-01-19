@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 08:51:24 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:50:00 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
 		ft_free(*new_env, ft_tabsize(*new_env));
-		ft_exit(exc[0]);
+		ft_exit(exc[0], tab->pipe);
 		ft_free_tab_exc(exc, tab);
 		exit(g_global.exit_code);
 	}
 	if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
 			|| check_builtin(exc[0].cmd) == EXPORT
 			|| check_builtin(exc[0].cmd) == UNSET))
-		ft_execute_command(exc[0], new_env);
+		ft_execute_command(exc[0], new_env, tab->pipe);
 	else
 		ft_execute_pipe(exc, tab->pipe, new_env, fds);
 }

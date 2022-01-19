@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_pipe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 08:49:42 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:49:14 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds)
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
 			ft_redirect_input(cmds[i], n_pipe, fds);
 			ft_close_pipes(nbr_pipe, fds);
-			exit (execute(cmds[i], env));
+			exit (execute(cmds[i], env, nbr_pipe));
 		}
 		n_pipe += 2;
 	}

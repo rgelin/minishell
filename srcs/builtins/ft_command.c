@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 14:19:44 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:50:30 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_env(char **env)
 	return (ENV);
 }
 
-void	ft_exit(t_exc exc)
+void	ft_exit(t_exc exc, int nbr_pipe)
 {
 	if (ft_tabsize(exc.arg) > 1)
 	{
@@ -96,5 +96,6 @@ void	ft_exit(t_exc exc)
 			g_global.exit_code = ft_atoi(exc.arg[0])
 				- (256 * (ft_atoi(exc.arg[0]) / 256));
 	}
-	printf("exit\n");
+	if (nbr_pipe == 0)
+		printf("exit\n");
 }
