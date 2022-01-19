@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:07 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 13:41:42 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:04:32 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ int	nbr_of_heredoc(char *line)
 
 void	count_char(t_tmp *tmp, char *line)
 {
-	while (line[tmp->n] == '<')
+	while (line[tmp->n] && (line[tmp->n] == '<'))
 	{
 		tmp->n++;
 		tmp->m++;
 	}
-	while (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+	if (tmp->n >= (int)ft_strlen(line))
+		return ;
+	while (line[tmp->n] && (line[tmp->n] == ' ' || line[tmp->n] == '\0'))
 	{
 		tmp->n++;
 		tmp->m++;
 	}
-	while (ft_isascii(line[tmp->n]))
+	if (tmp->n >= (int)ft_strlen(line))
+		return ;
+	while (line[tmp->n] && ft_isascii(line[tmp->n]))
 	{
 		if (line[tmp->n] == ' ' || line[tmp->n] == '\0')
 			break ;

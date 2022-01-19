@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 13:26:49 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:49:09 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,37 +97,10 @@ char	*check_var_env(char *line, char **env)
 			line = check_var_env_bis(line, env, ' ', i);
 			i = -1;
 		}
-		else
-			new_line = line;
 	}
+	new_line = line;
 	return (new_line);
 }
-/*
-char	**ft_arg(char **arg, char **env)
-{
-	int	i;
-
-	i = 0;
-	while (arg && arg[i])
-	{
-		if (arg[i][0] == '\'')
-		{
-			arg[i] = ft_strtrim(arg[i], "\'");
-		}
-		else if (arg[i][0] == '\"')
-		{
-			arg[i] = ft_strtrim(arg[i], "\"");
-			arg[i] = check_all_string(arg[i], env);
-		}
-		else
-		{
-			arg[i] = check_all_string(arg[i], env);
-		}
-		i++;
-	}
-	return (arg);
-}
-*/
 
 char	**ft_arg(char **arg, char **env)
 {

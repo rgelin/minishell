@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 12:52:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:18:14 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
 
-int		check_is_opt_echo(char *line)
+int	check_is_opt_echo(char *line)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ int		check_is_opt_echo(char *line)
 	return (0);
 }
 
-int		check_is_opt(char *line)
+int	check_is_opt(char *line)
 {
 	int	i;
 

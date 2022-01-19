@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 13:45:02 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:02:31 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	nbr_of_redirect(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (check_quote(line, i) && (line[i] == '<' ||line[i] == '>'))
+		if (check_quote(line, i) && (line[i] == '<' || line[i] == '>'))
 			n++;
 		i++;
 	}
@@ -30,17 +30,21 @@ int	nbr_of_redirect(char *line)
 
 void	count_char_bis(t_tmp *tmp, char *line)
 {
-	while (line[tmp->n] == '<'  || line[tmp->n] == '>')
+	while (line[tmp->n] && (line[tmp->n] == '<' || line[tmp->n] == '>'))
 	{
 		tmp->n++;
 		tmp->m++;
 	}
-	while (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+	if (tmp->n >= (int)ft_strlen(line))
+		return ;
+	while (line[tmp->n] && (line[tmp->n] == ' ' || line[tmp->n] == '\0'))
 	{
 		tmp->n++;
 		tmp->m++;
 	}
-	while (ft_isascii(line[tmp->n]))
+	if (tmp->n >= (int)ft_strlen(line))
+		return ;
+	while (line[tmp->n] && (ft_isascii(line[tmp->n])))
 	{
 		if (line[tmp->n] == ' ' || line[tmp->n] == '\0')
 			break ;
@@ -54,7 +58,6 @@ char	*cut_redirect(char *line, int index, char **tab_here, char c)
 	t_tmp	tmp;
 	char	*symbole;
 
-	
 	init_tmp(&tmp);
 	symbole = NULL;
 	tmp.n = index;

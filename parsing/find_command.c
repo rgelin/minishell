@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 13:44:05 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:19:11 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	(void)env;
 	new_line = get_heredoc(line, &tab);
 	new_line = get_redirect(new_line, &tab);
-	
 	if (new_line && ft_get_index(new_line) != 0)
 	{
 		tab.command = ft_get_command(new_line, env);
