@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 15:54:36 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 13:45:02 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char	*get_redirect(char *line, t_pars *tab_here)
 	new_line = get_tab_redirect(line, tab);
 	tab_here->redirect = tab;
 	tmp = ft_strtrim(new_line, " ");
+	free(line);
 	line = NULL;
 	return (tmp);
 }

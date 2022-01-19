@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 11:58:02 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 13:39:54 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,19 @@ char	*check_all_string(char	*line, char **env)
 
 	init_tmp(&tmp);
 	i = 0;
-	while (line[i] != '\0')
+	if (line)
 	{
-		if (line[i] == '\'')
-			i = check_all_string_bis(&line, env, '\'', i);
-		else if (line[i] == '\"')
-			i = check_all_string_bis(&line, env, '\"', i);
-		else if (line[i] == '$')
-			i = check_all_string_bis(&line, env, 'N', i);
-		i++;
+		while (line[i] != '\0')
+		{
+			if (line[i] == '\'')
+				i = check_all_string_bis(&line, env, '\'', i);
+			else if (line[i] == '\"')
+				i = check_all_string_bis(&line, env, '\"', i);
+			else if (line[i] == '$')
+				i = check_all_string_bis(&line, env, 'N', i);
+			if (i < (int)(ft_strlen(line)))
+				i++;
+		}
 	}
 	tmp.new_line = ft_strdup(line);
 	free(line);
