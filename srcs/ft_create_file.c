@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/15 14:36:28 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:54:50 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ static int	ft_exit_create_file(char *file_name)
 		free(file_name);
 	return (g_global.exit_code);
 }
-//changement nom ici
-/*
-char	*check_file_name(char	*name)
-{
-	char	*file_name;
-
-	file_name = ft_strdup(name);
-
-}
-*/
 
 static int	ft_create_file(char *name)
 {
@@ -63,6 +53,7 @@ static int	ft_create_redirect(t_exc exc)
 	int		status;
 
 	i = 0;
+	status = 0;
 	if (!exc.redirect || !ft_tabsize(exc.redirect))
 		return (-2);
 	current = exc.redirect[i];

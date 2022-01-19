@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 12:52:24 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:44:05 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	{
 		tab.command = ft_get_command(new_line, env);
 		get_arg(new_line, tab.command, env, &tab);
-		//tab.option = get_opt(new_line, tab.command, &tab);
-		//tab.arg = get_arg(new_line, tab.command);
 	}
 	else if (new_line)
 	{
