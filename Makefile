@@ -36,6 +36,7 @@ SRCS		=	$(SOURCES)minishell.c \
 				$(SOURCES)ft_heredoc.c \
 				$(SOURCES)ft_signal_heredoc.c \
 				$(SOURCES)ft_init.c \
+				$(BUILTINS)ft_exit.c \
 
 SRCS_UTILS	=	$(UTILS)ft_tabsize.c \
 				$(UTILS)ft_sort_string_tab.c \

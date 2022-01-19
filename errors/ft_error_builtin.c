@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:06:39 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:06:40 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:28:59 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_check_error_arg_opt(t_exc exc)
 	int	error;
 
 	error = 0;
+	if (check_builtin(exc.cmd) == EXIT)
+		return (0);
 	if (ft_tabsize(exc.arg) && ft_check_no_need_arg(exc))
 	{
 		ft_perror(exc.cmd, NULL, "doesn't take argument");
