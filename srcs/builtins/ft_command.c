@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 11:50:30 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:36:14 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,4 @@ int	ft_env(char **env)
 		i++;
 	}
 	return (ENV);
-}
-
-void	ft_exit(t_exc exc, int nbr_pipe)
-{
-	if (ft_tabsize(exc.arg) > 1)
-	{
-		printf("exit\n");
-		printf("minishell: exit: too many arguments\n");
-		g_global.exit_code = 1;
-		return ;
-	}
-	else if (exc.arg || exc.opt)
-	{
-		if (exc.opt != NULL)
-			g_global.exit_code = ft_atoi(exc.opt)
-				+ (256 * (ft_atoi(exc.opt) / 256));
-		else if (exc.arg && check_str_digit(exc.arg[0]))
-		{
-			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n",
-				exc.arg[0]);
-			exit(255);
-		}
-		else
-			g_global.exit_code = ft_atoi(exc.arg[0])
-				- (256 * (ft_atoi(exc.arg[0]) / 256));
-	}
-	if (nbr_pipe == 0)
-		printf("exit\n");
 }
