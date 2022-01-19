@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 12:21:31 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:33:39 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ t_exp_list	*freelist(t_exp_list *stack);
 
 /*=========SRCS=========*/
 
-int			ft_execute_command(t_exc cmd, char ***env);
-int			execute(t_exc exc, char ***env);
+int			ft_execute_command(t_exc cmd, char ***env, int nbr_pipe);
+int			execute(t_exc exc, char ***env, int nbr_pipe);
 void		ft_create_all_redirect(t_exc *exc, int size);
 long		get_lvl_shlvl(char ***env);
 char		**cpy_env(char **env);
@@ -150,6 +150,7 @@ void		init_variables(t_state **state, t_pars **tab, t_exc **exc);
 void		ft_exec_heredoc(int nbr_pipe, t_exc *cmds);
 void		ft_open_pipes(int nbr_pipe, int **fds);
 void		ft_set_stdin_back(int fd_in);
+void		ft_close_pipes(int nbr_pipe, int *fds);
 /*=========PARSING=========*/
 
 t_pars		*parsing(t_state *s, char **env);
@@ -201,7 +202,7 @@ int			ft_pwd(void);
 int			ft_cd(t_exc exc, char ***env);
 int			ft_export(t_exc exc, char ***env);
 int			ft_unset(t_exc exc, char ***env);
-void		ft_exit(t_exc exc);
+void		ft_exit(t_exc exc, int nbr_pipe);
 void		create_new_var_env(char *arg, char ***env);
 void		modify_var_in_env(char *arg, char ***env);
 int			find_var_in_env(char *arg, char **env);

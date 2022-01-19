@@ -6,27 +6,27 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/18 16:24:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:40:00 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_set_stdin_back(int fd_in)
-{
-	if (dup2(fd_in, STDIN_FILENO) == -1)
-	{
-		ft_perror("dup2", NULL, "Error dup2 STDIN");
-		g_global.exit_code = EXIT_FAILURE;
-		exit(g_global.exit_code);
-	}
-	if (close(fd_in) == -1)
-	{
-		ft_perror("close", NULL, "Error close file");
-		g_global.exit_code = EXIT_FAILURE;
-		exit(g_global.exit_code);
-	}
-}
+// void	ft_set_stdin_back(int fd_in)
+// {
+// 	if (dup2(fd_in, STDIN_FILENO) == -1)
+// 	{
+// 		ft_perror("dup2", NULL, "Error dup2 STDIN");
+// 		g_global.exit_code = EXIT_FAILURE;
+// 		exit(g_global.exit_code);
+// 	}
+// 	if (close(fd_in) == -1)
+// 	{
+// 		ft_perror("close", NULL, "Error close file");
+// 		g_global.exit_code = EXIT_FAILURE;
+// 		exit(g_global.exit_code);
+// 	}
+// }
 
 static void	ft_simple(char *heredoc)
 {
@@ -61,11 +61,11 @@ int	ft_heredoc(t_exc cmd)
 	int	status;
 
 	if (cmd.heredoc == NULL)
-		return (0);
+		return (EXIT_SUCCESS);
 	g_global.in_heredoc = 1;
 	g_global.fork_pid = fork();
 	if (g_global.fork_pid == -1)
-		return (0);
+		exit (EXIT_FAILURE);
 	if (g_global.fork_pid == 0)
 	{
 		ft_set_signal();

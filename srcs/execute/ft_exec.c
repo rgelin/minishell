@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 13:52:03 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:49:26 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_create_all_exec(char ***folder, t_exc command)
 	int	i;
 
 	i = 0;
+	if (!command.cmd)
+		return (1);
 	if (!(*folder))
 		return (0);
 	while ((*folder)[i])
@@ -85,11 +87,11 @@ static int	ft_exec(t_exc command, char **env)
 	return (g_global.exit_code);
 }
 
-int	execute(t_exc exc, char ***env)
+int	execute(t_exc exc, char ***env, int nbr_pipe)
 {
 	if (check_builtin(exc.cmd) != 0)
 	{
-		ft_execute_command(exc, env);
+		ft_execute_command(exc, env, nbr_pipe);
 		return (g_global.exit_code);
 	}
 	else
