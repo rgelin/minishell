@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 13:51:34 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:20:02 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ static void	ft_exit_opt(t_exc exc, int nbr_pipe)
 	{
 		if (nbr_pipe == 0)
 			printf("exit\n");
-		printf("minishell: exit: too many arguments\n");
+		ft_perror(exc.cmd, NULL, "too many arguments");
 		g_global.exit_code = 1;
 	}
 	else if (check_str_digit(exc.opt + 1))
 	{
 		if (nbr_pipe == 0)
 			printf("exit\n");
-		printf("minishell: exit: %s: numeric argument required\n",
-			exc.opt);
+		ft_perror(exc.cmd, exc.opt, "numeric argument required");
 		g_global.exit_code = 255;
 	}
 	else
@@ -34,11 +33,11 @@ static void	ft_exit_opt(t_exc exc, int nbr_pipe)
 			+ (256 * (ft_atoi(exc.opt) / 256));
 }
 
-static void	ft_exit_too_many_args(int nbr_pipe)
+static void	ft_exit_too_many_args(t_exc exc, int nbr_pipe)
 {
 	if (nbr_pipe == 0)
 		printf("exit\n");
-	printf("minishell: exit: too many arguments\n");
+	ft_perror(exc.cmd, NULL, "too many arguments");
 	g_global.exit_code = 1;
 }
 
@@ -48,8 +47,7 @@ static void	ft_exit_args(t_exc exc, int nbr_pipe)
 		printf("exit\n");
 	if (check_str_digit(exc.arg[0]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n",
-			exc.arg[0]);
+		ft_perror(exc.cmd, exc.opt, "numeric argument required");
 		g_global.exit_code = 255;
 	}
 	else
@@ -66,7 +64,7 @@ void	ft_exit(t_exc exc, int nbr_pipe)
 	}
 	else if (exc.regroup_exit || ft_tabsize(exc.arg) > 1)
 	{
-		ft_exit_too_many_args(nbr_pipe);
+		ft_exit_too_many_args(exc, nbr_pipe);
 		return ;
 	}
 	else
@@ -74,6 +72,4 @@ void	ft_exit(t_exc exc, int nbr_pipe)
 		ft_exit_args(exc, nbr_pipe);
 		return ;
 	}
-	// if (nbr_pipe == 0)
-		// printf("exit\n");
 }
