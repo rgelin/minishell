@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 12:32:39 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:52:39 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 		n++;
 	}
 	tab->option = get_opt(line, n, env);
-	if (n != 0)
-		tab->regroupe_exit = 1;
+	if (n > 1)
+		tab->regroup_exit = 1;
 	n = 0;
 	start = i;
 	while (tmp && tmp[i])

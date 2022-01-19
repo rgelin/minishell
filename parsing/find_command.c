@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 10:01:41 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:52:24 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_tab(t_pars *tab)
 	tab->heredoc = NULL;
 	tab->next_char = NULL;
 	tab->redirect = NULL;
-	tab->regroupe_exit = 0;
+	tab->regroup_exit = 0;
 }
 
 char	*ft_get_command(char *line, char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 12:33:39 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:51:47 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_exc
 	char	**redirect;
 	char	**env_cpy;
 	int		exit_code;
+	int		regroup_exit;
 }				t_exc;
 
 /*structure pour le parsin qui sera free
@@ -75,7 +76,7 @@ typedef struct s_pars
 	char	**redirect;
 	char	**heredoc;
 	char	*next_char;
-	int		regroupe_exit;
+	int		regroup_exit;
 }				t_pars;
 
 typedef struct s_state

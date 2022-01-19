@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 11:57:30 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/19 12:53:09 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_exc	*last_parsing(t_pars *tab, char **env)
 			last_tab[i].heredoc = tab[i].heredoc;
 		if (tab[i].arg)
 			last_tab[i].arg = tab[i].arg;
+		last_tab[i].regroup_exit = tab[i].regroup_exit;
 		i++;
 	}
 	return (last_tab);
