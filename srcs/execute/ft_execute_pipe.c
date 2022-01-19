@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 11:49:14 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:12:09 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_open_pipes(int nbr_pipe, int **fds)
 	}
 }
 
-static void	ft_close_pipes(int nbr_pipe, int *fds)
+void	ft_close_pipes(int nbr_pipe, int *fds)
 {
 	int	i;
 

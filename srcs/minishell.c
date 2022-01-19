@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 11:50:00 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:16:08 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@
 
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {
-	//int	n_pipe;
 	int	*fds;
 
-	//n_pipe = 0;
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
-	if (!exc->heredoc && check_builtin(exc->cmd) != ECHO)
-		g_global.exit_code = 0;
 	if (g_global.exit_code == 1)
+	{
+		ft_close_pipes(tab->pipe, fds);
 		return ;
+	}
+	if (check_builtin(exc->cmd) != ECHO)
+		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
