@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 16:19:11 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:21:32 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,23 @@ t_pars	get_command(char *line, t_state *s, char **env)
 	t_pars	tab;
 	char	*new_line;
 
-	(void)s;
 	init_tab(&tab);
-	(void)env;
-	new_line = get_heredoc(line, &tab);
-	new_line = get_redirect(new_line, &tab);
-	if (new_line && ft_get_index(new_line) != 0)
+	new_line = NULL;
+	(void)s;
+	if (ft_get_index(line))
+	{
+		new_line = get_heredoc(line, &tab);
+		new_line = get_redirect(new_line, &tab);
+	}
+	else
+	{
+		tab.command = ft_substr(line, 0, ft_strlen(line));
+		tab.command = ft_arg_bis(ft_strtrim(tab.command, " \t"), env);
+	}
+	if (new_line)
 	{
 		tab.command = ft_get_command(new_line, env);
 		get_arg(new_line, tab.command, env, &tab);
-	}
-	else if (new_line)
-	{
-		tab.command = ft_substr(new_line, 0, ft_strlen(new_line));
-		tab.command = ft_arg_bis(ft_strtrim(tab.command, " \t"), env);
 	}
 	free(new_line);
 	return (tab);
