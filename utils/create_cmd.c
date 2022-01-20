@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:45:28 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:45:28 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:10:50 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,23 @@ char	**create_cmd(t_exc command)
 	}
 	to_ret[i] = NULL;
 	return (to_ret);
+}
+
+int	ft_check_exist(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd && cmd[i] == '/')
+	{
+		while (cmd[++i] == '/' && cmd[i])
+			;
+	}
+	else
+		return (1);
+	while (cmd[++i] && cmd[i] != '/')
+		;
+	if (i == (int)ft_strlen(cmd))
+		return (0);
+	return (1);
 }

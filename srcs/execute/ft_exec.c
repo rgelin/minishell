@@ -6,32 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 15:39:29 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:12:05 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 extern t_global	g_global;
-
-static int	ft_check_exist(char *cmd)
-{
-	int	i;
-	
-	i = 0;
-	if (cmd && cmd[i] == '/')
-	{
-		while (cmd[++i] == '/' && cmd[i])
-			;
-	}
-	else
-		return (1);
-	while (cmd[++i] && cmd[i] != '/')
-		;
-	if (i == (int)ft_strlen(cmd))
-		return (0);
-	return (1);
-}
 
 int	ft_create_all_exec(char ***folder, t_exc command)
 {
@@ -101,7 +82,6 @@ static int	ft_exec(t_exc command, char **env)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
 		ft_free(cmd, ft_tabsize(cmd));
-		free(line);
 		return (127);
 	}
 	folder = ft_split(line, ':');
@@ -110,8 +90,9 @@ static int	ft_exec(t_exc command, char **env)
 	if (!ft_create_all_exec(&folder, command))
 		return (ft_free_exec(folder, cmd));
 	g_global.exit_code = ft_try_exec(command, cmd, folder, env);
-	command.exit_code = g_global.exit_code;
 	ft_free_exec(folder, cmd);
+	if (line)
+		free(line);
 	return (g_global.exit_code);
 }
 
