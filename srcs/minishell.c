@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:51:05 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:58:42 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+
+t_global	g_global;
 
 static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 {

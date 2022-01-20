@@ -6,11 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:06:39 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 13:28:59 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:00:54 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
+
+extern t_global	g_global;
 
 static int	ft_check_no_need_opt(t_exc exc)
 {

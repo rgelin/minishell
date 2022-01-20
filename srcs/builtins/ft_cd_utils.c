@@ -6,11 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:32 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 10:42:47 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:59:58 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern t_global	g_global;
 
 void	set_pwd_and_oldpwd(char	*path, char *old_path, char ***env)
 {

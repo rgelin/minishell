@@ -6,11 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 13:55:27 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:59:39 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern t_global	g_global;
 
 static void	go_to_final_path(char *arg, char ***env, char *old_path)
 {

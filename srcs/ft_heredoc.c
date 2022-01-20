@@ -6,27 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 13:04:43 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:00:08 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	ft_set_stdin_back(int fd_in)
-// {
-// 	if (dup2(fd_in, STDIN_FILENO) == -1)
-// 	{
-// 		ft_perror("dup2", NULL, "Error dup2 STDIN");
-// 		g_global.exit_code = EXIT_FAILURE;
-// 		exit(g_global.exit_code);
-// 	}
-// 	if (close(fd_in) == -1)
-// 	{
-// 		ft_perror("close", NULL, "Error close file");
-// 		g_global.exit_code = EXIT_FAILURE;
-// 		exit(g_global.exit_code);
-// 	}
-// }
+extern t_global	g_global;
 
 static void	ft_simple(char *heredoc)
 {

@@ -6,11 +6,13 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:56 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/17 11:44:22 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:00:15 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_global	g_global;
 
 void	ft_handler_heredoc(int sig_code)
 {
