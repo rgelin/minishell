@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 12:54:55 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:37:49 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,17 @@ static void	ft_exit_args(t_exc exc, int nbr_pipe)
 {
 	if (nbr_pipe == 0)
 		printf("exit\n");
-	if (check_str_digit(exc.arg[0]))
+	if (exc.arg && check_str_digit(exc.arg[0]))
 	{
-		ft_perror(exc.cmd, exc.opt, "numeric argument required");
+		ft_perror(exc.cmd, exc.arg[0], "numeric argument required");
 		g_global.exit_code = 255;
 	}
 	else
-		g_global.exit_code = ft_atoi(exc.arg[0])
-			- (256 * (ft_atoi(exc.arg[0]) / 256));
+	{
+		if (exc.arg)
+			g_global.exit_code = ft_atoi(exc.arg[0])
+			-	 (256 * (ft_atoi(exc.arg[0]) / 256));
+	}
 }
 
 void	ft_exit(t_exc exc, int nbr_pipe)
