@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:29 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 10:06:08 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 11:03:44 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ int	check_error_synthax(t_state *s)
 	tmp = ft_split_parsing(s->line, ' ');
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (tmp[i] && ft_strncmp(tmp[i], ">>", 2) && tmp[i + 1] == NULL)
+		if (tmp[i] && !ft_strncmp(tmp[i], ">>", 2) && tmp[i + 1] == NULL)
 			error = 1;
-		else if  (tmp[i] && ft_strncmp(tmp[i], "<<", 2) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], "<<", 2) && tmp[i + 1] == NULL)
 			error = 1;
-		else if  (tmp[i] && ft_strncmp(tmp[i], "<", 1) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], "<", 1) && tmp[i + 1] == NULL)
 			error = 1;
-		else if  (tmp[i] && ft_strncmp(tmp[i], ">", 1) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], ">", 1) && tmp[i + 1] == NULL)
 			error = 1;
+		else if (tmp[i] && !ft_strncmp(tmp[i], "|", 1) && tmp[i + 1] == NULL)
+			error = 1;		
 		if (error == 1)
 			break ;
 	}
@@ -57,11 +59,11 @@ int	check_error_synthax_bis(t_state *s)
 	tmp = ft_split_parsing(s->line, ' ');
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (tmp[i] && ft_strncmp(tmp[i], ">>>", 2))
+		if (tmp[i] && !ft_strncmp(tmp[i], ">>>", 3))
 			error = 1;
-		if (tmp[i] && ft_strncmp(tmp[i], "<<<", 2))
+		if (tmp[i] && !ft_strncmp(tmp[i], "<<<", 3))
 			error = 1;
-		if (tmp[i] && ft_strncmp(tmp[i], "||", 1))
+		if (tmp[i] && !ft_strncmp(tmp[i], "||", 2))
 			error = 1;
 		if (error == 1)
 			break ;
@@ -71,7 +73,7 @@ int	check_error_synthax_bis(t_state *s)
 		return (0);
 	return (1);
 }
-//verifier les return 0
+
 int	check_parsing(t_state *s)
 {
 	if (!check_quote(s->line, s->eof))
@@ -80,11 +82,6 @@ int	check_parsing(t_state *s)
 		return (0);
 	}
 	if ((!check_error_synthax_bis(s)) || (!check_error_synthax(s)))
-	{
-		ft_putendl_fd("Error syntax", 2);
-		return (0);
-	}
-	if (s->n_of_pipe == -1)
 	{
 		ft_putendl_fd("Error syntax", 2);
 		return (0);
@@ -129,12 +126,7 @@ void	check_char(t_state *s)
 
 	i = -1;
 	while (s->line[++i] != '\0')
-	{	
-		if (s->line[i] == '|' && s->line[i + 1] == '|')
-		{
-			s->n_of_pipe = -1;
-			return ;
-		}
+	{
 		if (s->line[i] == '|' && check_quote(s->line, i))
 			s->n_of_pipe++;
 	}
