@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 12:51:47 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:44:21 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void		ft_close_pipes(int nbr_pipe, int *fds);
 /*=========PARSING=========*/
 
 t_pars		*parsing(t_state *s, char **env);
+int			check_parsing(t_state *s);
 t_pars		*split_line(t_state *line, char **env);
 t_pars		*find_command(t_state *s, char **env);
 int			ft_get_index(char *s);
@@ -169,15 +170,12 @@ void		ft_free_pars_tab(t_state *s);
 void		ft_free_pars_error(t_state *s);
 char		*our_getenv(char *line, char **env);
 char		**ft_split_parsing(char *s, char c);
-//test
 char		*get_redirect(char *line, t_pars *tab_here);
-//char		**get_redirect(char *line);
 char		**ft_arg(char **arg, char **env);
 t_exc		*last_parsing(t_pars *tab, char **env);
 char		*ft_strjoin_double_free(char *s1, char *s2);
 char		**get_opt(char *line, int n, char **env);
 int			check_is_opt(char *line);
-//char		**get_opt(char *line, char *cmd, t_pars *s);
 char		**ft_echo_option(int n);
 void		ft_echo_arg(char *line, char **env, t_pars *tab);
 void		get_arg(char *line, char *cmd, char **env, t_pars *tab);

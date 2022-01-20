@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/18 15:54:30 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 12:18:58 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*our_getenv(char *line, char **env)
 
 	var = NULL;
 	test = NULL;
+	tmp = NULL;
 	index = find_var_in_env(line, env);
 	if (index >= 0)
 	{
@@ -91,11 +92,7 @@ char	*our_getenv(char *line, char **env)
 	}
 	if (index == -1)
 		tmp = ft_strdup("");
-	index = -1;
-	while (test && test[++index] != NULL)
-		free(test[index]);
-	if (test != NULL)
-		free(test);
+	ft_free(test, ft_tabsize(test));
 	free(line);
 	return (ft_strtrim(tmp, " "));
 }
