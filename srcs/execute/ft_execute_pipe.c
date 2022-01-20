@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 13:13:53 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:57:06 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,4 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds)
 	ft_close_pipes(nbr_pipe, fds);
 	g_global.exit_code = ft_waiting_all_child(nbr_pipe);
 	ft_signal_msg();
-	free(fds);
 }

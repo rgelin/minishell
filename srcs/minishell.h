@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 12:51:47 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:57:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void		ft_exec_heredoc(int nbr_pipe, t_exc *cmds);
 void		ft_open_pipes(int nbr_pipe, int **fds);
 void		ft_set_stdin_back(int fd_in);
 void		ft_close_pipes(int nbr_pipe, int *fds);
+char		*our_getenv_bis(char *line, char **env);
 /*=========PARSING=========*/
 
 t_pars		*parsing(t_state *s, char **env);

@@ -6,11 +6,40 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 15:20:02 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:54:55 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*our_getenv_bis(char *line, char **env)
+{
+	int		index;
+	char	*var;
+	char	*tmp;
+	char	**test;
+
+	var = NULL;
+	test = NULL;
+	tmp = NULL;
+	index = find_var_in_env(line, env);
+	if (index >= 0)
+	{
+		var = env[index];
+		test = ft_split(var, '=');
+		if (ft_tabsize(test) > 1)
+			tmp = ft_strdup(test[1]);
+	}
+	if (index == -1)
+		tmp = ft_strdup("");
+	index = -1;
+	while (test && test[++index])
+		free(test[index]);
+	if (test)
+		free(test);
+	free(line);
+	return (ft_strtrim(tmp, " "));
+}
 
 static void	ft_exit_opt(t_exc exc, int nbr_pipe)
 {
