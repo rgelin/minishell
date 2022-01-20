@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_var_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 15:04:11 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:09:09 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char	*insert_var_env(char *line, int index, char **env)
 	tmp.new_line = NULL;
 	while (line[tmp.n] != '\0')
 	{
-		if (line[tmp.n] == ' ' || line[tmp.n] == '\"' || line[tmp.n] == '\'' || line[tmp.n] == '\0')
+		if (line[tmp.n] == ' ' || line[tmp.n] == '\"'
+			|| line[tmp.n] == '\'' || line[tmp.n] == '\0')
 			break ;
 		tmp.n++;
 		tmp.m++;

@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 16:18:14 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 16:05:15 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 
 	n = 0;
 	i = 1;
-	(void)cmd;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
 	{
 		ft_echo_arg(line, env, tab);
@@ -122,21 +121,15 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 	}
 	tmp = ft_split_parsing(line, ' ');
 	tmp = ft_arg(tmp, env);
-	while (check_is_opt(tmp[i]))
-	{
-		i++;
+	while (check_is_opt(tmp[i++]))
 		n++;
-	}
 	tab->option = get_opt(line, n, env);
 	if (n > 1)
 		tab->regroup_exit = 1;
 	n = 0;
 	start = i;
-	while (tmp && tmp[i])
-	{
-		i++;
+	while (tmp && tmp[i++])
 		n++;
-	}
 	tab->arg = return_arg(line, env, n, start);
 	ft_free(tmp, ft_tabsize(tmp));
 }

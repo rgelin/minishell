@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 15:08:12 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 16:07:02 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,6 @@ char	*new_redirect(char *line)
 	line = NULL;
 	free(tmp.var);
 	return (tmp.new_line);
-}
-
-char	*ft_arg_bis(char *arg, char **env)
-{
-	if (arg[0] == '\'')
-	{
-		arg = ft_strtrim(arg, "\'");
-	}
-	else if (arg[0] == '\"')
-	{
-		arg = ft_strtrim(arg, "\"");
-		arg = check_var_env(arg, env);
-	}
-	else
-	{
-		arg = check_var_env(arg, env);
-	}
-	return (arg);
 }
 
 char	**get_redirect_bis(char **tab_redirect, char **env)

@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 16:29:00 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 16:35:56 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_var_env_bis(char *tab_redirect, char **env, int i)
 {
-	t_tmp new;
+	t_tmp	new;
 
 	init_tmp(&new);
 	new.tmp = ft_substr(tab_redirect, 0, i);
@@ -26,9 +26,41 @@ char	*get_var_env_bis(char *tab_redirect, char **env, int i)
 	tab_redirect = NULL;
 	return (new.new_line);
 }
-//index est l 'endroit où on a le symbole ' ou "
-//je dois return la ou je me suis arrête dans la string
-//genre le début que j'ai pas touché + taille de la nouvelle variable
+
+char	*ft_arg_bis(char *arg, char **env)
+{
+	if (arg[0] == '\'')
+	{
+		arg = ft_strtrim(arg, "\'");
+	}
+	else if (arg[0] == '\"')
+	{
+		arg = ft_strtrim(arg, "\"");
+		arg = check_var_env(arg, env);
+	}
+	else
+	{
+		arg = check_var_env(arg, env);
+	}
+	return (arg);
+}
+
+int	return_index_all_string(char *line, int index, char c)
+{
+	int	i;
+
+	i = index + 1;
+	while (line[i] != '\0')
+	{
+		if (c != 'N' && line[i] == c)
+			break ;
+		if (c == 'N' && (line[i] == '\'' || line[i] == '\"'))
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 int	check_all_string_bis(char	**line, char **env, char c, int index)
 {
 	t_tmp	tmp;
@@ -37,19 +69,13 @@ int	check_all_string_bis(char	**line, char **env, char c, int index)
 
 	size = 0;
 	init_tmp(&tmp);
-	i = index + 1;
-	while ((*line)[i] != '\0')
-	{
-		if (c != 'N' && (*line)[i] == c)
-			break ;
-		if (c == 'N' && ((*line)[i] == '\'' || (*line)[i] == '\"'))
-			break ;
-		i++;
-	}
-	tmp.n = i + 1;
-	tmp.nl = ft_substr((*line), 0, index);
-	tmp.tmp = ft_substr((*line), index, i - (index - 1));
-	tmp.rest = ft_substr((*line), i + 1, (ft_strlen(*line) - i));
+	i = return_index_all_string(*line, index, c);
+	if (index > 0)
+		tmp.nl = ft_substr((*line), 0, index - 1);
+	else
+		tmp.nl = ft_substr((*line), 0, index);
+	tmp.tmp = ft_substr((*line), index, i - index);
+	tmp.rest = ft_substr((*line), i, (ft_strlen(*line) - i));
 	tmp.var = ft_arg_bis(tmp.tmp, env);
 	tmp.new_line = ft_strjoin_double_free(tmp.nl, tmp.var);
 	size = ft_strlen(tmp.new_line);
