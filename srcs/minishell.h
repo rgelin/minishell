@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:58:38 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:13:09 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_exc
 	char	**heredoc;
 	char	**redirect;
 	char	**env_cpy;
-	int		exit_code;
 	int		regroup_exit;
 }				t_exc;
 
@@ -131,6 +130,7 @@ t_exp_list	*add_back(t_exp_list *stack, char *str);
 t_exp_list	*remove_back(t_exp_list *stack);
 t_exp_list	*remove_front(t_exp_list *stack);
 t_exp_list	*freelist(t_exp_list *stack);
+int			ft_check_exist(char *cmd);
 
 /*=========SRCS=========*/
 
