@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 13:00:56 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 13:20:27 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
 	if (g_global.exit_code == 1)
-	{
-		ft_close_pipes(tab->pipe, fds);
-		return ;
-	}
+		return (ft_close_pipes(tab->pipe, fds));
 	if (check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
 	ft_create_all_redirect(exc, tab->pipe);
@@ -42,6 +39,7 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 		ft_execute_command(exc[0], new_env, tab->pipe);
 	else
 		ft_execute_pipe(exc, tab->pipe, new_env, fds);
+	free(fds);
 }
 
 void	ft_prompt(t_state *state)

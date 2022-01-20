@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:50 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/19 11:40:00 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:04:43 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_simple(char *heredoc)
 		g_global.exit_code = 1;
 		return ;
 	}
+	rl_on_new_line();
 	line = readline("> ");
 	if (ft_strcmp(line, heredoc) == 0)
 		return (free(line));
@@ -47,6 +48,7 @@ static void	ft_simple(char *heredoc)
 	while (ft_strcmp(line, heredoc) != 0)
 	{
 		free(line);
+		rl_on_new_line();
 		line = readline("> ");
 		if (ft_strcmp(line, heredoc) != 0)
 			ft_putendl_fd(line, fd);
