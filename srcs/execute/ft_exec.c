@@ -6,13 +6,32 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:59:08 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:39:29 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 extern t_global	g_global;
+
+static int	ft_check_exist(char *cmd)
+{
+	int	i;
+	
+	i = 0;
+	if (cmd && cmd[i] == '/')
+	{
+		while (cmd[++i] == '/' && cmd[i])
+			;
+	}
+	else
+		return (1);
+	while (cmd[++i] && cmd[i] != '/')
+		;
+	if (i == (int)ft_strlen(cmd))
+		return (0);
+	return (1);
+}
 
 int	ft_create_all_exec(char ***folder, t_exc command)
 {
@@ -55,6 +74,11 @@ static int	ft_try_exec(t_exc command, char **cmd, char **folder, char **env)
 		exit(EXIT_FAILURE);
 	if (!ft_strlen(command.cmd))
 		exit(EXIT_SUCCESS);
+	if (!ft_check_exist(command.cmd))
+	{
+		ft_perror(command.cmd, NULL, "no such file or directory");
+		return (127);
+	}
 	while (folder[++i])
 		g_global.exit_code = execve(folder[i], cmd, env);
 	g_global.exit_code = execve(command.cmd, cmd, env);
