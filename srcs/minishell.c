@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 13:20:27 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 14:51:05 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
-	if (g_global.exit_code == 1)
+	if (g_global.exit_code == 1 && check_builtin(exc[0].cmd) != EXIT)
 		return (ft_close_pipes(tab->pipe, fds));
-	if (check_builtin(exc->cmd) != ECHO)
-		g_global.exit_code = 0;
-	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
 		ft_free(*new_env, ft_tabsize(*new_env));
@@ -33,6 +30,9 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 		ft_free_tab_exc(exc, tab);
 		exit(g_global.exit_code);
 	}
+	if (check_builtin(exc->cmd) != ECHO)
+		g_global.exit_code = 0;
+	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
 			|| check_builtin(exc[0].cmd) == EXPORT
 			|| check_builtin(exc[0].cmd) == UNSET))
