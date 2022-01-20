@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 16:44:23 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/20 17:22:42 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 		tab->regroup_exit = 1;
 	n = 0;
 	start = i;
-	while (tmp && tmp[i++])
+	while (tmp && tmp[i])
 	{
 		i++;
 		n++;
