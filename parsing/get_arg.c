@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 13:03:13 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 13:35:45 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 	}
 	tmp = ft_split_parsing(line, ' ');
 	tmp = ft_arg(tmp, env);
-	while (check_is_opt(tmp[i]) && (ft_strncmp(cmd, "exit", 4) == 0))
+	while (check_is_opt(tmp[i]) && (ft_strncmp(cmd, "exit", 4)))
 	{
 		i++;
 		n++;
