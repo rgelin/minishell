@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 13:35:45 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 15:45:11 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,29 +113,20 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 	int		start;
 
 	n = 0;
-	i = 1;
+	i = 0;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
-	{
-		ft_echo_arg(line, env, tab);
-		return ;
-	}
+		return (ft_echo_arg(line, env, tab));
 	tmp = ft_split_parsing(line, ' ');
 	tmp = ft_arg(tmp, env);
-	while (check_is_opt(tmp[i]) && (ft_strncmp(cmd, "exit", 4)))
-	{
-		i++;
+	while (check_is_opt(tmp[++i]) && (ft_strncmp(cmd, "exit", 4)))
 		n++;
-	}
 	tab->option = get_opt(line, n, env);
 	if (n > 1)
 		tab->regroup_exit = 1;
 	n = 0;
 	start = i;
-	while (tmp && tmp[i])
-	{
-		i++;
+	while (tmp && tmp[i++])
 		n++;
-	}
 	tab->arg = return_arg(line, env, n, start);
 	ft_free(tmp, ft_tabsize(tmp));
 }

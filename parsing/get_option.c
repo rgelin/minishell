@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_option.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 14:25:48 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:45:46 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_opt(char *line, int n, char **env)
 	int		m;
 	char	**tab;
 
-	i = 1;
+	i = 0;
 	m = 0;
 	tab = malloc(sizeof(char *) * (n + 1));
 	if (!tab)
@@ -60,13 +60,12 @@ char	**get_opt(char *line, int n, char **env)
 	{
 		tmp = ft_split_parsing(line, ' ');
 		tmp = ft_arg(tmp, env);
-		while (tmp && check_is_opt(tmp[i]))
+		while (tmp && check_is_opt(tmp[++i]))
 		{
 			tab[m] = ft_strdup(tmp[i]);
 			if (check_opt_is_valid(tab[m]))
 				tab[m] = ft_strtrim(tab[m], "- ");
 			m++;
-			i++;
 		}
 		ft_free(tmp, ft_tabsize(tmp));
 	}

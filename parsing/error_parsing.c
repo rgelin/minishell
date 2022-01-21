@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 11:59:28 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 15:58:34 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,25 @@ void	ft_error_malloc(t_state *s)
 	if (s->cm)
 		free(s->cm);
 	ft_perror("Malloc", NULL, "Error allocation memory");
+}
+
+void	check_all_string_bis_bis(char *line, t_tmp *tmp, char c, int index)
+{
+	int	i;
+
+	i = return_index_all_string(line, index, c);
+	if (index > 0)
+		tmp->nl = ft_substr(line, 0, index - 1);
+	else
+		tmp->nl = ft_substr(line, 0, index);
+	if (c == '\'' || c == '\"')
+	{
+		tmp->tmp = ft_substr(line, index, (i + 1) - index);
+		tmp->rest = ft_substr(line, i, ((ft_strlen(line) - 1) - i));
+	}
+	else
+	{
+		tmp->tmp = ft_substr(line, index, i - index);
+		tmp->rest = ft_substr(line, i, (ft_strlen(line) - i));
+	}
 }

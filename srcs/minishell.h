@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 14:05:07 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:59:13 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,8 @@ char		*get_var_env_bis(char *tab_redirect, char **env, int i);
 char		*ft_arg_bis(char *arg, char **env);
 char		*check_all_string(char	*line, char **env);
 int			check_opt_is_valid(char	*line);
+void		check_all_string_bis_bis(char *line, t_tmp *tmp, char c, int index);
+int			return_index_all_string(char *line, int index, char c);
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);

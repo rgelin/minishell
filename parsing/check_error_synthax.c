@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 14:35:36 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 15:28:25 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	check_error_synthax(t_state *s)
 	tmp = ft_split_parsing(s->line, ' ');
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (tmp[i] && !ft_strncmp(tmp[i], ">>", 2) && tmp[i + 1] == NULL)
+		if (tmp[i] && !ft_strncmp(tmp[i], ">>", 3) && tmp[i + 1] == NULL)
 			error = 1;
-		else if (tmp[i] && !ft_strncmp(tmp[i], "<<", 2) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], "<<", 3) && tmp[i + 1] == NULL)
 			error = 1;
-		else if (tmp[i] && !ft_strncmp(tmp[i], "<", 1) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], "<", 2) && tmp[i + 1] == NULL)
 			error = 1;
-		else if (tmp[i] && !ft_strncmp(tmp[i], ">", 1) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], ">", 2) && tmp[i + 1] == NULL)
 			error = 1;
-		else if (tmp[i] && !ft_strncmp(tmp[i], "|", 1) && tmp[i + 1] == NULL)
+		else if (tmp[i] && !ft_strncmp(tmp[i], "|", 2) && tmp[i + 1] == NULL)
 			error = 1;
 	}
 	ft_free(tmp, ft_tabsize(tmp));
@@ -49,13 +49,18 @@ int	check_error_synthax_bis(t_state *s)
 	i = -1;
 	error = 0;
 	tmp = ft_split_parsing(s->line, ' ');
+	if (*tmp[0] == '|')
+	{
+		ft_free(tmp, ft_tabsize(tmp));
+		return (0);
+	}
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (tmp[i] && !ft_strncmp(tmp[i], ">>>", 3))
+		if (tmp[i] && !ft_strncmp(tmp[i], ">>>", 4))
 			error = 1;
-		if (tmp[i] && !ft_strncmp(tmp[i], "<<<", 3))
+		if (tmp[i] && !ft_strncmp(tmp[i], "<<<", 4))
 			error = 1;
-		if (tmp[i] && !ft_strncmp(tmp[i], "||", 2))
+		if (tmp[i] && !ft_strncmp(tmp[i], "||", 3))
 			error = 1;
 	}
 	ft_free(tmp, ft_tabsize(tmp));
@@ -77,15 +82,15 @@ int	check_error_synthax_bis_bis(t_state *s, char *l)
 	tmp = ft_split_parsing(s->line, ' ');
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (!ft_strncmp(tmp[i], ">>", 2) && !ft_strncmp(tmp[i + 1], l, n))
+		if (!ft_strncmp(tmp[i], ">>", 3) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
-		else if (!ft_strncmp(tmp[i], "<<", 2) && !ft_strncmp(tmp[i + 1], l, n))
+		else if (!ft_strncmp(tmp[i], "<<", 3) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
-		else if (!ft_strncmp(tmp[i], "<", 1) && !ft_strncmp(tmp[i + 1], l, n))
+		else if (!ft_strncmp(tmp[i], "<", 2) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
-		else if (!ft_strncmp(tmp[i], ">", 1) && !ft_strncmp(tmp[i + 1], l, n))
+		else if (!ft_strncmp(tmp[i], ">", 2) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
-		else if (!ft_strncmp(tmp[i], "|", 1) && !ft_strncmp(tmp[i + 1], l, n))
+		else if (!ft_strncmp(tmp[i], "|", 2) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
 	}
 	ft_free(tmp, ft_tabsize(tmp));
