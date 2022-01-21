@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:45 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:59:52 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:04:00 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static char	*parse_arg(char *arg)
 	int		i;
 
 	res = ft_strtrim_modified(arg, "\"");
-	free(arg);
 	arg = NULL;
 	i = -1;
 	while (res[++i])
