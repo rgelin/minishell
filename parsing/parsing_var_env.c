@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 16:38:25 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:48:50 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ char	*check_var_env(char *line, char **env)
 	int		i;
 	char	*new_line;
 
-	i = 0;
+	i = -1;
 	new_line = NULL;
-	while (line[i++] != '\0')
+	while (line[++i] != '\0')
 	{
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
