@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing_bis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 17:21:55 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:07:36 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,14 @@ int	return_index_all_string(char *line, int index, char c)
 	while (line[i] != '\0')
 	{
 		if (c != 'N' && line[i] == c)
+		{
 			break ;
+		}
 		if (c == 'N' && (line[i] == '\'' || line[i] == '\"'))
+		{
+			i++;
 			break ;
+		}
 		i++;
 	}
 	return (i);
@@ -74,8 +79,17 @@ int	check_all_string_bis(char	**line, char **env, char c, int index)
 		tmp.nl = ft_substr((*line), 0, index - 1);
 	else
 		tmp.nl = ft_substr((*line), 0, index);
-	tmp.tmp = ft_substr((*line), index, i - index);
-	tmp.rest = ft_substr((*line), i, (ft_strlen(*line) - i));
+	if (c == '\'' || c == '\"')
+	{
+		tmp.tmp = ft_substr((*line), index, (i + 1) - index);
+		tmp.rest = ft_substr((*line), i, ((ft_strlen(*line) - 1) - i));
+	}
+	else
+	{
+		tmp.tmp = ft_substr((*line), index, i - index);
+		tmp.rest = ft_substr((*line), i, (ft_strlen(*line) - i));
+
+	}
 	tmp.var = ft_arg_bis(tmp.tmp, env);
 	tmp.new_line = ft_strjoin_double_free(tmp.nl, tmp.var);
 	size = ft_strlen(tmp.new_line);
