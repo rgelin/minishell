@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 12:16:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:05:07 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_global
 	pid_t	fork_pid;
 	int		exit_code;
 	int		in_heredoc;
-	int		error_malloc;
 }	t_global;
 
 typedef struct s_exc
