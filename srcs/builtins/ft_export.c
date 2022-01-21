@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:59:45 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:11:53 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,11 @@ static char	*parse_arg(char *arg)
 	int		i;
 
 	res = ft_strtrim_modified(arg, "\"");
-	free(arg);
-	arg = NULL;
 	i = -1;
 	if (!ft_isalpha(res[0]) && res[0] != '_')
 	{
 		ft_perror("export", res, "not a valid identifier");
+		free(res);
 		g_global.exit_code = 1;
 		return (NULL);
 	}
@@ -107,6 +106,7 @@ static char	*parse_arg(char *arg)
 		else if (!ft_isalnum(res[i]) && res[i] != '_')
 		{
 			ft_perror("export", res, "not a valid identifier");
+			free(res);
 			g_global.exit_code = 1;
 			return (NULL);
 		}

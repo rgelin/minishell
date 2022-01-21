@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:47:38 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/12 11:47:56 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:13:35 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ static int	ft_new_length(char const *s1, char const *set)
 	return (count);
 }
 
-/*
-* LEAK
-*/
-char	*ft_strtrim_modified(char const *s1, char const *set)
+char	*ft_strtrim_modified(char *s1, char const *set)
 {
 	int		i;
 	int		index;
@@ -63,6 +60,7 @@ char	*ft_strtrim_modified(char const *s1, char const *set)
 			res[index++] = s1[i];
 	}
 	res[index] = '\0';
+	free(s1);
 	return (res);
 }
 

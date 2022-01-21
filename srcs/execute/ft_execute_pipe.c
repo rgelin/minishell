@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 15:03:20 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:58:19 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_open_pipes(int nbr_pipe, int **fds)
 	int	i;
 
 	i = 0;
-	*fds = (int *)malloc(sizeof(int) * nbr_pipe * 2);
+	*fds = (int *)malloc(sizeof(int) * (nbr_pipe * 2));
 	if (!fds)
 	{
 		ft_perror("malloc", NULL, "Error malloc pipe");
