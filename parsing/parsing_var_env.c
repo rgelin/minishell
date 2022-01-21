@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:25 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 16:53:15 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:48:50 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*insert_var_env(char *line, int index, char **env)
 	while (line[tmp.n] != '\0')
 	{
 		if (line[tmp.n] == ' ' || line[tmp.n] == '\"'
-			|| line[tmp.n] == '\'' || line[tmp.n] == '\0')
+			|| line[tmp.n] == '\'' || line[tmp.n] == '\0'
+			|| line[tmp.n] == '=')
 			break ;
 		tmp.n++;
 		tmp.m++;
