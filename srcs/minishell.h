@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 15:59:13 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:08:02 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			ft_strchr_modified(const char *s, int c);
 int			ft_strcmp(char *s1, char *s2);
 int			size_list(t_exp_list *stack);
 int			check_str_digit(char *str);
-char		*ft_strtrim_modified(char const *s1, char const *set);
+char		*ft_strtrim_modified(char *s1, char const *set);
 char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_get_last_input(t_exc cmd);
 char		*ft_get_last_output(t_exc cmd);
