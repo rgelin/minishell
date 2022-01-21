@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 12:37:40 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 13:53:50 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,20 @@ char	**get_opt(char *line, int n, char **env)
 	tab = malloc(sizeof(char *) * (n + 1));
 	if (!tab)
 		exit(EXIT_FAILURE);
-	tmp = ft_split_parsing(line, ' ');
-	tmp = ft_arg(tmp, env);
-	while (tmp && check_is_opt(tmp[i]))
+	if (n > 1)
 	{
-		tab[m] = ft_strdup(tmp[i]);
-		if (check_opt_is_valid(tab[m]))
-			tab[m] = ft_strtrim(tab[m], "- ");
-		m++;
-		i++;
+		tmp = ft_split_parsing(line, ' ');
+		tmp = ft_arg(tmp, env);
+		while (tmp && check_is_opt(tmp[i]))
+		{
+			tab[m] = ft_strdup(tmp[i]);
+			if (check_opt_is_valid(tab[m]))
+				tab[m] = ft_strtrim(tab[m], "- ");
+			m++;
+			i++;
+		}
+		ft_free(tmp, ft_tabsize(tmp));
 	}
 	tab[m] = NULL;
-	ft_free(tmp, ft_tabsize(tmp));
 	return (tab);
 }
