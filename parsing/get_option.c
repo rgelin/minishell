@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_option.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 13:53:50 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 14:25:48 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**get_opt(char *line, int n, char **env)
 	tab = malloc(sizeof(char *) * (n + 1));
 	if (!tab)
 		exit(EXIT_FAILURE);
-	if (n > 1)
+	if (n >= 1)
 	{
 		tmp = ft_split_parsing(line, ' ');
 		tmp = ft_arg(tmp, env);
