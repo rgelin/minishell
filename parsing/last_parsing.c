@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 16:07:02 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:33:53 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ char	*option(char **options)
 	line[0] = '-';
 	line[1] = '\0';
 	while (options[++i])
+	{
 		line = ft_strcat(line, options[i]);
+	}
 	ft_free(options, ft_tabsize(options));
 	return (line);
 }

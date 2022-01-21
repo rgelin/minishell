@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_option.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 12:25:29 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:45:10 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ char	**ft_echo_option(int n)
 	return (tmp);
 }
 
+int		check_opt_is_valid(char	*line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '-' && !ft_isalnum(line[i + 1]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 char	**get_opt(char *line, int n, char **env)
 {
 	char	**tmp;
@@ -47,7 +61,8 @@ char	**get_opt(char *line, int n, char **env)
 	while (tmp && check_is_opt(tmp[i]))
 	{
 		tab[m] = ft_strdup(tmp[i]);
-		tab[m] = ft_strtrim(tab[m], "- ");
+		if (check_opt_is_valid(tab[m]))
+			tab[m] = ft_strtrim(tab[m], "- ");
 		m++;
 		i++;
 	}
