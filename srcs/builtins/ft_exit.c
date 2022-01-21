@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 16:12:19 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:57:29 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,67 +43,30 @@ char	*our_getenv_bis(char *line, char **env)
 	return (ft_strtrim(tmp, " "));
 }
 
-static void	ft_exit_opt(t_exc exc, int nbr_pipe)
-{
-	if (exc.regroup_exit == 1)
-	{
-		if (nbr_pipe == 0)
-			printf("exit\n");
-		ft_perror(exc.cmd, NULL, "too many arguments");
-		g_global.exit_code = 1;
-	}
-	else if (check_str_digit(exc.opt + 1))
-	{
-		if (nbr_pipe == 0)
-			printf("exit\n");
-		ft_perror(exc.cmd, exc.opt, "numeric argument required");
-		g_global.exit_code = 255;
-	}
-	else
-		g_global.exit_code = ft_atoi(exc.opt)
-			+ (256 * (ft_atoi(exc.opt) / 256));
-}
-
-static void	ft_exit_too_many_args(t_exc exc, int nbr_pipe)
-{
-	if (nbr_pipe == 0)
-		printf("exit\n");
-	ft_perror(exc.cmd, NULL, "too many arguments");
-	g_global.exit_code = 1;
-}
-
-static void	ft_exit_args(t_exc exc, int nbr_pipe)
-{
-	if (nbr_pipe == 0)
-		printf("exit\n");
-	if (exc.arg && check_str_digit(exc.arg[0]))
-	{
-		ft_perror(exc.cmd, exc.arg[0], "numeric argument required");
-		g_global.exit_code = 255;
-	}
-	else
-	{
-		if (exc.arg)
-			g_global.exit_code = ft_atoi(exc.arg[0])
-				- (256 * (ft_atoi(exc.arg[0]) / 256));
-	}
-}
-
 void	ft_exit(t_exc exc, int nbr_pipe)
 {
-	if (exc.opt)
+	int	i;
+
+	i = -1;
+	if (nbr_pipe == 0)
+		printf("exit\n");
+	while (exc.arg && exc.arg[++i])
 	{
-		ft_exit_opt(exc, nbr_pipe);
+		if (exc.arg[i] && (!check_opt_is_valid(exc.arg[i])
+				|| (check_str_digit(exc.arg[i]))))
+		{
+			ft_perror(exc.cmd, exc.arg[0], "numeric argument required");
+			g_global.exit_code = 255;
+			return ;
+		}
+	}
+	if (i > 1)
+	{
+		ft_perror(exc.cmd, NULL, "too many arguments");
+		g_global.exit_code = 1;
 		return ;
 	}
-	else if (exc.regroup_exit || ft_tabsize(exc.arg) > 1)
-	{
-		ft_exit_too_many_args(exc, nbr_pipe);
-		return ;
-	}
-	else
-	{
-		ft_exit_args(exc, nbr_pipe);
-		return ;
-	}
+	if (exc.arg)
+		g_global.exit_code = ft_atoi(exc.arg[0])
+			- (256 * (ft_atoi(exc.arg[0]) / 256));
 }
