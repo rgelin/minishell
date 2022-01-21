@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:30:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 11:07:36 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 12:00:35 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	check_all_string_bis(char	**line, char **env, char c, int index)
 	{
 		tmp.tmp = ft_substr((*line), index, i - index);
 		tmp.rest = ft_substr((*line), i, (ft_strlen(*line) - i));
-
 	}
 	tmp.var = ft_arg_bis(tmp.tmp, env);
 	tmp.new_line = ft_strjoin_double_free(tmp.nl, tmp.var);

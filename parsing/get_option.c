@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:10 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 11:45:10 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:59:47 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_echo_option(int n)
 	return (tmp);
 }
 
-int		check_opt_is_valid(char	*line)
+int	check_opt_is_valid(char	*line)
 {
 	int	i;
 

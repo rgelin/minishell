@@ -6,7 +6,7 @@
 /*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 11:09:42 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:59:28 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ void	ft_error_malloc(t_state *s)
 		free(s->cm);
 	ft_perror("Malloc", NULL, "Error allocation memory");
 }
-
