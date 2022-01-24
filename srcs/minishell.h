@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/24 14:25:12 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:46:03 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ int			ft_check_char_syntax(t_state *s, char c, int i);
 int			check_builtin(char *cmd);
 void		ft_perror(char *cmd, char *arg, char *err_msg);
 int			ft_check_error_arg_opt(t_exc exc);
+int			ft_error_pipe(void);
 
 /*=========BUILTIN=========*/
 

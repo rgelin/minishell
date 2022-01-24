@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:25:07 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 14:58:19 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:50:53 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	ft_waiting_all_child(int nbr_pipe)
 	int	status;
 
 	i = 0;
-	(void)nbr_pipe;
 	while (i <= nbr_pipe)
 	{
 		waitpid(0, &status, 0);
@@ -69,7 +68,7 @@ static int	ft_waiting_all_child(int nbr_pipe)
 			else if (WIFSIGNALED(status))
 				status = 128 + WTERMSIG(status);
 		}
-		if (i == 0)
+		if (i == 0 && g_global.fork_pid != -1)
 			g_global.exit_code = status;
 		i++;
 	}
@@ -101,6 +100,8 @@ void	ft_execute_pipe(t_exc *cmds, int nbr_pipe, char ***env, int *fds)
 	while (++i <= nbr_pipe)
 	{
 		g_global.fork_pid = fork();
+		if (ft_error_pipe())
+			break ;
 		if (g_global.fork_pid == 0)
 		{
 			ft_redirect_output(cmds[i], n_pipe, fds, nbr_pipe);
