@@ -6,11 +6,29 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/24 13:32:20 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:27:59 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
+
+int	check_error_syntax_bbbis(t_state *s)
+{
+	int	i;
+
+	i = 0;
+	while (s->line[i])
+	{
+		if (!ft_check_char_syntax(s, '<', i))
+			return (0);
+		if (!ft_check_char_syntax(s, '>', i))
+			return (0);
+		if (!ft_check_char_syntax(s, '|', i))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	check_error_synthax(t_state *s)
 {
@@ -104,7 +122,8 @@ int	check_parsing(t_state *s)
 		ft_putendl_fd("syntax error near unexpected token \' or \"", 2);
 		return (0);
 	}
-	if ((!check_error_synthax_bis(s)) || (!check_error_synthax(s)))
+	if ((!check_error_synthax_bis(s)) || (!check_error_synthax(s))
+		|| !check_error_syntax_bbbis(s))
 	{
 		ft_putendl_fd("syntax error near unexpected token", 2);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/24 13:46:49 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:08:40 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	count_char_bis(t_tmp *tmp, char *line)
 		return ;
 	while (line[tmp->n] && (ft_isascii(line[tmp->n])))
 	{
-		if (line[tmp->n] == '<' || line[tmp->n] == '>' 
+		if (line[tmp->n] == '<' || line[tmp->n] == '>'
 			|| line[tmp->n] == ' ' || line[tmp->n] == '\0')
 			break ;
 		tmp->n++;
 		tmp->m++;
-	}	
+	}
 }
 
 char	*cut_redirect(char *line, int index, char **tab_here, char c)

@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   error_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 15:58:34 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/24 14:28:27 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/minishell.h"
 
 extern t_global	g_global;
+
+int	ft_check_char_syntax(t_state *s, char c, int i)
+{
+	int	count;
+
+	count = 0;
+	if (s->line[i] == c)
+	{
+		while (s->line[i] && s->line[i++] == c)
+			count++;
+		if (c == '|' && count > 1)
+			return (0);
+		else if (count > 2)
+			return (0);
+	}
+	return (1);
+}
 
 void	ft_free_pars_tab(t_state *s)
 {

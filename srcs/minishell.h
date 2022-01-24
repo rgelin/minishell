@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 16:08:02 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:25:12 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,8 @@ char		*check_all_string(char	*line, char **env);
 int			check_opt_is_valid(char	*line);
 void		check_all_string_bis_bis(char *line, t_tmp *tmp, char c, int index);
 int			return_index_all_string(char *line, int index, char c);
+int			ft_check_char_syntax(t_state *s, char c, int i);
+
 /*=========ERROR=========*/
 
 int			check_builtin(char *cmd);
