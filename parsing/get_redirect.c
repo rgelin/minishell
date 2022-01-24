@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/19 17:02:31 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/24 13:46:49 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	count_char_bis(t_tmp *tmp, char *line)
 		return ;
 	while (line[tmp->n] && (ft_isascii(line[tmp->n])))
 	{
-		if (line[tmp->n] == ' ' || line[tmp->n] == '\0')
+		if (line[tmp->n] == '<' || line[tmp->n] == '>' 
+			|| line[tmp->n] == ' ' || line[tmp->n] == '\0')
 			break ;
 		tmp->n++;
 		tmp->m++;

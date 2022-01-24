@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error_synthax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 15:28:25 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/24 13:32:20 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	check_error_synthax_bis(t_state *s)
 	}
 	while (tmp && tmp[++i] != NULL)
 	{
-		if (tmp[i] && !ft_strncmp(tmp[i], ">>>", 4))
+		if (tmp[i] && !ft_strncmp(tmp[i], ">>>", 3))
 			error = 1;
-		if (tmp[i] && !ft_strncmp(tmp[i], "<<<", 4))
+		else if (tmp[i] && !ft_strncmp(tmp[i], "<<<", 3))
 			error = 1;
-		if (tmp[i] && !ft_strncmp(tmp[i], "||", 3))
+		else if (tmp[i] && !ft_strncmp(tmp[i], "||", 2))
 			error = 1;
 	}
 	ft_free(tmp, ft_tabsize(tmp));

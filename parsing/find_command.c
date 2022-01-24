@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/20 15:21:32 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/24 13:29:01 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ char	*ft_get_command(char *line, char **env)
 	init_tmp(&tmp);
 	split = NULL;
 	split = ft_split_parsing(line, ' ');
-	tmp.tmp = ft_strdup(split[0]);
-	tmp.new_line = ft_arg_bis(tmp.tmp, env);
+	if (split[0])
+	{
+		tmp.tmp = ft_strdup(split[0]);
+		tmp.new_line = ft_arg_bis(tmp.tmp, env);
+	}
 	ft_free(split, ft_tabsize(split));
 	return (tmp.new_line);
 }

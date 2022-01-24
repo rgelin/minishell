@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:03 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 15:45:11 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/24 13:30:51 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	get_arg(char *line, char *cmd, char **env, t_pars *tab)
 
 	n = 0;
 	i = 0;
+	if (!cmd)
+		return ;
 	if (cmd && (ft_strncmp(cmd, "echo", 5) == 0))
 		return (ft_echo_arg(line, env, tab));
 	tmp = ft_split_parsing(line, ' ');
