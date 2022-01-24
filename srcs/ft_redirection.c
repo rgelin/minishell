@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:53 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:59:28 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:19:48 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	ft_set_output_file(char *output)
 	int	fd;
 
 	if (ft_strncmp(output, ">>", 2) == 0)
-		fd = open(output + 2, O_RDWR | O_APPEND, 0644);
+		fd = open(output + 2, O_WRONLY | O_APPEND, 0644);
 	else
-		fd = open(output + 1, O_RDWR | O_TRUNC, 0644);
+		fd = open(output + 1, O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_perror("open", output, "Impossible to open file");
