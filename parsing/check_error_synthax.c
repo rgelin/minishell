@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error_synthax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/24 14:27:59 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/25 09:17:39 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	check_error_syntax_bbbis(t_state *s)
 	i = 0;
 	while (s->line[i])
 	{
-		if (!ft_check_char_syntax(s, '<', i))
+		if (check_quote(s->line, i) && !ft_check_char_syntax(s, '<', i))
 			return (0);
-		if (!ft_check_char_syntax(s, '>', i))
+		if (check_quote(s->line, i) && !ft_check_char_syntax(s, '>', i))
 			return (0);
-		if (!ft_check_char_syntax(s, '|', i))
+		if (check_quote(s->line, i) && !ft_check_char_syntax(s, '|', i))
 			return (0);
 		i++;
 	}
