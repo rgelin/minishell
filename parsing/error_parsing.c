@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:50 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/24 14:28:27 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:44:37 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_check_char_syntax(t_state *s, char c, int i)
 	int	count;
 
 	count = 0;
+	if (s->line[ft_strlen(s->line) - 1] == c)
+		return (0);
 	if (s->line[i] == c)
 	{
 		while (s->line[i] && s->line[i++] == c)
