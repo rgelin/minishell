@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:15 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/24 14:08:40 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:47:00 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ char	*get_tab_redirect(char *line, char **tab)
 	j = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] && (line[i] == '<' || line[i] == '>'))
+		if (line[i] && check_quote(line, i) && (line[i] == '<'
+				|| line[i] == '>'))
 		{
 			new_line = cut_redirect(line, i, &tab[j], line[i]);
 			j++;

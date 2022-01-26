@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/24 14:46:03 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:28:54 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@
 # define UNSET 5
 # define ENV 6
 # define EXIT 7
+# define LONG_MIN_CHAR "-9223372036854775808"
+# define LONG_MAX_CHAR "9223372036854775807"
 
-/* a rendre pour un tableau avec cette structure
-*	pour les exc
-*/
 typedef struct s_global
 {
 	pid_t	fork_pid;

@@ -6,7 +6,7 @@
 /*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 13:57:29 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:39:35 by jvander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@ char	*our_getenv_bis(char *line, char **env)
 	return (ft_strtrim(tmp, " "));
 }
 
+static int	ft_check_nbr(char *nbr)
+{
+	if (nbr[0] == '-' && ft_strlen(nbr) > 20)
+		return (1);
+	if (nbr[0] != '-' && ft_strlen(nbr) > 19)
+		return (1);
+	if (nbr[0] == '-' && ft_strlen(nbr) < 20)
+		return (0);
+	if (nbr[0] != '-' && ft_strlen(nbr) < 19)
+		return (0);
+	if (nbr[0] == '-')
+		return (ft_strcmp(nbr, LONG_MIN_CHAR));
+	return (ft_strcmp(nbr, LONG_MAX_CHAR));
+}
+
 void	ft_exit(t_exc exc, int nbr_pipe)
 {
 	int	i;
@@ -53,7 +68,8 @@ void	ft_exit(t_exc exc, int nbr_pipe)
 	while (exc.arg && exc.arg[++i])
 	{
 		if (exc.arg[i] && (!check_opt_is_valid(exc.arg[i])
-				|| (check_str_digit(exc.arg[i]))))
+				|| (check_str_digit(exc.arg[i])
+					|| ft_check_nbr(exc.arg[i]) >= 0)))
 		{
 			ft_perror(exc.cmd, exc.arg[0], "numeric argument required");
 			g_global.exit_code = 255;
