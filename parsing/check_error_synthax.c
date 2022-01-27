@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error_synthax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.s19.be>               +#+  +:+       +#+        */
+/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/25 09:17:39 by jlong            ###   ########.fr       */
+/*   Updated: 2022/01/27 18:09:25 by jlong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	check_error_synthax_bis(t_state *s)
 	i = -1;
 	error = 0;
 	tmp = ft_split_parsing(s->line, ' ');
-	if (*tmp[0] == '|')
+	if (*tmp && *tmp[0] == '|')
 	{
 		ft_free(tmp, ft_tabsize(tmp));
 		return (0);
