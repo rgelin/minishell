@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/27 18:06:01 by jlong            ###   ########.fr       */
+/*   Updated: 2022/02/01 17:14:57 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ t_pars	*find_command(t_state *s, char **env)
 	while (++i <= s->n_of_pipe)
 		comd[i] = get_command(s->cm[i], s, env);
 	return (comd);
+}
+
+int	ft_check_command(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (!ft_isalnum(line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

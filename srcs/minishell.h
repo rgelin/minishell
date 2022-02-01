@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:44:37 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/26 13:28:54 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:47:39 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int			check_opt_is_valid(char	*line);
 void		check_all_string_bis_bis(char *line, t_tmp *tmp, char c, int index);
 int			return_index_all_string(char *line, int index, char c);
 int			ft_check_char_syntax(t_state *s, char c, int i);
+int			ft_check_command(char *line);
 
 /*=========ERROR=========*/
 

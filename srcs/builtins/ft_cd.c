@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:34 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 14:59:39 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:13:57 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	go_path_from_home(char *arg, char *home, char ***env,
 	char	*path_from_home;
 	char	*temp;
 
-	temp = ft_strtrim(arg, "~");
+	temp = ft_strtrim(ft_strdup(arg), "~");
 	path_from_home = ft_strjoin(home, temp);
 	free(temp);
 	temp = NULL;
