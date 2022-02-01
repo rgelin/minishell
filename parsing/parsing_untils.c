@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_untils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:22 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/21 15:37:19 by jlong            ###   ########.fr       */
+/*   Updated: 2022/02/01 15:46:57 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 int	ft_get_index(char *s)
 {
-	int	i;
+	int		i;
+	char	*line;
 
+	line = strdup(s);
+	line = ft_strtrim(line, " \t");
 	i = 0;
-	while (s[i] != '\0')
+	while (line[i] != '\0')
 	{
-		if (s[i] == ' ' || s[i] == '>' || s[i] == '<')
+		if (line[i] == ' ' || line[i] == '>' || line[i] == '<')
+		{
+			free(line);
 			return (1);
+		}
 		i++;
 	}
+	free(line);
 	return (0);
 }
 
