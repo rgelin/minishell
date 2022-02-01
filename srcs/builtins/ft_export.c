@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:23:42 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/21 16:11:53 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/02/01 15:59:03 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_export(t_exc exc, char ***env)
 
 	i = 0;
 	g_global.exit_code = 0;
-	if (!exc.arg)
+	if (!exc.arg || ft_strlen(exc.arg[0]) == 0)
 		no_arg(env);
 	else
 	{

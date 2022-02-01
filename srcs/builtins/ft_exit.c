@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:36:17 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/26 13:39:35 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/02/01 15:17:10 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_exit(t_exc exc, int nbr_pipe)
 	{
 		if (exc.arg[i] && (!check_opt_is_valid(exc.arg[i])
 				|| (check_str_digit(exc.arg[i])
-					|| ft_check_nbr(exc.arg[i]) >= 0)))
+					|| ft_check_nbr(exc.arg[i]) != 0)))
 		{
 			ft_perror(exc.cmd, exc.arg[0], "numeric argument required");
 			g_global.exit_code = 255;
