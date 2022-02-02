@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:59 by jvander-          #+#    #+#             */
-/*   Updated: 2022/02/01 17:47:17 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/02/02 15:00:17 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 
 	ft_open_pipes(tab->pipe, &fds);
 	ft_exec_heredoc(tab->pipe, exc);
-	if (g_global.exit_code == 1 && check_builtin(exc[0].cmd) != EXIT)
+	ft_create_all_redirect(exc, tab->pipe);
+	if ((g_global.exit_code == 1 && check_builtin(exc[0].cmd) != EXIT))
 		return (ft_close_pipes(tab->pipe, fds));
 	if (tab->pipe == 0 && check_builtin(exc[0].cmd) == EXIT)
 	{
@@ -34,7 +35,6 @@ static void	ft_execute_line(t_exc *exc, t_pars *tab, char ***new_env)
 	}
 	if (check_builtin(exc->cmd) != ECHO)
 		g_global.exit_code = 0;
-	ft_create_all_redirect(exc, tab->pipe);
 	if (tab->pipe == 0 && (check_builtin(exc[0].cmd) == CD
 			|| check_builtin(exc[0].cmd) == EXPORT
 			|| check_builtin(exc[0].cmd) == UNSET))
@@ -76,8 +76,11 @@ int	main(int argc, char **argv, char **env)
 	t_pars	*tab;
 	t_exc	*exc;
 
-	(void)argc;
-	(void)argv;
+	if (argc > 1)
+	{
+		ft_perror(argv[1], NULL, "No such file or directory");
+		return (127);
+	}
 	new_env = cpy_env(env);
 	init_variables(&state, &tab, &exc);
 	update_shlvl(&new_env);

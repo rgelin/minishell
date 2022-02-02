@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:20:55 by jlong             #+#    #+#             */
-/*   Updated: 2022/02/01 17:14:57 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/02/02 15:26:26 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,19 @@ char	*ft_get_command(char *line, char **env)
 {
 	char	**split;
 	t_tmp	tmp;
+	char	*l;
 
+	l = strdup(line);
+	l = ft_strtrim(l, " \t");
 	init_tmp(&tmp);
-	split = NULL;
-	split = ft_split_parsing(line, ' ');
-	if (split[0])
+	split = ft_split_parsing(l, ' ');
+	if (l[0])
 	{
 		tmp.tmp = ft_strdup(split[0]);
 		tmp.new_line = ft_arg_bis(tmp.tmp, env);
 	}
 	ft_free(split, ft_tabsize(split));
+	free(l);
 	return (tmp.new_line);
 }
 

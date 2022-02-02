@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error_synthax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlong <jlong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:42:52 by jlong             #+#    #+#             */
-/*   Updated: 2022/01/27 18:09:25 by jlong            ###   ########.fr       */
+/*   Updated: 2022/02/02 14:52:39 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int	check_error_synthax_bis_bis(t_state *s, char *l)
 		else if (!ft_strncmp(tmp[i], "<", 2) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
 		else if (!ft_strncmp(tmp[i], ">", 2) && !ft_strncmp(tmp[i + 1], l, n))
-			error = 1;
-		else if (!ft_strncmp(tmp[i], "|", 2) && !ft_strncmp(tmp[i + 1], l, n))
 			error = 1;
 	}
 	ft_free(tmp, ft_tabsize(tmp));

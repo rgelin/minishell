@@ -6,7 +6,7 @@
 /*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:21:19 by jlong             #+#    #+#             */
-/*   Updated: 2022/02/01 17:15:57 by rgelin           ###   ########.fr       */
+/*   Updated: 2022/02/02 13:01:10 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_command(char *command)
 		i++;
 	}
 	if ((ft_strncmp(tmp, "cd", 3)) == 0 || (ft_strncmp(tmp, "export", 6)) == 0
-			|| !ft_check_command(tmp))
+		|| !ft_check_command(tmp))
 		new = ft_strdup(command);
 	else
 		new = ft_strdup(tmp);
