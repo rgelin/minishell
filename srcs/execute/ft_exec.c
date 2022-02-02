@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvander- <jvander-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgelin <rgelin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:24:36 by jvander-          #+#    #+#             */
-/*   Updated: 2022/01/20 16:12:05 by jvander-         ###   ########.fr       */
+/*   Updated: 2022/02/02 13:41:20 by rgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_exec(t_exc command, char **env)
 	if (!cmd)
 		exit (EXIT_FAILURE);
 	line = our_getenv_bis(ft_strdup("PATH"), env);
-	if (!line)
+	if (!line && ft_strlen(command.cmd) > 0)
 	{
 		ft_perror(command.cmd, NULL, "command not found");
 		ft_free(cmd, ft_tabsize(cmd));
